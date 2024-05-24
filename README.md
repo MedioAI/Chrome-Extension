@@ -1,3 +1,6 @@
+# Me-dio for UdioAI
+### Enhance your experience with Udio
+
 A chrome extension to enhance the experience of Udio.com, an AI music platform.
 
 Currently will check the number of generations and see if they match, example: 0/2 will do nothing but 2/2 will trigger a notification and audio sound, "Ding, fries are done"
