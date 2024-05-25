@@ -87,6 +87,10 @@ const engine = {
 <div id="lyric-barn-content">
   <input type="hidden" id="lyric-id" />
 
+  <button id="medioSettingsButton">
+  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94c0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6s3.6 1.62 3.6 3.6s-1.62 3.6-3.6 3.6"/></svg>
+  </button>
+
   <h1 style="font-size: 24px; font-weight: 700; margin-bottom: 16px">
     Medio: Lyric Manager
   </h1>
@@ -120,6 +124,31 @@ const engine = {
   >
     Library
   </button>
+</div>
+
+<div style="display: none" class="settings-medio" >
+  <h4 class="text-2xl font-bold mb-6">Settings</h4>
+  <div class="">
+    <div class="w-full items-center justify-between">
+      <label class="font-medium text-lg text-gray-300 mb-1" for="medioSettingsAudioNotice">Audio Notification</label>
+      <input type="checkbox" id="medioSettingsAudioNotice" />
+    </div>
+
+    <div class="w-full items-center justify-between">
+      <label class="block font-medium text-lg text-gray-300 mb-1" for="medioSettingsAudioNotice">Audio Clip</label>
+      <select name="medioSettingsAudioClip" class="w-full border rounded p-1">
+        <option value="ding.mp3">Ding</option>
+        <option value="ding2.mp3">Ding 2</option>
+        <option value="ding3.mp3">Ding 3</option>
+        <option value="ding4.mp3">Ding 4</option>
+      </select>
+    </div>
+
+    <div class="w-full mt-4">
+      <label class="block font-medium text-lg text-gray-300 mb-1" for="medioSettingsOpenAIKey">OpenAI Key</label>
+      <input type="text" id="medioSettingsOpenAIKey" class="w-full border rounded p-1" />
+    </div>
+  </div>
 </div>
 
 <div style="display: none" class="lyric-tab" data-tab="rhyme">
@@ -392,6 +421,27 @@ const engine = {
             document.body.style.overflow = "auto";
           });
 
+          // Medio Settings
+          const medioSettingsButton = document.getElementById(
+            "medioSettingsButton"
+          );
+          medioSettingsButton.addEventListener("click", () => {
+            const settings = document.querySelector(".settings-medio");
+            if (settings.style.display === "none") {
+              settings.style.display = "block";
+              const tabs = document.querySelectorAll(".lyric-tab");
+              tabs.forEach((tab) => {
+                tab.style.display = "none";
+              });
+              const tabButtons = document.querySelectorAll(".lyric-tab-button");
+              tabButtons.forEach((button) => {
+                button.classList.remove("bg-black");
+              });
+            } else {
+              settings.style.display = "none";
+            }
+          });
+
           const findRhymes = document.getElementById("lyric-barn-findRhyme");
           findRhymes.addEventListener("click", () => {
             engine.checkRhymes();
@@ -419,12 +469,13 @@ const engine = {
 
           const clearLyrics = document.getElementById("clear-lyrics");
           clearLyrics.addEventListener("click", () => {
-            document.getElementById("lyric-id").value = "";
-            document.getElementById("lyric-title").value = "";
-            engine.quill.root.innerHTML = "";
+            if (confirm("Are you sure you want to clear the results?")) {
+              document.getElementById("lyric-id").value = "";
+              document.getElementById("lyric-title").value = "";
+              engine.quill.root.innerHTML = "";
+            }
           });
 
-          // escape key closes
           document.addEventListener("keydown", (e) => {
             if (e.key === "Escape") {
               const overlay = document.getElementById("lyric-barn-overlay");
@@ -520,6 +571,7 @@ const engine = {
       button.addEventListener("click", (e) => {
         const tab = e.target.dataset.tab;
         const tabs = document.querySelectorAll(".lyric-tab");
+        document.querySelector(".settings-medio").style.display = "none";
 
         tabButtons.forEach((button) => {
           button.setAttribute(

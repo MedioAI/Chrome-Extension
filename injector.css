@@ -8,6 +8,7 @@
   margin: 0 auto;
   border-radius: 30px;
   overflow: hidden;
+  position: relative;
   box-shadow: 20px 20px 60px #000, -20px -20px 60px #000;
 }
 
@@ -198,4 +199,10 @@
 
 #medioextraCommands .ql-picker-options {
   margin-left: -107px !important;
+}
+
+#medioSettingsButton {
+  position: absolute;
+  top: 39px;
+  right: 54px;
 }

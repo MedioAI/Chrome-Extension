@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "me-dio",
+  "name": "medio",
   "version": "1.0",
   "description": "Ding fries are done! Get notified when your Udio creations are ready to listen too and much more.",
   "permissions": ["activeTab", "scripting", "notifications", "storage"],
