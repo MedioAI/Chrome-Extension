@@ -1,7 +1,298 @@
 const engine = {
   init: () => {
-    console.log("Me-Dio, a sous chef for Udio.com");
-    engine.friesAreDone();
+    const sidebar = document.querySelector(
+      'aside[aria-label="Sidebar"] nav ul'
+    );
+
+    if (sidebar) {
+      engine.lyricBarn();
+    } else {
+      const checkSidebar = setInterval(() => {
+        const sidebar = document.querySelector(
+          'aside[aria-label="Sidebar"] nav ul'
+        );
+
+        if (sidebar) {
+          clearInterval(checkSidebar);
+          console.log("Me-Dio, a sous chef for Udio.com");
+          engine.friesAreDone();
+          engine.lyricBarn();
+        }
+      }, 1000);
+    }
+  },
+
+  lyricBarn: () => {
+    const html = `<div class="-ml-5 pl-[16px]"><div class="relative flex items-center rounded-lg p-2 hover:text-foreground"><a class="mr-4 flex items-center" id="lyric-barn-link" href="#">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M4 16V4zm-2 6V4q0-.825.588-1.412T4 2h11q.825 0 1.413.588T17 4v.425q-.6.275-1.1.675T15 6V4H4v12h11v-4q.4.5.9.9t1.1.675V16q0 .825-.587 1.413T15 18H6zm4-8h4v-2H6zm13-2q-1.25 0-2.125-.875T16 9t.875-2.125T19 6q.275 0 .525.05t.475.125V1h4v2h-2v6q0 1.25-.875 2.125T19 12M6 11h7V9H6zm0-3h7V6H6z"/></svg>
+    
+    
+    <span class="ml-3 flex-1 whitespace-nowrap font-bold">Lyric Manager</span></a></div></div>`;
+    const sidebar = document.querySelector(
+      'aside[aria-label="Sidebar"] nav ul'
+    );
+
+    if (sidebar) {
+      sidebar.insertAdjacentHTML("beforeend", html);
+
+      const lyricBarnLink = document.getElementById("lyric-barn-link");
+      lyricBarnLink.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        if (!document.getElementById("lyric-barn-overlay")) {
+          document.body.style.overflow = "hidden";
+          console.log("putting on screen");
+          const overlay = document.createElement("div");
+          overlay.id = "lyric-barn-overlay";
+          overlay.style.position = "fixed";
+          overlay.style.top = "0";
+          overlay.style.left = "0";
+          overlay.style.width = "100%";
+          overlay.style.height = "100%";
+          overlay.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+          overlay.style.zIndex = "99999999999";
+          overlay.style.transition = "transform 0.3s";
+          overlay.style.transform = "translateX(0)";
+          overlay.style.overflowY = "auto";
+          overlay.style.padding = "25px";
+          overlay.style.boxSizing = "border-box";
+          overlay.style.display = "flex";
+          overlay.style.flexDirection = "column";
+          overlay.style.alignItems = "center";
+          overlay.style.justifyContent = "center";
+          overlay.style.color = "#fff";
+          overlay.style.fontFamily = "Arial, sans-serif";
+          overlay.style.fontSize = "16px";
+          overlay.style.lineHeight = "1.5";
+          overlay.style.fontWeight = "400";
+
+          overlay.innerHTML = /* html */ `
+<button
+  id="close-lyric-barn"
+  style="
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+  "
+>
+  &times;
+</button>
+
+<div id="lyric-barn-content">
+  <input type="hidden" id="lyric-id" />
+
+  <h1 style="font-size: 24px; font-weight: 700; margin-bottom: 16px">
+    Medio: Lyric Manager
+  </h1>
+
+  <div
+  role="tablist"
+  aria-orientation="horizontal"
+  class="h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground grid w-full grid-cols-3 mb-4"
+  tabindex="0"
+  data-orientation="horizontal"
+  style="outline: none"
+>
+  <button
+    type="button"
+    data-tab="write"
+    class="lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3 bg-black"
+  >
+    Write
+  </button>
+  <button
+    type="button"
+    data-tab="rhyme"
+    class="lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3"
+  >
+    Rhyme
+  </button>
+  <button
+    type="button"
+    data-tab="library"
+    class="lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3"
+  >
+    Library
+  </button>
+</div>
+
+<div style="display: none" class="lyric-tab" data-tab="rhyme">
+  <input autocomplete="off" type="text" id="wordInput" placeholder="Enter a word" />
+  <button id="lyric-barn-findRhyme">Find Rhymes</button>
+  <div id="results"></div>
+</div>
+
+<div style="display: none" class="lyric-tab" data-tab="library">
+  <div id="medio-library-items" class="grid grid-cols-3 gap-4"></div>
+</div>
+
+<div class="lyric-tab" data-tab="write">
+  <div id="toolbar" class="flex items-center justify-between ">
+    <div class="flex space-x-2">
+      <input autocomplete="off" type="text" id="lyric-title" placeholder="Song Title..." />
+      <button id="save-lyrics" class="medio-toolbar-button">Save</button>
+      <button id="clear-lyrics" class="medio-toolbar-button">Clear</button>
+    </div>
+    <div class="flex w-full space-x-2 justify-end items-end">
+       <select class="ql-custom-dropdown">
+          <option selected>Command</option>
+          <option value="[Introduction]">Introduction</option>
+          <option value="[Opening Theme]">Opening Theme</option>
+          <option value="[Verse]">Verse</option>
+          <option value="[Pre-Chorus]">Pre-Chorus</option>
+          <option value="[Chorus]">Chorus</option>
+          <option value="[Chorus Variation]">Chorus Variation</option>
+          <option value="[Hook]">Hook</option>
+          <option value="[Bridge]">Bridge</option>
+          <option value="[Instrumental Break]">Instrumental Break</option>
+          <option value="[Solo]">Solo</option>
+          <option value="[Interlude]">Interlude</option>
+          <option value="[Build-Up]">Build-Up</option>
+          <option value="[Drop]">Drop</option>
+          <option value="[Breakdown]">Breakdown</option>
+          <option value="[Build-Up 2]">Build-Up 2</option>
+          <option value="[Second Drop]">Second Drop</option>
+          <option value="[Final Chorus]">Final Chorus</option>
+          <option value="[Outro]">Outro</option>
+          <option value="[Fade out]">Fade out</option>
+          <option value="[Fade to end]">Fade to end</option>
+          <option value="[Bass Line]">Bass Line</option>
+          <option value="[Andante]">Andante</option>
+          <option value="[Adagio]">Adagio</option>
+          <option value="[Glissando]">Glissando</option>
+          <option value="[Accelerando]">Accelerando</option>
+          <option value="[Crescendo]">Crescendo</option>
+      </select>
+
+      <select class="ql-custom-dropdown">
+          <option selected>Structure</option>
+          <option value="[Sonnet 1]\n\n[Sonnet 2]\n\n[Sonnet 3]">Sonnet</option>
+          <option value="[Standard]">Standard</option>
+          <option value="[Storytelling]">Storytelling</option>
+      </select>
+
+      <select class="ql-custom-dropdown">
+          <option selected>Instrument</option>
+          <option value="[Piano Solo]">Piano</option>
+          <option value="[Guitar Solo]">Guitar</option>
+          <option value="[Bass Solo]">Bass</option>
+          <option value="[Drums Solo]">Drums</option>
+          <option value="[Violin Solo]">Violin</option>
+          <option value="[Cello Solo]">Cello</option>
+          <option value="[Flute Solo]">Flute</option>
+          <option value="[Clarinet Solo]">Clarinet</option>
+          <option value="[Saxophone Solo]">Saxophone</option>
+          <option value="[Trumpet Solo]">Trumpet</option>
+          <option value="[Trombone Solo]">Trombone</option>
+          <option value="[Harp Solo]">Harp</option>
+          <option value="[Synthesizer Solo]">Synthesizer</option>
+          <option value="[Oboe Solo]">Oboe</option>
+          <option value="[Bassoon Solo]">Bassoon</option>
+          <option value="[French Horn Solo]">French Horn</option>
+          <option value="[Tuba Solo]">Tuba</option>
+          <option value="[Accordion Solo]">Accordion</option>
+          <option value="[Banjo Solo]">Banjo</option>
+          <option value="[Mandolin Solo]">Mandolin</option>
+          <option value="[Ukulele Solo]">Ukulele</option>
+          <option value="[Harmonica Solo]">Harmonica</option>
+          <option value="[Marimba Solo]">Marimba</option>
+          <option value="[Xylophone Solo]">Xylophone</option>
+          <option value="[Vibraphone Solo]">Vibraphone</option>
+          <option value="[Steel Drum Solo]">Steel Drum</option>
+          <option value="[Tabla Solo]">Tabla</option>
+          <option value="[Sitar Solo]">Sitar</option>
+          <option value="[Didgeridoo Solo]">Didgeridoo</option>
+          <option value="[Pan Flute Solo]">Pan Flute</option>
+          <option value="[Bagpipes Solo]">Bagpipes</option>
+          <option value="[Organ Solo]">Organ</option>
+          <option value="[Keytar Solo]">Keytar</option>
+          <option value="[Tambourine Solo]">Tambourine</option>
+          <option value="[Bongos Solo]">Bongos</option>
+          <option value="[Congas Solo]">Congas</option>
+          <option value="[Timpani Solo]">Timpani</option>
+          <option value="[Triangle Solo]">Triangle</option>
+          <option value="[Cowbell Solo]">Cowbell</option>
+          <option value="[Djembe Solo]">Djembe</option>
+          <option value="[Kalimba Solo]">Kalimba</option>
+          <option value="[Ocarina Solo]">Ocarina</option>
+          <option value="[Zither Solo]">Zither</option>
+          <option value="[Lute Solo]">Lute</option>
+          <option value="[Baglama Solo]">Baglama</option>
+          <option value="[Fiddle Solo]">Fiddle</option>
+          <option value="[Balalaika Solo]">Balalaika</option>
+          <option value="[Clarinet Solo]">Clarinet</option>
+          <option value="[Shakuhachi Solo]">Shakuhachi</option>
+      </select>
+
+      <select class="ql-custom-dropdown">
+          <option selected>Extra</option>
+          <option value="[Spoken Word]">Spoken Word</option>
+          <option value="[Wolf Noise]">Wolf Noise</option>
+          <option value="[Siren]">Siren</option>
+      </select>
+    </div>
+  </div>
+  <div id="editor"></div>
+</div>
+</div>
+
+        `;
+
+          document.body.appendChild(overlay);
+
+          engine.turnOnQuill();
+          engine.changeTab();
+
+          const closeLyricBarn = document.getElementById("close-lyric-barn");
+          closeLyricBarn.addEventListener("click", () => {
+            overlay.style.transform = "translateX(-100%)";
+            document.body.style.overflow = "auto";
+          });
+
+          const findRhymes = document.getElementById("lyric-barn-findRhyme");
+          findRhymes.addEventListener("click", () => {
+            engine.checkRhymes();
+          });
+
+          const saveLyrics = document.getElementById("save-lyrics");
+          saveLyrics.addEventListener("click", () => {
+            engine.save();
+          });
+
+          const clearLyrics = document.getElementById("clear-lyrics");
+          clearLyrics.addEventListener("click", () => {
+            document.getElementById("lyric-id").value = "";
+            document.getElementById("lyric-title").value = "";
+            engine.quill.root.innerHTML = "";
+          });
+
+          // escape key closes
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+              const overlay = document.getElementById("lyric-barn-overlay");
+              overlay.style.transform = "translateX(-100%)";
+              document.body.style.overflow = "auto";
+            }
+
+            if ((e.ctrlKey && e.key === "k") || (e.metaKey && e.key === "k")) {
+              console.log("ctrl+k");
+              const overlay = document.getElementById("lyric-barn-overlay");
+              overlay.style.transform = "translateX(0)";
+              document.body.style.overflow = "hidden";
+            }
+          });
+        } else {
+          const overlay = document.getElementById("lyric-barn-overlay");
+          overlay.style.transform = "translateX(0)";
+        }
+      });
+    }
   },
 
   friesAreDone: () => {
@@ -70,12 +361,314 @@ const engine = {
     }, 1000);
   },
 
+  changeTab: () => {
+    const tabButtons = document.querySelectorAll(".lyric-tab-button");
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        const tab = e.target.dataset.tab;
+        const tabs = document.querySelectorAll(".lyric-tab");
+
+        tabButtons.forEach((button) => {
+          button.setAttribute(
+            "class",
+            "lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3"
+          );
+        });
+
+        e.target.setAttribute(
+          "class",
+          "lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-black px-3"
+        );
+
+        tabs.forEach((tab) => {
+          tab.style.display = "none";
+        });
+
+        const selectedTab = document.querySelector(
+          `.lyric-tab[data-tab=${tab}]`
+        );
+        selectedTab.style.display = "block";
+
+        if (tab === "library") {
+          chrome.storage.local.get(["medioLyrics"], function (result) {
+            const medioLyrics = result.medioLyrics || [];
+            const libraryItems = document.getElementById("medio-library-items");
+            libraryItems.innerHTML = "";
+
+            console.log(result, result.medioLyrics);
+
+            if (medioLyrics.length === 0) {
+              libraryItems.setAttribute(
+                "class",
+                "text-center w-full p-4 text-gray-500"
+              );
+              libraryItems.innerHTML =
+                "<h3 class='text-2xl text-gray-200 font-bold mb-2'>No Songs Found</h3> <p>Your songs will appear here to edit & manage at any time.</p>";
+              return;
+            }
+
+            medioLyrics.forEach((lyric) => {
+              const lyricItem = document.createElement("a");
+              lyricItem.href = "#";
+              lyricItem.classList.add(
+                "open-lyric",
+                "border",
+                "rounded-lg",
+                "p-3",
+                "text-lg",
+                "font-bold"
+              );
+              lyricItem.innerHTML = `<h3 class="text-xl font-medium">${
+                lyric.title
+              }</h3> <p class="text-xs mt-1 text-gray-400">${
+                lyric.created_at
+                  ? engine.formatDate(lyric.created_at || Date.now())
+                  : "8:20PM on June, 28th, 2024"
+              }</p>`;
+              lyricItem.addEventListener("click", () => {
+                document.getElementById("lyric-id").value = lyric.id;
+                document.getElementById("lyric-title").value = lyric.title;
+                engine.quill.root.innerHTML = lyric.content;
+
+                const firstTab = document.querySelector(".lyric-tab-button");
+                firstTab.click();
+              });
+
+              libraryItems.appendChild(lyricItem);
+            });
+          });
+        }
+      });
+    });
+  },
+
+  formatDate: (date) => {
+    date = new Date(date);
+    const options = {
+      hour: "numeric",
+      minute: "numeric",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour12: true,
+    };
+
+    let formatter = new Intl.DateTimeFormat("en-US", options);
+    let formattedParts = formatter.formatToParts(date);
+
+    let month, day, year, time;
+    for (let part of formattedParts) {
+      switch (part.type) {
+        case "month":
+          month = part.value;
+          break;
+        case "day":
+          day = part.value;
+          break;
+        case "year":
+          year = part.value;
+          break;
+        case "hour":
+        case "minute":
+        case "dayPeriod":
+          time =
+            (time ? time : "") +
+            part.value +
+            (part.type === "dayPeriod" ? "" : ":");
+          break;
+      }
+    }
+
+    return `${time.trim()} on ${month} ${day}, ${year}`;
+  },
+
+  quill: null,
+
+  turnOnQuill: () => {
+    function insertText(quill, text) {
+      const range = quill.getSelection();
+      if (range) {
+        const newText = `${text}\n`;
+        quill.insertText(range.index, newText);
+        quill.setSelection(range.index + newText.length);
+      }
+    }
+    const Delta = Quill.import("delta");
+    var CustomDropdown = function (quill, options) {
+      let toolbar = quill.getModule("toolbar");
+      toolbar.addHandler("custom-dropdown", function (value) {
+        if (value) {
+          insertText(quill, value);
+        }
+      });
+    };
+
+    Quill.register("modules/customDropdown", CustomDropdown);
+
+    engine.quill = new Quill("#editor", {
+      theme: "snow",
+      placeholder: engine.randomStartingText(),
+      modules: {
+        toolbar: {
+          container: "#toolbar",
+          handlers: {
+            "custom-dropdown": function (value) {
+              insertText(this.quill, value);
+            },
+          },
+        },
+        customDropdown: true,
+      },
+    });
+
+    document
+      .querySelector(".ql-custom-dropdown")
+      .addEventListener("change", function () {
+        let value = this.value;
+        quill
+          .getModule("toolbar")
+          .handlers["custom-dropdown"].call(quill, value);
+        this.value = "";
+      });
+
+    engine.quill.clipboard.addMatcher(
+      Node.ELEMENT_NODE,
+      function (node, delta) {
+        if (node.children.length > 0) {
+          node.textContent += "\n";
+        }
+        return new Delta().insert(node.textContent);
+      }
+    );
+  },
+
+  checkRhymes: async () => {
+    const word = document.getElementById("wordInput").value;
+    const resultsDiv = document.getElementById("results");
+
+    resultsDiv.innerHTML = "";
+
+    if (!word) {
+      resultsDiv.innerHTML = "<p>Please enter a word.</p>";
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://api.datamuse.com/words?rel_rhy=${word}`
+      );
+      const data = await response.json();
+
+      if (data.length === 0) {
+        resultsDiv.innerHTML = `<p>No rhyming words found for "${word}".</p>`;
+        return;
+      }
+
+      const list = document.createElement("ul");
+      data.forEach((item) => {
+        const listItem = document.createElement("li");
+        listItem.textContent = item.word;
+        list.appendChild(listItem);
+      });
+      resultsDiv.appendChild(list);
+    } catch (error) {
+      resultsDiv.innerHTML = `<p>Error fetching rhyming words: ${error.message}</p>`;
+    }
+  },
+
+  save: () => {
+    const title = document.getElementById("lyric-title").value;
+    const id = document.getElementById("lyric-id").value;
+
+    if (!id) {
+      const lyrics = {
+        title: title || "Untitled",
+        content: engine.quill.root.innerHTML,
+        id: engine.uuidv4(),
+        created_at: new Date().toISOString(),
+      };
+
+      chrome.storage.local.get(["medioLyrics"], function (result) {
+        const medioLyrics = result.medioLyrics || [];
+        medioLyrics.push(lyrics);
+        document.getElementById("lyric-id").value = lyrics.id;
+        chrome.storage.local.set({ medioLyrics }, function () {
+          console.log("Lyrics saved.", medioLyrics);
+          alert("Saved!");
+        });
+      });
+    } else {
+      chrome.storage.local.get(["medioLyrics"], function (result) {
+        const medioLyrics = result.medioLyrics || [];
+        const lyrics = medioLyrics.find((lyric) => lyric.id === id);
+        lyrics.title = title || "Untitled";
+        lyrics.content = engine.quill.root.innerHTML;
+
+        chrome.storage.local.set({ medioLyrics }, function () {
+          console.log("Lyrics updated.", medioLyrics);
+          alert("Updated!");
+        });
+      });
+    }
+  },
+
+  uuidv4: () => {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+      /[xy]/g,
+      function (c) {
+        var r = (Math.random() * 16) | 0,
+          v = c == "x" ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+      }
+    );
+  },
+
+  randomStartingText: () => {
+    return engine.placeholders[
+      Math.floor(Math.random() * engine.placeholders.length)
+    ];
+  },
+
+  placeholders: [
+    "Compose an epic song here...",
+    "Write a love song...",
+    "Pen your next hit single...",
+    "Create a catchy chorus...",
+    "Start your ballad here...",
+    "Write lyrics from the heart...",
+    "Craft a song about summer...",
+    "Compose a tune for rainy days...",
+    "Write a song about adventure...",
+    "Create a melody about friendship...",
+    "Compose a song about dreams...",
+    "Write a song about overcoming obstacles...",
+    "Start your song about a journey...",
+    "Create a love anthem...",
+    "Pen a song about heartbreak...",
+    "Compose a lullaby...",
+    "Write an empowering song...",
+    "Create a festive holiday song...",
+    "Compose a song about nostalgia...",
+    "Write lyrics about nature...",
+    "Start your soulful tune here...",
+    "Compose a song for a special occasion...",
+    "Write a song inspired by the night sky...",
+    "Create a dance track...",
+    "Pen a song about new beginnings...",
+    "Compose a tune about city life...",
+    "Write a song about peace...",
+    "Create a whimsical song...",
+    "Compose a song about hope...",
+    "Write a song about the ocean...",
+  ],
+
   state: {
     isRunning: false,
     isChecking: false,
   },
 };
 
-setTimeout(() => {
+window.onload = function () {
   engine.init();
-}, 5000);
+};

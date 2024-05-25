@@ -3,7 +3,7 @@
   "name": "me-dio",
   "version": "1.0",
   "description": "Ding fries are done! Get notified when your Udio creations are ready to listen too and much more.",
-  "permissions": ["activeTab", "scripting", "notifications"],
+  "permissions": ["activeTab", "scripting", "notifications", "storage"],
   "host_permissions": ["https://www.udio.com/*"],
   "action": {
     "default_popup": "popup.html",
@@ -22,7 +22,8 @@
   "content_scripts": [
     {
       "matches": ["https://www.udio.com/my-creations"],
-      "js": ["injector.js"]
+      "js": ["lib/quill.js", "injector.js"],
+      "css": ["injector.css", "lib/quilljs.css"]
     }
   ]
 }
