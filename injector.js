@@ -439,8 +439,6 @@ const engine = {
               tabButtons.forEach((button) => {
                 button.classList.remove("bg-black");
               });
-            } else {
-              settings.style.display = "none";
             }
           });
 
@@ -739,9 +737,15 @@ const engine = {
         } else {
           const text = engine.quill.getText(range.index, range.length);
           const charCount = text.length;
+          let className = "text-white font-bold";
+          if (charCount > 350) {
+            className = "text-red-500 font-bold";
+          }
           el.style.display = "inline-block";
           el.innerHTML =
-            "You have <strong class='text-white font-bold'>" +
+            "<strong class='" +
+            className +
+            "'>" +
             charCount +
             "</strong> characters selected. <em class='italic text-gray-500'>(Recommended: Less than 350 characters per section)</em>";
         }
