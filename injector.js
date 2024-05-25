@@ -28,7 +28,9 @@ const engine = {
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M4 16V4zm-2 6V4q0-.825.588-1.412T4 2h11q.825 0 1.413.588T17 4v.425q-.6.275-1.1.675T15 6V4H4v12h11v-4q.4.5.9.9t1.1.675V16q0 .825-.587 1.413T15 18H6zm4-8h4v-2H6zm13-2q-1.25 0-2.125-.875T16 9t.875-2.125T19 6q.275 0 .525.05t.475.125V1h4v2h-2v6q0 1.25-.875 2.125T19 12M6 11h7V9H6zm0-3h7V6H6z"/></svg>
     
     
-    <span class="ml-3 flex-1 whitespace-nowrap font-bold">Lyric Manager</span></a></div></div>`;
+    <span class="ml-3 flex-1 whitespace-nowrap font-bold">Lyric Manager</span>
+    
+    </a></div></div>`;
     const sidebar = document.querySelector(
       'aside[aria-label="Sidebar"] nav ul'
     );
@@ -93,6 +95,7 @@ const engine = {
 
   <h1 style="font-size: 24px; font-weight: 700; margin-bottom: 16px">
     Medio: Lyric Manager
+    <span id="medioCharactersSelected" style="display:none" class="ml-3 text-sm text-gray-300 flex-1 whitespace-nowrap font-medium">0 Characters Selected</span>
   </h1>
 
   <div
@@ -144,7 +147,7 @@ const engine = {
       </select>
     </div>
 
-    <div class="w-full mt-4">
+    <div class="w-full mt-4 hidden">
       <label class="block font-medium text-lg text-gray-300 mb-1" for="medioSettingsOpenAIKey">OpenAI Key</label>
       <input type="text" id="medioSettingsOpenAIKey" class="w-full border rounded p-1" />
     </div>
@@ -421,7 +424,6 @@ const engine = {
             document.body.style.overflow = "auto";
           });
 
-          // Medio Settings
           const medioSettingsButton = document.getElementById(
             "medioSettingsButton"
           );
@@ -725,6 +727,25 @@ const engine = {
         },
         customDropdown: true,
       },
+    });
+
+    engine.quill.on("selection-change", function (range, oldRange, source) {
+      if (range) {
+        const el = document.getElementById("medioCharactersSelected");
+        if (range.length == 0) {
+          el.style.display = "none";
+        } else {
+          const text = engine.quill.getText(range.index, range.length);
+          const charCount = text.length;
+          el.style.display = "inline-block";
+          el.innerHTML =
+            "You have <strong class='text-white font-bold'>" +
+            charCount +
+            "</strong> characters selected. <em class='italic text-gray-500'>(Recommended: Less than 350 characters per section)</em>";
+        }
+      } else {
+        el.style.display = "none";
+      }
     });
 
     document
