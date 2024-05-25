@@ -17,6 +17,17 @@ const engine = {
           console.log("Me-Dio, a sous chef for Udio.com");
           engine.friesAreDone();
           engine.lyricBarn();
+
+          setTimeout(() => {
+            document.querySelector("#lyric-barn-link").click();
+            setTimeout(() => {
+              document.querySelector("#lyric-barn-link").click();
+            }, 3300);
+            setTimeout(() => {
+              document.querySelector("#lyric-tagbuilder-link").click();
+            }, 3300);
+            document.querySelector("#lyric-tagbuilder-link").click();
+          }, 2200);
         }
       }, 1000);
     }
@@ -30,6 +41,15 @@ const engine = {
     
     <span class="ml-3 flex-1 whitespace-nowrap font-bold">Lyric Manager</span>
     
+    </a></div></div>
+    
+    <div class="-ml-5 pl-[16px]"><div class="relative flex items-center rounded-lg p-2 hover:text-foreground"><a class="mr-4 flex items-center" id="lyric-tagbuilder-link" href="#">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="16" cy="17" r="1" fill="currentColor" opacity="0.3"/><path fill="currentColor" d="M3 10h12v2H3zm0 4h8v2H3zm0-8h12v2H3zm14 8.18c-.31-.11-.65-.18-1-.18c-1.66 0-3 1.34-3 3s1.34 3 3 3s3-1.34 3-3V8h3V6h-5z"/></svg>
+    
+    
+    <span class="ml-3 flex-1 whitespace-nowrap font-bold">Tag Builder</span>
+    
     </a></div></div>`;
     const sidebar = document.querySelector(
       'aside[aria-label="Sidebar"] nav ul'
@@ -38,38 +58,125 @@ const engine = {
     if (sidebar) {
       sidebar.insertAdjacentHTML("beforeend", html);
 
-      const lyricBarnLink = document.getElementById("lyric-barn-link");
-      lyricBarnLink.addEventListener("click", (e) => {
+      const overlay = document.createElement("div");
+      overlay.id = "lyric-tagbuilder-overlay";
+      overlay.style.position = "fixed";
+      overlay.style.top = "0";
+      overlay.style.left = "0";
+      overlay.style.width = "100%";
+      overlay.style.height = "100%";
+      overlay.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+      overlay.style.zIndex = "99999999999";
+      overlay.style.transition = "transform 0.3s";
+      overlay.style.transform = "translateX(-100%)";
+      overlay.style.overflowY = "auto";
+      overlay.style.padding = "25px";
+      overlay.style.boxSizing = "border-box";
+      overlay.style.display = "flex";
+      overlay.style.flexDirection = "column";
+      overlay.style.alignItems = "center";
+      overlay.style.justifyContent = "center";
+      overlay.style.color = "#fff";
+      overlay.style.fontFamily = "Arial, sans-serif";
+      overlay.style.fontSize = "16px";
+      overlay.style.lineHeight = "1.5";
+      overlay.style.fontWeight = "400";
+
+      overlay.innerHTML = /* html */ `
+<button
+  id="close-lyric-tagbuilder"
+  style="
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    ">&times;</button>
+          <div id="lyric-barn-content">
+  <input type="hidden" id="lyric-id" />
+
+<h1 style="font-size: 24px; font-weight: 700; margin-bottom: 16px">
+  Medio: Tag Builder
+</h1>
+
+<div
+  role="tablist"
+  aria-orientation="horizontal"
+  class="h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground grid w-full grid-cols-2 mb-4"
+  tabindex="0"
+  data-orientation="horizontal"
+  style="outline: none"
+>
+  <button
+    type="button"
+    data-tab="build"
+    class="lyric-buildertab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3 bg-black"
+  >
+    Build
+  </button>
+  <button
+    type="button"
+    data-tab="library"
+    class="lyric-buildertab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3"
+  >
+    Library
+  </button>
+</div>
+</div>
+
+          `;
+
+      document.body.appendChild(overlay);
+
+      const closeLyricTagBuilder = document.getElementById(
+        "close-lyric-tagbuilder"
+      );
+      closeLyricTagBuilder.addEventListener("click", () => {
+        overlay.style.transform = "translateX(-100%)";
+        document.body.style.overflow = "auto";
+      });
+
+      const lyricTagBuilderLink = document.getElementById(
+        "lyric-tagbuilder-link"
+      );
+      lyricTagBuilderLink.addEventListener("click", (e) => {
         e.preventDefault();
 
-        if (!document.getElementById("lyric-barn-overlay")) {
+        if (!document.getElementById("lyric-tagbuilder-overlay")) {
           document.body.style.overflow = "hidden";
-          console.log("putting on screen");
-          const overlay = document.createElement("div");
-          overlay.id = "lyric-barn-overlay";
-          overlay.style.position = "fixed";
-          overlay.style.top = "0";
-          overlay.style.left = "0";
-          overlay.style.width = "100%";
-          overlay.style.height = "100%";
-          overlay.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-          overlay.style.zIndex = "99999999999";
-          overlay.style.transition = "transform 0.3s";
-          overlay.style.transform = "translateX(0)";
-          overlay.style.overflowY = "auto";
-          overlay.style.padding = "25px";
-          overlay.style.boxSizing = "border-box";
-          overlay.style.display = "flex";
-          overlay.style.flexDirection = "column";
-          overlay.style.alignItems = "center";
-          overlay.style.justifyContent = "center";
-          overlay.style.color = "#fff";
-          overlay.style.fontFamily = "Arial, sans-serif";
-          overlay.style.fontSize = "16px";
-          overlay.style.lineHeight = "1.5";
-          overlay.style.fontWeight = "400";
+        } else {
+          const overlay3 = document.getElementById("lyric-tagbuilder-overlay");
+          overlay3.style.transform = "translateX(0)";
+        }
+      });
 
-          overlay.innerHTML = /* html */ `
+      const overlay2 = document.createElement("div");
+      overlay2.id = "lyric-barn-overlay";
+      overlay2.style.position = "fixed";
+      overlay2.style.top = "0";
+      overlay2.style.left = "0";
+      overlay2.style.width = "100%";
+      overlay2.style.height = "100%";
+      overlay2.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+      overlay2.style.zIndex = "99999999999";
+      overlay2.style.transition = "transform 0.3s";
+      overlay2.style.transform = "translateX(-100%)";
+      overlay2.style.overflowY = "auto";
+      overlay2.style.padding = "25px";
+      overlay2.style.boxSizing = "border-box";
+      overlay2.style.display = "flex";
+      overlay2.style.flexDirection = "column";
+      overlay2.style.alignItems = "center";
+      overlay2.style.justifyContent = "center";
+      overlay2.style.color = "#fff";
+      overlay2.style.fontFamily = "Arial, sans-serif";
+      overlay2.style.fontSize = "16px";
+      overlay2.style.lineHeight = "1.5";
+      overlay2.style.fontWeight = "400";
+      overlay2.innerHTML = /* html */ `
 <button
   id="close-lyric-barn"
   style="
@@ -413,83 +520,98 @@ const engine = {
 
         `;
 
-          document.body.appendChild(overlay);
+      document.body.appendChild(overlay2);
 
-          engine.turnOnQuill();
-          engine.changeTab();
+      engine.turnOnQuill();
+      engine.changeTab();
 
-          const closeLyricBarn = document.getElementById("close-lyric-barn");
-          closeLyricBarn.addEventListener("click", () => {
-            overlay.style.transform = "translateX(-100%)";
-            document.body.style.overflow = "auto";
+      const closeLyricBarn = document.getElementById("close-lyric-barn");
+      closeLyricBarn.addEventListener("click", () => {
+        overlay2.style.transform = "translateX(-100%)";
+        document.body.style.overflow = "auto";
+      });
+
+      const medioSettingsButton = document.getElementById(
+        "medioSettingsButton"
+      );
+      medioSettingsButton.addEventListener("click", () => {
+        const settings = document.querySelector(".settings-medio");
+        if (settings.style.display === "none") {
+          settings.style.display = "block";
+          const tabs = document.querySelectorAll(".lyric-tab");
+          tabs.forEach((tab) => {
+            tab.style.display = "none";
           });
-
-          const medioSettingsButton = document.getElementById(
-            "medioSettingsButton"
-          );
-          medioSettingsButton.addEventListener("click", () => {
-            const settings = document.querySelector(".settings-medio");
-            if (settings.style.display === "none") {
-              settings.style.display = "block";
-              const tabs = document.querySelectorAll(".lyric-tab");
-              tabs.forEach((tab) => {
-                tab.style.display = "none";
-              });
-              const tabButtons = document.querySelectorAll(".lyric-tab-button");
-              tabButtons.forEach((button) => {
-                button.classList.remove("bg-black");
-              });
-            }
+          const tabButtons = document.querySelectorAll(".lyric-tab-button");
+          tabButtons.forEach((button) => {
+            button.classList.remove("bg-black");
           });
+        }
+      });
 
-          const findRhymes = document.getElementById("lyric-barn-findRhyme");
-          findRhymes.addEventListener("click", () => {
-            engine.checkRhymes();
-          });
+      const findRhymes = document.getElementById("lyric-barn-findRhyme");
+      findRhymes.addEventListener("click", () => {
+        engine.checkRhymes();
+      });
 
-          const findRhymesClear = document.getElementById(
-            "lyric-barn-findRhymeClear"
-          );
-          findRhymesClear.addEventListener("click", () => {
-            document.getElementById("wordInput").value = "";
-            document.getElementById("results").innerHTML = "";
-          });
+      const findRhymesClear = document.getElementById(
+        "lyric-barn-findRhymeClear"
+      );
+      findRhymesClear.addEventListener("click", () => {
+        document.getElementById("wordInput").value = "";
+        document.getElementById("results").innerHTML = "";
+      });
 
-          const wordInput = document.getElementById("wordInput");
-          wordInput.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") {
-              engine.checkRhymes();
-            }
-          });
+      const wordInput = document.getElementById("wordInput");
+      wordInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          engine.checkRhymes();
+        }
+      });
 
-          const saveLyrics = document.getElementById("save-lyrics");
-          saveLyrics.addEventListener("click", () => {
-            engine.save();
-          });
+      const saveLyrics = document.getElementById("save-lyrics");
+      saveLyrics.addEventListener("click", () => {
+        engine.save();
+      });
 
-          const clearLyrics = document.getElementById("clear-lyrics");
-          clearLyrics.addEventListener("click", () => {
-            if (confirm("Are you sure you want to clear the results?")) {
-              document.getElementById("lyric-id").value = "";
-              document.getElementById("lyric-title").value = "";
-              engine.quill.root.innerHTML = "";
-            }
-          });
+      const clearLyrics = document.getElementById("clear-lyrics");
+      clearLyrics.addEventListener("click", () => {
+        if (confirm("Are you sure you want to clear the results?")) {
+          document.getElementById("lyric-id").value = "";
+          document.getElementById("lyric-title").value = "";
+          engine.quill.root.innerHTML = "";
+        }
+      });
 
-          document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape") {
-              const overlay = document.getElementById("lyric-barn-overlay");
-              overlay.style.transform = "translateX(-100%)";
-              document.body.style.overflow = "auto";
-            }
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          const overlay = document.getElementById("lyric-barn-overlay");
+          overlay.style.transform = "translateX(-100%)";
+          document.body.style.overflow = "auto";
 
-            if ((e.ctrlKey && e.key === "k") || (e.metaKey && e.key === "k")) {
-              console.log("ctrl+k");
-              const overlay = document.getElementById("lyric-barn-overlay");
-              overlay.style.transform = "translateX(0)";
-              document.body.style.overflow = "hidden";
-            }
-          });
+          const overlay2 = document.getElementById("lyric-tagbuilder-overlay");
+          overlay2.style.transform = "translateX(-100%)";
+        }
+
+        if ((e.ctrlKey && e.key === "k") || (e.metaKey && e.key === "k")) {
+          const overlay = document.getElementById("lyric-barn-overlay");
+          overlay.style.transform = "translateX(0)";
+          document.body.style.overflow = "hidden";
+        }
+
+        if ((e.ctrlKey && e.key === "j") || (e.metaKey && e.key === "j")) {
+          const overlay = document.getElementById("lyric-tagbuilder-overlay");
+          overlay.style.transform = "translateX(0)";
+          document.body.style.overflow = "hidden";
+        }
+      });
+
+      const lyricBarnLink = document.getElementById("lyric-barn-link");
+      lyricBarnLink.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        if (!document.getElementById("lyric-barn-overlay")) {
+          document.body.style.overflow = "hidden";
         } else {
           const overlay = document.getElementById("lyric-barn-overlay");
           overlay.style.transform = "translateX(0)";
