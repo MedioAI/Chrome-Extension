@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "medio",
+  "name": "MEDIO - AI Musical Assistant",
   "version": "1.0",
   "description": "Ding fries are done! Get notified when your Udio creations are ready to listen too and much more.",
   "permissions": ["activeTab", "scripting", "notifications", "storage"],
@@ -15,13 +15,13 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["ding.mp3"],
+      "resources": ["ding.mp3", "genres.json", "artists.json"],
       "matches": ["<all_urls>"]
     }
   ],
   "content_scripts": [
     {
-      "matches": ["https://www.udio.com/my-creations"],
+      "matches": ["https://www.udio.com/*"],
       "js": ["lib/quill.js", "injector.js"],
       "css": ["injector.css", "lib/quilljs.css"]
     }

@@ -17,17 +17,6 @@ const engine = {
           console.log("Me-Dio, a sous chef for Udio.com");
           engine.friesAreDone();
           engine.lyricBarn();
-
-          setTimeout(() => {
-            document.querySelector("#lyric-barn-link").click();
-            setTimeout(() => {
-              document.querySelector("#lyric-barn-link").click();
-            }, 3300);
-            setTimeout(() => {
-              document.querySelector("#lyric-tagbuilder-link").click();
-            }, 3300);
-            document.querySelector("#lyric-tagbuilder-link").click();
-          }, 2200);
         }
       }, 1000);
     }
@@ -92,7 +81,7 @@ const engine = {
     background: none;
     border: none;
     color: #fff;
-    font-size: 24px;
+    font-size: 34px;
     cursor: pointer;
     ">&times;</button>
           <div id="lyric-barn-content">
@@ -125,11 +114,408 @@ const engine = {
     Library
   </button>
 </div>
+
+<div  class="lyric-buildertab"  data-tab="build">
+  <div class="mb-4">
+      <input type="text" placeholder="Search for tags..." class="w-full border rounded p-2 px-3" />
+  </div>
+  <div class="flex space-x-4">
+      <div class="w-1/4">
+        <h3 class="text-sm text-gray-300 mb-1">Genre</h3>
+        <select id="medio-builder-genre" class="medioAddTag w-full border rounded p-1"></select>
+      </div>
+      <div class="w-1/4">
+        <h3 class="text-sm text-gray-300 mb-1">Artist</h3>
+        <select id="medio-builder-artist" class="medioAddTag w-full border rounded p-1"></select>
+      </div>
+      <div class="w-1/4">
+        <h3 class="text-sm text-gray-300 mb-1">Emotion</h3>
+        <select id="medio-builder-emotion" class="medioAddTag w-full border rounded p-1">
+        <option value=""></option>
+          <option value="Joyful">Joyful</option>
+          <option value="Sad">Sad</option>
+          <option value="Angry">Angry</option>
+          <option value="Excited">Excited</option>
+          <option value="Calm">Calm</option>
+          <option value="Anxious">Anxious</option>
+          <option value="Energetic">Energetic</option>
+          <option value="Peaceful">Peaceful</option>
+          <option value="Lively">Lively</option>
+          <option value="Melancholic">Melancholic</option>
+          <option value="Hopeful">Hopeful</option>
+          <option value="Frustrated">Frustrated</option>
+          <option value="Content">Content</option>
+          <option value="Tense">Tense</option>
+          <option value="Happy">Happy</option>
+          <option value="Gloomy">Gloomy</option>
+          <option value="Enraged">Enraged</option>
+          <option value="Thrilled">Thrilled</option>
+          <option value="Tranquil">Tranquil</option>
+          <option value="Nervous">Nervous</option>
+          <option value="Vibrant">Vibrant</option>
+          <option value="Serene">Serene</option>
+          <option value="Dynamic">Dynamic</option>
+          <option value="Reflective">Reflective</option>
+          <option value="Optimistic">Optimistic</option>
+          <option value="Despairing">Despairing</option>
+          <option value="Agitated">Agitated</option>
+          <option value="Blissful">Blissful</option>
+          <option value="Heavy-hearted">Heavy-hearted</option>
+          <option value="Cautious">Cautious</option>
+          <option value="Buoyant">Buoyant</option>
+          <option value="Tragic">Tragic</option>
+          <option value="Furious">Furious</option>
+          <option value="Ecstatic">Ecstatic</option>
+          <option value="Soothing">Soothing</option>
+          <option value="Worried">Worried</option>
+          <option value="Animated">Animated</option>
+          <option value="Relaxed">Relaxed</option>
+          <option value="Euphoric">Euphoric</option>
+          <option value="Sentimental">Sentimental</option>
+          <option value="Cheerful">Cheerful</option>
+          <option value="Morose">Morose</option>
+          <option value="Indignant">Indignant</option>
+          <option value="Exhilarated">Exhilarated</option>
+          <option value="Tranquil">Tranquil</option>
+          <option value="Uneasy">Uneasy</option>
+          <option value="Lively">Lively</option>
+          <option value="Calm">Calm</option>
+          <option value="Delighted">Delighted</option>
+          <option value="Despondent">Despondent</option>
+        </select>
+      </div>
+      <div class="w-1/4">
+        <h3 class="text-sm text-gray-300 mb-1">Period</h3>
+        <select id="medio-builder-period" class="medioAddTag w-full border rounded p-1">
+        <option value=""></option>
+            <option value="Baroque">Baroque</option>
+            <option value="Classical">Classical</option>
+            <option value="Romantic">Romantic</option>
+            <option value="20th Century">20th Century</option>
+            <option value="Contemporary">Contemporary</option>
+            <option value="Renaissance">Renaissance</option>
+            <option value="Medieval">Medieval</option>
+            <option value="Ancient">Ancient</option>
+            <option value="Modern">Modern</option>
+            <option value="Postmodern">Postmodern</option>
+            <option value="Experimental">Experimental</option>
+            <option value="Traditional">Traditional</option>
+            <option value="Folk">Folk</option>
+            <option value="Electronic">Electronic</option>
+            <option value="Jazz Age">Jazz Age</option>
+            <option value="Golden Age">Golden Age</option>
+            <option value="Industrial Age">Industrial Age</option>
+            <option value="Gothic">Gothic</option>
+            <option value="Victorian">Victorian</option>
+            <option value="Edwardian">Edwardian</option>
+            <option value="Impressionist">Impressionist</option>
+            <option value="Prehistoric">Prehistoric</option>
+            <option value="1901">1901</option>
+            <option value="1902">1902</option>
+            <option value="1600">1600</option>
+            <option value="1610">1610</option>
+            <option value="1620">1620</option>
+            <option value="1630">1630</option>
+            <option value="1640">1640</option>
+            <option value="1650">1650</option>
+            <option value="1660">1660</option>
+            <option value="1670">1670</option>
+            <option value="1680">1680</option>
+            <option value="1690">1690</option>
+            <option value="1700">1700</option>
+            <option value="1710">1710</option>
+            <option value="1720">1720</option>
+            <option value="1730">1730</option>
+            <option value="1740">1740</option>
+            <option value="1750">1750</option>
+            <option value="1760">1760</option>
+            <option value="1770">1770</option>
+            <option value="1780">1780</option>
+            <option value="1790">1790</option>
+            <option value="1800">1800</option>
+            <option value="1810">1810</option>
+            <option value="1820">1820</option>
+            <option value="1830">1830</option>
+            <option value="1840">1840</option>
+            <option value="1850">1850</option>
+            <option value="1860">1860</option>
+            <option value="1870">1870</option>
+            <option value="1880">1880</option>
+            <option value="1890">1890</option>
+            <option value="1900">1900</option>
+            <option value="1910">1910</option>
+            <option value="1920">1920</option>
+            <option value="1930">1930</option>
+            <option value="1940">1940</option>
+            <option value="1950">1950</option>
+            <option value="1960">1960</option>
+            <option value="1970">1970</option>
+            <option value="1980">1980</option>
+            <option value="1990">1990</option>
+            <option value="2000">2000</option>
+            <option value="2010">2010</option>
+            <option value="2020">2020</option>
+            <option value="2030">2030</option>
+            <option value="2040">2040</option>
+        </select>
+      </div>
+</div>
+    <div class="flex space-x-4 mt-4">
+      <div class="w-1/4">
+        <h3 class="text-sm text-gray-300 mb-1">Region</h3>
+        <select id="medio-builder-region" class="medioAddTag w-full border rounded p-1">
+        <option value=""></option>
+          <optgroup label="Africa">
+              <option value="North Africa">North Africa</option>
+              <option value="West Africa">West Africa</option>
+              <option value="Central Africa">Central Africa</option>
+              <option value="East Africa">East Africa</option>
+              <option value="Southern Africa">Southern Africa</option>
+              
+          </optgroup>
+          <optgroup label="Asia">
+              <option value="East Asia">East Asia</option>
+              <option value="Southeast Asia">Southeast Asia</option>
+              <option value="South Asia">South Asia</option>
+              <option value="Central Asia">Central Asia</option>
+              <option value="West Asia">West Asia</option>
+              
+          </optgroup>
+          <optgroup label="Europe">
+              <option value="Northern Europe">Northern Europe</option>
+              <option value="Western Europe">Western Europe</option>
+              <option value="Central Europe">Central Europe</option>
+              <option value="Eastern Europe">Eastern Europe</option>
+              <option value="Southern Europe">Southern Europe</option>
+              
+          </optgroup>
+          <optgroup label="North America">
+              <option value="Canada">Canada</option>
+              <option value="United States">United States</option>
+              <option value="Mexico">Mexico</option>
+              <option value="Central America">Central America</option>
+              
+          </optgroup>
+          <optgroup label="South America">
+              <option value="Brazil">Brazil</option>
+              <option value="Argentina">Argentina</option>
+              <option value="Colombia">Colombia</option>
+              <option value="Peru">Peru</option>
+              
+          </optgroup>
+          <optgroup label="Australia">
+              <option value="Australia">Australia</option>
+              <option value="New Zealand">New Zealand</option>
+              
+          </optgroup>
+          <optgroup label="Middle East">
+              <option value="Middle East">Middle East</option>
+              <option value="North Africa">North Africa</option>
+              
+          </optgroup>
+          <optgroup label="Caribbean">
+              <option value="Jamaica">Jamaica</option>
+              <option value="Cuba">Cuba</option>
+              <option value="Haiti">Haiti</option>
+              <option value="Dominican Republic">Dominican Republic</option>
+              
+          </optgroup>
+          <optgroup label="Central America">
+              <option value="Guatemala">Guatemala</option>
+              <option value="Belize">Belize</option>
+              <option value="Costa Rica">Costa Rica</option>
+              <option value="Panama">Panama</option>
+              
+          </optgroup>
+          <optgroup label="Pacific Islands">
+              <option value="Polynesia">Polynesia</option>
+              <option value="Melanesia">Melanesia</option>
+              <option value="Micronesia">Micronesia</option>
+              
+          </optgroup>
+          <optgroup label="Antarctica">
+              <option value="Antarctica">Antarctica</option>
+              
+          </optgroup>
+        </select>
+      </div>
+      <div class="w-1/4">
+        <h3 class="text-sm text-gray-300 mb-1">Vocals</h3>
+        <select id="medio-builder-vocal" class="medioAddTag w-full border rounded p-1">
+        <option value=""></option>
+          <!-- Baritone -->
+          <option value="Baritone">Baritone</option>
+          <option value="Lyric Baritone">Lyric Baritone</option>
+          <option value="Dramatic Baritone">Dramatic Baritone</option>
+          <option value="Verdi Baritone">Verdi Baritone</option>
+          <option value="Heldenbaritone">Heldenbaritone</option>
+          <option value="Lyrical Baritone">Lyrical Baritone</option>
+          <!-- Tenor -->
+          <option value="Tenor">Tenor</option>
+          <option value="Spinto Tenor">Spinto Tenor</option>
+          <option value="Lyric Tenor">Lyric Tenor</option>
+          <option value="Heldentenor">Heldentenor</option>
+          <option value="Leggero Tenor">Leggero Tenor</option>
+          <option value="Dramatic Tenor">Dramatic Tenor</option>
+          <option value="Buffo Tenor">Buffo Tenor</option>
+          <option value="Lyrical Tenor">Lyrical Tenor</option>
+          <!-- Bass -->
+          <option value="Bass">Bass</option>
+          <option value="Basso Profondo">Basso Profondo</option>
+          <option value="Basso Buffo">Basso Buffo</option>
+          <option value="Basso Cantante">Basso Cantante</option>
+          <option value="Bass-Baritone">Bass-Baritone</option>
+          <option value="Dramatic Bass">Dramatic Bass</option>
+          <option value="Bass Profundo">Bass Profundo</option>
+          <option value="Bass-Buffo">Bass-Buffo</option>
+          <!-- Descriptors -->
+          <option value="Raspy">Raspy</option>
+          <option value="Breathy">Breathy</option>
+          <option value="Smooth">Smooth</option>
+          <option value="Gravelly">Gravelly</option>
+          <option value="Husky">Husky</option>
+          <option value="Velvety">Velvety</option>
+          <option value="Clear">Clear</option>
+          <option value="Throaty">Throaty</option>
+          <option value="Sharp">Sharp</option>
+          <option value="Mellow">Mellow</option>
+          <option value="Nasal">Nasal</option>
+          <option value="Rich">Rich</option>
+          <option value="Warm">Warm</option>
+          <option value="Tremulous">Tremulous</option>
+          <option value="Honeyed">Honeyed</option>
+          <option value="Resonant">Resonant</option>
+        </select>
+      </div>
+      <div class="w-1/4">
+        <h3 class="text-sm text-gray-300 mb-1">Instruments</h3>
+        <select id="medio-builder-instruments" class="medioAddTag w-full border rounded p-1">
+        <option value=""></option>
+          <!-- String Instruments -->
+          <option value="Violin">Violin</option>
+          <option value="Viola">Viola</option>
+          <option value="Cello">Cello</option>
+          <option value="Double Bass">Double Bass</option>
+          <option value="Harp">Harp</option>
+          <option value="Guitar">Guitar</option>
+          <option value="Bass Guitar">Bass Guitar</option>
+          <option value="Electric Guitar">Electric Guitar</option>
+          <option value="Acoustic Guitar">Acoustic Guitar</option>
+          <!-- Wind Instruments -->
+          <option value="Flute">Flute</option>
+          <option value="Clarinet">Clarinet</option>
+          <option value="Saxophone">Saxophone</option>
+          <option value="Oboe">Oboe</option>
+          <option value="Bassoon">Bassoon</option>
+          <option value="Trumpet">Trumpet</option>
+          <option value="Trombone">Trombone</option>
+          <option value="French Horn">French Horn</option>
+          <option value="Tuba">Tuba</option>
+          <!-- Percussion Instruments -->
+          <option value="Drums">Drums</option>
+          <option value="Piano">Piano</option>
+          <option value="Keyboard">Keyboard</option>
+          <option value="Xylophone">Xylophone</option>
+          <option value="Marimba">Marimba</option>
+          <option value="Vibraphone">Vibraphone</option>
+          <option value="Timpani">Timpani</option>
+          <option value="Glockenspiel">Glockenspiel</option>
+          <option value="Cymbals">Cymbals</option>
+        </select>
+      </div>
+      <div class="w-1/4">
+        <h3 class="text-sm text-gray-300 mb-1">Production</h3>
+        <select id="medio-builder-production" class="medioAddTag w-full border rounded p-1">
+        <option value=""></option>
+            <option value="Lo-fi">Lo-fi</option>
+            <option value="Hi-fi">Hi-fi</option>
+            <option value="Acoustic">Acoustic</option>
+            <option value="Electronic">Electronic</option>
+            <option value="Analog">Analog</option>
+            <option value="Digital">Digital</option>
+            <option value="Synthetic">Synthetic</option>
+            <option value="Organic">Organic</option>
+            <option value="Raw">Raw</option>
+            <option value="Processed">Processed</option>
+            <option value="Vintage">Vintage</option>
+            <option value="Modern">Modern</option>
+            <option value="Traditional">Traditional</option>
+            <option value="Experimental">Experimental</option>
+            <option value="Industrial">Industrial</option>
+            <option value="Synthwave">Synthwave</option>
+            <option value="Chiptune">Chiptune</option>
+            <option value="Ambient">Ambient</option>
+            <option value="Grunge">Grunge</option>
+            <option value="Acid">Acid</option>
+        </select>
+      </div>
+  </div>
+  <div class="py-4">
+      <textarea placeholder="Add musical tags here..." class="w-full p-6 rounded border mb-3" id="medioTagBox" style="height: 180px"></textarea>
+
+      <input type="text" placeholder="Title..." class="w-full p-2 px-4 rounded border mb-3" style="width: 300px" />
+      <div class="flex space-x-2">
+        <button id="medio-saveTags">Save</button>
+        <button id="medio-clearTags">Clear</button>
+      </div>
+  </div>
+</div>
+
+<div style="display: none" class="lyric-buildertab" data-tab="library">
+  <div id="medio-library-items" class="grid grid-cols-3 gap-4"></div>
+</div>
 </div>
 
           `;
 
       document.body.appendChild(overlay);
+
+      const medioAddTag = document.querySelectorAll(".medioAddTag");
+      const medioTagBox = document.getElementById("medioTagBox");
+
+      medioAddTag.forEach((tag) => {
+        tag.addEventListener("change", () => {
+          if (tag.value) {
+            medioTagBox.value += tag.value + ", ";
+            tag.value = "";
+          }
+        });
+      });
+
+      const artistsJson = chrome.runtime.getURL("artists.json");
+      const genresJson = chrome.runtime.getURL("genres.json");
+
+      fetch(artistsJson)
+        .then((response) => response.json())
+        .then((data) => {
+          const artistSelect = document.getElementById("medio-builder-artist");
+          const option = document.createElement("option");
+          option.value = "";
+          option.textContent = "";
+          artistSelect.appendChild(option);
+          data.forEach((artist) => {
+            const option = document.createElement("option");
+            option.value = artist;
+            option.textContent = artist;
+            artistSelect.appendChild(option);
+          });
+        });
+
+      fetch(genresJson)
+        .then((response) => response.json())
+        .then((data) => {
+          const genreSelect = document.getElementById("medio-builder-genre");
+          const option = document.createElement("option");
+          option.value = "";
+          option.textContent = "";
+          genreSelect.appendChild(option);
+          data.forEach((artist) => {
+            const option = document.createElement("option");
+            option.value = artist.name;
+            option.textContent = artist.name;
+            genreSelect.appendChild(option);
+          });
+        });
 
       const closeLyricTagBuilder = document.getElementById(
         "close-lyric-tagbuilder"
@@ -186,7 +572,7 @@ const engine = {
     background: none;
     border: none;
     color: #fff;
-    font-size: 24px;
+    font-size: 34px;
     cursor: pointer;
   "
 >
@@ -609,6 +995,8 @@ const engine = {
       const lyricBarnLink = document.getElementById("lyric-barn-link");
       lyricBarnLink.addEventListener("click", (e) => {
         e.preventDefault();
+
+        console.log("Lyric Barn link clicked.");
 
         if (!document.getElementById("lyric-barn-overlay")) {
           document.body.style.overflow = "hidden";
