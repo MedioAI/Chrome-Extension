@@ -29,9 +29,50 @@
   border-radius: 6px;
   height: 37px !important;
 }
+#wordInput {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #3c3c3c;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+.rhymingWord:hover {
+  background: #27272a;
+  color: #fff;
+  cursor: pointer;
+}
+#lyric-barn-findRhyme {
+  width: 150px;
+  background: #27272a;
+  padding: 4px 12px;
+  display: block;
+  border-radius: 6px;
+  font-size: 14px;
+  height: 37px !important;
+  line-height: 0;
+  border: 1px solid rgb(68, 68, 68);
+}
+#lyric-barn-findRhymeClear {
+  width: 110px;
+  background: #27272a;
+  padding: 4px 12px;
+  display: block;
+  border-radius: 6px;
+  font-size: 14px;
+  height: 37px !important;
+  line-height: 0;
+  border: 1px solid rgb(68, 68, 68);
+  margin-right: 10px;
+}
 #editor.ql-container {
   height: calc(100% - 140px);
   border-color: #3c3c3c;
+}
+
+#results {
+  height: calc(100% - 140px);
+  overflow-x: hidden;
 }
 
 #toolbar {
@@ -108,7 +149,7 @@
 }
 
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label {
-  border-color: #333333 !important;
+  border-color: #27272a !important;
 }
 
 .ql-custom-dropdown .ql-picker-label:before {
@@ -127,6 +168,8 @@
   margin-left: -10px !important;
   margin-top: 5px !important;
   padding: 0 !important;
+  height: auto !important;
+  max-height: calc(100vh - 290px) !important;
 }
 
 .ql-picker-options .ql-picker-item:first-child {
@@ -151,4 +194,8 @@
 
 .ql-picker-item:hover * {
   color: #fff !important;
+}
+
+#medioextraCommands .ql-picker-options {
+  margin-left: -107px !important;
 }

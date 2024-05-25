@@ -123,9 +123,12 @@ const engine = {
 </div>
 
 <div style="display: none" class="lyric-tab" data-tab="rhyme">
-  <input autocomplete="off" type="text" id="wordInput" placeholder="Enter a word" />
-  <button id="lyric-barn-findRhyme">Find Rhymes</button>
-  <div id="results"></div>
+  <div class="flex items-center justitfy-between mb-4">
+    <input autocomplete="off" type="text" id="wordInput" placeholder="Enter a word to find rhymes..." />
+    <button id="lyric-barn-findRhymeClear">Clear</button>
+    <button id="lyric-barn-findRhyme">Find Rhymes</button>
+  </div>
+  <div id="results" class="w-full grid grid-cols-4 gap-2"></div>
 </div>
 
 <div style="display: none" class="lyric-tab" data-tab="library">
@@ -171,10 +174,17 @@ const engine = {
       </select>
 
       <select class="ql-custom-dropdown">
-          <option selected>Structure</option>
-          <option value="[Sonnet 1]\n\n[Sonnet 2]\n\n[Sonnet 3]">Sonnet</option>
-          <option value="[Standard]">Standard</option>
-          <option value="[Storytelling]">Storytelling</option>
+        <option selected>Structure</option>
+        <option value="[Quatrain 1]\n\n[Quatrain 2]\n\n[Quatrain 3]\n\n[Couplet]">Sonnet</option>
+        <option value="[Verse]\n\n[Chorus]\n\n[Verse]\n\n[Chorus]\n\n[Bridge]\n\n[Chorus]">Ballad</option>
+        <option value="[Line 1]\n\n[Line 2]\n\n[Line 3]">Haiku</option>
+        <option value="[Line 1]\n\n[Line 2]\n\n[Line 3]\n\n[Line 4]\n\n[Line 5]">Limerick</option>
+        <option value="[A-line]\n\n[A-line]\n\n[B-line]">Blues</option>
+        <option value="[Stanza 1]\n\n[Stanza 2]">Quatrain</option>
+        <option value="[Strophe]\n\n[Antistrophe]\n\n[Epode]">Ode</option>
+        <option value="[Stanza 1]\n\n[Stanza 2]\n\n[Stanza 3]\n\n[Stanza 4]\n\n[Stanza 5]\n\n[Stanza 6]\n\n[Envoi]">Sestina</option>
+        <option value="[Tercet 1]\n\n[Tercet 2]\n\n[Tercet 3]\n\n[Tercet 4]\n\n[Final Line]">Terza Rima</option>
+        <option value="[Section 1]\n\n[Section 2]\n\n[Section 3]\n\n[Section 4]">Free Verse</option>
       </select>
 
       <select class="ql-custom-dropdown">
@@ -228,13 +238,140 @@ const engine = {
           <option value="[Balalaika Solo]">Balalaika</option>
           <option value="[Clarinet Solo]">Clarinet</option>
           <option value="[Shakuhachi Solo]">Shakuhachi</option>
+          <option value="[Santoor Solo]">Santoor</option>
+          <option value="[Erhu Solo]">Erhu</option>
+          <option value="[Pipa Solo]">Pipa</option>
+          <option value="[Guqin Solo]">Guqin</option>
+          <option value="[Koto Solo]">Koto</option>
+          <option value="[Shamisen Solo]">Shamisen</option>
+          <option value="[Guzheng Solo]">Guzheng</option>
+          <option value="[Sarangi Solo]">Sarangi</option>
+          <option value="[Sarod Solo]">Sarod</option>
+          <option value="[Veena Solo]">Veena</option>
+          <option value="[Hurdy Gurdy Solo]">Hurdy Gurdy</option>
+          <option value="[Dulcimer Solo]">Dulcimer</option>
+          <option value="[Appalachian Dulcimer Solo]">Appalachian Dulcimer</option>
+          <option value="[Cimbalom Solo]">Cimbalom</option>
+          <option value="[Psaltery Solo]">Psaltery</option>
+          <option value="[Bouzouki Solo]">Bouzouki</option>
+          <option value="[Oud Solo]">Oud</option>
+          <option value="[Rebab Solo]">Rebab</option>
+          <option value="[Kora Solo]">Kora</option>
+          <option value="[Ngoni Solo]">Ngoni</option>
+          <option value="[Mbira Solo]">Mbira</option>
+          <option value="[Hang Drum Solo]">Hang Drum</option>
+          <option value="[Frame Drum Solo]">Frame Drum</option>
+          <option value="[Uilleann Pipes Solo]">Uilleann Pipes</option>
+          <option value="[Bandoneon Solo]">Bandoneon</option>
+          <option value="[Melodica Solo]">Melodica</option>
+          <option value="[Theremin Solo]">Theremin</option>
+          <option value="[Glass Harmonica Solo]">Glass Harmonica</option>
+          <option value="[Handpan Solo]">Handpan</option>
+          <option value="[Laouto Solo]">Laouto</option>
+          <option value="[Bodhran Solo]">Bodhran</option>
+          <option value="[Soprano Saxophone Solo]">Soprano Saxophone</option>
+          <option value="[Tenor Saxophone Solo]">Tenor Saxophone</option>
+          <option value="[Baritone Saxophone Solo]">Baritone Saxophone</option>
+          <option value="[Bass Clarinet Solo]">Bass Clarinet</option>
+          <option value="[Contrabassoon Solo]">Contrabassoon</option>
+          <option value="[Piccolo Solo]">Piccolo</option>
+          <option value="[Cornet Solo]">Cornet</option>
+          <option value="[Flugelhorn Solo]">Flugelhorn</option>
+          <option value="[Alto Horn Solo]">Alto Horn</option>
+          <option value="[Euphonium Solo]">Euphonium</option>
+          <option value="[Sopranino Saxophone Solo]">Sopranino Saxophone</option>
+          <option value="[Cimbasso Solo]">Cimbasso</option>
+          <option value="[Alto Clarinet Solo]">Alto Clarinet</option>
+          <option value="[Bass Flute Solo]">Bass Flute</option>
+          <option value="[Contrabass Clarinet Solo]">Contrabass Clarinet</option>
+          <option value="[Contrabass Flute Solo]">Contrabass Flute</option>
+          <option value="[Subcontrabass Flute Solo]">Subcontrabass Flute</option>
+          <option value="[Contrabass Saxophone Solo]">Contrabass Saxophone</option>
+          <option value="[Sarrusophone Solo]">Sarrusophone</option>
+          <option value="[Octobass Solo]">Octobass</option>
+          <option value="[Glass Harp Solo]">Glass Harp</option>
+          <option value="[Kalangu Solo]">Kalangu</option>
+          <option value="[Thavil Solo]">Thavil</option>
+          <option value="[Mridangam Solo]">Mridangam</option>
+          <option value="[Tambura Solo]">Tambura</option>
+          <option value="[Tar Solo]">Tar</option>
+          <option value="[Ghatam Solo]">Ghatam</option>
+          <option value="[Kanjira Solo]">Kanjira</option>
+          <option value="[Clavichord Solo]">Clavichord</option>
+          <option value="[Virginal Solo]">Virginal</option>
+          <option value="[Portative Organ Solo]">Portative Organ</option>
+          <option value="[Regal Solo]">Regal</option>
+          <option value="[Harmonium Solo]">Harmonium</option>
+          <option value="[Bandura Solo]">Bandura</option>
+          <option value="[Cavaquinho Solo]">Cavaquinho</option>
+          <option value="[Charango Solo]">Charango</option>
+          <option value="[Cuatro Solo]">Cuatro</option>
+          <option value="[Tiple Solo]">Tiple</option>
+          <option value="[Crumhorn Solo]">Crumhorn</option>
+          <option value="[Rackett Solo]">Rackett</option>
+          <option value="[Shawm Solo]">Shawm</option>
+          <option value="[Cornamuse Solo]">Cornamuse</option>
+          <option value="[Dulzaina Solo]">Dulzaina</option>
+          <option value="[Zurna Solo]">Zurna</option>
+          <option value="[Suona Solo]">Suona</option>
+          <option value="[Bansuri Solo]">Bansuri</option>
+          <option value="[Duduk Solo]">Duduk</option>
+          <option value="[Shehnai Solo]">Shehnai</option>
+          <option value="[Khaen Solo]">Khaen</option>
+          <option value="[Kaval Solo]">Kaval</option>
+          <option value="[Pennywhistle Solo]">Pennywhistle</option>
+          <option value="[Low Whistle Solo]">Low Whistle</option>
       </select>
 
-      <select class="ql-custom-dropdown">
+      <select id="medioextraCommands" class="ql-custom-dropdown">
           <option selected>Extra</option>
+          <option value="Lyrics by [Your Name] © 2024">Copyright Stamp 1</option>
+          <option value="© 2024 [Your Name]">Copyright Stamp 2</option>
+          <option value="[Your Name] - All rights reserved, 2024">Copyright Stamp 3</option>
           <option value="[Spoken Word]">Spoken Word</option>
           <option value="[Wolf Noise]">Wolf Noise</option>
           <option value="[Siren]">Siren</option>
+          <option value="[Applause]">Applause</option>
+          <option value="[Bell]">Bell</option>
+          <option value="[Birds Chirping]">Birds Chirping</option>
+          <option value="[Car Horn]">Car Horn</option>
+          <option value="[Cat Meow]">Cat Meow</option>
+          <option value="[Clapping]">Clapping</option>
+          <option value="[Crowd Cheering]">Crowd Cheering</option>
+          <option value="[Dog Bark]">Dog Bark</option>
+          <option value="[Door Slam]">Door Slam</option>
+          <option value="[Drum Roll]">Drum Roll</option>
+          <option value="[Explosion]">Explosion</option>
+          <option value="[Footsteps]">Footsteps</option>
+          <option value="[Gunshot]">Gunshot</option>
+          <option value="[Helicopter]">Helicopter</option>
+          <option value="[Heartbeat]">Heartbeat</option>
+          <option value="[Laughing]">Laughing</option>
+          <option value="[Lightning]">Lightning</option>
+          <option value="[Motorcycle Rev]">Motorcycle Rev</option>
+          <option value="[Ocean Waves]">Ocean Waves</option>
+          <option value="[Police Siren]">Police Siren</option>
+          <option value="[Rain]">Rain</option>
+          <option value="[Rooster Crow]">Rooster Crow</option>
+          <option value="[Running Water]">Running Water</option>
+          <option value="[Sheep Baa]">Sheep Baa</option>
+          <option value="[Sneezing]">Sneezing</option>
+          <option value="[Snoring]">Snoring</option>
+          <option value="[Thunder]">Thunder</option>
+          <option value="[Train Whistle]">Train Whistle</option>
+          <option value="[Typewriter]">Typewriter</option>
+          <option value="[Water Droplet]">Water Droplet</option>
+          <option value="[Whale Song]">Whale Song</option>
+          <option value="[Whispering]">Whispering</option>
+          <option value="[Wind Blowing]">Wind Blowing</option>
+          <option value="[Window Breaking]">Window Breaking</option>
+          <option value="[Wolf Howl]">Wolf Howl</option>
+          <option value="[Alarm Clock]">Alarm Clock</option>
+          <option value="[Audience Laughter]">Audience Laughter</option>
+          <option value="[Baby Crying]">Baby Crying</option>
+          <option value="[Birdsong]">Birdsong</option>
+          <option value="[Door Knock]">Door Knock</option>
+          <option value="[Fire Crackling]">Fire Crackling</option>
       </select>
     </div>
   </div>
@@ -258,6 +395,21 @@ const engine = {
           const findRhymes = document.getElementById("lyric-barn-findRhyme");
           findRhymes.addEventListener("click", () => {
             engine.checkRhymes();
+          });
+
+          const findRhymesClear = document.getElementById(
+            "lyric-barn-findRhymeClear"
+          );
+          findRhymesClear.addEventListener("click", () => {
+            document.getElementById("wordInput").value = "";
+            document.getElementById("results").innerHTML = "";
+          });
+
+          const wordInput = document.getElementById("wordInput");
+          wordInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+              engine.checkRhymes();
+            }
           });
 
           const saveLyrics = document.getElementById("save-lyrics");
@@ -390,13 +542,14 @@ const engine = {
         );
         selectedTab.style.display = "block";
 
-        if (tab === "library") {
+        if (tab === "rhyme") {
+          document.getElementById("wordInput").focus();
+          document.getElementById("wordInput").select();
+        } else if (tab === "library") {
           chrome.storage.local.get(["medioLyrics"], function (result) {
             const medioLyrics = result.medioLyrics || [];
             const libraryItems = document.getElementById("medio-library-items");
             libraryItems.innerHTML = "";
-
-            console.log(result, result.medioLyrics);
 
             if (medioLyrics.length === 0) {
               libraryItems.setAttribute(
@@ -550,7 +703,7 @@ const engine = {
     resultsDiv.innerHTML = "";
 
     if (!word) {
-      resultsDiv.innerHTML = "<p>Please enter a word.</p>";
+      resultsDiv.innerHTML = "<p>Please enter a word to search for.</p>";
       return;
     }
 
@@ -565,13 +718,30 @@ const engine = {
         return;
       }
 
-      const list = document.createElement("ul");
       data.forEach((item) => {
-        const listItem = document.createElement("li");
+        const listItem = document.createElement("div");
+        listItem.setAttribute(
+          "class",
+          "rhymingWord border p-2 rounded-lg text-lg font-bold"
+        );
+
         listItem.textContent = item.word;
-        list.appendChild(listItem);
+        resultsDiv.appendChild(listItem);
       });
-      resultsDiv.appendChild(list);
+
+      const rhymingWords = document.querySelectorAll(".rhymingWord");
+
+      rhymingWords.forEach((rhymingWord) => {
+        rhymingWord.addEventListener("click", (e) => {
+          const text = rhymingWord.textContent;
+          e.target.textContent = "Copied!";
+          navigator.clipboard.writeText(text);
+
+          setTimeout(() => {
+            e.target.textContent = text;
+          }, 700);
+        });
+      });
     } catch (error) {
       resultsDiv.innerHTML = `<p>Error fetching rhyming words: ${error.message}</p>`;
     }
