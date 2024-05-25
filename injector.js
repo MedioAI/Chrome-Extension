@@ -85,10 +85,13 @@ const engine = {
     cursor: pointer;
     ">&times;</button>
           <div id="lyric-barn-content">
-  <input type="hidden" id="lyric-id" />
+  <input type="hidden" id="mediotag-id" />
 
-<h1 style="font-size: 24px; font-weight: 700; margin-bottom: 16px">
-  Medio: Tag Builder
+<h1 class="flex items-center space-x-2" style="font-size: 24px; font-weight: 700; margin-bottom: 16px">
+  <img src="${chrome.runtime.getURL(
+    "icon/48x48.png"
+  )}" style="width: 48px; height: 48px; border-radius: 6px; margin-right: 8px" />
+  <span class="font-bold">Tag Builder</span>
 </h1>
 
 <div
@@ -121,17 +124,14 @@ const engine = {
   </div>
   <div class="flex space-x-4">
       <div class="w-1/4">
-        <h3 class="text-sm text-gray-300 mb-1">Genre</h3>
         <select id="medio-builder-genre" class="medioAddTag w-full border rounded p-1"></select>
       </div>
       <div class="w-1/4">
-        <h3 class="text-sm text-gray-300 mb-1">Artist</h3>
         <select id="medio-builder-artist" class="medioAddTag w-full border rounded p-1"></select>
       </div>
       <div class="w-1/4">
-        <h3 class="text-sm text-gray-300 mb-1">Emotion</h3>
         <select id="medio-builder-emotion" class="medioAddTag w-full border rounded p-1">
-        <option value=""></option>
+          <option value="" selected disabled>Emotion</option>
           <option value="Joyful">Joyful</option>
           <option value="Sad">Sad</option>
           <option value="Angry">Angry</option>
@@ -185,9 +185,8 @@ const engine = {
         </select>
       </div>
       <div class="w-1/4">
-        <h3 class="text-sm text-gray-300 mb-1">Period</h3>
         <select id="medio-builder-period" class="medioAddTag w-full border rounded p-1">
-        <option value=""></option>
+            <option value="" selected disabled>Period</option>
             <option value="Baroque">Baroque</option>
             <option value="Classical">Classical</option>
             <option value="Romantic">Romantic</option>
@@ -262,16 +261,14 @@ const engine = {
 </div>
     <div class="flex space-x-4 mt-4">
       <div class="w-1/4">
-        <h3 class="text-sm text-gray-300 mb-1">Region</h3>
         <select id="medio-builder-region" class="medioAddTag w-full border rounded p-1">
-        <option value=""></option>
+          <option value="" selected disabled>Region</option>
           <optgroup label="Africa">
               <option value="North Africa">North Africa</option>
               <option value="West Africa">West Africa</option>
               <option value="Central Africa">Central Africa</option>
               <option value="East Africa">East Africa</option>
               <option value="Southern Africa">Southern Africa</option>
-              
           </optgroup>
           <optgroup label="Asia">
               <option value="East Asia">East Asia</option>
@@ -279,7 +276,6 @@ const engine = {
               <option value="South Asia">South Asia</option>
               <option value="Central Asia">Central Asia</option>
               <option value="West Asia">West Asia</option>
-              
           </optgroup>
           <optgroup label="Europe">
               <option value="Northern Europe">Northern Europe</option>
@@ -287,62 +283,52 @@ const engine = {
               <option value="Central Europe">Central Europe</option>
               <option value="Eastern Europe">Eastern Europe</option>
               <option value="Southern Europe">Southern Europe</option>
-              
           </optgroup>
           <optgroup label="North America">
               <option value="Canada">Canada</option>
               <option value="United States">United States</option>
               <option value="Mexico">Mexico</option>
               <option value="Central America">Central America</option>
-              
           </optgroup>
           <optgroup label="South America">
               <option value="Brazil">Brazil</option>
               <option value="Argentina">Argentina</option>
               <option value="Colombia">Colombia</option>
               <option value="Peru">Peru</option>
-              
           </optgroup>
           <optgroup label="Australia">
               <option value="Australia">Australia</option>
               <option value="New Zealand">New Zealand</option>
-              
           </optgroup>
           <optgroup label="Middle East">
               <option value="Middle East">Middle East</option>
               <option value="North Africa">North Africa</option>
-              
           </optgroup>
           <optgroup label="Caribbean">
               <option value="Jamaica">Jamaica</option>
               <option value="Cuba">Cuba</option>
               <option value="Haiti">Haiti</option>
               <option value="Dominican Republic">Dominican Republic</option>
-              
           </optgroup>
           <optgroup label="Central America">
               <option value="Guatemala">Guatemala</option>
               <option value="Belize">Belize</option>
               <option value="Costa Rica">Costa Rica</option>
               <option value="Panama">Panama</option>
-              
           </optgroup>
           <optgroup label="Pacific Islands">
               <option value="Polynesia">Polynesia</option>
               <option value="Melanesia">Melanesia</option>
               <option value="Micronesia">Micronesia</option>
-              
           </optgroup>
           <optgroup label="Antarctica">
               <option value="Antarctica">Antarctica</option>
-              
           </optgroup>
         </select>
       </div>
       <div class="w-1/4">
-        <h3 class="text-sm text-gray-300 mb-1">Vocals</h3>
         <select id="medio-builder-vocal" class="medioAddTag w-full border rounded p-1">
-        <option value=""></option>
+          <option value="" selected disabled>Vocals</option>
           <!-- Baritone -->
           <option value="Baritone">Baritone</option>
           <option value="Lyric Baritone">Lyric Baritone</option>
@@ -388,9 +374,8 @@ const engine = {
         </select>
       </div>
       <div class="w-1/4">
-        <h3 class="text-sm text-gray-300 mb-1">Instruments</h3>
         <select id="medio-builder-instruments" class="medioAddTag w-full border rounded p-1">
-        <option value=""></option>
+          <option value="" selected disabled>Instruments</option>
           <!-- String Instruments -->
           <option value="Violin">Violin</option>
           <option value="Viola">Viola</option>
@@ -424,9 +409,8 @@ const engine = {
         </select>
       </div>
       <div class="w-1/4">
-        <h3 class="text-sm text-gray-300 mb-1">Production</h3>
         <select id="medio-builder-production" class="medioAddTag w-full border rounded p-1">
-        <option value=""></option>
+            <option value="" selected disabled>Production</option>
             <option value="Lo-fi">Lo-fi</option>
             <option value="Hi-fi">Hi-fi</option>
             <option value="Acoustic">Acoustic</option>
@@ -453,22 +437,110 @@ const engine = {
   <div class="py-4">
       <textarea placeholder="Add musical tags here..." class="w-full p-6 rounded border mb-3" id="medioTagBox" style="height: 180px"></textarea>
 
-      <input type="text" placeholder="Title..." class="w-full p-2 px-4 rounded border mb-3" style="width: 300px" />
-      <div class="flex space-x-2">
-        <button id="medio-saveTags">Save</button>
-        <button id="medio-clearTags">Clear</button>
+      <div class="flex justify-between space-x-4">
+        <input id="medioTagBoxTitle" autocomplete="off" type="text" placeholder="Title..." class="w-full p-2 px-4 rounded border mb-3" style="width: 100%;" />
+        <div class="flex space-x-1">
+          <button id="medio-saveTags">Save</button>
+          <button id="medio-clearTags">Clear</button>
+          <button id="medio-copyTags">Copy</button>
+        </div>
       </div>
   </div>
 </div>
 
 <div style="display: none" class="lyric-buildertab" data-tab="library">
-  <div id="medio-library-items" class="grid grid-cols-3 gap-4"></div>
+  <div id="medio-taglibrary-items" class="grid grid-cols-3 gap-4"></div>
 </div>
 </div>
 
           `;
 
       document.body.appendChild(overlay);
+
+      // click tabs
+      const lyricBuildertabButtons = document.querySelectorAll(
+        ".lyric-buildertab-button"
+      );
+      const lyricBuildertabs = document.querySelectorAll(".lyric-buildertab");
+
+      lyricBuildertabButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const tab = button.getAttribute("data-tab");
+
+          lyricBuildertabButtons.forEach((button) => {
+            button.classList.remove("bg-black", "text-foreground");
+            button.classList.add("bg-muted", "text-muted-foreground");
+          });
+
+          lyricBuildertabs.forEach((tab) => {
+            tab.style.display = "none";
+          });
+
+          button.classList.remove("bg-muted", "text-muted-foreground");
+          button.classList.add("bg-black", "text-foreground");
+
+          const selectedTab = document.querySelector(
+            `.lyric-buildertab[data-tab="${tab}"]`
+          );
+
+          selectedTab.style.display = "block";
+
+          if (tab === "library") {
+            chrome.storage.sync.get("medioTags", (data) => {
+              const tags = data.medioTags ? data.medioTags : [];
+
+              const tagLibraryItems = document.getElementById(
+                "medio-taglibrary-items"
+              );
+
+              tagLibraryItems.innerHTML = "";
+
+              tags.forEach((tag, index) => {
+                const div = document.createElement("div");
+                div.classList.add(
+                  "medioopentag",
+                  "border",
+                  "p-4",
+                  "rounded",
+                  "text-sm"
+                );
+
+                div.setAttribute("data-id", tag.id);
+
+                div.innerHTML = /* html */ `
+                <h2 class="font-bold text-lg">${tag.title}</h2>
+                <p class="truncate text-gray-400">${tag.tags}</p>
+                `;
+
+                tagLibraryItems.appendChild(div);
+              });
+
+              const medioOpenTag = document.querySelectorAll(".medioopentag");
+
+              medioOpenTag.forEach((tag) => {
+                tag.addEventListener("click", () => {
+                  const tags = tag.querySelector("p").textContent;
+                  const title = tag.querySelector("h2").textContent;
+
+                  const medioTagBox = document.getElementById("medioTagBox");
+                  const medioTagBoxTitle =
+                    document.getElementById("medioTagBoxTitle");
+
+                  medioTagBox.value = tags;
+                  medioTagBoxTitle.value = title;
+
+                  document.querySelector("#mediotag-id").value =
+                    tag.getAttribute("data-id");
+
+                  document
+                    .querySelector(`.lyric-buildertab-button[data-tab="build"]`)
+                    .click();
+                });
+              });
+            });
+          }
+        });
+      });
 
       const medioAddTag = document.querySelectorAll(".medioAddTag");
       const medioTagBox = document.getElementById("medioTagBox");
@@ -491,7 +563,9 @@ const engine = {
           const artistSelect = document.getElementById("medio-builder-artist");
           const option = document.createElement("option");
           option.value = "";
-          option.textContent = "";
+          option.textContent = "Artist";
+          option.disabled = true;
+          option.selected = true;
           artistSelect.appendChild(option);
           data.forEach((artist) => {
             const option = document.createElement("option");
@@ -507,7 +581,9 @@ const engine = {
           const genreSelect = document.getElementById("medio-builder-genre");
           const option = document.createElement("option");
           option.value = "";
-          option.textContent = "";
+          option.textContent = "Genre";
+          option.disabled = true;
+          option.selected = true;
           genreSelect.appendChild(option);
           data.forEach((artist) => {
             const option = document.createElement("option");
@@ -516,6 +592,43 @@ const engine = {
             genreSelect.appendChild(option);
           });
         });
+
+      const medioSaveTags = document.getElementById("medio-saveTags");
+      medioSaveTags.addEventListener("click", () => {
+        const tags = medioTagBox.value;
+        const title = document.querySelector("#medioTagBoxTitle").value;
+
+        chrome.storage.sync.get("medioTags", (data) => {
+          const newTags = data.medioTags ? data.medioTags : [];
+          newTags.push({
+            id: engine.uuidv4(),
+            created_at: new Date().toISOString(),
+            tags,
+            title,
+          });
+          chrome.storage.sync.set({ medioTags: newTags }, () => {
+            console.log("Tags saved");
+          });
+        });
+      });
+
+      const medioClearTags = document.getElementById("medio-clearTags");
+      medioClearTags.addEventListener("click", () => {
+        medioTagBox.value = "";
+        document.querySelector("#medioTagBoxTitle").value = "";
+        document.querySelector("#mediotag-id").value = "";
+      });
+
+      const medioCopyTags = document.getElementById("medio-copyTags");
+      medioCopyTags.addEventListener("click", (e) => {
+        navigator.clipboard.writeText(medioTagBox.value);
+
+        e.target.textContent = "Copied!";
+
+        setTimeout(() => {
+          e.target.textContent = "Copy";
+        }, 1000);
+      });
 
       const closeLyricTagBuilder = document.getElementById(
         "close-lyric-tagbuilder"
@@ -586,10 +699,14 @@ const engine = {
   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94c0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6s3.6 1.62 3.6 3.6s-1.62 3.6-3.6 3.6"/></svg>
   </button>
 
-  <h1 style="font-size: 24px; font-weight: 700; margin-bottom: 16px">
-    Medio: Lyric Manager
-    <span id="medioCharactersSelected" style="display:none" class="ml-3 text-sm text-gray-300 flex-1 whitespace-nowrap font-medium">0 Characters Selected</span>
-  </h1>
+
+  <h1 class="flex items-center space-x-2" style="font-size: 24px; font-weight: 700; margin-bottom: 16px">
+  <img src="${chrome.runtime.getURL(
+    "icon/48x48.png"
+  )}" style="width: 48px; height: 48px; border-radius: 6px; margin-right: 8px" />
+  <span class="font-bold">Lyric Manager</span>
+  <span id="medioCharactersSelected" style="display:none" class="ml-6 text-sm text-gray-300 flex-1 whitespace-nowrap font-medium">0 Characters Selected</span>
+</h1>
 
   <div
   role="tablist"

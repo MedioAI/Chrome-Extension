@@ -67,14 +67,15 @@
   margin-right: 10px;
 }
 #medio-saveTags,
-#medio-clearTags {
+#medio-clearTags,
+#medio-copyTags {
   width: 110px;
   background: #27272a;
-  padding: 4px 12px;
+  padding: 6px 12px;
   display: block;
   border-radius: 6px;
   font-size: 14px;
-  height: 37px !important;
+  height: 42px !important;
   line-height: 0;
   border: 1px solid rgb(68, 68, 68);
   margin-right: 10px;
@@ -87,6 +88,17 @@
 #results {
   height: calc(100% - 140px);
   overflow-x: hidden;
+}
+
+select.medioAddTag {
+  font-size: 13px;
+  padding: 7px 6px;
+  color: #a1a1a1;
+}
+
+.medioopentag:hover {
+  background: #27272a;
+  cursor: pointer;
 }
 
 #toolbar {

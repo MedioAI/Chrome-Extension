@@ -1,22 +1,31 @@
 {
   "manifest_version": 3,
-  "name": "MEDIO - AI Musical Assistant",
+  "name": "MEDIOMUSIC: A.I. Music Assistant",
   "version": "1.0",
-  "description": "Ding fries are done! Get notified when your Udio creations are ready to listen too and much more.",
+  "description": "Get notified when your Udio tracks are ready & enjoy effortless lyric writing with our Lyric Manager. Pick lyrics [commands], find rhymes & craft tags with the Tag Builder.",
   "permissions": ["activeTab", "scripting", "notifications", "storage"],
   "host_permissions": ["https://www.udio.com/*"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "icon/icon16.png",
-      "48": "icon/icon48.png",
-      "128": "icon/icon128.png"
+      "48": "icon/48x48.png",
+      "128": "icon/128x128.png"
     }
+  },
+  "icons": {
+    "16": "icon/16x16.png",
+    "48": "icon/48x48.png",
+    "128": "icon/128x128.png"
   },
   "web_accessible_resources": [
     {
-      "resources": ["ding.mp3", "genres.json", "artists.json"],
-      "matches": ["<all_urls>"]
+      "resources": [
+        "ding.mp3",
+        "genres.json",
+        "artists.json",
+        "icon/48x48.png"
+      ],
+      "matches": ["https://www.udio.com/*"]
     }
   ],
   "content_scripts": [
