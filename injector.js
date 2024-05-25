@@ -574,6 +574,8 @@ const engine = {
         const tab = e.target.dataset.tab;
         const tabs = document.querySelectorAll(".lyric-tab");
         document.querySelector(".settings-medio").style.display = "none";
+        document.getElementById("medioCharactersSelected").style.display =
+          "none";
 
         tabButtons.forEach((button) => {
           button.setAttribute(
