@@ -80,10 +80,13 @@
   border: 1px solid rgb(68, 68, 68);
   margin-right: 10px;
 }
-#medio-clearTags.confirmClear {
-  background: #e3095d;
-  border-color: #fa327f;
-  color: #fff;
+#clear-lyrics.confirmClear {
+  background: #e3095d !important;
+  border-color: #fa327f !important;
+  color: #fff !important;
+}
+#medioCharactersSelected {
+  margin-left: 15px;
 }
 #medio-copyTags {
   margin-right: 0;
@@ -208,6 +211,7 @@ select.medioAddTag {
 .deleteMediaSong.confirmDelete {
   color: #e3095d;
 }
+
 .deleteMediaSong * {
   pointer-events: none;
 }

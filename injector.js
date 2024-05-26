@@ -912,7 +912,7 @@ const engine = {
     "icon/128x128.png"
   )}" style="width: 48px; height: 48px; border-radius: 6px; margin-right: 8px" />
   <span class="font-bold">Song Studio</span>
-  <span id="medioCharactersSelected" style="display:none" class="ml-6 text-sm text-gray-300 flex-1 whitespace-nowrap font-medium">0 Characters Selected</span>
+  <span id="medioCharactersSelected" style="display:none" class="text-sm text-gray-300 flex-1 whitespace-nowrap font-medium">0 Characters Selected</span>
 </h1>
 
   <div
@@ -1229,10 +1229,9 @@ const engine = {
     </div>
   </div>
   <div id="editor"></div>
+  <style id="medioCSS">.medioCommand {color: #26BB79}</style>
 </div>
-</div>
-
-        `;
+</div>`;
 
       document.body.appendChild(overlay2);
 
@@ -1292,14 +1291,18 @@ const engine = {
 
       const clearLyrics = document.getElementById("clear-lyrics");
       clearLyrics.addEventListener("click", (e) => {
-        if (e.target.classList.contains("confirmDelete")) {
+        if (e.target.classList.contains("confirmClear")) {
           document.getElementById("lyric-id").value = "";
           document.getElementById("lyric-title").value = "";
           engine.quill.root.innerHTML = "";
           engine.showNotification("Song lyrics cleared.");
-          e.target.classList.remove("confirmDelete");
+          e.target.classList.remove("confirmClear");
         } else {
-          e.target.classList.add("confirmDelete");
+          e.target.classList.add("confirmClear");
+
+          setTimeout(() => {
+            e.target.classList.remove("confirmClear");
+          }, 3000);
         }
       });
 
@@ -1511,6 +1514,8 @@ const engine = {
                     );
 
                     chrome.storage.local.set({ medioLyrics: updatedLyrics });
+
+                    engine.showNotification("Deleted song from your library.");
                   });
                 } else {
                   e.target.classList.add("confirmDelete");
@@ -1606,10 +1611,41 @@ const engine = {
       },
     });
 
+    function addCommandClass() {
+      const editor = document.querySelector("#editor");
+      const paragraphs = editor.querySelectorAll("p");
+      paragraphs.forEach((p) => {
+        if (/^\[.*\]$/.test(p.textContent.trim())) {
+          p.classList.add("medioCommand");
+        } else {
+          p.classList.remove("medioCommand");
+        }
+      });
+    }
+
+    engine.quill.on("text-change", function () {
+      addCommandClass();
+
+      const el = document.getElementById("medioCharactersSelected");
+      el.style.display = "none";
+
+      setTimeout(() => {
+        let editor = engine.quill.root;
+        let codeBlocks = editor.querySelectorAll(".ql-code-block");
+
+        codeBlocks.forEach((codeBlock) => {
+          let text = codeBlock.textContent;
+          let p = document.createElement("p");
+          p.textContent = text;
+          codeBlock.replaceWith(p);
+        });
+      }, 0);
+    });
+
     engine.quill.on("selection-change", function (range, oldRange, source) {
+      const el = document.getElementById("medioCharactersSelected");
       if (range) {
-        const el = document.getElementById("medioCharactersSelected");
-        if (range.length == 0) {
+        if (el && range.length == 0) {
           el.style.display = "none";
         } else {
           const text = engine.quill.getText(range.index, range.length);
@@ -1626,7 +1662,7 @@ const engine = {
             charCount +
             "</strong> characters selected. <em class='italic text-gray-500'>(Recommended: Less than 350 characters per section)</em>";
         }
-      } else {
+      } else if (el) {
         el.style.display = "none";
       }
     });
@@ -1641,15 +1677,28 @@ const engine = {
         this.value = "";
       });
 
-    engine.quill.clipboard.addMatcher(
-      Node.ELEMENT_NODE,
-      function (node, delta) {
-        if (node.children.length > 0) {
-          node.textContent += "\n";
+    engine.quill.clipboard.addMatcher(Node.ELEMENT_NODE, (node, delta) => {
+      let ops = [];
+
+      delta.ops.forEach((op) => {
+        if (op.insert && typeof op.insert === "string") {
+          ops.push({
+            insert: op.insert + "\n",
+          });
         }
-        return new Delta().insert(node.textContent);
+      });
+
+      delta.ops = ops;
+
+      let length = engine.quill.getLength();
+      let range = { index: 0, length: length };
+      if (range.length > 0) {
+        engine.quill.removeFormat(range, Quill.sources.USER);
       }
-    );
+
+      // Return the modified delta
+      return delta;
+    });
   },
 
   checkRhymes: async () => {
