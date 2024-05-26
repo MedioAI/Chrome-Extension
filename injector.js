@@ -20,6 +20,25 @@ const engine = {
         }
       }, 1000);
     }
+
+    // engine.clearDB();
+  },
+
+  clearDB: () => {
+    chrome.storage.sync.get("medioTags", (data) => {
+      if (data.medioTags) {
+        chrome.storage.sync.remove("medioTags", () => {
+          console.log("medioTags cleared.");
+        });
+      }
+    });
+    chrome.storage.sync.get("medioLyrics", (data) => {
+      if (data.medioLyrics) {
+        chrome.storage.sync.remove("medioLyrics", () => {
+          console.log("medioLyrics cleared.");
+        });
+      }
+    });
   },
 
   lyricBarn: () => {
@@ -83,13 +102,16 @@ const engine = {
     color: #fff;
     font-size: 34px;
     cursor: pointer;
+    background: #000;
+    border-radiu: 100%;
+    padding: 6px 12px;
     ">&times;</button>
           <div id="lyric-barn-content">
   <input type="hidden" id="mediotag-id" />
 
 <h1 class="flex items-center space-x-2" style="font-size: 24px; font-weight: 700; margin-bottom: 16px">
   <img src="${chrome.runtime.getURL(
-    "icon/48x48.png"
+    "icon/128x128.png"
   )}" style="width: 48px; height: 48px; border-radius: 6px; margin-right: 8px" />
   <span class="font-bold">Tag Builder</span>
 </h1>
@@ -119,8 +141,15 @@ const engine = {
 </div>
 
 <div  class="lyric-buildertab"  data-tab="build">
-  <div class="mb-4">
-      <input type="text" placeholder="Search for tags..." class="w-full border rounded p-2 px-3" />
+  <div class="mb-4 relative">
+    <span class="text-sm text-gray-200 mb-2 block">Search & Browse</span>
+    <div id="medioSearchClear" class="absolute" style="top: 40px;right:13px">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 32 32"><path fill="currentColor" d="m29.772 26.433l-7.126-7.126a10.43 10.43 0 0 0 1.524-5.42c0-5.794-4.692-10.486-10.482-10.488c-5.79 0-10.484 4.693-10.484 10.485c0 5.79 4.693 10.48 10.484 10.48c1.987 0 3.84-.562 5.422-1.522l7.128 7.127l3.534-3.537zM7.202 13.885a6.496 6.496 0 0 1 6.485-6.486a6.493 6.493 0 0 1 6.484 6.485a6.494 6.494 0 0 1-6.483 6.484a6.496 6.496 0 0 1-6.484-6.485z"/></svg>
+    </div>
+    <input type="text" id="searchTags" placeholder="Search for tags..." class="w-full border rounded p-2 px-3" />
+    <div id="medioSearchDropdown" class="w-full bg-black mt-2 absolute p-4 rounded shadow-xl border flex flex-x-2 flex-y-2 items-start" style="display: none">
+      <p class="text-xs text-gray-400">Search results will appear here...</p>
+    </div>
   </div>
   <div class="flex space-x-4">
       <div class="w-1/4">
@@ -435,10 +464,16 @@ const engine = {
       </div>
   </div>
   <div class="py-4">
-      <textarea placeholder="Add musical tags here..." class="w-full p-6 rounded border mb-3" id="medioTagBox" style="height: 180px"></textarea>
+
+  <span class="text-sm text-gray-200 mb-2 block">Prompt</span>
+
+      <textarea placeholder="Write music prompt tags here..." class="w-full p-6 rounded border mb-3" id="medioTagBox" style="height: 180px"></textarea>
+
+      <hr class="mt-2 mb-6 border-t border-gray-700" />
+
 
       <div class="flex justify-between space-x-4">
-        <input id="medioTagBoxTitle" autocomplete="off" type="text" placeholder="Title..." class="w-full p-2 px-4 rounded border mb-3" style="width: 100%;" />
+        <input id="medioTagBoxTitle" autocomplete="off" type="text" placeholder="Give your tag group a name..." class="w-full p-2 px-4 rounded border mb-3" style="width: 100%;" />
         <div class="flex space-x-1">
           <button id="medio-saveTags">Save</button>
           <button id="medio-clearTags">Clear</button>
@@ -457,7 +492,6 @@ const engine = {
 
       document.body.appendChild(overlay);
 
-      // click tabs
       const lyricBuildertabButtons = document.querySelectorAll(
         ".lyric-buildertab-button"
       );
@@ -495,6 +529,18 @@ const engine = {
 
               tagLibraryItems.innerHTML = "";
 
+              if (tags.length === 0) {
+                tagLibraryItems.setAttribute(
+                  "class",
+                  "text-center w-full p-4 text-gray-500"
+                );
+                tagLibraryItems.innerHTML =
+                  "<h3 class='text-2xl text-gray-200 font-bold mb-2'>No Tags Found</h3> <p>Your tags will appear here to edit & manage at any time.</p>";
+                return;
+              } else {
+                tagLibraryItems.setAttribute("class", "grid grid-cols-3 gap-4");
+              }
+
               tags.forEach((tag, index) => {
                 const div = document.createElement("div");
                 div.classList.add(
@@ -502,7 +548,8 @@ const engine = {
                   "border",
                   "p-4",
                   "rounded",
-                  "text-sm"
+                  "text-sm",
+                  "relative"
                 );
 
                 div.setAttribute("data-id", tag.id);
@@ -510,6 +557,7 @@ const engine = {
                 div.innerHTML = /* html */ `
                 <h2 class="font-bold text-lg">${tag.title}</h2>
                 <p class="truncate text-gray-400">${tag.tags}</p>
+                <button class="deleteMediaTag absolute top-2 right-2 text-sm text-gray-400"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M216 48h-36V36a28 28 0 0 0-28-28h-48a28 28 0 0 0-28 28v12H40a12 12 0 0 0 0 24h4v136a20 20 0 0 0 20 20h128a20 20 0 0 0 20-20V72h4a12 12 0 0 0 0-24M100 36a4 4 0 0 1 4-4h48a4 4 0 0 1 4 4v12h-56Zm88 168H68V72h120Zm-72-100v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0m48 0v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0"/></svg></button>
                 `;
 
                 tagLibraryItems.appendChild(div);
@@ -518,6 +566,35 @@ const engine = {
               const medioOpenTag = document.querySelectorAll(".medioopentag");
 
               medioOpenTag.forEach((tag) => {
+                tag
+                  .querySelector(".deleteMediaTag")
+                  .addEventListener("click", (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    if (e.target.classList.contains("confirmDelete")) {
+                      const tagId = tag.getAttribute("data-id");
+
+                      chrome.storage.sync.get("medioTags", (data) => {
+                        const tags = data.medioTags ? data.medioTags : [];
+                        const newTags = tags.filter((tag) => tag.id !== tagId);
+
+                        chrome.storage.sync.set({ medioTags: newTags }, () => {
+                          engine.showNotification(
+                            "Deleted tag from your library."
+                          );
+                        });
+                      });
+
+                      e.target.closest(".medioopentag").remove();
+                    } else {
+                      e.target.classList.add("confirmDelete");
+
+                      setTimeout(() => {
+                        e.target.classList.remove("confirmDelete");
+                      }, 5000);
+                    }
+                  });
                 tag.addEventListener("click", () => {
                   const tags = tag.querySelector("p").textContent;
                   const title = tag.querySelector("h2").textContent;
@@ -557,7 +634,7 @@ const engine = {
       const artistsJson = chrome.runtime.getURL("artists.json");
       const genresJson = chrome.runtime.getURL("genres.json");
 
-      fetch(artistsJson)
+      const artistsPromise = fetch(artistsJson)
         .then((response) => response.json())
         .then((data) => {
           const artistSelect = document.getElementById("medio-builder-artist");
@@ -575,7 +652,7 @@ const engine = {
           });
         });
 
-      fetch(genresJson)
+      const genresPromise = fetch(genresJson)
         .then((response) => response.json())
         .then((data) => {
           const genreSelect = document.getElementById("medio-builder-genre");
@@ -593,30 +670,160 @@ const engine = {
           });
         });
 
-      const medioSaveTags = document.getElementById("medio-saveTags");
-      medioSaveTags.addEventListener("click", () => {
-        const tags = medioTagBox.value;
-        const title = document.querySelector("#medioTagBoxTitle").value;
+      Promise.all([artistsPromise, genresPromise]).then(() => {
+        const totalDBTags = [];
+        const allSelectBoxes = document.querySelectorAll(".medioAddTag");
 
-        chrome.storage.sync.get("medioTags", (data) => {
-          const newTags = data.medioTags ? data.medioTags : [];
-          newTags.push({
-            id: engine.uuidv4(),
-            created_at: new Date().toISOString(),
-            tags,
-            title,
+        allSelectBoxes.forEach((select) => {
+          select.querySelectorAll("option").forEach((option) => {
+            totalDBTags.push(option.value.toLowerCase());
           });
-          chrome.storage.sync.set({ medioTags: newTags }, () => {
-            console.log("Tags saved");
+        });
+
+        document.getElementById("searchTags").addEventListener("input", (e) => {
+          const search = e.target.value.toLowerCase();
+
+          if (search === "") {
+            document.getElementById("medioSearchDropdown").style.display =
+              "none";
+            return;
+          }
+
+          document.querySelector(
+            "#medioSearchClear"
+          ).innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"><path fill="currentColor" d="M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.9.89 1.59.89h15a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-3 12.59L17.59 17L14 13.41L10.41 17L9 15.59L12.59 12L9 8.41L10.41 7L14 10.59L17.59 7L19 8.41L15.41 12"/></svg>`;
+
+          document
+            .querySelector("#medioSearchClear")
+            .addEventListener("click", () => {
+              document.getElementById("searchTags").value = "";
+              document.getElementById("medioSearchDropdown").style.display =
+                "none";
+
+              document.querySelector(
+                "#medioSearchClear"
+              ).innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 32 32"><path fill="currentColor" d="m29.772 26.433l-7.126-7.126a10.43 10.43 0 0 0 1.524-5.42c0-5.794-4.692-10.486-10.482-10.488c-5.79 0-10.484 4.693-10.484 10.485c0 5.79 4.693 10.48 10.484 10.48c1.987 0 3.84-.562 5.422-1.522l7.128 7.127l3.534-3.537zM7.202 13.885a6.496 6.496 0 0 1 6.485-6.486a6.493 6.493 0 0 1 6.484 6.485a6.494 6.494 0 0 1-6.483 6.484a6.496 6.496 0 0 1-6.484-6.485z"/></svg>`;
+            });
+
+          const searchResults = totalDBTags.filter((tag) => {
+            return tag.toLowerCase().includes(search);
+          });
+
+          const medioSearchDropdown = document.getElementById(
+            "medioSearchDropdown"
+          );
+          medioSearchDropdown.innerHTML = "";
+
+          if (searchResults.length === 0) {
+            medioSearchDropdown.innerHTML = `<p class="text-xs text-gray-400">No results found...</p>`;
+            return;
+          }
+
+          searchResults.forEach((tag) => {
+            const span = document.createElement("span");
+            span.classList.add(
+              "medioSearchTag",
+              "py-2",
+              "px-4",
+              "cursor-pointer",
+              "rounded",
+              "bg-gray-400",
+              "text-sm"
+            );
+            const words = tag.split(" ");
+            const capitalizedWords = words.map(
+              (word) => word.charAt(0).toUpperCase() + word.slice(1)
+            );
+            const capitalizedTag = capitalizedWords.join(" ");
+            span.textContent = capitalizedTag;
+            medioSearchDropdown.appendChild(span);
+          });
+
+          medioSearchDropdown.style.display = "block";
+
+          const medioSearchTags = document.querySelectorAll(".medioSearchTag");
+
+          medioSearchTags.forEach((tag) => {
+            tag.addEventListener("click", () => {
+              medioTagBox.value += tag.textContent + ", ";
+              engine.showNotification(
+                `Added "${tag.textContent}" tag to your prompt.`
+              );
+            });
           });
         });
       });
 
+      const medioSaveTags = document.getElementById("medio-saveTags");
+      medioSaveTags.addEventListener("click", (e) => {
+        const tags = medioTagBox.value;
+        const title = document.querySelector("#medioTagBoxTitle").value;
+        const tagId = document.querySelector("#mediotag-id").value;
+
+        if (!tagId) {
+          chrome.storage.sync.get("medioTags", (data) => {
+            const newTags = data.medioTags ? data.medioTags : [];
+            newTags.push({
+              id: engine.uuidv4(),
+              created_at: new Date().toISOString(),
+              tags,
+              title: title || "Untitled",
+            });
+            chrome.storage.sync.set({ medioTags: newTags }, () => {
+              engine.showNotification("Created new tag for your library.");
+            });
+          });
+
+          e.target.textContent = "Saved!";
+
+          setTimeout(() => {
+            e.target.textContent = "Save";
+          }, 1000);
+        } else {
+          chrome.storage.sync.get("medioTags", (data) => {
+            const tags = data.medioTags ? data.medioTags : [];
+            const title = document.querySelector("#medioTagBoxTitle").value;
+            const newTags2 = document.getElementById("medioTagBox").value;
+            const newTags = tags.map((tag) => {
+              if (tag.id === tagId) {
+                return {
+                  ...tag,
+                  tags: newTags2,
+                  title: title,
+                };
+              } else {
+                return tag;
+              }
+            });
+
+            chrome.storage.sync.set({ medioTags: newTags }, () => {
+              engine.showNotification("Updated tag in your library.");
+            });
+          });
+
+          e.target.textContent = "Updated!";
+
+          setTimeout(() => {
+            e.target.textContent = "Save";
+          }, 1000);
+        }
+      });
+
       const medioClearTags = document.getElementById("medio-clearTags");
-      medioClearTags.addEventListener("click", () => {
-        medioTagBox.value = "";
-        document.querySelector("#medioTagBoxTitle").value = "";
-        document.querySelector("#mediotag-id").value = "";
+      medioClearTags.addEventListener("click", (e) => {
+        if (e.target.classList.contains("confirmClear")) {
+          medioTagBox.value = "";
+          document.querySelector("#medioTagBoxTitle").value = "";
+          document.querySelector("#mediotag-id").value = "";
+          engine.showNotification("Cleared current tags.");
+          e.target.classList.remove("confirmClear");
+        } else {
+          e.target.classList.add("confirmClear");
+
+          setTimeout(() => {
+            e.target.classList.remove("confirmClear");
+          }, 5000);
+        }
       });
 
       const medioCopyTags = document.getElementById("medio-copyTags");
@@ -624,6 +831,7 @@ const engine = {
         navigator.clipboard.writeText(medioTagBox.value);
 
         e.target.textContent = "Copied!";
+        engine.showNotification("Copied tags to clipboard.");
 
         setTimeout(() => {
           e.target.textContent = "Copy";
@@ -687,6 +895,9 @@ const engine = {
     color: #fff;
     font-size: 34px;
     cursor: pointer;
+    background: #000;
+    border-radiu: 100%;
+    padding: 6px 12px;
   "
 >
   &times;
@@ -702,7 +913,7 @@ const engine = {
 
   <h1 class="flex items-center space-x-2" style="font-size: 24px; font-weight: 700; margin-bottom: 16px">
   <img src="${chrome.runtime.getURL(
-    "icon/48x48.png"
+    "icon/128x128.png"
   )}" style="width: 48px; height: 48px; border-radius: 6px; margin-right: 8px" />
   <span class="font-bold">Lyric Manager</span>
   <span id="medioCharactersSelected" style="display:none" class="ml-6 text-sm text-gray-300 flex-1 whitespace-nowrap font-medium">0 Characters Selected</span>
@@ -1504,6 +1715,30 @@ const engine = {
     return engine.placeholders[
       Math.floor(Math.random() * engine.placeholders.length)
     ];
+  },
+
+  showNotification: (msg) => {
+    if (document.querySelector(".medioaiNotice")) {
+      document.querySelector(".medioaiNotice").remove();
+    }
+
+    const notification = document.createElement("div");
+    notification.setAttribute(
+      "class",
+      "medioaiNotice fixed top-2 right-2 p-4 bg-gray-400 border rounded text-gray-300 text-white text-center"
+    );
+    notification.setAttribute(
+      "style",
+      "z-index: 999999999999999999; background: #111; color: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.23); border: 1px solid #24CA8B;"
+    );
+
+    notification.innerHTML = `<p>${msg}</p>`;
+
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+      notification.remove();
+    }, 3000);
   },
 
   placeholders: [

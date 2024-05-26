@@ -80,11 +80,39 @@
   border: 1px solid rgb(68, 68, 68);
   margin-right: 10px;
 }
+#medio-clearTags.confirmClear {
+  background: #e3095d;
+  border-color: #fa327f;
+  color: #fff;
+}
+#medio-copyTags {
+  margin-right: 0;
+}
 #editor.ql-container {
   height: calc(100% - 140px);
   border-color: #3c3c3c;
 }
-
+#medioSearchDropdown {
+  height: 150px;
+  max-height: 150px;
+  overflow-x: hidden;
+  margin: 10px 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  top: 100%;
+}
+#medioSearchClear {
+  cursor: pointer;
+}
+.medioSearchTag {
+  display: inline-block;
+  padding: 4px 8px;
+  background: #27272a;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+.medioSearchTag:hover {
+  background: #3f3f42;
+}
 #results {
   height: calc(100% - 140px);
   overflow-x: hidden;
@@ -93,9 +121,29 @@
 select.medioAddTag {
   font-size: 13px;
   padding: 7px 6px;
-  color: #a1a1a1;
+  color: #a1a1a9;
+}
+#medioTagBoxTitle,
+#searchTags {
+  color: #a1a1a9;
 }
 
+.deleteMediaTag:hover,
+.confirmDelete {
+  color: #e3095d;
+  opacity: 1;
+}
+
+#searchTags::placeholder,
+#medioTagBox::placeholder,
+#medioTagBoxTitle::placeholder {
+  color: #a1a1a9;
+}
+#searchTags,
+#medioTagBox,
+#medioTagBoxTitle {
+  color: #fff;
+}
 .medioopentag:hover {
   background: #27272a;
   cursor: pointer;
