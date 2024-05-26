@@ -3,10 +3,12 @@
   "name": "MedioAI: Your Music Companion",
   "version": "1.0",
   "description": "Get notified when your Udio & Suno tracks are ready & enjoy effortless lyric writing with our Lyric Manager. Pre-made [commands], find rhymes & craft tags with the Tag Builder.",
-  "permissions": ["activeTab", "scripting", "notifications", "storage"],
-  "host_permissions": ["https://www.udio.com/*"],
+  "permissions": ["activeTab", "scripting", "storage"],
+  "background": {
+    "service_worker": "background.js"
+  },
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "popup/popup.html",
     "default_icon": {
       "48": "icon/48x48.png",
       "128": "icon/128x128.png"
@@ -20,9 +22,12 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "ding.mp3",
-        "genres.json",
-        "artists.json",
+        "sounds/1.mp3",
+        "sounds/2.mp3",
+        "sounds/3.mp3",
+        "sounds/4.mp3",
+        "database/genres.json",
+        "database/artists.json",
         "icon/48x48.png",
         "icon/128x128.png"
       ],
@@ -32,8 +37,8 @@
   "content_scripts": [
     {
       "matches": ["https://www.udio.com/*"],
-      "js": ["lib/quill.js", "injector.js"],
-      "css": ["injector.css", "lib/quilljs.css"]
+      "js": ["lib/quill.js", "engine/injector.js"],
+      "css": ["engine/injector.css", "lib/quilljs.css"]
     }
   ]
 }
