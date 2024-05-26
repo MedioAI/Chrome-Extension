@@ -21,7 +21,7 @@ const engine = {
       }, 1000);
     }
 
-    // engine.clearDB();
+    engine.clearDB();
   },
 
   clearDB: () => {
@@ -47,7 +47,7 @@ const engine = {
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M4 16V4zm-2 6V4q0-.825.588-1.412T4 2h11q.825 0 1.413.588T17 4v.425q-.6.275-1.1.675T15 6V4H4v12h11v-4q.4.5.9.9t1.1.675V16q0 .825-.587 1.413T15 18H6zm4-8h4v-2H6zm13-2q-1.25 0-2.125-.875T16 9t.875-2.125T19 6q.275 0 .525.05t.475.125V1h4v2h-2v6q0 1.25-.875 2.125T19 12M6 11h7V9H6zm0-3h7V6H6z"/></svg>
     
     
-    <span class="ml-3 flex-1 whitespace-nowrap font-bold">Lyric Manager</span>
+    <span class="ml-3 flex-1 whitespace-nowrap font-bold">Song Studio</span>
     
     </a></div></div>
     
@@ -605,6 +605,8 @@ const engine = {
                   document
                     .querySelector(`.lyric-buildertab-button[data-tab="build"]`)
                     .click();
+
+                  engine.showNotification(`Opened Tag Group: "${title}"`);
                 });
               });
             });
@@ -909,7 +911,7 @@ const engine = {
   <img src="${chrome.runtime.getURL(
     "icon/128x128.png"
   )}" style="width: 48px; height: 48px; border-radius: 6px; margin-right: 8px" />
-  <span class="font-bold">Lyric Manager</span>
+  <span class="font-bold">Song Studio</span>
   <span id="medioCharactersSelected" style="display:none" class="ml-6 text-sm text-gray-300 flex-1 whitespace-nowrap font-medium">0 Characters Selected</span>
 </h1>
 
@@ -975,7 +977,11 @@ const engine = {
     <button id="lyric-barn-findRhymeClear">Clear</button>
     <button id="lyric-barn-findRhyme">Find Rhymes</button>
   </div>
-  <div id="results" class="w-full grid grid-cols-4 gap-2"></div>
+  <div id="results" class="w-full grid grid-cols-4 gap-2" style="display: none"></div>
+  <div id="medioRhymeExplainer" class="text-center w-full">
+    <h3 class='text-2xl text-gray-200 font-bold mb-2 mt-8'>Search for Rhymes</h3> 
+    <p>Search the <span style="background: #27272A"class="rounded p-2 text-xs">Datamuse</span> free API for any word that might rhyme for catchier lyrics.</p>
+  </div>
 </div>
 
 <div style="display: none" class="lyric-tab" data-tab="library">
@@ -1268,6 +1274,8 @@ const engine = {
       findRhymesClear.addEventListener("click", () => {
         document.getElementById("wordInput").value = "";
         document.getElementById("results").innerHTML = "";
+        document.getElementById("results").style.display = "none";
+        document.getElementById("medioRhymeExplainer").style.display = "block";
       });
 
       const wordInput = document.getElementById("wordInput");
@@ -1283,11 +1291,15 @@ const engine = {
       });
 
       const clearLyrics = document.getElementById("clear-lyrics");
-      clearLyrics.addEventListener("click", () => {
-        if (confirm("Are you sure you want to clear the results?")) {
+      clearLyrics.addEventListener("click", (e) => {
+        if (e.target.classList.contains("confirmDelete")) {
           document.getElementById("lyric-id").value = "";
           document.getElementById("lyric-title").value = "";
           engine.quill.root.innerHTML = "";
+          engine.showNotification("Song lyrics cleared.");
+          e.target.classList.remove("confirmDelete");
+        } else {
+          e.target.classList.add("confirmDelete");
         }
       });
 
@@ -1442,8 +1454,7 @@ const engine = {
                 "class",
                 "text-center w-full p-4 text-gray-500"
               );
-              libraryItems.innerHTML =
-                "<h3 class='text-2xl text-gray-200 font-bold mb-2'>No Songs Found</h3> <p>Your songs will appear here to edit & manage at any time.</p>";
+              libraryItems.innerHTML = `<h3 class='text-2xl text-gray-200 font-bold mb-2'>No Songs Found</h3> <p>Your songs will appear here to edit & manage at any time.</p>`;
               return;
             }
 
@@ -1456,7 +1467,8 @@ const engine = {
                 "rounded-lg",
                 "p-3",
                 "text-lg",
-                "font-bold"
+                "font-bold",
+                "relative"
               );
               lyricItem.innerHTML = `<h3 class="text-xl font-medium">${
                 lyric.title
@@ -1464,7 +1476,7 @@ const engine = {
                 lyric.created_at
                   ? engine.formatDate(lyric.created_at || Date.now())
                   : "8:20PM on June, 28th, 2024"
-              }</p>`;
+              }</p> <button class="deleteMediaSong absolute top-2 right-2 text-sm text-gray-400"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M216 48h-36V36a28 28 0 0 0-28-28h-48a28 28 0 0 0-28 28v12H40a12 12 0 0 0 0 24h4v136a20 20 0 0 0 20 20h128a20 20 0 0 0 20-20V72h4a12 12 0 0 0 0-24M100 36a4 4 0 0 1 4-4h48a4 4 0 0 1 4 4v12h-56Zm88 168H68V72h120Zm-72-100v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0m48 0v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0"/></svg></button>`;
               lyricItem.addEventListener("click", () => {
                 document.getElementById("lyric-id").value = lyric.id;
                 document.getElementById("lyric-title").value = lyric.title;
@@ -1472,9 +1484,40 @@ const engine = {
 
                 const firstTab = document.querySelector(".lyric-tab-button");
                 firstTab.click();
+                engine.showNotification(`Opened Song: "${lyric.title}"`);
               });
 
               libraryItems.appendChild(lyricItem);
+
+              const deleteButtons =
+                document.querySelectorAll(".deleteMediaSong");
+              deleteButtons.forEach((button) => {
+                button.addEventListener("click", (e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  const id = lyric.id;
+                  const title = lyric.title;
+
+                  console.log("click");
+                  if (e.target.classList.contains("confirmDelete")) {
+                    // engine.deleteSong(id, title);
+                    console.log(
+                      "delete",
+                      id,
+                      title,
+                      e.target.classList.contains("confirmDelete")
+                    );
+                    e.target.closest(".open-lyric").remove();
+                    e.target.classList.remove("confirmDelete");
+                  } else {
+                    e.target.classList.add("confirmDelete");
+
+                    setTimeout(() => {
+                      e.target.classList.remove("confirmDelete");
+                    }, 3000);
+                  }
+                });
+              });
             });
           });
         }
@@ -1612,9 +1655,12 @@ const engine = {
     const resultsDiv = document.getElementById("results");
 
     resultsDiv.innerHTML = "";
+    document.querySelector("#medioRhymeExplainer").style.display = "none";
+    document.querySelector("#results").style.display = "grid";
 
     if (!word) {
       resultsDiv.innerHTML = "<p>Please enter a word to search for.</p>";
+
       return;
     }
 
@@ -1675,8 +1721,7 @@ const engine = {
         medioLyrics.push(lyrics);
         document.getElementById("lyric-id").value = lyrics.id;
         chrome.storage.local.set({ medioLyrics }, function () {
-          console.log("Lyrics saved.", medioLyrics);
-          alert("Saved!");
+          engine.showNotification("Added new song to your library.");
         });
       });
     } else {
@@ -1687,8 +1732,7 @@ const engine = {
         lyrics.content = engine.quill.root.innerHTML;
 
         chrome.storage.local.set({ medioLyrics }, function () {
-          console.log("Lyrics updated.", medioLyrics);
-          alert("Updated!");
+          engine.showNotification("Updated song lyrics.");
         });
       });
     }

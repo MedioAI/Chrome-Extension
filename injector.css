@@ -23,7 +23,7 @@
 }
 
 #lyric-title {
-  width: 300px;
+  width: 200px;
   padding: 4px 8px;
   font-size: 14px;
   border: 1px solid #3c3c3c;
@@ -205,6 +205,15 @@ select.medioAddTag {
   color: #fff;
 }
 
+.deleteMediaSong.confirmDelete {
+  background: #e3095d;
+  border-color: #fa327f;
+  color: #fff;
+}
+.deleteMediaSong * {
+  pointer-events: none;
+}
+
 .open-lyric:hover {
   background: #27272a;
 }
@@ -278,4 +287,12 @@ select.medioAddTag {
   position: absolute;
   top: 39px;
   right: 54px;
+}
+
+.lyric-tab-button.bg-black {
+  color: #fff;
+}
+
+.lyric-buildertab-button.bg-black {
+  color: #fff;
 }
