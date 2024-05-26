@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedioAI: Your Music Assistant</title>
+    <link rel="stylesheet" href="/app/css/style.css" />
+  </head>
+  <body class="flex text-white">
+    <div id="sidebar" class="w-1/6 h-screen relative">
+      <div id="logo">
+        <img src="/app/images/icon.png" alt="MedioAI" />
+        <h2>Medio<strong>AI</strong></h2>
+      </div>
+      <div id="nav">
+        <a href="/app/index.html">Dashboard</a>
+        <a href="/app/convert.html">Convert</a>
+        <a href="/app/visualizer.html">Visualizer</a>
+        <a class="active" href="/app/settings.html">Settings</a>
+      </div>
+      <div id="copyright">
+        <p>
+          &copy; 2024 MedioAI. All rights reserved. Crafted with ♡ by
+          <a href="https://medioai.com" class="link" target="_blank"
+            >Wynter Jones</a
+          >. <br /><br />
+          Listen to AI music
+          <a
+            href="http://www.youtube.com/@AI.MASSIVE"
+            class="link"
+            target="_blank"
+          >
+            @AI.MASSIVE
+          </a>
+        </p>
+      </div>
+    </div>
+    <div id="app" class="w-5/6 h-screen p-12 overflow-x-hidden">
+      <h1 class="text-3xl font-bold mb-1">Settings</h1>
+      <p class="text-lg font-light text-gray-500">
+        Configure your MedioAI experience.
+      </p>
+
+      <hr class="my-8 border-gray-600" />
+
+      <h4 class="uppercase text-lg font-medium mb-2">General</h4>
+      <div class="flex w-full space-x-3">
+        <div class="input-group w-1/2">
+          <label for="notification">Notification Sound</label>
+          <select id="notification">
+            <option value="on">On</option>
+            <option value="off">Off</option>
+          </select>
+        </div>
+        <div class="input-group w-1/2">
+          <label for="notificationsound">Sound Type</label>
+          <select id="notificationsound">
+            <option value="sound1">"Ding, Fries are Done"</option>
+            <option value="sound2">Discord</option>
+            <option value="sound3">WhatsApp</option>
+            <option value="sound4">MC5</option>
+            <option value="sound5">Tone</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex w-full space-x-3">
+        <div class="input-group w-1/2">
+          <label for="slideanimation">Slide Out Animation</label>
+          <select id="slideanimation">
+            <option value="on">On</option>
+            <option value="off">Off</option>
+          </select>
+        </div>
+        <div class="input-group w-1/2">
+          <label for="slideanimation">Command Tag Color</label>
+          <input type="text" id="commandcolor" value="#26BB79" />
+        </div>
+      </div>
+
+      <hr class="my-8 border-gray-600" />
+
+      <h4 class="uppercase text-lg font-medium mb-2">A.I. Integration</h4>
+      <div class="input-group">
+        <label for="aimodel">AI Model</label>
+        <select id="aimodel">
+          <option value="openai">OpenAI</option>
+          <option value="claudeai">Claude</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label for="openaikey">OpenAI API Key</label>
+        <input type="password" id="openaikey" />
+      </div>
+      <div class="input-group">
+        <label for="claudeapikey">Claude API Key</label>
+        <input type="password" id="claudeapikey" />
+      </div>
+
+      <button class="btn primary mt-6" id="save">Save Changes</button>
+
+      <hr class="my-8 border-gray-600" />
+
+      <div class="credits">
+        <h3 class="mb-4 font-bold text-white">Credits</h3>
+        <p>
+          MedioAI is brought to you by AIMASSIVE (Wynter Jones), a passionate
+          programmer, father and A.I. music producer. This application is
+          provided as-is and is not intended for commercial use. Please respect
+          the terms of service of the third-party services used in this
+          application.
+        </p>
+        <p>
+          The code is open-source and available on GitHub. Feel free to fork,
+          modify and contribute to the project. If you have any questions,
+          please contact the developer at wynter@monetizedesign.com
+        </p>
+        <p><em>Here are the softwares used:</em></p>
+        <p>
+          <strong>Datamuse:</strong> A free API that allows for word association
+          and word finding. Used for rhymes. "You can use this service without
+          restriction and without an API key for up to 100,000 requests per
+          day."
+        </p>
+        <p>
+          <strong>QuillJS:</strong> Used for the text editor. "Quill is free to
+          use under the open-source MIT license."
+        </p>
+        <p>
+          <strong>Sounds:</strong> All sounds are to their respective owners. We
+          do not own any of the sounds used in this application and all rights
+          belong to their respective owners. Ask forgiveness, not permission.
+        </p>
+        <p>
+          <strong>FFMPEG:</strong> Used to convert audio files. "FFmpeg is a
+          free software project consisting of a large suite of libraries and
+          programs for handling video, audio, and other multimedia files and
+          streams."
+        </p>
+        <p>
+          <strong>TailwindCSS:</strong> Used for styling. "Tailwind CSS is a
+          highly customizable, low-level CSS framework that gives you all of the
+          building blocks you need to build bespoke designs without any annoying
+          opinionated styles you have to fight to override."
+        </p>
+        <p>
+          <strong>OpenAI:</strong> Used for the AI model. "OpenAI is an
+          artificial intelligence research laboratory consisting of the
+          for-profit OpenAI LP and the non-profit OpenAI Inc."
+        </p>
+      </div>
+    </div>
+
+    <script src="/app/js/tailwind.js"></script>
+    <script src="/app/js/settings.js"></script>
+  </body>
+</html>

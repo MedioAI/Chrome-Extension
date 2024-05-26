@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedioAI: Your Music Assistant</title>
+    <link rel="stylesheet" href="/app/css/style.css" />
+  </head>
+  <body class="flex text-white">
+    <div id="sidebar" class="w-1/6 h-screen relative">
+      <div id="logo">
+        <img src="/app/images/icon.png" alt="MedioAI" />
+        <h2>Medio<strong>AI</strong></h2>
+      </div>
+      <div id="nav">
+        <a href="/app/index.html">Dashboard</a>
+        <a class="active" href="/app/convert.html">Convert</a>
+        <a href="/app/visualizer.html">Visualizer</a>
+        <a href="/app/settings.html">Settings</a>
+      </div>
+      <div id="copyright">
+        <p>
+          &copy; 2024 MedioAI. All rights reserved. Crafted with ♡ by
+          <a href="https://medioai.com" class="link" target="_blank"
+            >Wynter Jones</a
+          >. <br /><br />
+          Listen to AI music
+          <a
+            href="http://www.youtube.com/@AI.MASSIVE"
+            class="link"
+            target="_blank"
+          >
+            @AI.MASSIVE
+          </a>
+        </p>
+      </div>
+    </div>
+    <div id="app" class="w-5/6 h-screen p-12">
+      <h1 class="text-3xl font-bold mb-1">Convert</h1>
+      <p class="text-lg font-light text-gray-500">
+        Quickly transcoding your MP3 files to WAV files.
+      </p>
+
+      <hr class="my-8 border-gray-600" />
+
+      <div>
+        <label for="mp3">MP3 File</label>
+        <input type="file" id="mp3" />
+      </div>
+
+      <div>
+        <label for="bitrate">Bitrate</label>
+        <input type="range" id="bitrate" min="0" max="320" />
+      </div>
+
+      <div>
+        <label for="channels">Channels</label>
+        <input type="range" id="channels" min="0" max="2" />
+      </div>
+
+      <div>
+        <label for="samplerate">Sample Rate</label>
+        <input type="range" id="samplerate" min="0" max="48000" />
+      </div>
+
+      <div>
+        <label for="normalize">Normalize</label>
+        <input type="checkbox" id="normalize" />
+      </div>
+
+      <div>
+        <label for="fadein">Fade In</label>
+        <input type="range" id="fadein" min="0" max="10" />
+      </div>
+
+      <div>
+        <label for="fadeout">Fade Out</label>
+        <input type="range" id="fadeout" min="0" max="10" />
+      </div>
+
+      <button id="convert">Convert</button>
+    </div>
+
+    <script src="/app/js/tailwind.js"></script>
+    <script src="/app/js/convert.js"></script>
+  </body>
+</html>

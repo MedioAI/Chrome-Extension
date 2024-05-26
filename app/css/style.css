@@ -1,0 +1,114 @@
+body {
+  background: #000;
+}
+
+#sidebar {
+  background: #0c0f14;
+  padding: 5px 20px;
+}
+
+#logo img {
+  width: 90px;
+}
+
+#logo h2 {
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  margin-top: -10px;
+}
+
+#logo h2 strong {
+  color: #1ccca0;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+#nav {
+  margin-top: 20px;
+}
+
+#nav a {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  color: #ffffff80;
+  font-weight: 500;
+  border-bottom: 1px solid #ffffff10;
+}
+
+#nav a.active {
+  color: #25cc8c;
+  background: #0000007c;
+}
+#nav a:hover {
+  color: #c8ded5;
+  background: #000000d5;
+}
+
+.input-group label {
+  color: #ffffff80;
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 10px;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background: #333;
+}
+
+.btn {
+  padding: 10px;
+  background: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #444;
+}
+
+.btn.primary {
+  background: #25cc8c;
+}
+
+.credits {
+  color: #ffffff80;
+  font-size: 16px;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  background: #000;
+}
+
+.credits p {
+  margin-bottom: 10px;
+}
+
+.credits p strong {
+  color: #25cc8c;
+}
+
+.link {
+  text-decoration: underline;
+  color: #25cc8c;
+}
+
+#copyright {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  padding: 30px;
+  font-size: 11px;
+  color: #ffffffdb;
+}
