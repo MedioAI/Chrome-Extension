@@ -93,8 +93,8 @@
   border-color: #3c3c3c;
 }
 #medioSearchDropdown {
-  height: 150px;
-  max-height: 150px;
+  height: 140px;
+  max-height: 140px;
   overflow-x: hidden;
   margin: 10px 0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);

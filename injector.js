@@ -358,14 +358,12 @@ const engine = {
       <div class="w-1/4">
         <select id="medio-builder-vocal" class="medioAddTag w-full border rounded p-1">
           <option value="" selected disabled>Vocals</option>
-          <!-- Baritone -->
           <option value="Baritone">Baritone</option>
           <option value="Lyric Baritone">Lyric Baritone</option>
           <option value="Dramatic Baritone">Dramatic Baritone</option>
           <option value="Verdi Baritone">Verdi Baritone</option>
           <option value="Heldenbaritone">Heldenbaritone</option>
           <option value="Lyrical Baritone">Lyrical Baritone</option>
-          <!-- Tenor -->
           <option value="Tenor">Tenor</option>
           <option value="Spinto Tenor">Spinto Tenor</option>
           <option value="Lyric Tenor">Lyric Tenor</option>
@@ -374,7 +372,6 @@ const engine = {
           <option value="Dramatic Tenor">Dramatic Tenor</option>
           <option value="Buffo Tenor">Buffo Tenor</option>
           <option value="Lyrical Tenor">Lyrical Tenor</option>
-          <!-- Bass -->
           <option value="Bass">Bass</option>
           <option value="Basso Profondo">Basso Profondo</option>
           <option value="Basso Buffo">Basso Buffo</option>
@@ -383,7 +380,6 @@ const engine = {
           <option value="Dramatic Bass">Dramatic Bass</option>
           <option value="Bass Profundo">Bass Profundo</option>
           <option value="Bass-Buffo">Bass-Buffo</option>
-          <!-- Descriptors -->
           <option value="Raspy">Raspy</option>
           <option value="Breathy">Breathy</option>
           <option value="Smooth">Smooth</option>
@@ -405,7 +401,6 @@ const engine = {
       <div class="w-1/4">
         <select id="medio-builder-instruments" class="medioAddTag w-full border rounded p-1">
           <option value="" selected disabled>Instruments</option>
-          <!-- String Instruments -->
           <option value="Violin">Violin</option>
           <option value="Viola">Viola</option>
           <option value="Cello">Cello</option>
@@ -415,7 +410,6 @@ const engine = {
           <option value="Bass Guitar">Bass Guitar</option>
           <option value="Electric Guitar">Electric Guitar</option>
           <option value="Acoustic Guitar">Acoustic Guitar</option>
-          <!-- Wind Instruments -->
           <option value="Flute">Flute</option>
           <option value="Clarinet">Clarinet</option>
           <option value="Saxophone">Saxophone</option>
@@ -425,7 +419,6 @@ const engine = {
           <option value="Trombone">Trombone</option>
           <option value="French Horn">French Horn</option>
           <option value="Tuba">Tuba</option>
-          <!-- Percussion Instruments -->
           <option value="Drums">Drums</option>
           <option value="Piano">Piano</option>
           <option value="Keyboard">Keyboard</option>
@@ -626,6 +619,7 @@ const engine = {
         tag.addEventListener("change", () => {
           if (tag.value) {
             medioTagBox.value += tag.value + ", ";
+            engine.showNotification(`Added "${tag.value}" tag to your prompt.`);
             tag.value = "";
           }
         });
