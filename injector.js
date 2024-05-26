@@ -849,8 +849,9 @@ const engine = {
         e.preventDefault();
 
         if (!document.getElementById("lyric-tagbuilder-overlay")) {
-          document.body.style.overflow = "hidden";
+          document.body.style.overflow = "auto";
         } else {
+          document.body.style.overflow = "hidden";
           const overlay3 = document.getElementById("lyric-tagbuilder-overlay");
           overlay3.style.transform = "translateX(0)";
         }
@@ -1336,8 +1337,9 @@ const engine = {
         console.log("Lyric Barn link clicked.");
 
         if (!document.getElementById("lyric-barn-overlay")) {
-          document.body.style.overflow = "hidden";
+          document.body.style.overflow = "auto";
         } else {
+          document.body.style.overflow = "hidden";
           const overlay = document.getElementById("lyric-barn-overlay");
           overlay.style.transform = "translateX(0)";
         }
