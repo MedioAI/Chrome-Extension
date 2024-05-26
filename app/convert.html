@@ -38,47 +38,54 @@
     <div id="app" class="w-5/6 h-screen p-12">
       <h1 class="text-3xl font-bold mb-1">Convert</h1>
       <p class="text-lg font-light text-gray-500">
-        Quickly transcoding your MP3 files to WAV files.
+        Quickly transcoding your MP3 files to WAV files
+        <em class="opacity-50">(using FFMPEG.wasm)</em>
       </p>
 
       <hr class="my-8 border-gray-600" />
 
-      <div>
+      <div class="input-group w-full">
         <label for="mp3">MP3 File</label>
         <input type="file" id="mp3" />
       </div>
 
-      <div>
-        <label for="bitrate">Bitrate</label>
-        <input type="range" id="bitrate" min="0" max="320" />
+      <hr class="my-8 border-gray-600" />
+
+      <div class="flex space-x-6">
+        <div class="input-group w-1/2">
+          <label for="bitrate">Bitrate</label>
+          <input type="range" id="bitrate" min="0" max="320" />
+        </div>
+
+        <div class="input-group w-1/2">
+          <label for="channels">Channels</label>
+          <input type="range" id="channels" min="0" max="2" />
+        </div>
+      </div>
+      <div class="flex space-x-6">
+        <div class="input-group w-1/2">
+          <label for="samplerate">Sample Rate</label>
+          <input type="range" id="samplerate" min="0" max="48000" />
+        </div>
+
+        <div class="input-group w-1/2">
+          <label for="normalize">Normalize</label>
+          <input type="range" id="normalize" min="0" max="4" />
+        </div>
+      </div>
+      <div class="flex space-x-6">
+        <div class="input-group w-1/2">
+          <label for="fadein">Fade In</label>
+          <input type="range" id="fadein" min="0" max="10" />
+        </div>
+
+        <div class="input-group w-1/2">
+          <label for="fadeout">Fade Out</label>
+          <input type="range" id="fadeout" min="0" max="10" />
+        </div>
       </div>
 
-      <div>
-        <label for="channels">Channels</label>
-        <input type="range" id="channels" min="0" max="2" />
-      </div>
-
-      <div>
-        <label for="samplerate">Sample Rate</label>
-        <input type="range" id="samplerate" min="0" max="48000" />
-      </div>
-
-      <div>
-        <label for="normalize">Normalize</label>
-        <input type="checkbox" id="normalize" />
-      </div>
-
-      <div>
-        <label for="fadein">Fade In</label>
-        <input type="range" id="fadein" min="0" max="10" />
-      </div>
-
-      <div>
-        <label for="fadeout">Fade Out</label>
-        <input type="range" id="fadeout" min="0" max="10" />
-      </div>
-
-      <button id="convert">Convert</button>
+      <button class="btn primary mt-6" id="convert">Convert to .WAV</button>
     </div>
 
     <script src="/app/js/tailwind.js"></script>
