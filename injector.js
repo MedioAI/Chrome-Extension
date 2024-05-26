@@ -1470,6 +1470,7 @@ const engine = {
                 "font-bold",
                 "relative"
               );
+              lyricItem.setAttribute("data-id", lyric.id);
               lyricItem.innerHTML = `<h3 class="text-xl font-medium">${
                 lyric.title
               }</h3> <p class="text-xs mt-1 text-gray-400">${
@@ -1488,35 +1489,36 @@ const engine = {
               });
 
               libraryItems.appendChild(lyricItem);
+            });
 
-              const deleteButtons =
-                document.querySelectorAll(".deleteMediaSong");
-              deleteButtons.forEach((button) => {
-                button.addEventListener("click", (e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  const id = lyric.id;
-                  const title = lyric.title;
+            const deleteButtons = document.querySelectorAll(".deleteMediaSong");
+            deleteButtons.forEach((button) => {
+              button.addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const id = e.target
+                  .closest(".open-lyric")
+                  .getAttribute("data-id");
 
-                  console.log("click");
-                  if (e.target.classList.contains("confirmDelete")) {
-                    // engine.deleteSong(id, title);
-                    console.log(
-                      "delete",
-                      id,
-                      title,
-                      e.target.classList.contains("confirmDelete")
+                if (e.target.classList.contains("confirmDelete")) {
+                  e.target.closest(".open-lyric").remove();
+                  e.target.classList.remove("confirmDelete");
+
+                  chrome.storage.local.get(["medioLyrics"], function (result) {
+                    const medioLyrics = result.medioLyrics || [];
+                    const updatedLyrics = medioLyrics.filter(
+                      (lyric) => lyric.id !== id
                     );
-                    e.target.closest(".open-lyric").remove();
-                    e.target.classList.remove("confirmDelete");
-                  } else {
-                    e.target.classList.add("confirmDelete");
 
-                    setTimeout(() => {
-                      e.target.classList.remove("confirmDelete");
-                    }, 3000);
-                  }
-                });
+                    chrome.storage.local.set({ medioLyrics: updatedLyrics });
+                  });
+                } else {
+                  e.target.classList.add("confirmDelete");
+
+                  setTimeout(() => {
+                    e.target.classList.remove("confirmDelete");
+                  }, 3000);
+                }
               });
             });
           });

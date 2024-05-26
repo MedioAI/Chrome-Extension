@@ -206,9 +206,7 @@ select.medioAddTag {
 }
 
 .deleteMediaSong.confirmDelete {
-  background: #e3095d;
-  border-color: #fa327f;
-  color: #fff;
+  color: #e3095d;
 }
 .deleteMediaSong * {
   pointer-events: none;
