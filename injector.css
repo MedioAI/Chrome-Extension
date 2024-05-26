@@ -153,13 +153,14 @@ select.medioAddTag {
 }
 
 #toolbar {
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
+  padding: 0 !important;
+  border: none !important;
+  padding-bottom: 10px !important;
 }
 
 #editor {
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
+  border-radius: 6px;
+  border: 1px solid rgb(60, 60, 60);
 }
 #toolbar.ql-toolbar {
   border-color: #3c3c3c;

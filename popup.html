@@ -2,22 +2,84 @@
 <html>
   <head>
     <title>Me-dio</title>
+    <link rel="stylesheet" href="app/css/style.css" />
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
       body {
-        width: 200px;
+        color: #fff;
+        width: 500px !important;
+        min-width: 500px !important;
+        padding: 30px 30px;
+        padding-top: 10px;
+        background: #0c0f14;
         font-family: Arial, sans-serif;
+      }
+      a {
+        text-decoration: none;
+        color: #25cc8c;
       }
     </style>
   </head>
   <body>
-    <h1>Medio</h1>
-    <p>
-      Eventually this extension will do more, but for now it is just a dinger, a
-      "fries are done" ringer.
+    <div id="logo">
+      <img src="app/images/icon.png" />
+      <h2>Medio<strong>AI</strong></h2>
+    </div>
+    <p
+      style="
+        font-size: 15px;
+        margin-top: 15px;
+        line-height: 1.3em;
+        opacity: 0.7;
+      "
+    >
+      Eventually or now it is just a dinger, a "fries are done" ringer. 1,383
+      genres. 10,000 artists. Use Udio or Suno to use the Song Studio or Tag
+      Builder. Use backend app to convert mp3 to wav, change settings and more.
     </p>
-    <p>1,383 genres. 10,000 artists.</p>
 
-    <button id="openMaster">Open Master</button>
+    <div class="">
+      <button
+        style="margin-top: 15px; margin-right: 10px; font-size: 14px"
+        class="btn primary"
+        id="openMaster"
+      >
+        Convert
+      </button>
+      <button
+        style="margin-top: 15px; margin-right: 10px; font-size: 14px"
+        class="btn primary"
+        id="openMaster"
+      >
+        Visualizer
+      </button>
+      <button
+        style="margin-top: 15px; margin-right: 10px; font-size: 14px"
+        class="btn primary"
+        id="openMaster"
+      >
+        Settings
+      </button>
+      <a
+        href="https://www.medioai.com"
+        target="_blank"
+        style="margin-top: 15px; margin-right: 10px; font-size: 14px"
+        class="btn"
+      >
+        Website
+      </a>
+      <a
+        href="https://www.youtube.com/@AI.MASSIVE"
+        target="_blank"
+        style="margin-top: 15px; font-size: 14px"
+        class="btn"
+      >
+        Listen to AI Music
+      </a>
+    </div>
 
     <script src="/popup.js"></script>
   </body>

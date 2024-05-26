@@ -41,7 +41,7 @@ const engine = {
     });
   },
 
-  lyricBarn: () => {
+  lyricBarn: async () => {
     const html = `<div class="-ml-5 pl-[16px]"><div class="relative flex items-center rounded-lg p-2 hover:text-foreground"><a class="mr-4 flex items-center" id="lyric-barn-link" href="#">
     
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M4 16V4zm-2 6V4q0-.825.588-1.412T4 2h11q.825 0 1.413.588T17 4v.425q-.6.275-1.1.675T15 6V4H4v12h11v-4q.4.5.9.9t1.1.675V16q0 .825-.587 1.413T15 18H6zm4-8h4v-2H6zm13-2q-1.25 0-2.125-.875T16 9t.875-2.125T19 6q.275 0 .525.05t.475.125V1h4v2h-2v6q0 1.25-.875 2.125T19 12M6 11h7V9H6zm0-3h7V6H6z"/></svg>
@@ -75,7 +75,10 @@ const engine = {
       overlay.style.height = "100%";
       overlay.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
       overlay.style.zIndex = "99999999999";
-      overlay.style.transition = "transform 0.3s";
+      const animate2 = await engine.getSettings("slideanimation");
+      if (animate2 === "on") {
+        overlay.style.transition = "transform 0.3s";
+      }
       overlay.style.transform = "translateX(-100%)";
       overlay.style.overflowY = "auto";
       overlay.style.padding = "25px";
@@ -866,7 +869,10 @@ const engine = {
       overlay2.style.height = "100%";
       overlay2.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
       overlay2.style.zIndex = "99999999999";
-      overlay2.style.transition = "transform 0.3s";
+      const animate = await engine.getSettings("slideanimation");
+      if (animate === "on") {
+        overlay2.style.transition = "transform 0.3s";
+      }
       overlay2.style.transform = "translateX(-100%)";
       overlay2.style.overflowY = "auto";
       overlay2.style.padding = "25px";
@@ -903,11 +909,7 @@ const engine = {
 <div id="lyric-barn-content">
   <input type="hidden" id="lyric-id" />
 
-  <button id="medioSettingsButton">
-  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94c0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6s3.6 1.62 3.6 3.6s-1.62 3.6-3.6 3.6"/></svg>
-  </button>
-
-
+  
   <h1 class="flex items-center space-x-2" style="font-size: 24px; font-weight: 700; margin-bottom: 16px">
   <img src="${chrome.runtime.getURL(
     "icon/128x128.png"
@@ -1230,7 +1232,10 @@ const engine = {
     </div>
   </div>
   <div id="editor"></div>
-  <style id="medioCSS">.medioCommand {color: #26BB79}</style>
+  <style id="medioCSS">.ql-editor {
+    font-size: ${await engine.getSettings("lyrictextsize")};
+    }
+    .medioCommand {color: ${await engine.getSettings("commandcolor")}}</style>
 </div>
 </div>`;
 
@@ -1243,24 +1248,6 @@ const engine = {
       closeLyricBarn.addEventListener("click", () => {
         overlay2.style.transform = "translateX(-100%)";
         document.body.style.overflow = "auto";
-      });
-
-      const medioSettingsButton = document.getElementById(
-        "medioSettingsButton"
-      );
-      medioSettingsButton.addEventListener("click", () => {
-        const settings = document.querySelector(".settings-medio");
-        if (settings.style.display === "none") {
-          settings.style.display = "block";
-          const tabs = document.querySelectorAll(".lyric-tab");
-          tabs.forEach((tab) => {
-            tab.style.display = "none";
-          });
-          const tabButtons = document.querySelectorAll(".lyric-tab-button");
-          tabButtons.forEach((button) => {
-            button.classList.remove("bg-black");
-          });
-        }
       });
 
       const findRhymes = document.getElementById("lyric-barn-findRhyme");
@@ -1351,44 +1338,23 @@ const engine = {
     const target =
       "a.relative.flex.flex-row.items-center.justify-center.text-sm[href='/my-creations']";
 
-    console.log("Sir, the fries are in oven. Please let the DJ cook.");
-
     const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        console.log(
-          "HAL observing Udio numbers:",
-          mutation.target.innerText || "not found"
-        );
-
+      mutations.forEach(async (mutation) => {
+        const shouldPlaySound = await engine.getSettings("notification");
         if (
+          shouldPlaySound === "on" &&
           !engine.state.isChecking &&
           mutation.target.innerText &&
           mutation.target.innerText.split("/")[0] ===
             mutation.target.innerText.split("/")[1]
         ) {
           engine.state.isChecking = true;
-          let audio = new Audio(chrome.runtime.getURL("ding.mp3"));
+          const sound = await engine.getSettings("notificationsound");
+          const audio = new Audio(chrome.runtime.getURL(`sounds/${sound}.mp3`));
           audio.play();
-
-          if (Notification.permission === "granted") {
-            let notification = new Notification("Fries are done!");
-          } else if (
-            Notification.permission !== "denied" ||
-            Notification.permission === "default"
-          ) {
-            Notification.requestPermission(function (permission) {
-              if (permission === "granted") {
-                let notification = new Notification("Fries are done!");
-              }
-            });
-          }
-
-          console.log("Target aquired. Ding! Ding! Ding!");
-          console.log("Overheating, waiting 6 seconds...");
 
           setTimeout(() => {
             engine.state.isChecking = false;
-            console.log("Battle tank is ready to roll.");
           }, 6000);
         } else {
           engine.state.isChecking = false;
@@ -1864,6 +1830,14 @@ const engine = {
     "Compose a song about hope...",
     "Write a song about the ocean...",
   ],
+
+  getSettings: (key) => {
+    return new Promise((resolve, reject) => {
+      chrome.storage.local.get(["medioaiSettings"], function (result) {
+        resolve(result.medioaiSettings[key]);
+      });
+    });
+  },
 
   state: {
     isRunning: false,
