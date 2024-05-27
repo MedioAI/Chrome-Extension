@@ -527,3 +527,28 @@ select.medioAddTag {
 .lyric-buildertab-button.bg-black {
   color: #fff;
 }
+
+#medioPagination button {
+  background: #27272a;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 4px 8px;
+  margin-right: 5px;
+}
+#medioPageCount {
+  padding: 0 20px;
+  font-size: 13px;
+  color: #ffffff71;
+  text-align: center;
+}
+
+.medioListContainer {
+  height: calc(100vh - 280px);
+  overflow-x: hidden;
+}
+
+.medioDisabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
