@@ -29,7 +29,7 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 
 I am open to contributions and suggestions. Please feel free to open an issue or pull request.
 
-"If you have more Genres, Artists, or other tags to add to the `database` .json files, please do so, all suggestions are welcome. Thank you!" - Wynter Jones, Developer
+> "If you have more Genres, Artists, or other tags to add to the `database` .json files, please do so, all suggestions are welcome. Thank you!" - **Wynter Jones, Developer**
 
 ## License
 
