@@ -9,8 +9,6 @@
 
 const utilitiesMedioAI = {
   quill: null,
-  perPage: 2,
-  chatHistory: [],
 
   getSettings: key => {
     return new Promise((resolve, reject) => {

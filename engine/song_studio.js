@@ -81,7 +81,22 @@ const songStudioMedioAI = {
 
     const viewpastChats = document.getElementById('medioAskChatList')
     viewpastChats.addEventListener('click', async e => {
-      pastChatListMedioAI.init()
+      document.querySelector('#medioask').style.display = 'none'
+      document.querySelector('#mediochats').style.display = 'block'
+      paginationMedioAI.init('medioaiChats', 'mediochats', item => {
+        console.log('Click on the chat item and open it.', item.id, item)
+        // document.querySelector('#mediochattab').style.display = 'block'
+        // document.querySelector('#mediochats').style.display = 'none'
+        // document.querySelector('#medioaichat').innerHTML = ''
+        // document.querySelector('#medioaichat').setAttribute('data-id', chat.id)
+        // chat.messages.forEach(message => {
+        //   const newMessage = document.createElement('div')
+        //   newMessage.classList.add('medioaimessage')
+        //   newMessage.classList.add(`medioai${message.role}`)
+        //   newMessage.innerHTML = message.content
+        //   document.querySelector('#medioaichat').append(newMessage)
+        // })
+      })
     })
 
     const askAIQuestion = document.getElementById('medioAskAIQuestion')
@@ -101,7 +116,6 @@ const songStudioMedioAI = {
 
   open: e => {
     e.preventDefault()
-
     if (!document.getElementById('medioAI-songstudio')) {
       document.body.style.overflow = 'auto'
     } else {
@@ -121,7 +135,7 @@ const songStudioMedioAI = {
     if (e.target.classList.contains('confirmClear')) {
       document.getElementById('lyric-id').value = ''
       document.getElementById('lyric-title').value = ''
-      medioAI.quill.root.innerHTML = ''
+      utilitiesMedioAI.quill.root.innerHTML = ''
       utilitiesMedioAI.showNotification('Song lyrics cleared.')
       e.target.classList.remove('confirmClear')
     } else {
@@ -139,7 +153,7 @@ const songStudioMedioAI = {
     if (!id) {
       const lyrics = {
         title: title || 'Untitled',
-        content: medioAI.quill.root.innerHTML,
+        content: utilitiesMedioAI.quill.root.innerHTML,
         id: utilitiesMedioAI.uuidv4(),
         created_at: new Date().toISOString(),
       }
@@ -156,7 +170,7 @@ const songStudioMedioAI = {
         const medioLyrics = result.medioLyrics || []
         const lyrics = medioLyrics.find(lyric => lyric.id === id)
         lyrics.title = title || 'Untitled'
-        lyrics.content = medioAI.quill.root.innerHTML
+        lyrics.content = utilitiesMedioAI.quill.root.innerHTML
 
         chrome.storage.local.set({ medioLyrics }, function () {
           utilitiesMedioAI.showNotification('Updated song lyrics.')
@@ -256,7 +270,7 @@ const songStudioMedioAI = {
               lyricItem.addEventListener('click', () => {
                 document.getElementById('lyric-id').value = lyric.id
                 document.getElementById('lyric-title').value = lyric.title
-                medioAI.quill.root.innerHTML = lyric.content
+                utilitiesMedioAI.quill.root.innerHTML = lyric.content
 
                 const firstTab = document.querySelector('.lyric-tab-button')
                 firstTab.click()

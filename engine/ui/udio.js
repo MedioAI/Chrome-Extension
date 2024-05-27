@@ -74,7 +74,7 @@ const uiMedioAI = {
   <input type="hidden" id="mediotag-id" />
 
   <h1
-    class="flex items-center space-x-2"
+    class="flex items-center space-x-2 select-none"
     style="font-size: 24px; font-weight: 700; margin-bottom: 16px"
   >
     <img src="${chrome.runtime.getURL('icon/128x128.png')}" style="width:
@@ -85,7 +85,7 @@ const uiMedioAI = {
   <div
     role="tablist"
     aria-orientation="horizontal"
-    class="h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground grid w-full grid-cols-2 mb-4"
+    class="h-10 items-center select-none justify-center rounded-md bg-muted p-1 text-muted-foreground grid w-full grid-cols-2 mb-4"
     tabindex="0"
     data-orientation="horizontal"
     style="outline: none"
@@ -108,7 +108,7 @@ const uiMedioAI = {
 
   <div class="lyric-buildertab" data-tab="build">
     <div class="mb-4 relative">
-      <span class="text-sm text-gray-200 mb-2 block">Search & Browse</span>
+      <span class="text-sm text-gray-200 mb-2 block select-none">Search & Browse</span>
       <div
         id="medioSearchClear"
         class="absolute"
@@ -193,7 +193,7 @@ const uiMedioAI = {
       </div>
     </div>
     <div class="py-4">
-      <span class="text-sm text-gray-200 mb-2 block">Prompt</span>
+      <span class="text-sm text-gray-200 mb-2 block select-none">Prompt</span>
 
       <textarea
         placeholder="Write music prompt tags here..."
@@ -213,7 +213,7 @@ const uiMedioAI = {
           class="w-full p-2 px-4 rounded border mb-3"
           style="width: 100%"
         />
-        <div class="flex space-x-1">
+        <div class="flex space-x-1 select-none">
           <button id="medio-saveTags">Save</button>
           <button id="medio-clearTags">Clear</button>
           <button id="medio-copyTags">Copy</button>
@@ -254,7 +254,7 @@ const uiMedioAI = {
   <input type="hidden" id="lyric-id" />
 
   <h1
-    class="flex items-center space-x-2"
+    class="flex select-none items-center space-x-2"
     style="font-size: 24px; font-weight: 700; margin-bottom: 16px"
   >
     <img src="${logo}" style="width:
@@ -271,7 +271,7 @@ const uiMedioAI = {
   <div
     role="tablist"
     aria-orientation="horizontal"
-    class="h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground grid w-full mb-4"
+    class="h-10 items-center select-none justify-center rounded-md bg-muted p-1 text-muted-foreground grid w-full mb-4"
     style="grid-template-columns: repeat(5, minmax(0, 1fr))"
     tabindex="0"
     data-orientation="horizontal"
@@ -337,7 +337,7 @@ const uiMedioAI = {
       ></textarea>
       <div class="flex space-x-2 items-center justify-between mt-2">
         <div class="flex space-x-2">
-          <button id="medioAskAIQuestion" class="flex items-center space-x-2">
+          <button id="medioAskAIQuestion" class="flex select-none items-center space-x-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="1em"
@@ -352,7 +352,7 @@ const uiMedioAI = {
             <span>Ask</span>
           </button>
 
-          <button id="medioAskChatList" class="flex items-center space-x-2">
+          <button id="medioAskChatList" class="flex select-none items-center space-x-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="1em"
@@ -372,7 +372,7 @@ const uiMedioAI = {
             <span>Past Chats</span>
           </button>
         </div>
-        <div class="ml-2 text-sm text-gray-400 flex space-x-2 items-center">
+        <div class="ml-2 text-sm text-gray-400 flex space-x-2 select-none items-center">
           <input
             id="medioaiIncludeLyrics"
             name="medioaiIncludeLyrics"
@@ -387,7 +387,7 @@ const uiMedioAI = {
 
       <hr style="margin: 15px 0" class="my-8 border-t border-gray-700" />
 
-      <h4 class="text-sm text-gray-400 font-medium mb-2">Pre-made Requests</h4>
+      <h4 class="text-sm text-gray-400 font-medium mb-2 select-none">Pre-made Requests</h4>
       <div class="grid grid-cols-4 gap-4" id="medioSuggestions">
         <div class="medioAskAIPremadeQuestion border rounded p-6">
           Check my lyrics for grammar & spelling mistakes.
@@ -791,7 +791,7 @@ const uiMedioAI = {
   </div>
 
   <div style="display: none" class="lyric-tab" data-tab="rhyme">
-    <div class="flex items-center justitfy-between mb-4">
+    <div class="flex items-center justitfy-between mb-4 select-none">
       <input
         autocomplete="off"
         type="text"
@@ -806,15 +806,15 @@ const uiMedioAI = {
       class="w-full grid grid-cols-4 gap-2"
       style="display: none"
     ></div>
-    <div id="medioRhymeExplainer" class="text-center w-full">
+    <div id="medioRhymeExplainer" class="text-center select-none w-full">
       <h3 class="text-2xl text-gray-200 font-bold mb-2 mt-8">
         Search for Rhymes
       </h3>
       <p>
         Search the
-        <span style="background: #27272a" class="rounded p-2 text-xs"
-          >Datamuse</span
-        >
+        <span style="background: #27272a" class="rounded p-2 text-xs">
+          Datamuse
+        </span>
         free API for any word that might rhyme for catchier lyrics.
       </p>
     </div>
@@ -835,7 +835,7 @@ const uiMedioAI = {
         />
         <button
           id="save-lyrics"
-          class="flex items-center space-x-2 medio-toolbar-button"
+          class="flex select-none items-center space-x-2 medio-toolbar-button"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -852,7 +852,7 @@ const uiMedioAI = {
         </button>
         <button
           id="clear-lyrics"
-          class="flex items-center space-x-2 medio-toolbar-button"
+          class="flex select-none items-center space-x-2 medio-toolbar-button"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -1153,8 +1153,8 @@ const uiMedioAI = {
 
   placeholder: (title, msg) => {
     return /* html */ `
-<h3 class='text-2xl text-gray-200 font-bold mb-2'>${title}</h3>
-<p>${msg}</p>
+<h3 class='text-2xl text-gray-200 font-bold mb-2 select-none'>${title}</h3>
+<p class="select-none">${msg}</p>
 `
   },
 }

@@ -367,6 +367,9 @@
   border-color: #fa327f !important;
   color: #fff !important;
 }
+#clear-lyrics * {
+  pointer-events: none;
+}
 #medio-clearTags.confirmClear {
   background: #e3095d !important;
   border-color: #fa327f !important;
@@ -585,6 +588,10 @@ select.medioAddTag {
 
 .lyric-buildertab-button.bg-black {
   color: #fff;
+}
+
+#medioPagination {
+  user-select: none;
 }
 
 #medioPagination button {

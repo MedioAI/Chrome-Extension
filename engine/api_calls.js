@@ -17,7 +17,7 @@ const apiMedioAI = {
     document.querySelector('#results').style.display = 'grid'
 
     if (!word) {
-      resultsDiv.innerHTML = '<p>Please enter a word to search for.</p>'
+      resultsDiv.innerHTML = '<p class="italic opacity-50 text-sm">Nothing found, try again.</p>'
 
       return
     }
@@ -27,7 +27,7 @@ const apiMedioAI = {
       const data = await response.json()
 
       if (data.length === 0) {
-        resultsDiv.innerHTML = `<p>No rhyming words found for "${word}".</p>`
+        resultsDiv.innerHTML = `<p class="italic opacity-50 text-sm">Nothing found for "${word}".</p>`
         return
       }
 
@@ -158,7 +158,7 @@ const apiMedioAI = {
         </div>`
       document.querySelector('#medioaichat').append(newMessage2)
 
-      const currentLyrics = medioAI.quill.root.innerHTML
+      const currentLyrics = utilitiesMedioAI.quill.root.innerHTML
       const songTitle = document.getElementById('lyric-title').value || ''
       let includeLyrics = ''
       if (document.querySelector('#medioaiIncludeLyrics').checked) {
