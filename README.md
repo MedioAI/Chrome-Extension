@@ -25,6 +25,8 @@ This is very MVP and just to get ball rolling.
 
 Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdljokjallnlfkibjoiolndccinoi) to install the **MedioAI** extension and start using today!
 
+Visit the websiet, [MedioAI.com](https://www.medioai.com) for more information.
+
 ##### Contributing
 
 I am open to contributions and suggestions. Please feel free to open an issue or pull request.
