@@ -35,59 +35,113 @@
         </p>
       </div>
     </div>
-    <div id="app" class="w-5/6 h-screen p-12">
+    <div id="app" class="w-5/6 h-screen p-12 overflow-x-hidden">
       <h1 class="text-3xl font-bold mb-1">Convert</h1>
       <p class="text-lg font-light text-gray-500">
-        Quickly transcoding your MP3 files to WAV files
-        <em class="opacity-50">(using FFMPEG.wasm)</em>
+        Quickly transcoding your MP3 files to WAV files.
       </p>
 
       <hr class="my-8 border-gray-600" />
 
       <div class="input-group w-full">
         <label for="mp3">MP3 File</label>
-        <input type="file" id="mp3" />
+        <input type="file" id="mp3" accept=".mp3" />
       </div>
+      <!-- 
+      <div id="waveform">
+        <p id="waveformpreview">
+          Your audio file wave form will appear here...
+        </p>
+        <canvas id="wavepreview" style="display: none"></canvas>
+      </div> -->
 
-      <hr class="my-8 border-gray-600" />
+      <div class="flex space-x-6 mt-8">
+        <div class="input-group w-1/3">
+          <label for="bitrate"> Bitrate </label>
+          <div class="slidecontainer">
+            <select name="bitrate" id="bitrate">
+              <option value="128">128k</option>
+              <option value="192">192k</option>
+              <option value="256">256k</option>
+              <option value="320" selected>320k</option>
+            </select>
+          </div>
+        </div>
 
+        <div class="input-group w-1/3">
+          <label for="samplerate"> Sample Rate </label>
+          <select name="samplerate" id="samplerate">
+            <option value="44100">44100</option>
+            <option value="48000">48000</option>
+            <option value="96000">96000</option>
+            <option value="192000" selected>192000</option>
+          </select>
+        </div>
+        <div class="input-group w-1/3">
+          <label for="filter"> Filter </label>
+          <select name="filter" id="filter">
+            <option value="none">None</option>
+            <option value="loud">Loud (-11dB LUFS)</option>
+            <option value="normal">Normal (-14dB LUFS)</option>
+            <option value="quiet">Quiet (-19dB LUFS)</option>
+            <option value="brighter">Brighter</option>
+            <option value="bassier">Bassier</option>
+            <option value="reverb">Reverb</option>
+            <option value="volume_up">Volume Up</option>
+            <option value="volume_down">Volume Down</option>
+          </select>
+        </div>
+      </div>
       <div class="flex space-x-6">
         <div class="input-group w-1/2">
-          <label for="bitrate">Bitrate</label>
-          <input type="range" id="bitrate" min="0" max="320" />
+          <label for="fadein">
+            Fade In
+            <span data-value="fadein" class="value">0 Seconds</span>
+          </label>
+          <div class="slidecontainer">
+            <input
+              type="range"
+              class="slider"
+              id="fadein"
+              min="0"
+              max="10"
+              value="0"
+            />
+          </div>
         </div>
 
         <div class="input-group w-1/2">
-          <label for="channels">Channels</label>
-          <input type="range" id="channels" min="0" max="2" />
+          <label for="fadeout">
+            Fade Out
+            <span data-value="fadeout" class="value">0 Seconds</span>
+          </label>
+          <div class="slidecontainer">
+            <input
+              type="range"
+              class="slider"
+              id="fadeout"
+              min="0"
+              max="10"
+              value="0"
+            />
+          </div>
         </div>
       </div>
-      <div class="flex space-x-6">
-        <div class="input-group w-1/2">
-          <label for="samplerate">Sample Rate</label>
-          <input type="range" id="samplerate" min="0" max="48000" />
-        </div>
 
-        <div class="input-group w-1/2">
-          <label for="normalize">Normalize</label>
-          <input type="range" id="normalize" min="0" max="4" />
-        </div>
+      <button class="btn primary my-6" id="convert">Convert to .WAV</button>
+
+      <div class="credits">
+        <p>
+          <strong>FFMPEG</strong> This app uses FFMPEG (w/ WebAssembly) to
+          convert MP3 files to WAV format, allowing you to adjust bitrate,
+          sample rate, fade-in, and fade-out effects. Note that this process
+          does not improve the quality of the original MP3 file but allows for
+          customized audio output.
+        </p>
       </div>
-      <div class="flex space-x-6">
-        <div class="input-group w-1/2">
-          <label for="fadein">Fade In</label>
-          <input type="range" id="fadein" min="0" max="10" />
-        </div>
-
-        <div class="input-group w-1/2">
-          <label for="fadeout">Fade Out</label>
-          <input type="range" id="fadeout" min="0" max="10" />
-        </div>
-      </div>
-
-      <button class="btn primary mt-6" id="convert">Convert to .WAV</button>
     </div>
-
+    <script src="../lib/ffmpeg.min.js"></script>
+    <script src="../lib/ffmpeg-core.js"></script>
     <script src="/app/js/tailwind.js"></script>
     <script src="/app/js/convert.js"></script>
   </body>
