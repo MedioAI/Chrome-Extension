@@ -23,13 +23,18 @@
   "web_accessible_resources": [
     {
       "resources": ["lib/*", "sounds/*", "database/*", "icon/*"],
-      "matches": ["https://www.udio.com/*"]
+      "matches": ["https://www.udio.com/*", "https://www.suno.com/*"]
     }
   ],
   "content_scripts": [
     {
       "matches": ["https://www.udio.com/*"],
-      "js": ["lib/quill.js", "engine/injector.js"],
+      "js": ["lib/quill.js", "engine/ui/udio.js", "engine/injector.js"],
+      "css": ["engine/injector.css", "lib/quilljs.css"]
+    },
+    {
+      "matches": ["https://www.suno.com/*"],
+      "js": ["lib/quill.js", "engine/ui/suno.js", "engine/injector.js"],
       "css": ["engine/injector.css", "lib/quilljs.css"]
     }
   ],
