@@ -1,16 +1,19 @@
-# Me-dio for UdioAI
+# MedioAI: Your Music Companion for Udio & Suno
+
+> Note: Work in Progress
 
 ### Enhance your experience with Udio
 
-A chrome extension to enhance the experience of Udio.com, an AI music platform.
+A chrome extension to enhance the experience of Udio.com and Suno.com, a AI music platforms.
 
-Currently will check the number of generations and see if they match, example: 0/2 will do nothing but 2/2 will trigger a notification and audio sound, "Ding, fries are done"
+Features include:
 
-More features in future:
-
-1. ChatGPT integration for lyric writing
-2. Lyric review, via a fictional chat
-3. And other ideas.
+1. Song Studio: Write your lyrics in large easy to use editor. (with commands for AI music apps)
+2. Rhyme: Get rhyme suggestions for your lyrics in seconds.
+3. Tag Builder: Combine genres, artists, and more and save to re-use later.
+4. Ask: AI integration for asking for feedback on your lyrics, chatting.
+5. Co-Writer: Create a song from scratch with a wizard walkthrough.
+6. Saved Library: Manage all your song lyrics, tags, chats and more in easy to use native UI.
 
 Will be on web store sooner or later.
 
@@ -18,9 +21,15 @@ Any additions and improvements welcome.
 
 This is very MVP and just to get ball rolling.
 
-##### How to Install
+##### Install on Chrome Web Store
 
-Download and go to `chrome://extensions` turn on developer mode and "load unpacked" and open the folder and click select. Then check console log to make sure it is loaded or try making a song and see if asks for notification or says "ding, fries are done"
+Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdljokjallnlfkibjoiolndccinoi) to install the **MedioAI** extension and start using today!
+
+##### Contributing
+
+I am open to contributions and suggestions. Please feel free to open an issue or pull request.
+
+"If you have more Genres, Artists, or other tags to add to the `database` .json files, please do so, all suggestions are welcome. Thank you!" - Wynter Jones, Developer
 
 ## License
 
