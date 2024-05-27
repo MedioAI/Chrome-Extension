@@ -8,6 +8,10 @@
  */
 
 const utilitiesMedioAI = {
+  quill: null,
+  perPage: 2,
+  chatHistory: [],
+
   getSettings: key => {
     return new Promise((resolve, reject) => {
       chrome.storage.local.get(['medioaiSettings'], function (result) {
@@ -149,7 +153,7 @@ const utilitiesMedioAI = {
 
     Quill.register('modules/customDropdown', CustomDropdown)
 
-    engine.quill = new Quill('#editor', {
+    utilitiesMedioAI.quill = new Quill('#editor', {
       theme: 'snow',
       placeholder: utilitiesMedioAI.randomStartingText(),
       modules: {
@@ -177,14 +181,14 @@ const utilitiesMedioAI = {
       })
     }
 
-    engine.quill.on('text-change', function () {
+    utilitiesMedioAI.quill.on('text-change', function () {
       addCommandClass()
 
       const el = document.getElementById('medioCharactersSelected')
       el.style.display = 'none'
 
       setTimeout(() => {
-        let editor = engine.quill.root
+        let editor = utilitiesMedioAI.quill.root
         let codeBlocks = editor.querySelectorAll('.ql-code-block')
 
         codeBlocks.forEach(codeBlock => {
@@ -196,13 +200,13 @@ const utilitiesMedioAI = {
       }, 0)
     })
 
-    engine.quill.on('selection-change', function (range, oldRange, source) {
+    utilitiesMedioAI.quill.on('selection-change', function (range, oldRange, source) {
       const el = document.getElementById('medioCharactersSelected')
       if (range) {
         if (el && range.length == 0) {
           el.style.display = 'none'
         } else {
-          const text = engine.quill.getText(range.index, range.length)
+          const text = utilitiesMedioAI.quill.getText(range.index, range.length)
           const charCount = text.length
           let className = 'text-white font-bold'
           if (charCount > 350) {
@@ -227,7 +231,7 @@ const utilitiesMedioAI = {
       this.value = ''
     })
 
-    engine.quill.clipboard.addMatcher(Node.ELEMENT_NODE, (node, delta) => {
+    utilitiesMedioAI.quill.clipboard.addMatcher(Node.ELEMENT_NODE, (node, delta) => {
       let ops = []
 
       delta.ops.forEach(op => {
@@ -240,10 +244,10 @@ const utilitiesMedioAI = {
 
       delta.ops = ops
 
-      let length = engine.quill.getLength()
+      let length = utilitiesMedioAI.quill.getLength()
       let range = { index: 0, length: length }
       if (range.length > 0) {
-        engine.quill.removeFormat(range, Quill.sources.USER)
+        utilitiesMedioAI.quill.removeFormat(range, Quill.sources.USER)
       }
 
       return delta

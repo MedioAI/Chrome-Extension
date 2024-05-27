@@ -505,7 +505,8 @@ const uiMedioAI = {
 </div>
 `,
 
-  songStudio: /* html */ `
+  songStudio: async () => {
+    return /* html */ `
 <button
   id="close-lyric-barn"
   style="
@@ -1417,13 +1418,14 @@ const uiMedioAI = {
     <div id="editor"></div>
     <style id="medioCSS">
       .ql-editor {
-          font-size: ${await engine.getSettings('lyrictextsize')};
+          font-size: ${await utilitiesMedioAI.getSettings('lyrictextsize')};
           }
-          .medioCommand {color: ${await engine.getSettings('commandcolor')}}
+          .medioCommand {color: ${await utilitiesMedioAI.getSettings('commandcolor')}}
     </style>
   </div>
 </div>
-`,
+`
+  },
 
   placeholder: (title, msg) => {
     return /* html */ `
