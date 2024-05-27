@@ -31,6 +31,10 @@ I am open to contributions and suggestions. Please feel free to open an issue or
 
 > "If you have more Genres, Artists, or other tags to add to the `database` .json files, please do so, all suggestions are welcome. Thank you!" - **Wynter Jones, Developer**
 
+## Donate
+
+If you feel like the extension was worth your time or enhanced your experience creating AI music with Udio or Suno, please feel free to buy me a coffee! [Donate to Developer](https://buymeacoffee.com/wyntera) - keep on rockin' !
+
 ## License
 
 This program is free software: you can redistribute it and/or modify
