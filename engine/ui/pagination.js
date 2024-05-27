@@ -28,7 +28,8 @@ const paginationMedioAI = {
       const currentPortion = items.slice(0, paginationMedioAI.perPage)
       const totalPages = Math.ceil(items.length / paginationMedioAI.perPage)
 
-      document.querySelector('#medioPageCount').innerText = '1 of ' + totalPages + ' Pages'
+      document.querySelector('#medioPageCount').innerText =
+        '1 of ' + totalPages + ` (${paginationMedioAI.chatHistory.length})`
       document.querySelector('#medioPageCount').setAttribute('data-max', totalPages)
       document.querySelector('#medioPageCount').setAttribute('data-current', 1)
 
@@ -115,7 +116,8 @@ const paginationMedioAI = {
 
       document.querySelector('#medioPageCount').setAttribute('data-current', '1')
       document.querySelector('#medioPageCount').setAttribute('data-max', chats.length)
-      document.querySelector('#medioPageCount').innerHTML = `Page 1 of ${totalPages}`
+      document.querySelector('#medioPageCount').innerHTML =
+        `Page 1 of ${totalPages}` + ` (${paginationMedioAI.chatHistory.length})`
       document.querySelector('#medioPrev').classList.add('medioDisabled')
       document.querySelector('#medioNext').classList.remove('medioDisabled')
       return
@@ -142,7 +144,7 @@ const paginationMedioAI = {
       wrapper.append(newChat)
     })
 
-    document.querySelector('#medioPageCount').innerHTML = '1 of 1 Pages'
+    document.querySelector('#medioPageCount').innerHTML = '1 of 1' + ` (${filteredChats.length})`
     document.querySelector('#medioPrev').classList.add('medioDisabled')
     document.querySelector('#medioNext').classList.add('medioDisabled')
   },
@@ -169,7 +171,8 @@ const paginationMedioAI = {
         wrapper.append(newChat)
       })
 
-      document.querySelector('#medioPageCount').innerText = current + ' of ' + totalPages + ' Pages'
+      document.querySelector('#medioPageCount').innerText =
+        current + ' of ' + totalPages + ` (${paginationMedioAI.chatHistory.length})`
 
       if (parseInt(current) === 1) {
         document.querySelector('#medioPrev').classList.add('medioDisabled')
@@ -206,7 +209,8 @@ const paginationMedioAI = {
         container.append(newChat)
       })
 
-      document.querySelector('#medioPageCount').innerText = current + ' of ' + totalPages + ' Pages'
+      document.querySelector('#medioPageCount').innerText =
+        current + ' of ' + totalPages + ` (${paginationMedioAI.chatHistory.length})`
     }
   },
 
@@ -216,7 +220,7 @@ const paginationMedioAI = {
           <div id="medioPagination" class="flex items-center" style="width: 400px">
             <button id="medioPrev" class="medioDisabled">Previous</button>
             <div data-current="1" data-max="${length}" id="medioPageCount" class="w-full">
-              Page 1 of ${length}
+               1 of 1 
             </div>
             <button id="medioNext">Next</button>
           </div>

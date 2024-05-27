@@ -12,18 +12,7 @@ const uiMedioAI = {
 <div class="-ml-5 pl-[16px]">
   <div class="relative flex items-center rounded-lg p-2 hover:text-foreground">
     <a class="mr-4 flex items-center" id="medioai-link" href="#">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-      >
-        <path
-          fill="currentColor"
-          d="M4 16V4zm-2 6V4q0-.825.588-1.412T4 2h11q.825 0 1.413.588T17 4v.425q-.6.275-1.1.675T15 6V4H4v12h11v-4q.4.5.9.9t1.1.675V16q0 .825-.587 1.413T15 18H6zm4-8h4v-2H6zm13-2q-1.25 0-2.125-.875T16 9t.875-2.125T19 6q.275 0 .525.05t.475.125V1h4v2h-2v6q0 1.25-.875 2.125T19 12M6 11h7V9H6zm0-3h7V6H6z"
-        />
-      </svg>
-
+      <div style="font-size: 1.7rem">${iconsMedioAI.songStudio}</div>
       <span class="ml-3 flex-1 whitespace-nowrap font-bold">Song Studio</span>
     </a>
   </div>
@@ -32,19 +21,7 @@ const uiMedioAI = {
 <div class="-ml-5 pl-[16px]">
   <div class="relative flex items-center rounded-lg p-2 hover:text-foreground">
     <a class="mr-4 flex items-center" id="lyric-tagbuilder-link" href="#">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-      >
-        <circle cx="16" cy="17" r="1" fill="currentColor" opacity="0.3" />
-        <path
-          fill="currentColor"
-          d="M3 10h12v2H3zm0 4h8v2H3zm0-8h12v2H3zm14 8.18c-.31-.11-.65-.18-1-.18c-1.66 0-3 1.34-3 3s1.34 3 3 3s3-1.34 3-3V8h3V6h-5z"
-        />
-      </svg>
-
+      <div style="font-size: 1.7rem">${iconsMedioAI.tagBuilder}</div>
       <span class="ml-3 flex-1 whitespace-nowrap font-bold">Tag Builder</span>
     </a>
   </div>
@@ -70,6 +47,7 @@ const uiMedioAI = {
 >
   &times;
 </button>
+
 <div id="medioai-content">
   <input type="hidden" id="mediotag-id" />
 
@@ -114,17 +92,7 @@ const uiMedioAI = {
         class="absolute"
         style="top: 40px; right: 13px"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="1.2em"
-          height="1.2em"
-          viewBox="0 0 32 32"
-        >
-          <path
-            fill="currentColor"
-            d="m29.772 26.433l-7.126-7.126a10.43 10.43 0 0 0 1.524-5.42c0-5.794-4.692-10.486-10.482-10.488c-5.79 0-10.484 4.693-10.484 10.485c0 5.79 4.693 10.48 10.484 10.48c1.987 0 3.84-.562 5.422-1.522l7.128 7.127l3.534-3.537zM7.202 13.885a6.496 6.496 0 0 1 6.485-6.486a6.493 6.493 0 0 1 6.484 6.485a6.494 6.494 0 0 1-6.483 6.484a6.496 6.496 0 0 1-6.484-6.485z"
-          />
-        </svg>
+        ${iconsMedioAI.search}
       </div>
       <input
         type="text"
@@ -338,38 +306,13 @@ const uiMedioAI = {
       <div class="flex space-x-2 items-center justify-between mt-2">
         <div class="flex space-x-2">
           <button id="medioAskAIQuestion" class="flex select-none items-center space-x-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="1em"
-              height="1em"
-              viewBox="0 0 15 15"
-            >
-              <path
-                fill="currentColor"
-                d="m14.5.5l.46.197a.5.5 0 0 0-.657-.657zm-14 6l-.197-.46a.5.5 0 0 0-.06.889zm8 8l-.429.257a.5.5 0 0 0 .889-.06zM14.303.04l-14 6l.394.92l14-6zM.243 6.93l5 3l.514-.858l-5-3zM5.07 9.757l3 5l.858-.514l-3-5zm3.889 4.94l6-14l-.92-.394l-6 14zM14.146.147l-9 9l.708.707l9-9z"
-              />
-            </svg>
-            <span>Ask</span>
+            ${iconsMedioAI.send}
+            <span>Send</span>
           </button>
 
           <button id="medioAskChatList" class="flex select-none items-center space-x-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="1em"
-              height="1em"
-              viewBox="0 0 256 256"
-            >
-              <g fill="currentColor">
-                <path
-                  d="M224 96v128l-39.58-32H88a8 8 0 0 1-8-8v-40h88a8 8 0 0 0 8-8V88h40a8 8 0 0 1 8 8"
-                  opacity="0.2"
-                />
-                <path
-                  d="M216 80h-32V48a16 16 0 0 0-16-16H40a16 16 0 0 0-16 16v128a8 8 0 0 0 13 6.22L72 154v30a16 16 0 0 0 16 16h93.59L219 230.22a8 8 0 0 0 5 1.78a8 8 0 0 0 8-8V96a16 16 0 0 0-16-16M66.55 137.78L40 159.25V48h128v88H71.58a8 8 0 0 0-5.03 1.78M216 207.25l-26.55-21.47a8 8 0 0 0-5-1.78H88v-32h80a16 16 0 0 0 16-16V96h32Z"
-                />
-              </g>
-            </svg>
-            <span>Past Chats</span>
+            ${iconsMedioAI.chats}
+            <span>View Past Chats</span>
           </button>
         </div>
         <div class="ml-2 text-sm text-gray-400 flex space-x-2 select-none items-center">
@@ -379,9 +322,9 @@ const uiMedioAI = {
             type="checkbox"
             checked
           />
-          <label for="medioaiIncludeLyrics"
-            >Include current song lyrics in the request.</label
-          >
+          <label for="medioaiIncludeLyrics">
+            Include current song lyrics in the request.
+          </label>
         </div>
       </div>
 
@@ -837,34 +780,14 @@ const uiMedioAI = {
           id="save-lyrics"
           class="flex select-none items-center space-x-2 medio-toolbar-button"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="1em"
-            height="1em"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="M5 21h14a2 2 0 0 0 2-2V8a1 1 0 0 0-.29-.71l-4-4A1 1 0 0 0 16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2m10-2H9v-5h6zM13 7h-2V5h2zM5 5h2v4h8V5h.59L19 8.41V19h-2v-5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v5H5z"
-            />
-          </svg>
+          ${iconsMedioAI.save}
           <span>Save</span>
         </button>
         <button
           id="clear-lyrics"
           class="flex select-none items-center space-x-2 medio-toolbar-button"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="1em"
-            height="1em"
-            viewBox="0 0 56 56"
-          >
-            <path
-              fill="currentColor"
-              d="M13.785 49.574h28.453c4.899 0 7.336-2.437 7.336-7.265V13.69c0-4.828-2.437-7.265-7.336-7.265H13.785c-4.875 0-7.36 2.414-7.36 7.265v28.62c0 4.851 2.485 7.265 7.36 7.265m.07-3.773c-2.343 0-3.656-1.242-3.656-3.68V13.88c0-2.438 1.313-3.68 3.656-3.68h28.313c2.32 0 3.633 1.242 3.633 3.68v28.24c0 2.438-1.313 3.68-3.633 3.68Zm4.336-9.867a1.86 1.86 0 0 0 1.852 1.875c.515 0 .984-.188 1.312-.54l6.633-6.656l6.656 6.657c.329.328.774.539 1.29.539a1.88 1.88 0 0 0 1.875-1.875c0-.54-.211-.961-.563-1.313l-6.61-6.633l6.634-6.656c.374-.375.562-.797.562-1.289c0-1.031-.82-1.875-1.875-1.875c-.469 0-.867.188-1.242.563l-6.727 6.68l-6.68-6.657c-.351-.328-.75-.54-1.265-.54a1.856 1.856 0 0 0-1.852 1.852c0 .493.211.938.54 1.29l6.632 6.632l-6.633 6.657c-.328.351-.539.773-.539 1.289"
-            />
-          </svg>
+          ${iconsMedioAI.clear}
           <span>Clear</span>
         </button>
       </div>
