@@ -40,37 +40,66 @@ const paginationMedioAI = {
       })
 
       container.append(wrapper)
-      paginationMedioAI.events(callback, items, wrapper, totalPages)
+      paginationMedioAI.events(key, callback, items, wrapper, totalPages)
     })
   },
 
-  events: (callback, items, wrapper, totalPages) => {
+  events: (key, callback, items, wrapper, totalPages) => {
     const searchBox = document.querySelector('#medioSearchChatList')
     searchBox.addEventListener('input', e => {
-      paginationMedioAI.search(e.target.value, wrapper)
+      paginationMedioAI.search(e.target.value, wrapper, totalPages)
+      paginationMedioAI.open(key, items, callback)
     })
 
     const medioPrev = document.getElementById('medioPrev')
     medioPrev.addEventListener('click', async e => {
       paginationMedioAI.previous(e, wrapper, totalPages)
+      paginationMedioAI.open(key, items, callback)
     })
 
     const medioNext = document.getElementById('medioNext')
     medioNext.addEventListener('click', async e => {
       paginationMedioAI.next(e, wrapper, totalPages)
+      paginationMedioAI.open(key, items, callback)
     })
 
-    const chatItemView = document.querySelectorAll('.medioChatItemView')
+    paginationMedioAI.open(key, items, callback)
+  },
+
+  open: (key, items, callback) => {
+    const chatItemView = document.querySelectorAll('.medioChatItem')
     chatItemView.forEach(item => {
       item.addEventListener('click', async e => {
-        const id = e.target.getAttribute('data-id')
+        const id = e.target.closest('.medioChatItem').getAttribute('data-id')
         const item = items.find(item => item.id === id)
         callback(item)
       })
     })
+
+    const medioChatDelete = document.querySelectorAll('.medioChatItem .medioChatDelete')
+    medioChatDelete.forEach(item => {
+      item.addEventListener('click', async e => {
+        const el = e.target.closest('.medioChatItem')
+        const id = el.getAttribute('data-id')
+
+        if (el.classList.contains('confirmDelete')) {
+          const index = items.findIndex(item => item.id === id)
+          items.splice(index, 1)
+
+          chrome.storage.local.set({ [key]: items }, () => {
+            el.remove()
+          })
+        } else {
+          el.classList.add('confirmDelete')
+          setTimeout(() => {
+            el.classList.remove('confirmDelete')
+          }, 3000)
+        }
+      })
+    })
   },
 
-  search: (value, wrapper) => {
+  search: (value, wrapper, totalPages) => {
     const search = value.toLowerCase()
     const chats = paginationMedioAI.chatHistory
 
@@ -86,7 +115,7 @@ const paginationMedioAI = {
 
       document.querySelector('#medioPageCount').setAttribute('data-current', '1')
       document.querySelector('#medioPageCount').setAttribute('data-max', chats.length)
-      document.querySelector('#medioPageCount').innerHTML = `Page 1 of ${chats.length}`
+      document.querySelector('#medioPageCount').innerHTML = `Page 1 of ${totalPages}`
       document.querySelector('#medioPrev').classList.add('medioDisabled')
       document.querySelector('#medioNext').classList.remove('medioDisabled')
       return
@@ -101,6 +130,10 @@ const paginationMedioAI = {
     })
 
     wrapper.innerHTML = ''
+
+    if (!filteredChats.length) {
+      wrapper.innerHTML = '<p class="italic opacity-50">Nothing found...</p>'
+    }
 
     filteredChats.reverse().forEach(chat => {
       const newChat = document.createElement('div')
@@ -190,15 +223,17 @@ const paginationMedioAI = {
         </div>`
   },
 
-  block: chat => {
-    return /* html */ `<div class="medioChatItem mb-2 flex items-center justify-between p-2 border rounded">
+  block: item => {
+    return /* html */ `<div data-id="${
+      item.id
+    }" class="medioChatItem mb-2 flex items-center justify-between p-2 border rounded">
       <div>
-        <h4 class="text-lg font-bold">${chat.name}</h4>
+        <h4 class="text-lg font-bold">${item.name}</h4>
         <p class="text-sm flex space-x-4 text-gray-400">
-        <span>${new Date(chat.created_at).toLocaleString()}</span> 
-        <span style="opacity: 0.5">${chat.song_title}</span></p>
+        <span style="opacity: 0.5">${utilitiesMedioAI.formatDate(item.created_at || Date.now())}</span> 
+        <span style="opacity: 0.5">${item.song_title}</span></p>
       </div>
-      <button class="medioChatDelete" data-id="${chat.id}">
+      <button class="medioChatDelete" data-id="${item.id}">
         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M216 48h-36V36a28 28 0 0 0-28-28h-48a28 28 0 0 0-28 28v12H40a12 12 0 0 0 0 24h4v136a20 20 0 0 0 20 20h128a20 20 0 0 0 20-20V72h4a12 12 0 0 0 0-24M100 36a4 4 0 0 1 4-4h48a4 4 0 0 1 4 4v12h-56Zm88 168H68V72h120Zm-72-100v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0m48 0v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0"></path></svg>
       </button>
     </div>`

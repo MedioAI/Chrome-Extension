@@ -183,6 +183,20 @@
   background: #242424;
   cursor: pointer;
 }
+.medioChatItem.confirmDelete {
+  color: #fff;
+}
+.medioChatDelete {
+  font-size: 19px;
+  padding-right: 10px;
+  opacity: 0.5;
+}
+.medioChatDelete:hover {
+  opacity: 1;
+}
+.medioChatItem.confirmDelete .medioChatDelete {
+  color: #e3095d;
+}
 .medioaimessage {
   border: 1px solid #474747;
   padding: 25px;

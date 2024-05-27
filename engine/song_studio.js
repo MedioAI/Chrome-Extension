@@ -84,18 +84,20 @@ const songStudioMedioAI = {
       document.querySelector('#medioask').style.display = 'none'
       document.querySelector('#mediochats').style.display = 'block'
       paginationMedioAI.init('medioaiChats', 'mediochats', item => {
-        console.log('Click on the chat item and open it.', item.id, item)
-        // document.querySelector('#mediochattab').style.display = 'block'
-        // document.querySelector('#mediochats').style.display = 'none'
-        // document.querySelector('#medioaichat').innerHTML = ''
-        // document.querySelector('#medioaichat').setAttribute('data-id', chat.id)
-        // chat.messages.forEach(message => {
-        //   const newMessage = document.createElement('div')
-        //   newMessage.classList.add('medioaimessage')
-        //   newMessage.classList.add(`medioai${message.role}`)
-        //   newMessage.innerHTML = message.content
-        //   document.querySelector('#medioaichat').append(newMessage)
-        // })
+        if (item) {
+          console.log('Click on the chat item and open it.', item.id, item)
+          // document.querySelector('#mediochattab').style.display = 'block'
+          // document.querySelector('#mediochats').style.display = 'none'
+          // document.querySelector('#medioaichat').innerHTML = ''
+          // document.querySelector('#medioaichat').setAttribute('data-id', chat.id)
+          // chat.messages.forEach(message => {
+          //   const newMessage = document.createElement('div')
+          //   newMessage.classList.add('medioaimessage')
+          //   newMessage.classList.add(`medioai${message.role}`)
+          //   newMessage.innerHTML = message.content
+          //   document.querySelector('#medioaichat').append(newMessage)
+          // })
+        }
       })
     })
 
