@@ -46,7 +46,6 @@ const notificationMedioAI = {
         observer.observe(targetNode, config)
         clearInterval(checkTargetNode)
         engine.state.isRunning = true
-        console.log('Autobots out, ready to roll.')
       }
     }, 1000)
   },

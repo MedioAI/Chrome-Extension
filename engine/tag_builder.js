@@ -10,55 +10,17 @@
 const tagBuilderMedioAI = {
   init: async () => {
     const modal = document.createElement('div')
-    modal.id = 'lyric-tagbuilder-overlay'
-    modal.style.position = 'fixed'
-    modal.style.top = '0'
-    modal.style.left = '0'
-    modal.style.width = '100%'
-    modal.style.height = '100%'
-    modal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'
-    modal.style.zIndex = '99999999999'
+    modal.id = 'medioAI-tagbuilder'
     const animate = await utilitiesMedioAI.getSettings('slideanimation')
     if (animate === 'on') {
       modal.style.transition = 'transform 0.3s'
     }
-    modal.style.transform = 'translateX(-100%)'
-    modal.style.overflowY = 'auto'
-    modal.style.padding = '25px'
-    modal.style.boxSizing = 'border-box'
-    modal.style.display = 'flex'
-    modal.style.flexDirection = 'column'
-    modal.style.alignItems = 'center'
-    modal.style.justifyContent = 'center'
-    modal.style.color = '#fff'
-    modal.style.fontFamily = 'Arial, sans-serif'
-    modal.style.fontSize = '16px'
-    modal.style.lineHeight = '1.5'
-    modal.style.fontWeight = '400'
-
     modal.innerHTML = uiMedioAI.tagBuilder
     document.body.appendChild(modal)
+    tagBuilderMedioAI.load()
+  },
 
-    const lyricBuildertabButtons = document.querySelectorAll('.lyric-buildertab-button')
-
-    lyricBuildertabButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        songStudioMedioAI.tabs()
-      })
-    })
-
-    const medioAddTag = document.querySelectorAll('.medioAddTag')
-    const medioTagBox = document.getElementById('medioTagBox')
-
-    medioAddTag.forEach(tag => {
-      tag.addEventListener('change', () => {
-        if (tag.value) {
-          medioTagBox.value += tag.value + ', '
-          tag.value = ''
-        }
-      })
-    })
-
+  load: () => {
     const artistsJson = chrome.runtime.getURL('database/artists.json')
     const genresJson = chrome.runtime.getURL('database/genres.json')
 
@@ -109,7 +71,29 @@ const tagBuilderMedioAI = {
       })
 
       document.getElementById('searchTags').addEventListener('input', e => {
-        tagBuilderMedioAI.search(e)
+        tagBuilderMedioAI.search(e, totalDBTags)
+      })
+
+      tagBuilderMedioAI.events()
+    })
+  },
+
+  events: () => {
+    const lyricBuildertabButtons = document.querySelectorAll('.lyric-buildertab-button')
+    lyricBuildertabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        tagBuilderMedioAI.tabs()
+      })
+    })
+
+    const medioAddTag = document.querySelectorAll('.medioAddTag')
+    const medioTagBox = document.getElementById('medioTagBox')
+    medioAddTag.forEach(tag => {
+      tag.addEventListener('change', () => {
+        if (tag.value) {
+          medioTagBox.value += tag.value + ', '
+          tag.value = ''
+        }
       })
     })
 
@@ -141,17 +125,17 @@ const tagBuilderMedioAI = {
 
   open: e => {
     e.preventDefault()
-    if (!document.getElementById('lyric-tagbuilder-overlay')) {
+    if (!document.getElementById('medioAI-tagbuilder')) {
       document.body.style.overflow = 'auto'
     } else {
       document.body.style.overflow = 'hidden'
-      const overlay3 = document.getElementById('lyric-tagbuilder-overlay')
+      const overlay3 = document.getElementById('medioAI-tagbuilder')
       overlay3.style.transform = 'translateX(0)'
     }
   },
 
   close: () => {
-    const modal = document.getElementById('lyric-tagbuilder-overlay')
+    const modal = document.getElementById('medioAI-tagbuilder')
     modal.style.transform = 'translateX(-100%)'
     document.body.style.overflow = 'auto'
   },
@@ -165,7 +149,6 @@ const tagBuilderMedioAI = {
       e.target.classList.remove('confirmClear')
     } else {
       e.target.classList.add('confirmClear')
-
       setTimeout(() => {
         e.target.classList.remove('confirmClear')
       }, 5000)
@@ -174,10 +157,8 @@ const tagBuilderMedioAI = {
 
   copy: e => {
     navigator.clipboard.writeText(medioTagBox.value)
-
     e.target.textContent = 'Copied!'
     utilitiesMedioAI.showNotification('Copied tags to clipboard.')
-
     setTimeout(() => {
       e.target.textContent = 'Copy'
     }, 1000)
@@ -187,12 +168,11 @@ const tagBuilderMedioAI = {
     const tags = medioTagBox.value
     const title = document.querySelector('#medioTagBoxTitle').value
     const tagId = document.querySelector('#mediotag-id').value
-
     if (!tagId) {
       chrome.storage.sync.get('medioTags', data => {
         const newTags = data.medioTags ? data.medioTags : []
         newTags.push({
-          id: medioAI.uuidv4(),
+          id: utilitiesMedioAI.uuidv4(),
           created_at: new Date().toISOString(),
           tags,
           title: title || 'Untitled',
@@ -201,9 +181,7 @@ const tagBuilderMedioAI = {
           utilitiesMedioAI.showNotification('Created new tag for your library.')
         })
       })
-
       e.target.textContent = 'Saved!'
-
       setTimeout(() => {
         e.target.textContent = 'Save'
       }, 1000)
@@ -223,53 +201,41 @@ const tagBuilderMedioAI = {
             return tag
           }
         })
-
         chrome.storage.sync.set({ medioTags: newTags }, () => {
           utilitiesMedioAI.showNotification('Updated tag in your library.')
         })
       })
-
       e.target.textContent = 'Updated!'
-
       setTimeout(() => {
         e.target.textContent = 'Save'
       }, 1000)
     }
   },
 
-  search: e => {
+  search: (e, totalDBTags) => {
     const search = e.target.value.toLowerCase()
-
     if (search === '') {
       document.getElementById('medioSearchDropdown').style.display = 'none'
       return
     }
-
-    document.querySelector(
-      '#medioSearchClear'
-    ).innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"><path fill="currentColor" d="M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.9.89 1.59.89h15a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-3 12.59L17.59 17L14 13.41L10.41 17L9 15.59L12.59 12L9 8.41L10.41 7L14 10.59L17.59 7L19 8.41L15.41 12"/></svg>`
-
+    document.querySelector('#medioSearchClear').innerHTML = iconsMedioAI.clear
     document.querySelector('#medioSearchClear').addEventListener('click', () => {
       document.getElementById('searchTags').value = ''
       document.getElementById('medioSearchDropdown').style.display = 'none'
-
-      document.querySelector(
-        '#medioSearchClear'
-      ).innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 32 32"><path fill="currentColor" d="m29.772 26.433l-7.126-7.126a10.43 10.43 0 0 0 1.524-5.42c0-5.794-4.692-10.486-10.482-10.488c-5.79 0-10.484 4.693-10.484 10.485c0 5.79 4.693 10.48 10.484 10.48c1.987 0 3.84-.562 5.422-1.522l7.128 7.127l3.534-3.537zM7.202 13.885a6.496 6.496 0 0 1 6.485-6.486a6.493 6.493 0 0 1 6.484 6.485a6.494 6.494 0 0 1-6.483 6.484a6.496 6.496 0 0 1-6.484-6.485z"/></svg>`
+      document.querySelector('#medioSearchClear').innerHTML = iconsMedioAI.search
     })
-
     const searchResults = totalDBTags.filter(tag => {
       return tag.toLowerCase().includes(search)
     })
-
     const medioSearchDropdown = document.getElementById('medioSearchDropdown')
     medioSearchDropdown.innerHTML = ''
-
     if (searchResults.length === 0) {
-      medioSearchDropdown.innerHTML = `<p class="text-xs text-gray-400">No results found...</p>`
+      medioSearchDropdown.innerHTML = uiMedioAI.placeholder(
+        'No results found',
+        'Try another query or add a new tag.'
+      )
       return
     }
-
     searchResults.forEach(tag => {
       const span = document.createElement('span')
       span.classList.add(
@@ -287,15 +253,95 @@ const tagBuilderMedioAI = {
       span.textContent = capitalizedTag
       medioSearchDropdown.appendChild(span)
     })
-
     medioSearchDropdown.style.display = 'block'
-
     const medioSearchTags = document.querySelectorAll('.medioSearchTag')
-
     medioSearchTags.forEach(tag => {
       tag.addEventListener('click', () => {
         medioTagBox.value += tag.textContent + ', '
       })
     })
+  },
+
+  tabs: () => {
+    const lyricBuildertabs = document.querySelectorAll('.lyric-buildertab')
+    const tab = button.getAttribute('data-tab')
+    lyricBuildertabButtons.forEach(button => {
+      button.classList.remove('bg-black', 'text-foreground')
+      button.classList.add('bg-muted', 'text-muted-foreground')
+    })
+    lyricBuildertabs.forEach(tab => {
+      tab.style.display = 'none'
+    })
+    button.classList.remove('bg-muted', 'text-muted-foreground')
+    button.classList.add('bg-black', 'text-foreground')
+    const selectedTab = document.querySelector(`.lyric-buildertab[data-tab="${tab}"]`)
+    selectedTab.style.display = 'block'
+
+    if (tab === 'library') {
+      chrome.storage.sync.get('medioTags', data => {
+        const tags = data.medioTags ? data.medioTags : []
+        const tagLibraryItems = document.getElementById('medio-taglibrary-items')
+        tagLibraryItems.innerHTML = ''
+
+        if (tags.length === 0) {
+          tagLibraryItems.setAttribute('class', 'text-center w-full p-4 text-gray-500')
+          tagLibraryItems.innerHTML = uiMedioAI.placeholder(
+            'No Tags Found',
+            'Your tags will appear here to edit & manage at any time.'
+          )
+          return
+        } else {
+          tagLibraryItems.setAttribute('class', 'grid grid-cols-3 gap-4')
+        }
+
+        tags.forEach(tag => {
+          const div = document.createElement('div')
+          div.classList.add('medioopentag', 'border', 'p-4', 'rounded', 'text-sm', 'relative')
+          div.setAttribute('data-id', tag.id)
+          div.innerHTML = /* html */ `
+                <h2 class="font-bold text-lg">${tag.title}</h2>
+                <p class="truncate text-gray-400">${tag.tags}</p>
+                <button class="deleteMediaTag absolute top-2 right-2 text-sm text-gray-400"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M216 48h-36V36a28 28 0 0 0-28-28h-48a28 28 0 0 0-28 28v12H40a12 12 0 0 0 0 24h4v136a20 20 0 0 0 20 20h128a20 20 0 0 0 20-20V72h4a12 12 0 0 0 0-24M100 36a4 4 0 0 1 4-4h48a4 4 0 0 1 4 4v12h-56Zm88 168H68V72h120Zm-72-100v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0m48 0v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0"/></svg></button>
+                `
+          tagLibraryItems.appendChild(div)
+        })
+
+        const medioOpenTag = document.querySelectorAll('.medioopentag')
+        medioOpenTag.forEach(tag => {
+          tag.querySelector('.deleteMediaTag').addEventListener('click', e => {
+            e.preventDefault()
+            e.stopPropagation()
+
+            if (e.target.classList.contains('confirmDelete')) {
+              const tagId = tag.getAttribute('data-id')
+              chrome.storage.sync.get('medioTags', data => {
+                const tags = data.medioTags ? data.medioTags : []
+                const newTags = tags.filter(tag => tag.id !== tagId)
+                chrome.storage.sync.set({ medioTags: newTags }, () => {
+                  utilitiesMedioAI.showNotification('Deleted tag from your library.')
+                })
+              })
+              e.target.closest('.medioopentag').remove()
+            } else {
+              e.target.classList.add('confirmDelete')
+              setTimeout(() => {
+                e.target.classList.remove('confirmDelete')
+              }, 5000)
+            }
+          })
+          tag.addEventListener('click', () => {
+            const tags = tag.querySelector('p').textContent
+            const title = tag.querySelector('h2').textContent
+            const medioTagBox = document.getElementById('medioTagBox')
+            const medioTagBoxTitle = document.getElementById('medioTagBoxTitle')
+            medioTagBox.value = tags
+            medioTagBoxTitle.value = title
+            document.querySelector('#mediotag-id').value = tag.getAttribute('data-id')
+            document.querySelector(`.lyric-buildertab-button[data-tab="build"]`).click()
+            utilitiesMedioAI.showNotification(`Opened Tag Group: "${title}"`)
+          })
+        })
+      })
+    }
   },
 }

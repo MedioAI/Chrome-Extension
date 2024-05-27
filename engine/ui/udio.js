@@ -506,6 +506,7 @@ const uiMedioAI = {
 `,
 
   songStudio: async () => {
+    const logo = chrome.runtime.getURL('icon/128x128.png')
     return /* html */ `
 <button
   id="close-lyric-barn"
@@ -533,7 +534,7 @@ const uiMedioAI = {
     class="flex items-center space-x-2"
     style="font-size: 24px; font-weight: 700; margin-bottom: 16px"
   >
-    <img src="${chrome.runtime.getURL('icon/128x128.png')}" style="width:
+    <img src="${logo}" style="width:
     48px; height: 48px; border-radius: 6px; margin-right: 8px" />
     <span class="font-bold">Song Studio</span>
     <span

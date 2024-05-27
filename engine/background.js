@@ -21,9 +21,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
   chrome.storage.local.get('medioaiSettings', result => {
     if (!result.medioaiSettings) {
-      chrome.storage.local.set({ medioaiSettings: defaultSettings }, () => {
-        console.log('Default settings have been saved:', defaultSettings)
-      })
+      chrome.storage.local.set({ medioaiSettings: defaultSettings }, () => {})
     }
   })
 })

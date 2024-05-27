@@ -22,22 +22,22 @@ const utilitiesMedioAI = {
 
   setHotKeys: e => {
     if (e.key === 'Escape') {
-      const overlay = document.getElementById('lyric-barn-overlay')
+      const overlay = document.getElementById('medioAI-songstudio')
       overlay.style.transform = 'translateX(-100%)'
       document.body.style.overflow = 'auto'
 
-      const overlay2 = document.getElementById('lyric-tagbuilder-overlay')
+      const overlay2 = document.getElementById('medioAI-tagbuilder')
       overlay2.style.transform = 'translateX(-100%)'
     }
 
     if ((e.ctrlKey && e.key === 'k') || (e.metaKey && e.key === 'k')) {
-      const overlay = document.getElementById('lyric-barn-overlay')
+      const overlay = document.getElementById('medioAI-songstudio')
       overlay.style.transform = 'translateX(0)'
       document.body.style.overflow = 'hidden'
     }
 
     if ((e.ctrlKey && e.key === 'j') || (e.metaKey && e.key === 'j')) {
-      const overlay = document.getElementById('lyric-tagbuilder-overlay')
+      const overlay = document.getElementById('medioAI-tagbuilder')
       overlay.style.transform = 'translateX(0)'
       document.body.style.overflow = 'hidden'
     }
@@ -119,16 +119,12 @@ const utilitiesMedioAI = {
   clearDB: () => {
     chrome.storage.sync.get('medioTags', data => {
       if (data.medioTags) {
-        chrome.storage.sync.remove('medioTags', () => {
-          console.log('medioTags cleared.')
-        })
+        chrome.storage.sync.remove('medioTags', () => {})
       }
     })
     chrome.storage.sync.get('medioLyrics', data => {
       if (data.medioLyrics) {
-        chrome.storage.sync.remove('medioLyrics', () => {
-          console.log('medioLyrics cleared.')
-        })
+        chrome.storage.sync.remove('medioLyrics', () => {})
       }
     })
   },

@@ -32,6 +32,7 @@
       "js": [
         "lib/quill.js",
         "engine/utilities.js",
+        "engine/ui/icons.js",
         "engine/ui/udio.js",
         "engine/audio_notification.js",
         "engine/past_chat_list.js",
@@ -47,6 +48,7 @@
       "js": [
         "lib/quill.js",
         "engine/utilities.js",
+        "engine/ui/icons.js",
         "engine/ui/suno.js",
         "engine/audio_notification.js",
         "engine/past_chat_list.js",

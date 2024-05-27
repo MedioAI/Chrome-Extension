@@ -172,7 +172,7 @@ const apiMedioAI = {
             
         ${includeLyrics}`
 
-      const id = medioAI.uuidv4()
+      const id = utilitiesMedioAI.uuidv4()
       document.querySelector('#medioaichat').setAttribute('data-id', id)
 
       chrome.storage.local.get(['medioaiChats'], async result => {

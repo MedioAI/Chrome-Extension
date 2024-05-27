@@ -10,35 +10,19 @@
 const songStudioMedioAI = {
   init: async () => {
     const modal = document.createElement('div')
-    modal.id = 'lyric-barn-overlay'
-    modal.style.position = 'fixed'
-    modal.style.top = '0'
-    modal.style.left = '0'
-    modal.style.width = '100%'
-    modal.style.height = '100%'
-    modal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'
-    modal.style.zIndex = '99999999999'
+    modal.id = 'medioAI-songstudio'
     const animate = await utilitiesMedioAI.getSettings('slideanimation')
     if (animate === 'on') {
       modal.style.transition = 'transform 0.3s'
     }
-    modal.style.transform = 'translateX(-100%)'
-    modal.style.overflowY = 'auto'
-    modal.style.padding = '25px'
-    modal.style.boxSizing = 'border-box'
-    modal.style.display = 'flex'
-    modal.style.flexDirection = 'column'
-    modal.style.alignItems = 'center'
-    modal.style.justifyContent = 'center'
-    modal.style.color = '#fff'
-    modal.style.fontFamily = 'Arial, sans-serif'
-    modal.style.fontSize = '16px'
-    modal.style.lineHeight = '1.5'
-    modal.style.fontWeight = '400'
-    modal.innerHTML = uiMedioAI.songStudio
-
+    modal.innerHTML = await uiMedioAI.songStudio()
     document.body.appendChild(modal)
+    utilitiesMedioAI.quill()
+    songStudioMedioAI.events()
+    songStudioMedioAI.tabs()
+  },
 
+  events: () => {
     const closeLyricBarn = document.getElementById('close-lyric-barn')
     closeLyricBarn.addEventListener('click', () => {
       songStudioMedioAI.close()
@@ -118,17 +102,17 @@ const songStudioMedioAI = {
   open: e => {
     e.preventDefault()
 
-    if (!document.getElementById('lyric-barn-overlay')) {
+    if (!document.getElementById('medioAI-songstudio')) {
       document.body.style.overflow = 'auto'
     } else {
       document.body.style.overflow = 'hidden'
-      const overlay = document.getElementById('lyric-barn-overlay')
+      const overlay = document.getElementById('medioAI-songstudio')
       overlay.style.transform = 'translateX(0)'
     }
   },
 
   close: () => {
-    const modal = document.getElementById('lyric-barn-overlay')
+    const modal = document.getElementById('medioAI-songstudio')
     modal.style.transform = 'translateX(-100%)'
     document.body.style.overflow = 'auto'
   },
@@ -142,7 +126,6 @@ const songStudioMedioAI = {
       e.target.classList.remove('confirmClear')
     } else {
       e.target.classList.add('confirmClear')
-
       setTimeout(() => {
         e.target.classList.remove('confirmClear')
       }, 3000)
@@ -157,10 +140,9 @@ const songStudioMedioAI = {
       const lyrics = {
         title: title || 'Untitled',
         content: medioAI.quill.root.innerHTML,
-        id: medioAI.uuidv4(),
+        id: utilitiesMedioAI.uuidv4(),
         created_at: new Date().toISOString(),
       }
-
       chrome.storage.local.get(['medioLyrics'], function (result) {
         const medioLyrics = result.medioLyrics || []
         medioLyrics.push(lyrics)
@@ -184,107 +166,137 @@ const songStudioMedioAI = {
   },
 
   tabs: () => {
-    const lyricBuildertabs = document.querySelectorAll('.lyric-buildertab')
-    const tab = button.getAttribute('data-tab')
+    const tabButtons = document.querySelectorAll('.lyric-tab-button')
 
-    lyricBuildertabButtons.forEach(button => {
-      button.classList.remove('bg-black', 'text-foreground')
-      button.classList.add('bg-muted', 'text-muted-foreground')
-    })
+    tabButtons.forEach(button => {
+      button.addEventListener('click', async e => {
+        const tab = e.target.dataset.tab
+        const tabs = document.querySelectorAll('.lyric-tab')
 
-    lyricBuildertabs.forEach(tab => {
-      tab.style.display = 'none'
-    })
+        const className =
+          'lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3'
 
-    button.classList.remove('bg-muted', 'text-muted-foreground')
-    button.classList.add('bg-black', 'text-foreground')
-
-    const selectedTab = document.querySelector(`.lyric-buildertab[data-tab="${tab}"]`)
-
-    selectedTab.style.display = 'block'
-
-    if (tab === 'library') {
-      chrome.storage.sync.get('medioTags', data => {
-        const tags = data.medioTags ? data.medioTags : []
-
-        const tagLibraryItems = document.getElementById('medio-taglibrary-items')
-
-        tagLibraryItems.innerHTML = ''
-
-        if (tags.length === 0) {
-          tagLibraryItems.setAttribute('class', 'text-center w-full p-4 text-gray-500')
-
-          tagLibraryItems.innerHTML = uiMedioAI.placeholder(
-            'No Tags Found',
-            'Your tags will appear here to edit & manage at any time.'
-          )
-
-          return
-        } else {
-          tagLibraryItems.setAttribute('class', 'grid grid-cols-3 gap-4')
-        }
-
-        tags.forEach(tag => {
-          const div = document.createElement('div')
-          div.classList.add('medioopentag', 'border', 'p-4', 'rounded', 'text-sm', 'relative')
-
-          div.setAttribute('data-id', tag.id)
-
-          div.innerHTML = /* html */ `
-                <h2 class="font-bold text-lg">${tag.title}</h2>
-                <p class="truncate text-gray-400">${tag.tags}</p>
-                <button class="deleteMediaTag absolute top-2 right-2 text-sm text-gray-400"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M216 48h-36V36a28 28 0 0 0-28-28h-48a28 28 0 0 0-28 28v12H40a12 12 0 0 0 0 24h4v136a20 20 0 0 0 20 20h128a20 20 0 0 0 20-20V72h4a12 12 0 0 0 0-24M100 36a4 4 0 0 1 4-4h48a4 4 0 0 1 4 4v12h-56Zm88 168H68V72h120Zm-72-100v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0m48 0v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0"/></svg></button>
-                `
-
-          tagLibraryItems.appendChild(div)
+        tabButtons.forEach(button => {
+          button.setAttribute('class', className)
         })
 
-        const medioOpenTag = document.querySelectorAll('.medioopentag')
+        document.getElementById('medioCharactersSelected').style.display = 'none'
+        e.target.setAttribute('class', className + ' bg-black')
 
-        medioOpenTag.forEach(tag => {
-          tag.querySelector('.deleteMediaTag').addEventListener('click', e => {
-            e.preventDefault()
-            e.stopPropagation()
+        tabs.forEach(tab => {
+          tab.style.display = 'none'
+        })
 
-            if (e.target.classList.contains('confirmDelete')) {
-              const tagId = tag.getAttribute('data-id')
+        const selectedTab = document.querySelector(`.lyric-tab[data-tab=${tab}]`)
+        selectedTab.style.display = 'block'
+        document.querySelector('#mediochattab').style.display = 'none'
+        document.querySelector('#mediochats').style.display = 'none'
 
-              chrome.storage.sync.get('medioTags', data => {
-                const tags = data.medioTags ? data.medioTags : []
-                const newTags = tags.filter(tag => tag.id !== tagId)
+        if (tab === 'rhyme') {
+          document.getElementById('wordInput').focus()
+          document.getElementById('wordInput').select()
+        } else if (tab === 'ask') {
+          const openaikey = await utilitiesMedioAI.getSettings('openaikey')
 
-                chrome.storage.sync.set({ medioTags: newTags }, () => {
-                  utilitiesMedioAI.showNotification('Deleted tag from your library.')
-                })
+          if (openaikey) {
+            document.querySelector('#medioapiExplainerask').style.display = 'none'
+            document.querySelector('#medioask').style.display = 'block'
+          } else {
+            document.querySelector('#medioapiExplainerask').style.display = 'block'
+            document.querySelector('#medioask').style.display = 'none'
+          }
+        } else if (tab === 'wizard') {
+          const openaikey = await utilitiesMedioAI.getSettings('openaikey')
+
+          if (openaikey) {
+            document.querySelector('#medioapiExplainerwizard').style.display = 'none'
+            document.querySelector('#mediowizard').style.display = 'block'
+          } else {
+            document.querySelector('#medioapiExplainerwizard').style.display = 'block'
+            document.querySelector('#mediowizard').style.display = 'none'
+          }
+        } else if (tab === 'library') {
+          chrome.storage.local.get(['medioLyrics'], function (result) {
+            const medioLyrics = result.medioLyrics || []
+            const libraryItems = document.getElementById('medio-library-items')
+            libraryItems.innerHTML = ''
+
+            if (medioLyrics.length === 0) {
+              libraryItems.setAttribute('class', 'text-center w-full p-4 text-gray-500')
+              libraryItems.innerHTML = uiMedioAI.placeholder(
+                'No Songs Found',
+                'Your songs will appear here to edit & manage at any time.'
+              )
+              return
+            }
+
+            medioLyrics.forEach(lyric => {
+              const lyricItem = document.createElement('a')
+              lyricItem.href = '#'
+              lyricItem.classList.add(
+                'open-lyric',
+                'border',
+                'rounded-lg',
+                'p-3',
+                'text-lg',
+                'font-bold',
+                'relative'
+              )
+              lyricItem.setAttribute('data-id', lyric.id)
+              lyricItem.innerHTML = `<h3 class="text-xl font-medium">${
+                lyric.title
+              }</h3> <p class="text-xs mt-1 text-gray-400">${
+                lyric.created_at
+                  ? utilitiesMedioAI.formatDate(lyric.created_at || Date.now())
+                  : '8:20PM on June, 28th, 2024'
+              }</p> 
+              <button class="deleteMediaSong absolute top-2 right-2 text-sm text-gray-400">
+                ${iconsMedioAI.trash}
+              </button>`
+              lyricItem.addEventListener('click', () => {
+                document.getElementById('lyric-id').value = lyric.id
+                document.getElementById('lyric-title').value = lyric.title
+                medioAI.quill.root.innerHTML = lyric.content
+
+                const firstTab = document.querySelector('.lyric-tab-button')
+                firstTab.click()
+                utilitiesMedioAI.showNotification(`Opened Song: "${lyric.title}"`)
               })
 
-              e.target.closest('.medioopentag').remove()
-            } else {
-              e.target.classList.add('confirmDelete')
+              libraryItems.appendChild(lyricItem)
+            })
 
-              setTimeout(() => {
-                e.target.classList.remove('confirmDelete')
-              }, 5000)
-            }
+            const deleteButtons = document.querySelectorAll('.deleteMediaSong')
+            deleteButtons.forEach(button => {
+              button.addEventListener('click', e => {
+                e.preventDefault()
+                e.stopPropagation()
+                const id = e.target.closest('.open-lyric').getAttribute('data-id')
+
+                if (e.target.classList.contains('confirmDelete')) {
+                  e.target.closest('.open-lyric').remove()
+                  e.target.classList.remove('confirmDelete')
+
+                  chrome.storage.local.get(['medioLyrics'], function (result) {
+                    const medioLyrics = result.medioLyrics || []
+                    const updatedLyrics = medioLyrics.filter(lyric => lyric.id !== id)
+
+                    chrome.storage.local.set({ medioLyrics: updatedLyrics })
+
+                    utilitiesMedioAI.showNotification('Deleted song from your library.')
+                  })
+                } else {
+                  e.target.classList.add('confirmDelete')
+
+                  setTimeout(() => {
+                    e.target.classList.remove('confirmDelete')
+                  }, 3000)
+                }
+              })
+            })
           })
-          tag.addEventListener('click', () => {
-            const tags = tag.querySelector('p').textContent
-            const title = tag.querySelector('h2').textContent
-
-            const medioTagBox = document.getElementById('medioTagBox')
-            const medioTagBoxTitle = document.getElementById('medioTagBoxTitle')
-
-            medioTagBox.value = tags
-            medioTagBoxTitle.value = title
-
-            document.querySelector('#mediotag-id').value = tag.getAttribute('data-id')
-
-            document.querySelector(`.lyric-buildertab-button[data-tab="build"]`).click()
-
-            utilitiesMedioAI.showNotification(`Opened Tag Group: "${title}"`)
-          })
-        })
+        }
       })
-    }
+    })
   },
 }

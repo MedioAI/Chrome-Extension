@@ -22,6 +22,50 @@
   box-shadow: 20px 20px 60px #000, -20px -20px 60px #000;
 }
 
+#medioAI-tagbuilder {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99999999999;
+  transform: translateX(-100%);
+  overflow-y: auto;
+  padding: 25px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+#medioAI-songstudio {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99999999999;
+  transform: translateX(-100%);
+  overflow-y: auto;
+  padding: 25px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
 .ql-editor.ql-blank::before {
   color: #787878 !important;
   content: attr(data-placeholder) !important;
@@ -160,7 +204,7 @@
   margin-right: auto;
 }
 .medioaimessage.medioaiagent::before {
-  content: "AI Co-Writer";
+  content: 'AI Co-Writer';
   background: #d74df6;
   border-top-left-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -174,7 +218,7 @@
   left: 0;
 }
 .medioaimessage.medioaiuser::before {
-  content: "You";
+  content: 'You';
   background: #4df6b5;
   border-top-left-radius: 5px;
   border-bottom-right-radius: 5px;
