@@ -1,12 +1,16 @@
 # MedioAI: Your Music Companion for Udio & Suno
 
+### Enhance your experience with Udio
+
+---
+
 > Note: Work in Progress
 
-### Enhance your experience with Udio
+---
 
 A chrome extension to enhance the experience of Udio.com and Suno.com, a AI music platforms.
 
-Features include:
+**Features include:**
 
 1. Song Studio: Write your lyrics in large easy to use editor. (with commands for AI music apps)
 2. Rhyme: Get rhyme suggestions for your lyrics in seconds.
@@ -15,19 +19,13 @@ Features include:
 5. Co-Writer: Create a song from scratch with a wizard walkthrough.
 6. Saved Library: Manage all your song lyrics, tags, chats and more in easy to use native UI.
 
-Will be on web store sooner or later.
+Visit the website, [MedioAI.com](https://www.medioai.com) for more information.
 
-Any additions and improvements welcome.
-
-This is very MVP and just to get ball rolling.
-
-##### Install on Chrome Web Store
+## Install on Chrome Web Store
 
 Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdljokjallnlfkibjoiolndccinoi) to install the **MedioAI** extension and start using today!
 
-Visit the websiet, [MedioAI.com](https://www.medioai.com) for more information.
-
-##### Contributing
+## Contributing
 
 I am open to contributions and suggestions. Please feel free to open an issue or pull request.
 
