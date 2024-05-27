@@ -630,8 +630,8 @@ const engine = {
         });
       });
 
-      const artistsJson = chrome.runtime.getURL("artists.json");
-      const genresJson = chrome.runtime.getURL("genres.json");
+      const artistsJson = chrome.runtime.getURL("database/artists.json");
+      const genresJson = chrome.runtime.getURL("database/genres.json");
 
       const artistsPromise = fetch(artistsJson)
         .then((response) => response.json())
@@ -921,7 +921,8 @@ const engine = {
   <div
   role="tablist"
   aria-orientation="horizontal"
-  class="h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground grid w-full grid-cols-3 mb-4"
+  class="h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground grid w-full  mb-4"
+  style="grid-template-columns: repeat(5, minmax(0, 1fr));"
   tabindex="0"
   data-orientation="horizontal"
   style="outline: none"
@@ -942,6 +943,20 @@ const engine = {
   </button>
   <button
     type="button"
+    data-tab="ask"
+    class="lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3"
+  >
+    Ask
+  </button>
+  <button
+    type="button"
+    data-tab="wizard"
+    class="lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3"
+  >
+    Co-Writer
+  </button>
+  <button
+    type="button"
     data-tab="library"
     class="lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3"
   >
@@ -949,30 +964,378 @@ const engine = {
   </button>
 </div>
 
-<div style="display: none" class="settings-medio" >
-  <h4 class="text-2xl font-bold mb-6">Settings</h4>
-  <div class="">
-    <div class="w-full items-center justify-between">
-      <label class="font-medium text-lg text-gray-300 mb-1" for="medioSettingsAudioNotice">Audio Notification</label>
-      <input type="checkbox" id="medioSettingsAudioNotice" />
-    </div>
-
-    <div class="w-full items-center justify-between">
-      <label class="block font-medium text-lg text-gray-300 mb-1" for="medioSettingsAudioNotice">Audio Clip</label>
-      <select name="medioSettingsAudioClip" class="w-full border rounded p-1">
-        <option value="ding.mp3">Ding</option>
-        <option value="ding2.mp3">Ding 2</option>
-        <option value="ding3.mp3">Ding 3</option>
-        <option value="ding4.mp3">Ding 4</option>
-      </select>
-    </div>
-
-    <div class="w-full mt-4 hidden">
-      <label class="block font-medium text-lg text-gray-300 mb-1" for="medioSettingsOpenAIKey">OpenAI Key</label>
-      <input type="text" id="medioSettingsOpenAIKey" class="w-full border rounded p-1" />
-    </div>
+<div style="display: none" id="mediochattab">
+  <div id="medioaichat"></div>
+  <div class="flex w-full">
+    <textarea id="medioaiMessageBox" placeholder="Write message..." class="w-full"></textarea>
+    <button id="medioaiSendMessage">Send</button>
   </div>
 </div>
+
+<div style="display: none" id="mediochats"></div>
+
+<div style="display: none" class="lyric-tab" data-tab="ask">
+  <div id="medioask" style="display: none">
+    <textarea name="medioaskai" id="medioaskai" placeholder="What do you want to ask?"></textarea>
+    <div class="flex space-x-2 items-center justify-between mt-2">
+      <div class="flex space-x-2">
+        <button id="medioAskAIQuestion" class="flex items-center space-x-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 15 15"><path fill="currentColor" d="m14.5.5l.46.197a.5.5 0 0 0-.657-.657zm-14 6l-.197-.46a.5.5 0 0 0-.06.889zm8 8l-.429.257a.5.5 0 0 0 .889-.06zM14.303.04l-14 6l.394.92l14-6zM.243 6.93l5 3l.514-.858l-5-3zM5.07 9.757l3 5l.858-.514l-3-5zm3.889 4.94l6-14l-.92-.394l-6 14zM14.146.147l-9 9l.708.707l9-9z"/></svg> 
+          <span>Ask</span>
+        </button>
+
+        <button id="medioAskChatList" class="flex items-center space-x-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><g fill="currentColor"><path d="M224 96v128l-39.58-32H88a8 8 0 0 1-8-8v-40h88a8 8 0 0 0 8-8V88h40a8 8 0 0 1 8 8" opacity="0.2"/><path d="M216 80h-32V48a16 16 0 0 0-16-16H40a16 16 0 0 0-16 16v128a8 8 0 0 0 13 6.22L72 154v30a16 16 0 0 0 16 16h93.59L219 230.22a8 8 0 0 0 5 1.78a8 8 0 0 0 8-8V96a16 16 0 0 0-16-16M66.55 137.78L40 159.25V48h128v88H71.58a8 8 0 0 0-5.03 1.78M216 207.25l-26.55-21.47a8 8 0 0 0-5-1.78H88v-32h80a16 16 0 0 0 16-16V96h32Z"/></g></svg> 
+          <span>Past Chats</span>
+        </button>
+      </div>
+      <div class="ml-2 text-sm text-gray-400 flex space-x-2 items-center">
+          <input id="medioaiIncludeLyrics" name="medioaiIncludeLyrics" type="checkbox" checked />
+          <label for="medioaiIncludeLyrics">Include current song lyrics in the request.</label>
+      </div>
+    </div>
+
+    <hr style="margin: 15px 0" class="my-8 border-t border-gray-700" />
+
+    <h4 class="text-sm text-gray-400 font-medium mb-2">Pre-made Requests</h4>
+    <div class="grid grid-cols-4 gap-4" id="medioSuggestions">
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+        Check my lyrics for grammar & spelling mistakes.
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+        Write 10 critical social media comments about my song.
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+        Review my song as if you were a music critic.
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+        Give me pointers on how to improve my lyrics.
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest synonyms or alternative phrases for specific words in my lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I make my lyrics more emotionally impactful?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you analyze the overall tone or mood of my lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Are there any clichés in my lyrics that I should avoid?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you help me brainstorm new ideas or themes for my song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          What poetic devices can I incorporate to enhance my lyrics (e.g., metaphors, similes, imagery)?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I make my lyrics more relatable to a wider audience?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Are there any inconsistencies or contradictions in my lyrics that need to be addressed?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest ways to improve the flow or rhythm of my lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I create stronger hooks or memorable phrases in my lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Are there any cultural references in my lyrics that might not be universally understood?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you help me fine-tune the storytelling aspect of my lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          What can I do to make my lyrics more vivid and descriptive?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Are there any lines or verses in my lyrics that feel out of place or unnecessary?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you provide feedback on the overall structure of my song lyrics (e.g., verse-chorus-bridge)?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I maintain coherence and unity throughout my lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest ways to make my lyrics more engaging or thought-provoking?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Are there any opportunities for wordplay or clever turns of phrase in my lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you help me strike a balance between being too literal and too abstract in my lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I ensure that my lyrics complement the melody and musical arrangement effectively?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest a suitable rhyme scheme for my lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I vary the vocal delivery to enhance the lyrical impact?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          What genre-specific elements can I incorporate into my song lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest ways to build tension and release in the song structure?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I create a memorable pre-chorus section in my song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Are there any opportunities for vocal harmonies in my song lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you help me establish a consistent narrative arc throughout the song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          What role can repetition play in reinforcing key themes or ideas in my lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I effectively use contrast between sections (e.g., verse and chorus) in my song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest ways to transition smoothly between different song sections?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I create a powerful climax in my song lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Are there any opportunities for call-and-response elements in my lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest ways to incorporate dynamic shifts in the song structure?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I effectively use pauses or silence for dramatic effect in the song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          What techniques can I use to create a catchy hook for my song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest ways to develop a strong opening line for my lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I create a sense of resolution in the song's conclusion?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          What considerations should I keep in mind when crafting a bridge section?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest ways to make the song structure more dynamic and engaging?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I create contrast between verses to keep the listener engaged?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          What elements can I add to create a sense of progression throughout the song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you help me craft a compelling outro for my song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I use tempo changes to enhance the emotional impact of the song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          What techniques can I use to make the song lyrics more memorable?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest ways to create a sense of urgency or excitement in the song structure?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I effectively use modulation to add interest to the song's progression?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          What role can dynamics play in shaping the overall feel of the song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you help me create a memorable refrain for my song lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I use parallelism to reinforce key themes or ideas in my lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you help me turn my heartbreak into a catchy disco anthem?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I make my song about laundry detergent more exciting?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest a way to incorporate a kazoo solo into my song about office supplies?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I make my song about procrastination sound urgent and important (but still procrastinate on finishing it)?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you help me write a love song to my favorite snack food?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I turn my mundane daily routine into an epic rock opera?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest ways to make my song about aliens invading Earth more relatable to extraterrestrials?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I incorporate the sound of rubber chickens into my song about existential dread?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you help me write a breakup song from the perspective of a houseplant?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I make my song about being stuck in traffic more upbeat and danceable?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest ways to incorporate humor into my lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I infuse my song with a sense of adventure?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you help me write a catchy chorus that sticks in people's heads?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I make my verses more relatable to listeners?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest ways to build tension and excitement throughout the song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I create a memorable melody for my song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you help me incorporate unexpected twists into the lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I make my song more emotionally resonant?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest ways to add depth and complexity to the lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I create contrast between different sections of the song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you help me craft a powerful climax for the song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I ensure that my song is engaging from start to finish?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest ways to make the song more dynamic?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I create an intriguing narrative arc within the lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you help me incorporate vivid imagery into the song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I make my song more thought-provoking?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest ways to make the song structure more cohesive?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I add layers of meaning to the lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you help me create a sense of atmosphere in the song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I incorporate interesting wordplay into the lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest ways to make the song more visually evocative?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I create a sense of unity throughout the song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you help me write a memorable hook for the song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I incorporate elements of surprise into the song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest ways to make the song more relatable to listeners?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I create a sense of urgency or excitement in the song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you help me incorporate different perspectives into the lyrics?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I make my song more memorable and impactful?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest ways to add depth and complexity to the song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I create a strong emotional connection with the audience?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you help me write a bridge section that provides contrast to the rest of the song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I make the song more interactive or engaging for live performances?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest an attention-grabbing intro for my song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I create a smooth transition from the intro to the first verse?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you help me craft a memorable outro that leaves a lasting impression?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I make the outro feel like a satisfying conclusion to the song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest sound effects to enhance the mood of specific song sections, like a [Wolf Howl] for added atmosphere?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I integrate sound effects seamlessly into my song without overpowering the music?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you help me brainstorm creative sound effect ideas to elevate my song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I use sound effects to create a sense of narrative or storytelling in my song?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Can you suggest ways to incorporate natural sounds, like birds chirping or waves crashing, into my song for added texture?
+      </div>
+      <div class="medioAskAIPremadeQuestion border rounded p-6">
+          How can I make the use of sound effects feel organic and integral to the overall musical experience?
+      </div>
+    </div>
+  </div>
+  <div id="medioapiExplainerask" class="text-center w-full" style="display: none">
+    <h3 class='text-2xl text-gray-200 font-bold mb-2 mt-8'>Unavailable</h3> 
+    <p>You must add your  <span style="background: #27272A"class="rounded p-2 text-xs">OpenAI</span> API key in order to use this feature.</p>
+    <hr class="my-6 border-t border-gray-700" />
+    <p>Ask the AI for quick tasks or questions around your lyrics.</p>
+  </div>
+</div>
+
+<div style="display: none" class="lyric-tab" data-tab="wizard">
+  <div id="mediowizard" style="display: none">
+    wizard here
+  </div>
+  <div id="medioapiExplainerwizard" class="text-center w-full" style="display: none">
+    <h3 class='text-2xl text-gray-200 font-bold mb-2 mt-8'>Unavailable</h3> 
+    <p>You must add your  <span style="background: #27272A"class="rounded p-2 text-xs">OpenAI</span> API key in order to use this feature.</p>
+    <hr class="my-6 border-t border-gray-700" />
+    <p>Use the <strong>Co-Writer</strong> to craft your lyrics from scratch with the help of an AI.</p>
+  </div>
+</div>
+
 
 <div style="display: none" class="lyric-tab" data-tab="rhyme">
   <div class="flex items-center justitfy-between mb-4">
@@ -995,8 +1358,14 @@ const engine = {
   <div id="toolbar" class="flex items-center justify-between ">
     <div class="flex space-x-2">
       <input autocomplete="off" type="text" id="lyric-title" placeholder="Song Title..." />
-      <button id="save-lyrics" class="medio-toolbar-button">Save</button>
-      <button id="clear-lyrics" class="medio-toolbar-button">Clear</button>
+      <button id="save-lyrics" class="flex items-center space-x-2 medio-toolbar-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21h14a2 2 0 0 0 2-2V8a1 1 0 0 0-.29-.71l-4-4A1 1 0 0 0 16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2m10-2H9v-5h6zM13 7h-2V5h2zM5 5h2v4h8V5h.59L19 8.41V19h-2v-5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v5H5z"/></svg>
+        <span>Save</span>
+      </button>
+      <button id="clear-lyrics" class="flex items-center space-x-2 medio-toolbar-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 56 56"><path fill="currentColor" d="M13.785 49.574h28.453c4.899 0 7.336-2.437 7.336-7.265V13.69c0-4.828-2.437-7.265-7.336-7.265H13.785c-4.875 0-7.36 2.414-7.36 7.265v28.62c0 4.851 2.485 7.265 7.36 7.265m.07-3.773c-2.343 0-3.656-1.242-3.656-3.68V13.88c0-2.438 1.313-3.68 3.656-3.68h28.313c2.32 0 3.633 1.242 3.633 3.68v28.24c0 2.438-1.313 3.68-3.633 3.68Zm4.336-9.867a1.86 1.86 0 0 0 1.852 1.875c.515 0 .984-.188 1.312-.54l6.633-6.656l6.656 6.657c.329.328.774.539 1.29.539a1.88 1.88 0 0 0 1.875-1.875c0-.54-.211-.961-.563-1.313l-6.61-6.633l6.634-6.656c.374-.375.562-.797.562-1.289c0-1.031-.82-1.875-1.875-1.875c-.469 0-.867.188-1.242.563l-6.727 6.68l-6.68-6.657c-.351-.328-.75-.54-1.265-.54a1.856 1.856 0 0 0-1.852 1.852c0 .493.211.938.54 1.29l6.632 6.632l-6.633 6.657c-.328.351-.539.773-.539 1.289"/></svg>
+        <span>Clear</span>
+      </button>
     </div>
     <div class="flex w-full space-x-2 justify-end items-end">
        <select class="ql-custom-dropdown">
@@ -1294,6 +1663,204 @@ const engine = {
         }
       });
 
+      const allPremadeQuestions = document.querySelectorAll(
+        ".medioAskAIPremadeQuestion"
+      );
+      allPremadeQuestions.forEach((question) => {
+        question.addEventListener("click", (e) => {
+          const text = e.target.innerText;
+          const askInput = document.getElementById("medioaskai");
+          askInput.value = text;
+        });
+      });
+
+      const medioaiSendMessage = document.getElementById("medioaiSendMessage");
+      medioaiSendMessage.addEventListener("click", () => {
+        sendAIMessage();
+      });
+
+      const medioaiSendMessageBox =
+        document.getElementById("medioaiMessageBox");
+      medioaiSendMessageBox.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          sendAIMessage();
+        }
+      });
+
+      async function sendAIMessage() {
+        const request = document.getElementById("medioaiMessageBox").value;
+        const newMessage = document.createElement("div");
+        newMessage.classList.add("medioaimessage");
+        newMessage.classList.add("medioaiuser");
+        newMessage.innerText = request;
+        document.querySelector("#medioaichat").append(newMessage);
+
+        const newMessage2 = document.createElement("div");
+        newMessage2.classList.add("medioaimessage");
+        newMessage2.classList.add("medioaiagent");
+        newMessage2.classList.add("mediochatloading");
+        newMessage2.innerHTML = `<div class='flex items-center space-x-2'>
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/><circle cx="16" cy="10" r="0" fill="currentColor"><animate attributeName="r" begin=".67" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;1.75;0;0"/></circle><circle cx="12" cy="10" r="0" fill="currentColor"><animate attributeName="r" begin=".33" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;1.75;0;0"/></circle><circle cx="8" cy="10" r="0" fill="currentColor"><animate attributeName="r" begin="0" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;1.75;0;0"/></circle></svg>
+          <span class="opacity-50">Typing...</span>
+        </div>`;
+        document.querySelector("#medioaichat").append(newMessage2);
+
+        document.querySelector("#medioaichat").scrollTop =
+          document.querySelector("#medioaichat").scrollHeight;
+
+        document.getElementById("medioaiMessageBox").value = "";
+
+        const openaikey = await engine.getSettings("openaikey");
+        await engine.askOpenAI(
+          request,
+          openaikey,
+          true,
+          document.querySelector("#medioaichat").getAttribute("data-id")
+        );
+      }
+
+      const viewpastChats = document.getElementById("medioAskChatList");
+      viewpastChats.addEventListener("click", async (e) => {
+        document.querySelector("#medioask").style.display = "none";
+        document.querySelector("#mediochats").style.display = "block";
+
+        chrome.storage.local.get(["medioaiChats"], (result) => {
+          const chats = result.medioaiChats || [];
+          const chatList = document.getElementById("mediochats");
+          chatList.innerHTML = "";
+          chats.reverse().forEach((chat) => {
+            const newChat = document.createElement("div");
+            newChat.setAttribute("data-id", chat.id);
+            newChat.innerHTML = `<div class="medioChatItem mb-2 flex items-center justify-between p-2 border rounded">
+      <div>
+        <h4 class="text-lg font-bold">${chat.name}</h4>
+        <p class="text-sm flex space-x-4 text-gray-400"><span>${new Date(
+          chat.created_at
+        ).toLocaleString()}</span> <span style="opacity: 0.5">${
+              chat.song_title
+            }</span></p>
+      </div>
+      <button class="medioChatDelete" data-id="${
+        chat.id
+      }"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M216 48h-36V36a28 28 0 0 0-28-28h-48a28 28 0 0 0-28 28v12H40a12 12 0 0 0 0 24h4v136a20 20 0 0 0 20 20h128a20 20 0 0 0 20-20V72h4a12 12 0 0 0 0-24M100 36a4 4 0 0 1 4-4h48a4 4 0 0 1 4 4v12h-56Zm88 168H68V72h120Zm-72-100v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0m48 0v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0"></path></svg></button>
+    </div>`;
+            chatList.append(newChat);
+          });
+
+          const chatItemView = document.querySelectorAll(".medioChatItemView");
+          chatItemView.forEach((item) => {
+            item.addEventListener("click", async (e) => {
+              const chatId = e.target.getAttribute("data-id");
+              const chat = chats.find((item) => item.id === chatId);
+              document.querySelector("#mediochattab").style.display = "block";
+              document.querySelector("#mediochats").style.display = "none";
+              document.querySelector("#medioaichat").innerHTML = "";
+              document
+                .querySelector("#medioaichat")
+                .setAttribute("data-id", chat.id);
+              chat.messages.forEach((message) => {
+                const newMessage = document.createElement("div");
+                newMessage.classList.add("medioaimessage");
+                newMessage.classList.add(`medioai${message.role}`);
+                newMessage.innerHTML = message.content;
+                document.querySelector("#medioaichat").append(newMessage);
+              });
+            });
+          });
+        });
+      });
+
+      const askAIQuestion = document.getElementById("medioAskAIQuestion");
+      askAIQuestion.addEventListener("click", async (e) => {
+        const request = document.getElementById("medioaskai").value;
+
+        if (!request) {
+          engine.showNotification("Please enter a question.");
+          return;
+        } else {
+          document.querySelectorAll(".lyric-tab").forEach((item) => {
+            item.style.display = "none";
+          });
+
+          document.querySelector("#mediochattab").style.display = "block";
+          document.querySelector("#medioaichat").innerHTML = ``;
+
+          const newMessage = document.createElement("div");
+          newMessage.classList.add("medioaimessage");
+          newMessage.classList.add("medioaiuser");
+          newMessage.innerText = request;
+          document.querySelector("#medioaichat").append(newMessage);
+
+          const newMessage2 = document.createElement("div");
+          newMessage2.classList.add("medioaimessage");
+          newMessage2.classList.add("medioaiagent");
+          newMessage2.classList.add("mediochatloading");
+          newMessage2.innerHTML = `<div class='flex items-center space-x-2'>
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/><circle cx="16" cy="10" r="0" fill="currentColor"><animate attributeName="r" begin=".67" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;1.75;0;0"/></circle><circle cx="12" cy="10" r="0" fill="currentColor"><animate attributeName="r" begin=".33" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;1.75;0;0"/></circle><circle cx="8" cy="10" r="0" fill="currentColor"><animate attributeName="r" begin="0" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;1.75;0;0"/></circle></svg>
+          <span class="opacity-50">Typing...</span>
+        </div>`;
+          document.querySelector("#medioaichat").append(newMessage2);
+
+          const currentLyrics = engine.quill.root.innerHTML;
+          const songTitle = document.getElementById("lyric-title").value || "";
+          let includeLyrics = "";
+          if (document.querySelector("#medioaiIncludeLyrics").checked) {
+            includeLyrics = `----
+
+        Here are the current song lyrics with title, "${songTitle}" for reference only:
+        
+        ${currentLyrics}`;
+          }
+          const system = `You are a song writing assistant. Your goal is to provide helpful feedback and requests given to your by the user. You have lyrics from the user as reference. Always provide your response as html code without code block just the raw HTML formatting your answer. Always provide a robust answer. Do not add your own classnames or IDs. NEVER respond with the full lyrics. Only provide your response to the request. You can ONLY use h1, h2, h3, ul, ol, and p tags only. If you are showing your changes to lyrics, wrap your changes in classname "medioai-highlightyellow". Do not respond with the just the lyrics. If you are not sure what to say ask.
+            
+        ${includeLyrics}`;
+
+          const id = engine.uuidv4();
+          document.querySelector("#medioaichat").setAttribute("data-id", id);
+
+          chrome.storage.local.get(["medioaiChats"], async (result) => {
+            const chats = result.medioaiChats || [];
+            chats.push({
+              id: id,
+              created_at: new Date().toISOString(),
+              song_id: document.getElementById("lyric-id").value,
+              song_title: songTitle,
+              name: request || "Untitled Chat",
+              messages: [
+                {
+                  role: "system",
+                  content: system,
+                },
+                {
+                  role: "user",
+                  content: request,
+                },
+              ],
+            });
+
+            chrome.storage.local.set({ medioaiChats: chats });
+
+            const openaikey = await engine.getSettings("openaikey");
+            await engine.askOpenAI(
+              [
+                {
+                  role: "system",
+                  content: system,
+                },
+                {
+                  role: "user",
+                  content: request,
+                },
+              ],
+              openaikey,
+              system,
+              false,
+              id
+            );
+          });
+        }
+      });
+
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
           const overlay = document.getElementById("lyric-barn-overlay");
@@ -1379,14 +1946,85 @@ const engine = {
     }, 1000);
   },
 
+  askOpenAI: (messages, openaikey, system, isChat = false, id) => {
+    const url = "https://api.openai.com/v1/chat/completions";
+    const bearer = "Bearer " + openaikey;
+
+    if (isChat) {
+      const chatWindow = document.querySelector("#medioaichat");
+      const allMessages = Array.from(chatWindow.children);
+      messages = [
+        {
+          role: "system",
+          content: system,
+        },
+      ];
+
+      allMessages.forEach((message) => {
+        if (message.classList.contains("medioaiuser")) {
+          messages.push({
+            role: "user",
+            content: message.innerText,
+          });
+        } else if (message.classList.contains("medioaiagent")) {
+          messages.push({
+            role: "assistant",
+            content: message.innerText,
+          });
+        }
+      });
+    }
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: bearer,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "gpt-4o",
+        messages: messages,
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        document.querySelector("#medioaichat .mediochatloading").remove();
+        const newMessage = document.createElement("div");
+        newMessage.classList.add("medioaimessage");
+        newMessage.classList.add("medioaiagent");
+        newMessage.innerHTML = data["choices"][0].message.content;
+        document.querySelector("#medioaichat").append(newMessage);
+        document.querySelector("#medioaichat").scrollTop =
+          document.querySelector("#medioaichat").scrollHeight;
+
+        chrome.storage.local.get(["medioaiChats"], function (result) {
+          const chats = result.medioaiChats || [];
+          const chatIndex = chats.findIndex((chat) => chat.id === id);
+
+          if (chatIndex > -1) {
+            chats[chatIndex].messages.push({
+              role: "assistant",
+              content: data["choices"][0].message.content,
+            });
+          }
+
+          chrome.storage.local.set({ medioaiChats: chats });
+        });
+      })
+      .catch((error) => {
+        console.log("Something bad happened " + error);
+      });
+  },
+
   changeTab: () => {
     const tabButtons = document.querySelectorAll(".lyric-tab-button");
 
     tabButtons.forEach((button) => {
-      button.addEventListener("click", (e) => {
+      button.addEventListener("click", async (e) => {
         const tab = e.target.dataset.tab;
         const tabs = document.querySelectorAll(".lyric-tab");
-        document.querySelector(".settings-medio").style.display = "none";
         document.getElementById("medioCharactersSelected").style.display =
           "none";
 
@@ -1411,9 +2049,36 @@ const engine = {
         );
         selectedTab.style.display = "block";
 
+        document.querySelector("#mediochattab").style.display = "none";
+        document.querySelector("#mediochats").style.display = "none";
+
         if (tab === "rhyme") {
           document.getElementById("wordInput").focus();
           document.getElementById("wordInput").select();
+        } else if (tab === "ask") {
+          const openaikey = await engine.getSettings("openaikey");
+
+          if (openaikey) {
+            document.querySelector("#medioapiExplainerask").style.display =
+              "none";
+            document.querySelector("#medioask").style.display = "block";
+          } else {
+            document.querySelector("#medioapiExplainerask").style.display =
+              "block";
+            document.querySelector("#medioask").style.display = "none";
+          }
+        } else if (tab === "wizard") {
+          const openaikey = await engine.getSettings("openaikey");
+
+          if (openaikey) {
+            document.querySelector("#medioapiExplainerwizard").style.display =
+              "none";
+            document.querySelector("#mediowizard").style.display = "block";
+          } else {
+            document.querySelector("#medioapiExplainerwizard").style.display =
+              "block";
+            document.querySelector("#mediowizard").style.display = "none";
+          }
         } else if (tab === "library") {
           chrome.storage.local.get(["medioLyrics"], function (result) {
             const medioLyrics = result.medioLyrics || [];

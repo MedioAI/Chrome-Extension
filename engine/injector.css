@@ -30,13 +30,18 @@
   border-radius: 6px;
   height: 37px !important;
 }
-#wordInput {
+#wordInput,
+#medioaskai {
   width: 100%;
   padding: 8px 12px;
   font-size: 14px;
   border: 1px solid #3c3c3c;
   border-radius: 6px;
   margin-right: 10px;
+}
+#medioaskai {
+  font-size: 18px;
+  height: 120px;
 }
 .rhymingWord:hover {
   background: #27272a;
@@ -79,6 +84,229 @@
   line-height: 0;
   border: 1px solid rgb(68, 68, 68);
   margin-right: 10px;
+}
+#medioAskAIQuestion {
+  background: #25cc8c;
+  padding: 6px 12px;
+  display: flex;
+  border-radius: 6px;
+  font-size: 16px;
+  border: 1px solid #4df6b5;
+  font-weight: 800;
+}
+#medioAskChatList {
+  background: #242424;
+  padding: 6px 12px;
+  display: flex;
+  border-radius: 6px;
+  font-size: 16px;
+  border: 1px solid #474747;
+  font-weight: 800;
+}
+#medioaiSendMessage {
+  background: #25cc8c;
+  padding: 6px 32px;
+  display: block;
+  border-radius: 6px;
+  font-size: 18px;
+  border: 1px solid #4df6b5;
+  font-weight: 800;
+  margin-left: 20px;
+}
+#medioaiMessageBox {
+  height: 100%;
+  background: #212121;
+  border: 1px solid #474747;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 16px;
+}
+#medioaichat {
+  height: calc(100vh - 300px);
+  overflow-x: hidden;
+}
+.medioChatItem:hover {
+  background: #242424;
+  cursor: pointer;
+}
+.medioaimessage {
+  border: 1px solid #474747;
+  padding: 25px;
+  padding-top: 45px;
+  border-radius: 8px;
+  background: #212121;
+  margin-bottom: 15px;
+  position: relative;
+}
+.medioaimessage.medioaiuser {
+  border-left: 3px solid #4df6b5;
+  width: 60%;
+  margin-left: auto;
+  margin-right: 15px;
+}
+.medioaimessage.medioaiagent {
+  border-left: 3px solid #d74df6;
+  width: 70%;
+  margin-right: auto;
+}
+.medioaimessage.medioaiagent::before {
+  content: "AI Co-Writer";
+  background: #d74df6;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  color: #6a167d;
+  font-weight: bold;
+  font-size: 14px;
+  margin-right: 10px;
+  padding: 6px 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.medioaimessage.medioaiuser::before {
+  content: "You";
+  background: #4df6b5;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 6px 10px;
+  margin-right: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.medioaimessage h1,
+.medioaimessage h2,
+.medioaimessage h3,
+.medioaimessage h4,
+.medioaimessage h5,
+.medioaimessage h6,
+.medioaimessage p,
+.medioaimessage div,
+.medioaimessage ul {
+  color: #fff;
+  margin-bottom: 15px;
+}
+.medioaimessage p strong {
+  color: #ffc777;
+}
+.medioaimessage *:last-child {
+  margin-bottom: 0;
+}
+.medioaimessage h1,
+.medioaimessage h2,
+.medioaimessage h3,
+.medioaimessage h4 {
+  font-weight: bold;
+}
+.medioaimessage h1 {
+  font-weight: bold;
+  font-size: 1.7em;
+}
+.medioaimessage h2 {
+  font-weight: bold;
+  font-size: 1.6em;
+}
+.medioaimessage h3 {
+  font-weight: bold;
+  font-size: 1.4em;
+}
+.medioaimessage h4 {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+.medioaimessage h5 {
+  font-size: 0.8em;
+}
+.medioaimessage h6 {
+  font-size: 0.5em;
+}
+.medioaimessage ol {
+  list-style: decimal;
+  margin-left: 35px;
+}
+.medioaimessage ul {
+  list-style: disc;
+  margin-left: 35px;
+}
+.medioaimessage li {
+  margin-bottom: 15px;
+}
+.medioai-highlightyellow {
+  color: #7c4e0e;
+  background: #ffc777;
+  padding: 4px 7px;
+  border-radius: 5px;
+}
+.medioai-highlightyellow * {
+  color: #7c4e0e;
+}
+
+.medioai-highlightgrey {
+  color: #fbfbfb;
+  background: #363636;
+  padding: 4px 7px;
+  border-radius: 5px;
+}
+.medioai-highlightgrey * {
+  color: #fbfbfb;
+}
+
+.medioai-highlightlyrics {
+  color: #fff !important;
+  background: #000000;
+  padding: 4px 7px;
+  border-radius: 5px;
+}
+.medioai-highlightlyrics * {
+  color: #fff !important;
+}
+.medioai-highlightred {
+  color: #621515;
+  background: #fc7b7b;
+  padding: 4px 7px;
+  border-radius: 5px;
+}
+.medioai-highlightred * {
+  color: #621515;
+}
+
+.medioai-highlightgreen {
+  background: #25cc8c;
+  display: inline-block;
+  padding: 4px 7px;
+  border-radius: 5px;
+  color: #ffffff;
+}
+.medioai-highlightgreen * {
+  color: #ffffff;
+}
+
+.medioai-highlightgrey {
+  background: #363636;
+  display: inline-block;
+  padding: 4px 7px;
+  border-radius: 5px;
+  color: #ffffff;
+}
+.medioai-highlightgrey * {
+  color: #ffffff;
+}
+
+#medioSuggestions {
+  height: calc(100vh - 480px);
+  overflow-x: hidden;
+}
+.medioAskAIPremadeQuestion {
+  cursor: pointer;
+  opacity: 0.5;
+}
+.medioAskAIPremadeQuestion:hover {
+  background: #27272a;
+  color: #fff;
+  opacity: 1;
 }
 #clear-lyrics.confirmClear {
   background: #e3095d !important;
@@ -188,7 +416,7 @@ select.medioAddTag {
 #clear-lyrics {
   background: #27272a;
   padding: 4px 12px;
-  display: block;
+  display: flex;
   border-radius: 6px;
   width: auto;
   font-size: 14px;
