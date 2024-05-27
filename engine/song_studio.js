@@ -23,17 +23,17 @@ const songStudioMedioAI = {
   },
 
   events: () => {
-    const closeLyricBarn = document.getElementById('close-lyric-barn')
-    closeLyricBarn.addEventListener('click', () => {
+    const close = document.getElementById('close-medioai')
+    close.addEventListener('click', () => {
       songStudioMedioAI.close()
     })
 
-    const findRhymes = document.getElementById('lyric-barn-findRhyme')
+    const findRhymes = document.getElementById('medioai-findRhyme')
     findRhymes.addEventListener('click', () => {
       apiMedioAI.checkRhymes()
     })
 
-    const findRhymesClear = document.getElementById('lyric-barn-findRhymeClear')
+    const findRhymesClear = document.getElementById('medioai-findRhymeClear')
     findRhymesClear.addEventListener('click', () => {
       document.getElementById('wordInput').value = ''
       document.getElementById('results').innerHTML = ''
@@ -93,8 +93,8 @@ const songStudioMedioAI = {
       utilitiesMedioAI.setHotKeys(e)
     })
 
-    const lyricBarnLink = document.getElementById('lyric-barn-link')
-    lyricBarnLink.addEventListener('click', e => {
+    const openStudio = document.getElementById('medioai-link')
+    openStudio.addEventListener('click', e => {
       songStudioMedioAI.open(e)
     })
   },

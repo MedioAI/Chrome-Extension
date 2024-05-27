@@ -23,44 +23,52 @@ const tagBuilderMedioAI = {
   load: () => {
     const artistsJson = chrome.runtime.getURL('database/artists.json')
     const genresJson = chrome.runtime.getURL('database/genres.json')
+    const emotionsJson = chrome.runtime.getURL('database/emotions.json')
+    const periodsJson = chrome.runtime.getURL('database/periods.json')
+    const regionsJson = chrome.runtime.getURL('database/regions.json')
+    const vocalsJson = chrome.runtime.getURL('database/vocals.json')
+    const productionsJson = chrome.runtime.getURL('database/productions.json')
+    const instrumentsJson = chrome.runtime.getURL('database/instruments.json')
 
-    const artistsPromise = fetch(artistsJson)
-      .then(response => response.json())
-      .then(data => {
-        const artistSelect = document.getElementById('medio-builder-artist')
-        const option = document.createElement('option')
-        option.value = ''
-        option.textContent = 'Artist'
-        option.disabled = true
-        option.selected = true
-        artistSelect.appendChild(option)
-        data.forEach(artist => {
+    function populateSelect(jsonUrl, elementId, placeholder) {
+      return fetch(jsonUrl)
+        .then(response => response.json())
+        .then(data => {
+          const select = document.getElementById(elementId)
           const option = document.createElement('option')
-          option.value = artist
-          option.textContent = artist
-          artistSelect.appendChild(option)
+          option.value = ''
+          option.textContent = placeholder
+          option.disabled = true
+          option.selected = true
+          select.appendChild(option)
+          data.forEach(item => {
+            const option = document.createElement('option')
+            option.value = item
+            option.textContent = item
+            select.appendChild(option)
+          })
         })
-      })
+    }
 
-    const genresPromise = fetch(genresJson)
-      .then(response => response.json())
-      .then(data => {
-        const genreSelect = document.getElementById('medio-builder-genre')
-        const option = document.createElement('option')
-        option.value = ''
-        option.textContent = 'Genre'
-        option.disabled = true
-        option.selected = true
-        genreSelect.appendChild(option)
-        data.forEach(artist => {
-          const option = document.createElement('option')
-          option.value = artist.name
-          option.textContent = artist.name
-          genreSelect.appendChild(option)
-        })
-      })
+    const artistsPromise = populateSelect(artistsJson, 'medio-builder-artist', 'Artist')
+    const genresPromise = populateSelect(genresJson, 'medio-builder-genre', 'Genre')
+    const emotionsPromise = populateSelect(emotionsJson, 'medio-builder-emotion', 'Emotion')
+    const periodsPromise = populateSelect(periodsJson, 'medio-builder-period', 'Period')
+    const regionsPromise = populateSelect(regionsJson, 'medio-builder-region', 'Region')
+    const vocalsPromise = populateSelect(vocalsJson, 'medio-builder-vocal', 'Vocal')
+    const productionsPromise = populateSelect(productionsJson, 'medio-builder-production', 'Production')
+    const instrumentsPromise = populateSelect(instrumentsJson, 'medio-builder-instruments', 'Production')
 
-    Promise.all([artistsPromise, genresPromise]).then(() => {
+    Promise.all([
+      artistsPromise,
+      genresPromise,
+      emotionsPromise,
+      periodsPromise,
+      regionsPromise,
+      vocalsPromise,
+      productionsPromise,
+      instrumentsPromise,
+    ]).then(() => {
       const totalDBTags = []
       const allSelectBoxes = document.querySelectorAll('.medioAddTag')
 
@@ -70,19 +78,19 @@ const tagBuilderMedioAI = {
         })
       })
 
-      document.getElementById('searchTags').addEventListener('input', e => {
-        tagBuilderMedioAI.search(e, totalDBTags)
-      })
-
       tagBuilderMedioAI.events()
     })
   },
 
   events: () => {
+    document.getElementById('searchTags').addEventListener('input', e => {
+      tagBuilderMedioAI.search(e, totalDBTags)
+    })
+
     const lyricBuildertabButtons = document.querySelectorAll('.lyric-buildertab-button')
     lyricBuildertabButtons.forEach(button => {
       button.addEventListener('click', () => {
-        tagBuilderMedioAI.tabs()
+        tagBuilderMedioAI.tabs(button, lyricBuildertabButtons)
       })
     })
 
@@ -262,7 +270,7 @@ const tagBuilderMedioAI = {
     })
   },
 
-  tabs: () => {
+  tabs: (button, lyricBuildertabButtons) => {
     const lyricBuildertabs = document.querySelectorAll('.lyric-buildertab')
     const tab = button.getAttribute('data-tab')
     lyricBuildertabButtons.forEach(button => {

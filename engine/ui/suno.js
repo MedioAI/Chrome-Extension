@@ -11,7 +11,7 @@ const uiMedioAi = {
   sidebarLinks: /* html */ `
 <div class="-ml-5 pl-[16px]">
   <div class="relative flex items-center rounded-lg p-2 hover:text-foreground">
-    <a class="mr-4 flex items-center" id="lyric-barn-link" href="#">
+    <a class="mr-4 flex items-center" id="medioai-link" href="#">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
