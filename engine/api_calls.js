@@ -57,75 +57,95 @@ const apiMedioAI = {
     }
   },
 
-  askOpenAI: (messages, openaikey, system, isChat = false, id) => {
+  askOpenAI: (messages, openaikey, isChat = false, id, request) => {
     const url = 'https://api.openai.com/v1/chat/completions'
     const bearer = 'Bearer ' + openaikey
 
     if (isChat) {
-      const chatWindow = document.querySelector('#medioaichat')
-      const allMessages = Array.from(chatWindow.children)
-      messages = [
-        {
-          role: 'system',
-          content: system,
-        },
-      ]
+      chrome.storage.local.get(['medioaiChats'], function (result) {
+        console.log(
+          result.medioaiChats,
+          result.medioaiChats.find(chat => chat.id === id),
+          id
+        )
+        const allMessages = result.medioaiChats.find(chat => chat.id === id).messages
 
-      allMessages.forEach(message => {
-        if (message.classList.contains('medioaiuser')) {
-          messages.push({
-            role: 'user',
-            content: message.innerText,
-          })
-        } else if (message.classList.contains('medioaiagent')) {
-          messages.push({
-            role: 'assistant',
-            content: message.innerText,
-          })
-        }
-      })
-    }
-
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        Authorization: bearer,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o',
-        messages: messages,
-      }),
-    })
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        document.querySelector('#medioaichat .mediochatloading').remove()
-        const newMessage = document.createElement('div')
-        newMessage.classList.add('medioaimessage')
-        newMessage.classList.add('medioaiagent')
-        newMessage.innerHTML = data['choices'][0].message.content
-        document.querySelector('#medioaichat').append(newMessage)
-        document.querySelector('#medioaichat').scrollTop = document.querySelector('#medioaichat').scrollHeight
-
-        chrome.storage.local.get(['medioaiChats'], function (result) {
-          const chats = result.medioaiChats || []
-          const chatIndex = chats.findIndex(chat => chat.id === id)
-
-          if (chatIndex > -1) {
-            chats[chatIndex].messages.push({
-              role: 'assistant',
-              content: data['choices'][0].message.content,
-            })
-          }
-
-          chrome.storage.local.set({ medioaiChats: chats })
+        allMessages.push({
+          role: 'user',
+          content: messages,
         })
+
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            Authorization: bearer,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            model: 'gpt-4o',
+            messages: allMessages,
+          }),
+        })
+          .then(response => {
+            return response.json()
+          })
+          .then(data => {
+            apiMedioAI.update(data, id, request)
+          })
+          .catch(error => {
+            console.log('Something bad happened ' + error)
+          })
       })
-      .catch(error => {
-        console.log('Something bad happened ' + error)
+    } else {
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          Authorization: bearer,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o',
+          messages: messages,
+        }),
       })
+        .then(response => {
+          return response.json()
+        })
+        .then(data => {
+          apiMedioAI.update(data, id, request)
+        })
+        .catch(error => {
+          console.log('Something bad happened ' + error)
+        })
+    }
+  },
+
+  update: (data, id, request) => {
+    document.querySelector('#medioaichat .mediochatloading').remove()
+    const newMsg = document.createElement('div')
+    newMsg.classList.add('medioaimessage')
+    newMsg.classList.add('medioaiagent')
+    newMsg.innerHTML = data['choices'][0].message.content
+    document.querySelector('#medioaichat').append(newMsg)
+    document.querySelector('#medioaichat').scrollTop = document.querySelector('#medioaichat').scrollHeight
+
+    chrome.storage.local.get(['medioaiChats'], function (result) {
+      const chats = result.medioaiChats || []
+      const chatIndex = chats.findIndex(chat => chat.id === id)
+
+      if (chatIndex > -1) {
+        chats[chatIndex].messages.push({
+          role: 'user',
+          content: request,
+        })
+        chats[chatIndex].messages.push({
+          role: 'assistant',
+          content: data['choices'][0].message.content,
+        })
+      }
+
+      chrome.storage.local.set({ medioaiChats: chats })
+    })
   },
 
   askQuestion: () => {
@@ -142,21 +162,22 @@ const apiMedioAI = {
       document.querySelector('#mediochattab').style.display = 'block'
       document.querySelector('#medioaichat').innerHTML = ``
 
-      const newMessage = document.createElement('div')
-      newMessage.classList.add('medioaimessage')
-      newMessage.classList.add('medioaiuser')
-      newMessage.innerText = request
-      document.querySelector('#medioaichat').append(newMessage)
+      const newMsg = document.createElement('div')
+      newMsg.classList.add('medioaimessage')
+      newMsg.classList.add('medioaiuser')
+      newMsg.innerText = request
+      document.querySelector('#medioaichat').append(newMsg)
 
-      const newMessage2 = document.createElement('div')
-      newMessage2.classList.add('medioaimessage')
-      newMessage2.classList.add('medioaiagent')
-      newMessage2.classList.add('mediochatloading')
-      newMessage2.innerHTML = `<div class='flex items-center space-x-2'>
-          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/><circle cx="16" cy="10" r="0" fill="currentColor"><animate attributeName="r" begin=".67" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;1.75;0;0"/></circle><circle cx="12" cy="10" r="0" fill="currentColor"><animate attributeName="r" begin=".33" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;1.75;0;0"/></circle><circle cx="8" cy="10" r="0" fill="currentColor"><animate attributeName="r" begin="0" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;1.75;0;0"/></circle></svg>
+      const tempMsg = document.createElement('div')
+      tempMsg.classList.add('medioaimessage')
+      tempMsg.classList.add('medioaiagent')
+      tempMsg.classList.add('mediochatloading')
+      tempMsg.innerHTML = `
+        <div class='flex items-center space-x-2'>
+          ${iconsMedioAI.typing}
           <span class="opacity-50">Typing...</span>
         </div>`
-      document.querySelector('#medioaichat').append(newMessage2)
+      document.querySelector('#medioaichat').append(tempMsg)
 
       const currentLyrics = utilitiesMedioAI.quill.root.innerHTML
       const songTitle = document.getElementById('lyric-title').value || ''
@@ -210,9 +231,9 @@ const apiMedioAI = {
             },
           ],
           openaikey,
-          system,
           false,
-          id
+          id,
+          request
         )
       })
     }
@@ -220,21 +241,22 @@ const apiMedioAI = {
 
   sendMessage: async () => {
     const request = document.getElementById('medioaiMessageBox').value
-    const newMessage = document.createElement('div')
-    newMessage.classList.add('medioaimessage')
-    newMessage.classList.add('medioaiuser')
-    newMessage.innerText = request
-    document.querySelector('#medioaichat').append(newMessage)
+    const newMsg = document.createElement('div')
+    newMsg.classList.add('medioaimessage')
+    newMsg.classList.add('medioaiuser')
+    newMsg.innerText = request
+    document.querySelector('#medioaichat').append(newMsg)
 
-    const newMessage2 = document.createElement('div')
-    newMessage2.classList.add('medioaimessage')
-    newMessage2.classList.add('medioaiagent')
-    newMessage2.classList.add('mediochatloading')
-    newMessage2.innerHTML = `<div class='flex items-center space-x-2'>
-          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/><circle cx="16" cy="10" r="0" fill="currentColor"><animate attributeName="r" begin=".67" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;1.75;0;0"/></circle><circle cx="12" cy="10" r="0" fill="currentColor"><animate attributeName="r" begin=".33" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;1.75;0;0"/></circle><circle cx="8" cy="10" r="0" fill="currentColor"><animate attributeName="r" begin="0" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;1.75;0;0"/></circle></svg>
+    const tempMsg = document.createElement('div')
+    tempMsg.classList.add('medioaimessage')
+    tempMsg.classList.add('medioaiagent')
+    tempMsg.classList.add('mediochatloading')
+    tempMsg.innerHTML = `
+        <div class='flex items-center space-x-2'>
+          ${iconsMedioAI.typing}
           <span class="opacity-50">Typing...</span>
         </div>`
-    document.querySelector('#medioaichat').append(newMessage2)
+    document.querySelector('#medioaichat').append(tempMsg)
     document.querySelector('#medioaichat').scrollTop = document.querySelector('#medioaichat').scrollHeight
     document.getElementById('medioaiMessageBox').value = ''
 
@@ -243,7 +265,8 @@ const apiMedioAI = {
       request,
       openaikey,
       true,
-      document.querySelector('#medioaichat').getAttribute('data-id')
+      document.querySelector('#medioaichat').getAttribute('data-id'),
+      request
     )
   },
 }
