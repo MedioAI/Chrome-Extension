@@ -21,6 +21,8 @@ const paginationMedioAI = {
       const wrapper = document.createElement('div')
       paginationMedioAI.key = key
 
+      paginationMedioAI.clearAll()
+
       header.innerHTML = paginationMedioAI.header(items.length)
       container.innerHTML = ''
       container.append(header)
@@ -54,6 +56,13 @@ const paginationMedioAI = {
         wrapper.innerHTML = uiMedioAI.placeholder('Nothing Found', 'Your saved content will appear here.')
       }
     })
+  },
+
+  clearAll: () => {
+    document.querySelector('#medio-library-items').innerHTML = ''
+    document.querySelector('#medio-taglibrary-items').innerHTML = ''
+    document.querySelector('#mediochats').innerHTML = ''
+    // document.querySelector('#mediochats').innerHTML = ''
   },
 
   events: (key, callback, items, wrapper, totalPages) => {
@@ -131,17 +140,29 @@ const paginationMedioAI = {
       document.querySelector('#medioPageCount').setAttribute('data-current', '1')
       document.querySelector('#medioPageCount').setAttribute('data-max', chats.length)
       document.querySelector('#medioPageCount').innerHTML =
-        `Page 1 of ${totalPages}` + ` (${paginationMedioAI.chatHistory.length})`
+        `Page 1 of ${totalPages || 1}` + ` (${paginationMedioAI.chatHistory.length})`
       document.querySelector('#medioPrev').classList.add('medioDisabled')
       document.querySelector('#medioNext').classList.remove('medioDisabled')
+
+      if (parseInt(totalPages) < 2) {
+        document.querySelector('#medioNext').classList.add('medioDisabled')
+      }
+
+      if (!parseInt(totalPages)) {
+        wrapper.style.marginTop = '20px'
+        wrapper.innerHTML = uiMedioAI.placeholder('Nothing Found', 'Your saved content will appear here.')
+      }
+
       return
     }
 
     const filteredChats = chats.filter(chat => {
       if (chat.name) {
         return chat.name.toLowerCase().includes(search) || chat.song_title.toLowerCase().includes(search)
-      } else {
+      } else if (chat.song_title) {
         return chat.song_title.toLowerCase().includes(search)
+      } else if (chat.tags) {
+        return chat.tags.toLowerCase().includes(search)
       }
     })
 
