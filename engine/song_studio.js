@@ -115,6 +115,27 @@ const songStudioMedioAI = {
     openStudio.addEventListener('click', e => {
       songStudioMedioAI.open(e)
     })
+
+    const medioWriteSong = document.getElementById('medioWriteSong')
+    medioWriteSong.addEventListener('click', e => {
+      document.querySelector('#mediowizard').style.display = 'none'
+      document.querySelector('#mediochattab').style.display = 'block'
+      document.querySelector('#medioaichat').innerHTML = ''
+      apiMedioAI.writeSong(e)
+    })
+
+    const medioSongRollDice = document.getElementById('medioSongRollDice')
+    medioSongRollDice.addEventListener('click', e => {
+      if (medioSongRollDice.classList.contains('disabled')) return
+      medioSongRollDice.classList.add('disabled')
+      medioSongRollDice.querySelector('span').innerHTML = 'Generating...'
+      apiMedioAI.randomSong(e)
+    })
+
+    const medioSongChatList = document.getElementById('medioSongChatList')
+    medioSongChatList.addEventListener('click', e => {
+      // TODO
+    })
   },
 
   open: e => {

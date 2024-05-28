@@ -50,7 +50,7 @@ const apiMedioAI = {
     }
   },
 
-  askOpenAI: (messages, openaikey, isChat = false, id, request) => {
+  askOpenAI: (messages, openaikey, isChat = false, id, request, callback) => {
     const url = 'https://api.openai.com/v1/chat/completions'
     const bearer = 'Bearer ' + openaikey
 
@@ -77,7 +77,7 @@ const apiMedioAI = {
             return response.json()
           })
           .then(data => {
-            apiMedioAI.update(data, id, request)
+            callback(data, id, request)
           })
           .catch(error => {
             console.log('Something bad happened ' + error)
@@ -99,7 +99,7 @@ const apiMedioAI = {
           return response.json()
         })
         .then(data => {
-          apiMedioAI.update(data, id, request)
+          callback(data, id, request)
         })
         .catch(error => {
           console.log('Something bad happened ' + error)
@@ -107,7 +107,7 @@ const apiMedioAI = {
     }
   },
 
-  update: (data, id, request) => {
+  update: (key, data, id, request) => {
     document.querySelector('#medioaichat .mediochatloading').remove()
     const newMsg = document.createElement('div')
     newMsg.classList.add('medioaimessage')
@@ -116,8 +116,8 @@ const apiMedioAI = {
     document.querySelector('#medioaichat').append(newMsg)
     document.querySelector('#medioaichat').scrollTop = document.querySelector('#medioaichat').scrollHeight
 
-    chrome.storage.local.get(['medioaiChats'], function (result) {
-      const chats = result.medioaiChats || []
+    chrome.storage.local.get([key], function (result) {
+      const chats = result[key] || []
       const chatIndex = chats.findIndex(chat => chat.id === id)
 
       if (chatIndex > -1) {
@@ -131,7 +131,7 @@ const apiMedioAI = {
         })
       }
 
-      chrome.storage.local.set({ medioaiChats: chats })
+      chrome.storage.local.set({ [key]: chats })
     })
   },
 
@@ -219,7 +219,10 @@ const apiMedioAI = {
           openaikey,
           false,
           id,
-          request
+          request,
+          data => {
+            apiMedioAI.update('medioaiChats', data, id, request)
+          }
         )
       })
     }
@@ -252,7 +255,145 @@ const apiMedioAI = {
       openaikey,
       true,
       document.querySelector('#medioaichat').getAttribute('data-id'),
-      request
+      request,
+      data => {
+        apiMedioAI.update('medioaiChats', data)
+      }
+    )
+  },
+
+  writeSong: async e => {
+    const title = document.querySelector('#mediowriterSongTitle').value
+    const theme = document.querySelector('#mediowriterTheme').value
+    const emotion = document.querySelector('#mediowriterEmotion').value
+    const tags = document.querySelector('#mediowriterTags').value
+    const structure = document.querySelector('#mediowriterStructure').value
+    const request = `Write song lyrics for the following:
+    
+    Title: ${title || 'Untitled Song'}
+    Theme: ${theme}
+    Emotion: ${emotion}
+    Tags: ${tags}
+    Structure: ${structure}
+
+    `
+    const system =
+      'You are a song lyric writer. You focus on taking a Title, Theme, Emotion, Tags and Structure of a song and creating lyrics. You can also provide feedback on lyrics. You can only use h1, h2, h3, ul, ol, and p tags. You can also use the classnames "medioai-highlightgray" and "medioai-highlightyellow" to highlight areas of the lyrics. You will provide lyrics and work with user to improve them. If you are presenting full lyrics to user, always wrap it in div with classname "medioai-copylyrics" so user can copy them. If you are not sure what to say ask. Only provide a summary of the title, theme, etc at the bottom of your response and wrap with div and class name "medioai-summary" if you need to, always use a title "Summary" if you are doing one. Never use class names witin classnames, if you do lyrics, only use that class name. You can respond with just lyrics. Always use brackets around commands like [Verse], etc. Use line break for each line of lyrics to bunch each verse or chorus together. Use new p tags for each section of lyrics. Use a strong tag for the commands to make it stand out.'
+    const songTitle = ''
+
+    const newMsg = document.createElement('div')
+    newMsg.classList.add('medioaimessage')
+    newMsg.classList.add('medioaiuser')
+    newMsg.innerText = "Let's write a song together!"
+    document.querySelector('#medioaichat').append(newMsg)
+
+    const tempMsg = document.createElement('div')
+    tempMsg.classList.add('medioaimessage')
+    tempMsg.classList.add('medioaiagent')
+    tempMsg.classList.add('mediochatloading')
+    tempMsg.innerHTML = `
+        <div class='flex items-center space-x-2'>
+          ${iconsMedioAI.typing}
+          <span class="opacity-50">Typing...</span>
+        </div>`
+    document.querySelector('#medioaichat').append(tempMsg)
+
+    const id = utilitiesMedioAI.uuidv4()
+    document.querySelector('#medioaichat').setAttribute('data-id', id)
+
+    chrome.storage.local.get(['medioaiSongChats'], async result => {
+      const chats = result.medioaiSongChats || []
+      chats.push({
+        id: id,
+        created_at: new Date().toISOString(),
+        song_title: songTitle,
+        title: request || 'Untitled Song',
+        messages: [
+          {
+            role: 'system',
+            content: system,
+          },
+          {
+            role: 'user',
+            content: request,
+          },
+        ],
+      })
+
+      chrome.storage.local.set({ medioaiSongChats: chats })
+
+      const openaikey = await utilitiesMedioAI.getSettings('openaikey')
+      await apiMedioAI.askOpenAI(
+        [
+          {
+            role: 'system',
+            content: system,
+          },
+          {
+            role: 'user',
+            content: request,
+          },
+        ],
+        openaikey,
+        false,
+        id,
+        request,
+        data => {
+          apiMedioAI.update('medioaiChats', data, id, request)
+        }
+      )
+    })
+  },
+
+  randomSong: async e => {
+    const title = document.querySelector('#mediowriterSongTitle')
+    const theme = document.querySelector('#mediowriterTheme')
+    const emotion = document.querySelector('#mediowriterEmotion')
+    const tags = document.querySelector('#mediowriterTags')
+    const structure = document.querySelector('#mediowriterStructure')
+    const request = `Please come up with a random song for me. Here are the details to follow.
+    
+    Title ,Theme, Emotion, Tags, Structure.
+    `
+    const system = `You are a song lyric writer. You come up with a Title, Theme, Emotion, Tags, Structure. For a song a respond with JSON format only. Here is example:
+    
+    {
+      "title": "Title of Song",
+      "theme": "Theme of Song",
+      "emotion": "Emotion of Song",
+      "tags": "Tags, for, song",
+      "structure": "standard"
+    }
+    
+    Come up with a title and use 2-3 sentences to describe each part. When doing the Structure make sure to pick from one of the following: standard, epic, duet, storytelling and sonnet. You can come up with a random song each time.`
+
+    const openaikey = await utilitiesMedioAI.getSettings('openaikey')
+    await apiMedioAI.askOpenAI(
+      [
+        {
+          role: 'system',
+          content: system,
+        },
+        {
+          role: 'user',
+          content: request,
+        },
+      ],
+      openaikey,
+      false,
+      null,
+      null,
+      data => {
+        console.log(data)
+        data = JSON.parse(data.choices[0].message.content)
+        title.value = data.title
+        theme.value = data.theme
+        emotion.value = data.emotion
+        tags.value = data.tags
+        structure.value = data.structure
+        document.getElementById('medioSongRollDice').querySelector('span').innerHTML = 'Randomize'
+        document.getElementById('medioSongRollDice').classList.remove('disabled')
+      }
     )
   },
 }

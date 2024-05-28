@@ -713,11 +713,21 @@ const uiMedioAI = {
   <div style="display: none" class="lyric-tab" data-tab="wizard">
     <div id="mediowizard" style="display: none">
       <div class="mb-2">
+        <label class="medioaiLabel">Song Title</label>
+        <input
+          type="text"
+          class="medioaiInputBox"
+          id="mediowriterSongTitle"
+          placeholder="Name your song..."
+          autocomplete="off"
+        />
+      </div>
+      <div class="mb-2">
         <label class="medioaiLabel">Theme</label>
         <textarea
           class="medioaiTextBox"
-          name="mediowriterStep1"
-          id="mediowriterStep1"
+          name="mediowriterTheme"
+          id="mediowriterTheme"
           placeholder="What is the theme of your song?"
         ></textarea>
       </div>
@@ -725,8 +735,8 @@ const uiMedioAI = {
         <label class="medioaiLabel">Emotion</label>
         <textarea
           class="medioaiTextBox"
-          name="mediowriterStep2"
-          id="mediowriterStep2"
+          name="mediowriterEmotion"
+          id="mediowriterEmotion"
           placeholder="Describe the emotion of your song."
         ></textarea>
       </div>
@@ -734,14 +744,14 @@ const uiMedioAI = {
         <label class="medioaiLabel">Tags (Genre, Artists, etc)</label>
         <textarea
           class="medioaiTextBox"
-          name="mediowriterStep3"
-          id="mediowriterStep3"
+          name="mediowriterTags"
+          id="mediowriterTags"
           placeholder="Add your tags here... (tip: you can use the Tag Builder)"
         ></textarea>
       </div>
       <div class="mb-2">
         <label class="medioaiLabel">Structure</label>
-        <select class="medioaiSelectBox" name="mediowriterStep4" id="mediowriterStep4">
+        <select class="medioaiSelectBox" name="mediowriterStructure" id="mediowriterStructure">
           <option value="standard">Standard</option>
           <option value="epic">Epic</option>
           <option value="sonnet">Sonnet</option>

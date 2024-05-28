@@ -115,15 +115,14 @@ const utilitiesMedioAI = {
   },
 
   clearDB: () => {
-    chrome.storage.local.get('medioTags', data => {
-      if (data.medioTags) {
-        chrome.storage.local.remove('medioTags', () => {})
-      }
-    })
-    chrome.storage.local.get('medioLyrics', data => {
-      if (data.medioLyrics) {
-        chrome.storage.local.remove('medioLyrics', () => {})
-      }
+    const keys = ['medioTags', 'medioLyrics', 'medioaiSettings', 'medioaiChats', 'medioaiSongChats']
+
+    keys.forEach(key => {
+      chrome.storage.local.get(key, data => {
+        if (data[key]) {
+          chrome.storage.local.remove(key, () => {})
+        }
+      })
     })
   },
 
