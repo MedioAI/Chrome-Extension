@@ -684,6 +684,9 @@ select.medioAddTag {
   line-height: 1.5;
   padding: 15px;
 }
+.medioai-summary * {
+  margin-bottom: 5px !important;
+}
 
 #medioSongRollDice.disabled {
   opacity: 0.4;

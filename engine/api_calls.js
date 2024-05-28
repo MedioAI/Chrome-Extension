@@ -50,7 +50,7 @@ const apiMedioAI = {
     }
   },
 
-  askOpenAI: (messages, openaikey, isChat = false, id, request, callback) => {
+  askOpenAI: (messages, openaikey, isChat = false, id, request, callback, isJSON) => {
     const url = 'https://api.openai.com/v1/chat/completions'
     const bearer = 'Bearer ' + openaikey
 
@@ -70,6 +70,7 @@ const apiMedioAI = {
           },
           body: JSON.stringify({
             model: 'gpt-4o',
+            response_format: { type: isJSON ? 'json_object' : 'default' },
             messages: allMessages,
           }),
         })
@@ -355,7 +356,7 @@ const apiMedioAI = {
     
     Title ,Theme, Emotion, Tags, Structure.
     `
-    const system = `You are a song lyric writer. You come up with a Title, Theme, Emotion, Tags, Structure. For a song a respond with JSON format only. Here is example:
+    const system = `You are a song lyric writer. You come up with a Title, Theme, Emotion, Tags, Structure. For a song a respond with JSON format only. Do not include a code block, pure valid JSON only. Here is example:
     
     {
       "title": "Title of Song",
@@ -393,7 +394,8 @@ const apiMedioAI = {
         structure.value = data.structure
         document.getElementById('medioSongRollDice').querySelector('span').innerHTML = 'Randomize'
         document.getElementById('medioSongRollDice').classList.remove('disabled')
-      }
+      },
+      true
     )
   },
 }
