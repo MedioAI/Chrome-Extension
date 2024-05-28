@@ -190,6 +190,8 @@
   font-size: 19px;
   padding-right: 10px;
   opacity: 0.5;
+  z-index: 999999;
+  position: relative;
 }
 .medioChatDelete:hover {
   opacity: 1;

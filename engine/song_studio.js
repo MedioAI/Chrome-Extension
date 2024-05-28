@@ -86,6 +86,7 @@ const songStudioMedioAI = {
       paginationMedioAI.init('medioaiChats', 'mediochats', item => {
         if (item) {
           console.log('Click on the chat item and open it.', item.id, item)
+          // TODO
           // document.querySelector('#mediochattab').style.display = 'block'
           // document.querySelector('#mediochats').style.display = 'none'
           // document.querySelector('#medioaichat').innerHTML = ''
@@ -232,84 +233,16 @@ const songStudioMedioAI = {
             document.querySelector('#mediowizard').style.display = 'none'
           }
         } else if (tab === 'library') {
-          chrome.storage.local.get(['medioLyrics'], function (result) {
-            const medioLyrics = result.medioLyrics || []
-            const libraryItems = document.getElementById('medio-library-items')
-            libraryItems.innerHTML = ''
+          paginationMedioAI.init('medioLyrics', 'medio-library-items', item => {
+            if (item) {
+              document.getElementById('lyric-id').value = item.id
+              document.getElementById('lyric-title').value = item.title
+              utilitiesMedioAI.quill.root.innerHTML = item.content
 
-            if (medioLyrics.length === 0) {
-              libraryItems.setAttribute('class', 'text-center w-full p-4 text-gray-500')
-              libraryItems.innerHTML = uiMedioAI.placeholder(
-                'No Songs Found',
-                'Your songs will appear here to edit & manage at any time.'
-              )
-              return
+              const firstTab = document.querySelector('.lyric-tab-button')
+              firstTab.click()
+              utilitiesMedioAI.showNotification(`Opened Song: "${item.title}"`)
             }
-
-            medioLyrics.forEach(lyric => {
-              const lyricItem = document.createElement('a')
-              lyricItem.href = '#'
-              lyricItem.classList.add(
-                'open-lyric',
-                'border',
-                'rounded-lg',
-                'p-3',
-                'text-lg',
-                'font-bold',
-                'relative'
-              )
-              lyricItem.setAttribute('data-id', lyric.id)
-              lyricItem.innerHTML = `<h3 class="text-xl font-medium">${
-                lyric.title
-              }</h3> <p class="text-xs mt-1 text-gray-400">${
-                lyric.created_at
-                  ? utilitiesMedioAI.formatDate(lyric.created_at || Date.now())
-                  : '8:20PM on June, 28th, 2024'
-              }</p> 
-              <button class="deleteMediaSong absolute top-2 right-2 text-sm text-gray-400">
-                ${iconsMedioAI.trash}
-              </button>`
-              lyricItem.addEventListener('click', () => {
-                document.getElementById('lyric-id').value = lyric.id
-                document.getElementById('lyric-title').value = lyric.title
-                utilitiesMedioAI.quill.root.innerHTML = lyric.content
-
-                const firstTab = document.querySelector('.lyric-tab-button')
-                firstTab.click()
-                utilitiesMedioAI.showNotification(`Opened Song: "${lyric.title}"`)
-              })
-
-              libraryItems.appendChild(lyricItem)
-            })
-
-            const deleteButtons = document.querySelectorAll('.deleteMediaSong')
-            deleteButtons.forEach(button => {
-              button.addEventListener('click', e => {
-                e.preventDefault()
-                e.stopPropagation()
-                const id = e.target.closest('.open-lyric').getAttribute('data-id')
-
-                if (e.target.classList.contains('confirmDelete')) {
-                  e.target.closest('.open-lyric').remove()
-                  e.target.classList.remove('confirmDelete')
-
-                  chrome.storage.local.get(['medioLyrics'], function (result) {
-                    const medioLyrics = result.medioLyrics || []
-                    const updatedLyrics = medioLyrics.filter(lyric => lyric.id !== id)
-
-                    chrome.storage.local.set({ medioLyrics: updatedLyrics })
-
-                    utilitiesMedioAI.showNotification('Deleted song from your library.')
-                  })
-                } else {
-                  e.target.classList.add('confirmDelete')
-
-                  setTimeout(() => {
-                    e.target.classList.remove('confirmDelete')
-                  }, 3000)
-                }
-              })
-            })
           })
         }
       })

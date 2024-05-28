@@ -191,7 +191,7 @@ const uiMedioAI = {
   </div>
 
   <div style="display: none" class="lyric-buildertab" data-tab="library">
-    <div id="medio-taglibrary-items" class="grid grid-cols-3 gap-4"></div>
+    <div id="medio-taglibrary-items"></div>
   </div>
 </div>
 `,
@@ -764,7 +764,7 @@ const uiMedioAI = {
   </div>
 
   <div style="display: none" class="lyric-tab" data-tab="library">
-    <div id="medio-library-items" class="grid grid-cols-3 gap-4"></div>
+    <div id="medio-library-items"></div>
   </div>
 
   <div class="lyric-tab" data-tab="write">
@@ -1076,8 +1076,8 @@ const uiMedioAI = {
 
   placeholder: (title, msg) => {
     return /* html */ `
-<h3 class='text-2xl text-gray-200 font-bold mb-2 select-none'>${title}</h3>
-<p class="select-none">${msg}</p>
+<h3 class='text-2xl text-gray-200 font-bold mb-2 select-none text-center'>${title}</h3>
+<p class="select-none text-center">${msg}</p>
 `
   },
 }

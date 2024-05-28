@@ -11,6 +11,7 @@
 const paginationMedioAI = {
   chatHistory: [],
   perPage: 2,
+  key: '',
 
   init: (key, id, callback) => {
     chrome.storage.local.get([key], result => {
@@ -18,6 +19,7 @@ const paginationMedioAI = {
       const container = document.getElementById(id)
       const header = document.createElement('div')
       const wrapper = document.createElement('div')
+      paginationMedioAI.key = key
 
       header.innerHTML = paginationMedioAI.header(items.length)
       container.innerHTML = ''
@@ -33,15 +35,24 @@ const paginationMedioAI = {
       document.querySelector('#medioPageCount').setAttribute('data-max', totalPages)
       document.querySelector('#medioPageCount').setAttribute('data-current', 1)
 
-      currentPortion.reverse().forEach(chat => {
-        const newChat = document.createElement('div')
-        newChat.setAttribute('data-id', chat.id)
-        newChat.innerHTML = paginationMedioAI.block(chat)
-        wrapper.append(newChat)
+      currentPortion.reverse().forEach(item => {
+        const newItem = document.createElement('div')
+        newItem.setAttribute('data-id', item.id)
+        newItem.innerHTML = paginationMedioAI.block(item)
+        wrapper.append(newItem)
       })
 
       container.append(wrapper)
       paginationMedioAI.events(key, callback, items, wrapper, totalPages)
+
+      if (parseInt(totalPages) < 2) {
+        document.querySelector('#medioNext').classList.add('medioDisabled')
+      }
+
+      if (items.length === 0) {
+        wrapper.style.marginTop = '20px'
+        wrapper.innerHTML = uiMedioAI.placeholder('Nothing Found', 'Your saved content will appear here.')
+      }
     })
   },
 
@@ -77,9 +88,12 @@ const paginationMedioAI = {
       })
     })
 
-    const medioChatDelete = document.querySelectorAll('.medioChatItem .medioChatDelete')
+    const medioChatDelete = document.querySelectorAll('.medioChatDelete')
     medioChatDelete.forEach(item => {
       item.addEventListener('click', async e => {
+        e.preventDefault()
+        e.stopPropagation()
+
         const el = e.target.closest('.medioChatItem')
         const id = el.getAttribute('data-id')
 
@@ -107,11 +121,11 @@ const paginationMedioAI = {
     if (search === '') {
       wrapper.innerHTML = ''
       const firstChats = chats.slice(0, paginationMedioAI.perPage)
-      firstChats.reverse().forEach(chat => {
-        const newChat = document.createElement('div')
-        newChat.setAttribute('data-id', chat.id)
-        newChat.innerHTML = paginationMedioAI.block(chat)
-        wrapper.append(newChat)
+      firstChats.reverse().forEach(item => {
+        const newItem = document.createElement('div')
+        newItem.setAttribute('data-id', item.id)
+        newItem.innerHTML = paginationMedioAI.block(item)
+        wrapper.append(newItem)
       })
 
       document.querySelector('#medioPageCount').setAttribute('data-current', '1')
@@ -137,11 +151,11 @@ const paginationMedioAI = {
       wrapper.innerHTML = '<p class="italic opacity-50">Nothing found...</p>'
     }
 
-    filteredChats.reverse().forEach(chat => {
-      const newChat = document.createElement('div')
-      newChat.setAttribute('data-id', chat.id)
-      newChat.innerHTML = paginationMedioAI.block(chat)
-      wrapper.append(newChat)
+    filteredChats.reverse().forEach(item => {
+      const newItem = document.createElement('div')
+      newItem.setAttribute('data-id', item.id)
+      newItem.innerHTML = paginationMedioAI.block(item)
+      wrapper.append(newItem)
     })
 
     document.querySelector('#medioPageCount').innerHTML = '1 of 1' + ` (${filteredChats.length})`
@@ -164,11 +178,11 @@ const paginationMedioAI = {
       )
       document.querySelector('#medioPrev').classList.remove('medioDisabled')
       wrapper.innerHTML = ''
-      currentPortion.reverse().forEach(chat => {
-        const newChat = document.createElement('div')
-        newChat.setAttribute('data-id', chat.id)
-        newChat.innerHTML = paginationMedioAI.block(chat)
-        wrapper.append(newChat)
+      currentPortion.reverse().forEach(item => {
+        const newItem = document.createElement('div')
+        newItem.setAttribute('data-id', item.id)
+        newItem.innerHTML = paginationMedioAI.block(item)
+        wrapper.append(newItem)
       })
 
       document.querySelector('#medioPageCount').innerText =
@@ -202,11 +216,11 @@ const paginationMedioAI = {
       )
       document.querySelector('#medioPrev').classList.remove('medioDisabled')
       container.innerHTML = ''
-      currentPortion.reverse().forEach(chat => {
-        const newChat = document.createElement('div')
-        newChat.setAttribute('data-id', chat.id)
-        newChat.innerHTML = paginationMedioAI.block(chat)
-        container.append(newChat)
+      currentPortion.reverse().forEach(item => {
+        const newItem = document.createElement('div')
+        newItem.setAttribute('data-id', item.id)
+        newItem.innerHTML = paginationMedioAI.block(item)
+        container.append(newItem)
       })
 
       document.querySelector('#medioPageCount').innerText =
@@ -215,27 +229,40 @@ const paginationMedioAI = {
   },
 
   header: length => {
-    return /* html */ `<div class="flex items-center space-x-2 justify-between mb-2">
-          <input id="medioSearchChatList" type="text" autocomplete="off" placeholder="Search..." class="w-full rounded border p-1 px-2" />
-          <div id="medioPagination" class="flex items-center" style="width: 400px">
-            <button id="medioPrev" class="medioDisabled">Previous</button>
-            <div data-current="1" data-max="${length}" id="medioPageCount" class="w-full">
-               1 of 1 
-            </div>
-            <button id="medioNext">Next</button>
-          </div>
-        </div>`
+    return /* html */ `
+    <div class="flex items-center space-x-2 justify-between mb-2">
+      <input id="medioSearchChatList" type="text" autocomplete="off" placeholder="Search..." class="w-full rounded border p-1 px-2" />
+      <div id="medioPagination" class="flex items-center" style="width: 400px">
+        <button id="medioPrev" class="medioDisabled">Previous</button>
+        <div data-current="1" data-max="${length}" id="medioPageCount" class="w-full">
+            1 of 1 
+        </div>
+        <button id="medioNext">Next</button>
+      </div>
+    </div>`
   },
 
   block: item => {
-    return /* html */ `<div data-id="${
-      item.id
-    }" class="medioChatItem mb-2 flex items-center justify-between p-2 border rounded">
+    let name = item.title
+    let subtitle = ''
+
+    if (paginationMedioAI.key === 'medioTags') {
+      subtitle = item.tags
+    } else if (paginationMedioAI.key === 'medioaiChats') {
+      subtitle = item.song_title
+    }
+
+    return /* html */ `
+    <div 
+      data-id="${item.id}" 
+      class="medioChatItem mb-2 flex items-center justify-between p-2 border rounded"
+    >
       <div>
-        <h4 class="text-lg font-bold">${item.name}</h4>
+        <h4 class="text-lg font-bold">${name}</h4>
         <p class="text-sm flex space-x-4 text-gray-400">
-        <span style="opacity: 0.5">${utilitiesMedioAI.formatDate(item.created_at || Date.now())}</span> 
-        <span style="opacity: 0.5">${item.song_title}</span></p>
+          <span style="opacity: 0.5">${utilitiesMedioAI.formatDate(item.created_at || Date.now())}</span> 
+          <span style="opacity: 0.5">${subtitle}</span>
+        </p>
       </div>
       <button class="medioChatDelete" data-id="${item.id}">
         ${iconsMedioAI.trash}

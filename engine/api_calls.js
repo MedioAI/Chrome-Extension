@@ -235,9 +235,7 @@ const apiMedioAI = {
           <span class="opacity-50">Typing...</span>
         </div>`
     document.querySelector('#medioaichat').append(newMessage2)
-
     document.querySelector('#medioaichat').scrollTop = document.querySelector('#medioaichat').scrollHeight
-
     document.getElementById('medioaiMessageBox').value = ''
 
     const openaikey = await utilitiesMedioAI.getSettings('openaikey')

@@ -177,7 +177,7 @@ const tagBuilderMedioAI = {
     const title = document.querySelector('#medioTagBoxTitle').value
     const tagId = document.querySelector('#mediotag-id').value
     if (!tagId) {
-      chrome.storage.sync.get('medioTags', data => {
+      chrome.storage.local.get('medioTags', data => {
         const newTags = data.medioTags ? data.medioTags : []
         newTags.push({
           id: utilitiesMedioAI.uuidv4(),
@@ -185,7 +185,7 @@ const tagBuilderMedioAI = {
           tags,
           title: title || 'Untitled',
         })
-        chrome.storage.sync.set({ medioTags: newTags }, () => {
+        chrome.storage.local.set({ medioTags: newTags }, () => {
           utilitiesMedioAI.showNotification('Created new tag for your library.')
         })
       })
@@ -194,7 +194,7 @@ const tagBuilderMedioAI = {
         e.target.textContent = 'Save'
       }, 1000)
     } else {
-      chrome.storage.sync.get('medioTags', data => {
+      chrome.storage.local.get('medioTags', data => {
         const tags = data.medioTags ? data.medioTags : []
         const title = document.querySelector('#medioTagBoxTitle').value
         const newTags2 = document.getElementById('medioTagBox').value
@@ -209,7 +209,7 @@ const tagBuilderMedioAI = {
             return tag
           }
         })
-        chrome.storage.sync.set({ medioTags: newTags }, () => {
+        chrome.storage.local.set({ medioTags: newTags }, () => {
           utilitiesMedioAI.showNotification('Updated tag in your library.')
         })
       })
@@ -286,69 +286,18 @@ const tagBuilderMedioAI = {
     selectedTab.style.display = 'block'
 
     if (tab === 'library') {
-      chrome.storage.sync.get('medioTags', data => {
-        const tags = data.medioTags ? data.medioTags : []
-        const tagLibraryItems = document.getElementById('medio-taglibrary-items')
-        tagLibraryItems.innerHTML = ''
-
-        if (tags.length === 0) {
-          tagLibraryItems.setAttribute('class', 'text-center w-full p-4 text-gray-500')
-          tagLibraryItems.innerHTML = uiMedioAI.placeholder(
-            'No Tags Found',
-            'Your tags will appear here to edit & manage at any time.'
-          )
-          return
-        } else {
-          tagLibraryItems.setAttribute('class', 'grid grid-cols-3 gap-4')
+      paginationMedioAI.init('medioTags', 'medio-taglibrary-items', item => {
+        if (item) {
+          const tags = item.tags
+          const title = item.title
+          const medioTagBox = document.getElementById('medioTagBox')
+          const medioTagBoxTitle = document.getElementById('medioTagBoxTitle')
+          medioTagBox.value = tags
+          medioTagBoxTitle.value = title
+          document.querySelector('#mediotag-id').value = item.id
+          document.querySelector(`.lyric-buildertab-button[data-tab="build"]`).click()
+          utilitiesMedioAI.showNotification(`Opened Tag Group: "${title}"`)
         }
-
-        tags.forEach(tag => {
-          const div = document.createElement('div')
-          div.classList.add('medioopentag', 'border', 'p-4', 'rounded', 'text-sm', 'relative')
-          div.setAttribute('data-id', tag.id)
-          div.innerHTML = /* html */ `
-                <h2 class="font-bold text-lg">${tag.title}</h2>
-                <p class="truncate text-gray-400">${tag.tags}</p>
-                <button class="deleteMediaTag absolute top-2 right-2 text-sm text-gray-400"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M216 48h-36V36a28 28 0 0 0-28-28h-48a28 28 0 0 0-28 28v12H40a12 12 0 0 0 0 24h4v136a20 20 0 0 0 20 20h128a20 20 0 0 0 20-20V72h4a12 12 0 0 0 0-24M100 36a4 4 0 0 1 4-4h48a4 4 0 0 1 4 4v12h-56Zm88 168H68V72h120Zm-72-100v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0m48 0v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0"/></svg></button>
-                `
-          tagLibraryItems.appendChild(div)
-        })
-
-        const medioOpenTag = document.querySelectorAll('.medioopentag')
-        medioOpenTag.forEach(tag => {
-          tag.querySelector('.deleteMediaTag').addEventListener('click', e => {
-            e.preventDefault()
-            e.stopPropagation()
-
-            if (e.target.classList.contains('confirmDelete')) {
-              const tagId = tag.getAttribute('data-id')
-              chrome.storage.sync.get('medioTags', data => {
-                const tags = data.medioTags ? data.medioTags : []
-                const newTags = tags.filter(tag => tag.id !== tagId)
-                chrome.storage.sync.set({ medioTags: newTags }, () => {
-                  utilitiesMedioAI.showNotification('Deleted tag from your library.')
-                })
-              })
-              e.target.closest('.medioopentag').remove()
-            } else {
-              e.target.classList.add('confirmDelete')
-              setTimeout(() => {
-                e.target.classList.remove('confirmDelete')
-              }, 5000)
-            }
-          })
-          tag.addEventListener('click', () => {
-            const tags = tag.querySelector('p').textContent
-            const title = tag.querySelector('h2').textContent
-            const medioTagBox = document.getElementById('medioTagBox')
-            const medioTagBoxTitle = document.getElementById('medioTagBoxTitle')
-            medioTagBox.value = tags
-            medioTagBoxTitle.value = title
-            document.querySelector('#mediotag-id').value = tag.getAttribute('data-id')
-            document.querySelector(`.lyric-buildertab-button[data-tab="build"]`).click()
-            utilitiesMedioAI.showNotification(`Opened Tag Group: "${title}"`)
-          })
-        })
       })
     }
   },
