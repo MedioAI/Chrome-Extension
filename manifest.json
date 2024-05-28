@@ -44,6 +44,16 @@
       "css": ["engine/engine.css", "lib/quilljs.css"]
     },
     {
+      "matches": ["https://www.udio.com/songs/*"],
+      "js": ["engine/udio/track-counter.js"],
+      "css": ["engine/udio/track-counter.css"]
+    },
+    {
+      "matches": ["https://www.udio.com/creators/*"],
+      "js": ["engine/udio/generations-counter.js"],
+      "css": ["engine/udio/generations-counter.css"]
+    },
+    {
       "matches": ["https://www.suno.com/*"],
       "js": [
         "lib/quill.js",

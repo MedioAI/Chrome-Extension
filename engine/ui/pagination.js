@@ -10,12 +10,12 @@
 
 const paginationMedioAI = {
   chatHistory: [],
-  perPage: 2,
+  perPage: 8,
   key: '',
 
   init: (key, id, callback) => {
     chrome.storage.local.get([key], result => {
-      const items = result[key].reverse() || []
+      const items = result[key] || []
       const container = document.getElementById(id)
       const header = document.createElement('div')
       const wrapper = document.createElement('div')
@@ -62,7 +62,6 @@ const paginationMedioAI = {
     document.querySelector('#medio-library-items').innerHTML = ''
     document.querySelector('#medio-taglibrary-items').innerHTML = ''
     document.querySelector('#mediochats').innerHTML = ''
-    // document.querySelector('#mediochats').innerHTML = ''
   },
 
   events: (key, callback, items, wrapper, totalPages) => {
