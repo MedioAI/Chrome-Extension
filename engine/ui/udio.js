@@ -711,7 +711,63 @@ const uiMedioAI = {
   </div>
 
   <div style="display: none" class="lyric-tab" data-tab="wizard">
-    <div id="mediowizard" style="display: none">Coming Soon...</div>
+    <div id="mediowizard" style="display: none">
+      <div class="mb-2">
+        <label class="medioaiLabel">Theme</label>
+        <textarea
+          class="medioaiTextBox"
+          name="mediowriterStep1"
+          id="mediowriterStep1"
+          placeholder="What is the theme of your song?"
+        ></textarea>
+      </div>
+      <div class="mb-2">
+        <label class="medioaiLabel">Emotion</label>
+        <textarea
+          class="medioaiTextBox"
+          name="mediowriterStep2"
+          id="mediowriterStep2"
+          placeholder="Describe the emotion of your song."
+        ></textarea>
+      </div>
+      <div class="mb-2">
+        <label class="medioaiLabel">Tags (Genre, Artists, etc)</label>
+        <textarea
+          class="medioaiTextBox"
+          name="mediowriterStep3"
+          id="mediowriterStep3"
+          placeholder="Add your tags here... (tip: you can use the Tag Builder)"
+        ></textarea>
+      </div>
+      <div class="mb-2">
+        <label class="medioaiLabel">Structure</label>
+        <select class="medioaiSelectBox" name="mediowriterStep4" id="mediowriterStep4">
+          <option value="standard">Standard</option>
+          <option value="epic">Epic</option>
+          <option value="sonnet">Sonnet</option>
+          <option value="storytelling">Storytelling</option>
+          <option value="duet">Duet</option>
+        </select>
+      </div>
+      <div class="flex space-x-2 items-center justify-between mt-6">
+        <div class="flex space-x-2">
+          <button id="medioWriteSong" class="flex select-none items-center space-x-2">
+            ${iconsMedioAI.send}
+            <span>Start Writing</span>
+          </button>
+
+          <button id="medioSongRollDice" class="flex select-none items-center space-x-2">
+            ${iconsMedioAI.dice}
+            <span>Randomize</span>
+          </button>
+
+          <button id="medioSongChatList" class="flex select-none items-center space-x-2">
+            ${iconsMedioAI.chats}
+            <span>View Past Songs</span>
+          </button>
+        </div>
+      </div>
+    </div>
     <div
       id="medioapiExplainerwizard"
       class="text-center w-full"

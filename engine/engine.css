@@ -139,7 +139,8 @@
   border: 1px solid rgb(68, 68, 68);
   margin-right: 10px;
 }
-#medioAskAIQuestion {
+#medioAskAIQuestion,
+#medioWriteSong {
   background: #25cc8c;
   padding: 6px 12px;
   display: flex;
@@ -148,7 +149,9 @@
   border: 1px solid #4df6b5;
   font-weight: 800;
 }
-#medioAskChatList {
+#medioAskChatList,
+#medioSongChatList,
+#medioSongRollDice {
   background: #242424;
   padding: 6px 12px;
   display: flex;
@@ -635,4 +638,29 @@ select.medioAddTag {
 .medioDisabled {
   opacity: 0.4;
   pointer-events: none;
+}
+
+.medioaiLabel {
+  color: #d1d1d4;
+  font-size: 14px;
+  display: block;
+  margin-bottom: 7px;
+}
+
+.medioaiTextBox {
+  width: 100%;
+  height: 100px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #3c3c3c;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+.medioaiSelectBox {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #3c3c3c;
+  border-radius: 6px;
+  margin-right: 10px;
 }
