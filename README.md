@@ -1,6 +1,6 @@
-# MedioAI: Your Music Companion for Udio & Suno
+# MedioAI: Enhance Udio & Suno
 
-### Enhance your experience with Udio
+### Transform your Suno & Udio experience. Use the Song Studio, Tag Builder, AI Assistant, Audio Tools, 5k+ Built in Tags & Much More!
 
 ---
 
