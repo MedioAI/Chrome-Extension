@@ -50,13 +50,13 @@ const apiMedioAI = {
     }
   },
 
-  askOpenAI: (messages, openaikey, isChat = false, id, request, callback, isJSON) => {
+  askOpenAI: (messages, openaikey, isChat = false, id, request, callback, isJSON, key) => {
     const url = 'https://api.openai.com/v1/chat/completions'
     const bearer = 'Bearer ' + openaikey
 
     if (isChat) {
-      chrome.storage.local.get(['medioaiChats'], function (result) {
-        const allMessages = result.medioaiChats.find(chat => chat.id === id).messages
+      chrome.storage.local.get([key], function (result) {
+        const allMessages = result[key].find(chat => chat.id === id).messages
         allMessages.push({
           role: 'user',
           content: messages,
@@ -70,7 +70,6 @@ const apiMedioAI = {
           },
           body: JSON.stringify({
             model: 'gpt-4o',
-            response_format: { type: isJSON ? 'json_object' : 'default' },
             messages: allMessages,
           }),
         })
@@ -85,16 +84,26 @@ const apiMedioAI = {
           })
       })
     } else {
+      let body = {
+        model: 'gpt-4o',
+        messages: messages,
+      }
+
+      if (isJSON) {
+        body = {
+          model: 'gpt-4o',
+          response_format: { type: 'json_object' },
+          messages: messages,
+        }
+      }
+
       fetch(url, {
         method: 'POST',
         headers: {
           Authorization: bearer,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          model: 'gpt-4o',
-          messages: messages,
-        }),
+        body: JSON.stringify(body),
       })
         .then(response => {
           return response.json()
@@ -131,6 +140,12 @@ const apiMedioAI = {
           content: data['choices'][0].message.content,
         })
       }
+
+      chats.forEach(chat => {
+        chat.messages = chat.messages.filter(
+          (msg, index, self) => index === self.findIndex(t => t.content === msg.content)
+        )
+      })
 
       chrome.storage.local.set({ [key]: chats })
     })
@@ -229,7 +244,7 @@ const apiMedioAI = {
     }
   },
 
-  sendMessage: async () => {
+  sendMessage: async key => {
     const request = document.getElementById('medioaiMessageBox').value
     const newMsg = document.createElement('div')
     newMsg.classList.add('medioaimessage')
@@ -249,17 +264,20 @@ const apiMedioAI = {
     document.querySelector('#medioaichat').append(tempMsg)
     document.querySelector('#medioaichat').scrollTop = document.querySelector('#medioaichat').scrollHeight
     document.getElementById('medioaiMessageBox').value = ''
+    const id = document.querySelector('#medioaichat').getAttribute('data-id')
 
     const openaikey = await utilitiesMedioAI.getSettings('openaikey')
     await apiMedioAI.askOpenAI(
       request,
       openaikey,
       true,
-      document.querySelector('#medioaichat').getAttribute('data-id'),
+      id,
       request,
       data => {
-        apiMedioAI.update('medioaiChats', data)
-      }
+        apiMedioAI.update(key, data, id, request)
+      },
+      false,
+      key
     )
   },
 
@@ -269,23 +287,21 @@ const apiMedioAI = {
     const emotion = document.querySelector('#mediowriterEmotion').value
     const tags = document.querySelector('#mediowriterTags').value
     const structure = document.querySelector('#mediowriterStructure').value
-    const request = `Write song lyrics for the following:
-    
+    const request = `Write a song for me, called "${title || 'Untitled Song'}".`
+    const system = `You are a song lyric writer. You focus on taking a Title, Theme, Emotion, Tags and Structure of a song and creating lyrics. You can also provide feedback on lyrics. You can only use h1, h2, h3, ul, ol, and p tags. You can also use the classnames "medioai-highlightgray" and "medioai-highlightyellow" to highlight areas of the lyrics. You will provide lyrics and work with user to improve them. If you are presenting lyrics to user, always wrap it in div with classname "medioai-copylyrics" so user can copy them. If you are not sure what to say ask. Only provide a summary of the title, theme, etc at the bottom of your response and wrap with div and class name "medioai-summary" if you need to, always use a title "Summary" if you are doing one. Never use class names witin classnames, if you do lyrics, only use that class name. You can respond with just lyrics. Always use brackets around commands like [Verse], etc. Use line break for each line of lyrics to bunch each verse or chorus together. Use new p tags for each section of lyrics. Use a strong tag for the commands to make it stand out. Always have commands on new line. ALWAYS format the lyrics you present to the lyrics at any point in the chat.
+      
+    Here are the details of the song you are writing:
+      
     Title: ${title || 'Untitled Song'}
     Theme: ${theme}
     Emotion: ${emotion}
     Tags: ${tags}
-    Structure: ${structure}
-
-    `
-    const system =
-      'You are a song lyric writer. You focus on taking a Title, Theme, Emotion, Tags and Structure of a song and creating lyrics. You can also provide feedback on lyrics. You can only use h1, h2, h3, ul, ol, and p tags. You can also use the classnames "medioai-highlightgray" and "medioai-highlightyellow" to highlight areas of the lyrics. You will provide lyrics and work with user to improve them. If you are presenting full lyrics to user, always wrap it in div with classname "medioai-copylyrics" so user can copy them. If you are not sure what to say ask. Only provide a summary of the title, theme, etc at the bottom of your response and wrap with div and class name "medioai-summary" if you need to, always use a title "Summary" if you are doing one. Never use class names witin classnames, if you do lyrics, only use that class name. You can respond with just lyrics. Always use brackets around commands like [Verse], etc. Use line break for each line of lyrics to bunch each verse or chorus together. Use new p tags for each section of lyrics. Use a strong tag for the commands to make it stand out.'
-    const songTitle = ''
+    Structure: ${structure}`
 
     const newMsg = document.createElement('div')
     newMsg.classList.add('medioaimessage')
     newMsg.classList.add('medioaiuser')
-    newMsg.innerText = "Let's write a song together!"
+    newMsg.innerText = `Write a song for me, called "${title || 'Untitled Song'}".`
     document.querySelector('#medioaichat').append(newMsg)
 
     const tempMsg = document.createElement('div')
@@ -307,8 +323,7 @@ const apiMedioAI = {
       chats.push({
         id: id,
         created_at: new Date().toISOString(),
-        song_title: songTitle,
-        title: request || 'Untitled Song',
+        title: title || 'Untitled Song',
         messages: [
           {
             role: 'system',
@@ -340,7 +355,7 @@ const apiMedioAI = {
         id,
         request,
         data => {
-          apiMedioAI.update('medioaiChats', data, id, request)
+          apiMedioAI.update('medioaiSongChats', data, id, request)
         }
       )
     })
@@ -385,7 +400,6 @@ const apiMedioAI = {
       null,
       null,
       data => {
-        console.log(data)
         data = JSON.parse(data.choices[0].message.content)
         title.value = data.title
         theme.value = data.theme

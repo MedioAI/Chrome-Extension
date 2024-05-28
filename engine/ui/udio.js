@@ -304,27 +304,30 @@ const uiMedioAI = {
         placeholder="What do you want to ask?"
       ></textarea>
       <div class="flex space-x-2 items-center justify-between mt-2">
-        <div class="flex space-x-2">
+        <div class="flex items-center justify-between">
           <button id="medioAskAIQuestion" class="flex select-none items-center space-x-2">
             ${iconsMedioAI.send}
             <span>Send</span>
           </button>
 
-          <button id="medioAskChatList" class="flex select-none items-center space-x-2">
+          <div class="ml-4 text-sm text-gray-400">
+            <input
+              id="medioaiIncludeLyrics"
+              name="medioaiIncludeLyrics"
+              type="checkbox"
+              checked
+            />
+            <label for="medioaiIncludeLyrics" class="ml-1">
+              Include current lyrics in the request.
+            </label>
+          </div>
+        </div>
+        <div class="flex space-x-2 select-none items-center">
+        <button id="medioAskChatList" class="flex select-none items-center space-x-2">
             ${iconsMedioAI.chats}
             <span>View Past Chats</span>
           </button>
-        </div>
-        <div class="ml-2 text-sm text-gray-400 flex space-x-2 select-none items-center">
-          <input
-            id="medioaiIncludeLyrics"
-            name="medioaiIncludeLyrics"
-            type="checkbox"
-            checked
-          />
-          <label for="medioaiIncludeLyrics">
-            Include current song lyrics in the request.
-          </label>
+          
         </div>
       </div>
 
@@ -712,66 +715,79 @@ const uiMedioAI = {
 
   <div style="display: none" class="lyric-tab" data-tab="wizard">
     <div id="mediowizard" style="display: none">
-      <div class="mb-2">
-        <label class="medioaiLabel">Song Title</label>
-        <input
-          type="text"
-          class="medioaiInputBox"
-          id="mediowriterSongTitle"
-          placeholder="Name your song..."
-          autocomplete="off"
-        />
+      <div class="flex space-x-6 mb-2">
+        <div class="w-1/2">
+          <label class="medioaiLabel">Song Title</label>
+          <input
+            type="text"
+            class="medioaiInputBox"
+            id="mediowriterSongTitle"
+            placeholder="Name your song..."
+            autocomplete="off"
+          />
+        </div>
+        <div class="w-1/2">
+          <label class="medioaiLabel">Structure</label>
+          <select class="medioaiSelectBox" name="mediowriterStructure" id="mediowriterStructure">
+            <option value="standard">Standard</option>
+            <option value="epic">Epic</option>
+            <option value="sonnet">Sonnet</option>
+            <option value="storytelling">Storytelling</option>
+            <option value="duet">Duet</option>
+          </select>
+        </div>
       </div>
-      <div class="mb-2">
-        <label class="medioaiLabel">Theme</label>
-        <textarea
-          class="medioaiTextBox"
-          name="mediowriterTheme"
-          id="mediowriterTheme"
-          placeholder="What is the theme of your song?"
-        ></textarea>
-      </div>
-      <div class="mb-2">
-        <label class="medioaiLabel">Emotion</label>
-        <textarea
-          class="medioaiTextBox"
-          name="mediowriterEmotion"
-          id="mediowriterEmotion"
-          placeholder="Describe the emotion of your song."
-        ></textarea>
+      <div class="flex space-x-6 mb-2">
+        <div class="w-1/2">
+          <label class="medioaiLabel">Theme</label>
+          <textarea
+            class="medioaiTextBox"
+            name="mediowriterTheme"
+            id="mediowriterTheme"
+            placeholder="What is the theme of your song?"
+          ></textarea>
+        </div>
+        <div class="w-1/2">
+          <label class="medioaiLabel">Emotion</label>
+          <textarea
+            class="medioaiTextBox"
+            name="mediowriterEmotion"
+            id="mediowriterEmotion"
+            placeholder="Describe the emotion of your song."
+          ></textarea>
+        </div>
       </div>
       <div class="mb-2">
         <label class="medioaiLabel">Tags (Genre, Artists, etc)</label>
-        <textarea
-          class="medioaiTextBox"
+        <input
+          type="text"
+          autocomplete="off"
+          class="medioaiInputBox"
           name="mediowriterTags"
           id="mediowriterTags"
           placeholder="Add your tags here... (tip: you can use the Tag Builder)"
-        ></textarea>
-      </div>
-      <div class="mb-2">
-        <label class="medioaiLabel">Structure</label>
-        <select class="medioaiSelectBox" name="mediowriterStructure" id="mediowriterStructure">
-          <option value="standard">Standard</option>
-          <option value="epic">Epic</option>
-          <option value="sonnet">Sonnet</option>
-          <option value="storytelling">Storytelling</option>
-          <option value="duet">Duet</option>
-        </select>
+        />
       </div>
       <div class="flex space-x-2 items-center justify-between mt-6">
-        <div class="flex space-x-2">
-          <button id="medioWriteSong" class="flex select-none items-center space-x-2">
-            ${iconsMedioAI.send}
-            <span>Start Writing</span>
-          </button>
+        <div class="flex space-x-2 w-full items-center justify-between">
+          <div class="flex space-x-2">
+            <button id="medioWriteSong" class="flex select-none items-center space-x-2">
+              ${iconsMedioAI.send}
+              <span>Start Writing</span>
+            </button>
 
-          <button id="medioSongRollDice" class="flex select-none items-center space-x-2">
-            ${iconsMedioAI.dice}
-            <span>Randomize</span>
-          </button>
+            <button id="medioSongRollDice" class="flex select-none items-center space-x-2">
+              ${iconsMedioAI.dice}
+              <span>Randomize</span>
+            </button>
 
-          <button id="medioSongChatList" class="flex select-none items-center space-x-2">
+            <button id="medioSongClear" class="flex select-none items-center space-x-2">
+              ${iconsMedioAI.clear}
+              <span>Clear</span>
+            </button>
+          </div>
+
+          <button id="medioSongChatList" class="flex w-auto block select-none items-center space-x-2">
             ${iconsMedioAI.chats}
             <span>View Past Songs</span>
           </button>

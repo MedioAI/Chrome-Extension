@@ -68,14 +68,16 @@ const songStudioMedioAI = {
     })
 
     const medioaiSendMessage = document.getElementById('medioaiSendMessage')
-    medioaiSendMessage.addEventListener('click', () => {
-      apiMedioAI.sendMessage()
+    medioaiSendMessage.addEventListener('click', async () => {
+      const key = document.querySelector('#medioaichat').getAttribute('data-key')
+      await apiMedioAI.sendMessage(key)
     })
 
     const medioaiSendMessageBox = document.getElementById('medioaiMessageBox')
-    medioaiSendMessageBox.addEventListener('keydown', e => {
+    medioaiSendMessageBox.addEventListener('keydown', async e => {
       if (e.key === 'Enter') {
-        apiMedioAI.sendMessage()
+        const key = document.querySelector('#medioaichat').getAttribute('data-key')
+        await apiMedioAI.sendMessage(key)
       }
     })
 
@@ -89,6 +91,7 @@ const songStudioMedioAI = {
           document.querySelector('#mediochats').style.display = 'none'
           document.querySelector('#medioaichat').innerHTML = ''
           document.querySelector('#medioaichat').setAttribute('data-id', item.id)
+          document.querySelector('#medioaichat').setAttribute('data-key', 'medioaiChats')
           item.messages.forEach((message, index) => {
             if (!index) return
 
@@ -104,6 +107,7 @@ const songStudioMedioAI = {
 
     const askAIQuestion = document.getElementById('medioAskAIQuestion')
     askAIQuestion.addEventListener('click', async e => {
+      document.querySelector('#medioaichat').setAttribute('data-key', 'medioaiChats')
       apiMedioAI.askQuestion()
     })
 
@@ -121,6 +125,7 @@ const songStudioMedioAI = {
       document.querySelector('#mediowizard').style.display = 'none'
       document.querySelector('#mediochattab').style.display = 'block'
       document.querySelector('#medioaichat').innerHTML = ''
+      document.querySelector('#medioaichat').setAttribute('data-key', 'medioaiSongChats')
       apiMedioAI.writeSong(e)
     })
 
@@ -132,9 +137,47 @@ const songStudioMedioAI = {
       apiMedioAI.randomSong(e)
     })
 
+    const medioSongClear = document.getElementById('medioSongClear')
+    medioSongClear.addEventListener('click', e => {
+      if (medioSongClear.classList.contains('confirmClear')) {
+        document.getElementById('mediowriterSongTitle').value = ''
+        document.getElementById('mediowriterTags').value = ''
+        document.getElementById('mediowriterEmotion').value = ''
+        document.getElementById('mediowriterTheme').value = ''
+        document.getElementById('mediowriterStructure').value = 'standard'
+        utilitiesMedioAI.showNotification('Cleared.')
+        medioSongClear.classList.remove('confirmClear')
+      } else {
+        medioSongClear.classList.add('confirmClear')
+        setTimeout(() => {
+          medioSongClear.classList.remove('confirmClear')
+        }, 3000)
+      }
+    })
+
     const medioSongChatList = document.getElementById('medioSongChatList')
     medioSongChatList.addEventListener('click', e => {
-      // TODO
+      document.querySelector('#mediowizard').style.display = 'none'
+      document.querySelector('#mediochats').style.display = 'block'
+
+      paginationMedioAI.init('medioaiSongChats', 'mediochats', item => {
+        if (item) {
+          document.querySelector('#mediochattab').style.display = 'block'
+          document.querySelector('#mediochats').style.display = 'none'
+          document.querySelector('#medioaichat').innerHTML = ''
+          document.querySelector('#medioaichat').setAttribute('data-id', item.id)
+          document.querySelector('#medioaichat').setAttribute('data-key', 'medioaiSongChats')
+          item.messages.forEach((message, index) => {
+            if (!index) return
+
+            const newMessage = document.createElement('div')
+            newMessage.classList.add('medioaimessage')
+            newMessage.classList.add(`medioai${message.role}`)
+            newMessage.innerHTML = message.content
+            document.querySelector('#medioaichat').append(newMessage)
+          })
+        }
+      })
     })
   },
 

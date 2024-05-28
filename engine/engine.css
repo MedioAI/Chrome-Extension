@@ -151,7 +151,8 @@
 }
 #medioAskChatList,
 #medioSongChatList,
-#medioSongRollDice {
+#medioSongRollDice,
+#medioSongClear {
   background: #242424;
   padding: 6px 12px;
   display: flex;
@@ -383,7 +384,8 @@
   color: #fff;
   opacity: 1;
 }
-#clear-lyrics.confirmClear {
+#clear-lyrics.confirmClear,
+#medioSongClear.confirmClear {
   background: #e3095d !important;
   border-color: #fa327f !important;
   color: #fff !important;
@@ -690,4 +692,8 @@ select.medioAddTag {
 
 #medioSongRollDice.disabled {
   opacity: 0.4;
+}
+#mediowizard {
+  height: calc(100vh - 230px);
+  overflow-x: hidden;
 }
