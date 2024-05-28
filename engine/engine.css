@@ -693,6 +693,9 @@ select.medioAddTag {
 #medioSongRollDice.disabled {
   opacity: 0.4;
 }
+#medioAITrackCount.disabled {
+  opacity: 0.4;
+}
 #mediowizard {
   height: calc(100vh - 230px);
   overflow-x: hidden;
