@@ -1,0 +1,42 @@
+[
+  {
+    "value": "[Quatrain 1]\n\n[Quatrain 2]\n\n[Quatrain 3]\n\n[Couplet]",
+    "text": "Sonnet"
+  },
+  {
+    "value": "[Verse]\n\n[Chorus]\n\n[Verse]\n\n[Chorus]\n\n[Bridge]\n\n[Chorus]",
+    "text": "Ballad"
+  },
+  {
+    "value": "[Line 1]\n\n[Line 2]\n\n[Line 3]",
+    "text": "Haiku"
+  },
+  {
+    "value": "[Line 1]\n\n[Line 2]\n\n[Line 3]\n\n[Line 4]\n\n[Line 5]",
+    "text": "Limerick"
+  },
+  {
+    "value": "[A-line]\n\n[A-line]\n\n[B-line]",
+    "text": "Blues"
+  },
+  {
+    "value": "[Stanza 1]\n\n[Stanza 2]",
+    "text": "Quatrain"
+  },
+  {
+    "value": "[Strophe]\n\n[Antistrophe]\n\n[Epode]",
+    "text": "Ode"
+  },
+  {
+    "value": "[Stanza 1]\n\n[Stanza 2]\n\n[Stanza 3]\n\n[Stanza 4]\n\n[Stanza 5]\n\n[Stanza 6]\n\n[Envoi]",
+    "text": "Sestina"
+  },
+  {
+    "value": "[Tercet 1]\n\n[Tercet 2]\n\n[Tercet 3]\n\n[Tercet 4]\n\n[Final Line]",
+    "text": "Terza Rima"
+  },
+  {
+    "value": "[Section 1]\n\n[Section 2]\n\n[Section 3]\n\n[Section 4]",
+    "text": "Free Verse"
+  }
+]

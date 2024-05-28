@@ -21,43 +21,31 @@ const tagBuilderMedioAI = {
   },
 
   load: () => {
-    const artistsJson = chrome.runtime.getURL('database/artists.json')
-    const genresJson = chrome.runtime.getURL('database/genres.json')
-    const emotionsJson = chrome.runtime.getURL('database/emotions.json')
-    const periodsJson = chrome.runtime.getURL('database/periods.json')
-    const regionsJson = chrome.runtime.getURL('database/regions.json')
-    const vocalsJson = chrome.runtime.getURL('database/vocals.json')
-    const productionsJson = chrome.runtime.getURL('database/productions.json')
-    const instrumentsJson = chrome.runtime.getURL('database/instruments.json')
+    const artistsJson = chrome.runtime.getURL('database/tagbuilder/artists.json')
+    const genresJson = chrome.runtime.getURL('database/tagbuilder/genres.json')
+    const emotionsJson = chrome.runtime.getURL('database/tagbuilder/emotions.json')
+    const periodsJson = chrome.runtime.getURL('database/tagbuilder/periods.json')
+    const regionsJson = chrome.runtime.getURL('database/tagbuilder/regions.json')
+    const vocalsJson = chrome.runtime.getURL('database/tagbuilder/vocals.json')
+    const productionsJson = chrome.runtime.getURL('database/tagbuilder/productions.json')
+    const instrumentsJson = chrome.runtime.getURL('database/tagbuilder/instruments.json')
 
-    function populateSelect(jsonUrl, elementId, placeholder) {
-      return fetch(jsonUrl)
-        .then(response => response.json())
-        .then(data => {
-          const select = document.getElementById(elementId)
-          const option = document.createElement('option')
-          option.value = ''
-          option.textContent = placeholder
-          option.disabled = true
-          option.selected = true
-          select.appendChild(option)
-          data.forEach(item => {
-            const option = document.createElement('option')
-            option.value = item
-            option.textContent = item
-            select.appendChild(option)
-          })
-        })
-    }
-
-    const artistsPromise = populateSelect(artistsJson, 'medio-builder-artist', 'Artist')
-    const genresPromise = populateSelect(genresJson, 'medio-builder-genre', 'Genre')
-    const emotionsPromise = populateSelect(emotionsJson, 'medio-builder-emotion', 'Emotion')
-    const periodsPromise = populateSelect(periodsJson, 'medio-builder-period', 'Period')
-    const regionsPromise = populateSelect(regionsJson, 'medio-builder-region', 'Region')
-    const vocalsPromise = populateSelect(vocalsJson, 'medio-builder-vocal', 'Vocal')
-    const productionsPromise = populateSelect(productionsJson, 'medio-builder-production', 'Production')
-    const instrumentsPromise = populateSelect(instrumentsJson, 'medio-builder-instruments', 'Production')
+    const artistsPromise = utilitiesMedioAI.populateSelect(artistsJson, 'medio-builder-artist', 'Artist')
+    const genresPromise = utilitiesMedioAI.populateSelect(genresJson, 'medio-builder-genre', 'Genre')
+    const emotionsPromise = utilitiesMedioAI.populateSelect(emotionsJson, 'medio-builder-emotion', 'Emotion')
+    const periodsPromise = utilitiesMedioAI.populateSelect(periodsJson, 'medio-builder-period', 'Period')
+    const regionsPromise = utilitiesMedioAI.populateSelect(regionsJson, 'medio-builder-region', 'Region')
+    const vocalsPromise = utilitiesMedioAI.populateSelect(vocalsJson, 'medio-builder-vocal', 'Vocal')
+    const productionsPromise = utilitiesMedioAI.populateSelect(
+      productionsJson,
+      'medio-builder-production',
+      'Production'
+    )
+    const instrumentsPromise = utilitiesMedioAI.populateSelect(
+      instrumentsJson,
+      'medio-builder-instruments',
+      'Production'
+    )
 
     Promise.all([
       artistsPromise,

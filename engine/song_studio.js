@@ -17,9 +17,32 @@ const songStudioMedioAI = {
     }
     modal.innerHTML = await uiMedioAI.songStudio()
     document.body.appendChild(modal)
-    utilitiesMedioAI.quill()
-    songStudioMedioAI.events()
-    songStudioMedioAI.tabs()
+
+    songStudioMedioAI.load(() => {
+      utilitiesMedioAI.quill()
+      songStudioMedioAI.events()
+      songStudioMedioAI.tabs()
+    })
+  },
+
+  load: callback => {
+    const commandsJson = chrome.runtime.getURL('database/songstudio/commands.json')
+    const extrasJson = chrome.runtime.getURL('database/songstudio/extras.json')
+    const structuresJson = chrome.runtime.getURL('database/songstudio/structures.json')
+    const instrumentsJson = chrome.runtime.getURL('database/songstudio/instruments.json')
+
+    const commandsPromise = utilitiesMedioAI.populateSelect(commandsJson, 'medioaiCommands', 'Command')
+    const extrasPromise = utilitiesMedioAI.populateSelect(extrasJson, 'medioextraCommands', 'Extra')
+    const structurePromise = utilitiesMedioAI.populateSelect(structuresJson, 'medioaiStructures', 'Structure')
+    const instrumentsPromise = utilitiesMedioAI.populateSelect(
+      instrumentsJson,
+      'medioaiInstruments',
+      'Instrument'
+    )
+
+    Promise.all([commandsPromise, extrasPromise, structurePromise, instrumentsPromise]).then(() => {
+      callback()
+    })
   },
 
   events: () => {
