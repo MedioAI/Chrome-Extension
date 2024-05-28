@@ -45,7 +45,6 @@ const notificationMedioAI = {
       if (targetNode) {
         observer.observe(targetNode, config)
         clearInterval(checkTargetNode)
-        engine.state.isRunning = true
       }
     }, 1000)
   },

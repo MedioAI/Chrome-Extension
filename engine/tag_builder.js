@@ -78,11 +78,11 @@ const tagBuilderMedioAI = {
         })
       })
 
-      tagBuilderMedioAI.events()
+      tagBuilderMedioAI.events(totalDBTags)
     })
   },
 
-  events: () => {
+  events: totalDBTags => {
     document.getElementById('searchTags').addEventListener('input', e => {
       tagBuilderMedioAI.search(e, totalDBTags)
     })
