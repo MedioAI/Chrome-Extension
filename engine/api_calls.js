@@ -11,17 +11,13 @@ const apiMedioAI = {
   checkRhymes: async () => {
     const word = document.getElementById('wordInput').value
     const resultsDiv = document.getElementById('results')
-
     resultsDiv.innerHTML = ''
     document.querySelector('#medioRhymeExplainer').style.display = 'none'
     document.querySelector('#results').style.display = 'grid'
-
     if (!word) {
       resultsDiv.innerHTML = '<p class="italic opacity-50 text-sm">Nothing found, try again.</p>'
-
       return
     }
-
     try {
       const response = await fetch(`https://api.datamuse.com/words?rel_rhy=${word}`)
       const data = await response.json()
@@ -34,19 +30,16 @@ const apiMedioAI = {
       data.forEach(item => {
         const listItem = document.createElement('div')
         listItem.setAttribute('class', 'rhymingWord border p-2 rounded-lg text-lg font-bold')
-
         listItem.textContent = item.word
         resultsDiv.appendChild(listItem)
       })
 
       const rhymingWords = document.querySelectorAll('.rhymingWord')
-
       rhymingWords.forEach(rhymingWord => {
         rhymingWord.addEventListener('click', e => {
           const text = rhymingWord.textContent
           e.target.textContent = 'Copied!'
           navigator.clipboard.writeText(text)
-
           setTimeout(() => {
             e.target.textContent = text
           }, 700)
@@ -63,13 +56,7 @@ const apiMedioAI = {
 
     if (isChat) {
       chrome.storage.local.get(['medioaiChats'], function (result) {
-        console.log(
-          result.medioaiChats,
-          result.medioaiChats.find(chat => chat.id === id),
-          id
-        )
         const allMessages = result.medioaiChats.find(chat => chat.id === id).messages
-
         allMessages.push({
           role: 'user',
           content: messages,
@@ -158,7 +145,6 @@ const apiMedioAI = {
       document.querySelectorAll('.lyric-tab').forEach(item => {
         item.style.display = 'none'
       })
-
       document.querySelector('#mediochattab').style.display = 'block'
       document.querySelector('#medioaichat').innerHTML = ``
 
@@ -191,7 +177,7 @@ const apiMedioAI = {
       }
       const system = `You are a song writing assistant. Your goal is to provide helpful feedback and requests given to your by the user. You have lyrics from the user as reference. Always provide your response as html code without code block just the raw HTML formatting your answer. Always provide a robust answer. Do not add your own classnames or IDs. NEVER respond with the full lyrics. Only provide your response to the request. You can ONLY use h1, h2, h3, ul, ol, and p tags only. If you are showing your changes to lyrics, wrap your changes in classname "medioai-highlightgray". If you need to highlight a small area, you can with "medioai-hightlightyellow". Do not respond with the just the lyrics. If you are not sure what to say ask.
             
-        ${includeLyrics}`
+      ${includeLyrics}`
 
       const id = utilitiesMedioAI.uuidv4()
       document.querySelector('#medioaichat').setAttribute('data-id', id)
