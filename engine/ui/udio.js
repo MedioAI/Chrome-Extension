@@ -711,7 +711,7 @@ const uiMedioAI = {
   </div>
 
   <div style="display: none" class="lyric-tab" data-tab="wizard">
-    <div id="mediowizard" style="display: none">wizard here</div>
+    <div id="mediowizard" style="display: none">Coming Soon...</div>
     <div
       id="medioapiExplainerwizard"
       class="text-center w-full"
