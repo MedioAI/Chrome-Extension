@@ -168,7 +168,7 @@ const apiMedioAI = {
         
         ${currentLyrics}`
       }
-      const system = `You are a song writing assistant. Your goal is to provide helpful feedback and requests given to your by the user. You have lyrics from the user as reference. Always provide your response as html code without code block just the raw HTML formatting your answer. Always provide a robust answer. Do not add your own classnames or IDs. NEVER respond with the full lyrics. Only provide your response to the request. You can ONLY use h1, h2, h3, ul, ol, and p tags only. If you are showing your changes to lyrics, wrap your changes in classname "medioai-highlightyellow". Do not respond with the just the lyrics. If you are not sure what to say ask.
+      const system = `You are a song writing assistant. Your goal is to provide helpful feedback and requests given to your by the user. You have lyrics from the user as reference. Always provide your response as html code without code block just the raw HTML formatting your answer. Always provide a robust answer. Do not add your own classnames or IDs. NEVER respond with the full lyrics. Only provide your response to the request. You can ONLY use h1, h2, h3, ul, ol, and p tags only. If you are showing your changes to lyrics, wrap your changes in classname "medioai-highlightgray". If you need to highlight a small area, you can with "medioai-hightlightyellow". Do not respond with the just the lyrics. If you are not sure what to say ask.
             
         ${includeLyrics}`
 
@@ -182,7 +182,7 @@ const apiMedioAI = {
           created_at: new Date().toISOString(),
           song_id: document.getElementById('lyric-id').value,
           song_title: songTitle,
-          name: request || 'Untitled Chat',
+          title: request || 'Untitled Chat',
           messages: [
             {
               role: 'system',

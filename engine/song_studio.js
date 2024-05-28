@@ -85,19 +85,19 @@ const songStudioMedioAI = {
       document.querySelector('#mediochats').style.display = 'block'
       paginationMedioAI.init('medioaiChats', 'mediochats', item => {
         if (item) {
-          console.log('Click on the chat item and open it.', item.id, item)
-          // TODO
-          // document.querySelector('#mediochattab').style.display = 'block'
-          // document.querySelector('#mediochats').style.display = 'none'
-          // document.querySelector('#medioaichat').innerHTML = ''
-          // document.querySelector('#medioaichat').setAttribute('data-id', chat.id)
-          // chat.messages.forEach(message => {
-          //   const newMessage = document.createElement('div')
-          //   newMessage.classList.add('medioaimessage')
-          //   newMessage.classList.add(`medioai${message.role}`)
-          //   newMessage.innerHTML = message.content
-          //   document.querySelector('#medioaichat').append(newMessage)
-          // })
+          document.querySelector('#mediochattab').style.display = 'block'
+          document.querySelector('#mediochats').style.display = 'none'
+          document.querySelector('#medioaichat').innerHTML = ''
+          document.querySelector('#medioaichat').setAttribute('data-id', item.id)
+          item.messages.forEach((message, index) => {
+            if (!index) return
+
+            const newMessage = document.createElement('div')
+            newMessage.classList.add('medioaimessage')
+            newMessage.classList.add(`medioai${message.role}`)
+            newMessage.innerHTML = message.content
+            document.querySelector('#medioaichat').append(newMessage)
+          })
         }
       })
     })

@@ -214,12 +214,14 @@
   margin-left: auto;
   margin-right: 15px;
 }
-.medioaimessage.medioaiagent {
+.medioaimessage.medioaiagent,
+.medioaimessage.medioaiassistant {
   border-left: 3px solid #d74df6;
   width: 70%;
   margin-right: auto;
 }
-.medioaimessage.medioaiagent::before {
+.medioaimessage.medioaiagent::before,
+.medioaimessage.medioaiassistant::before {
   content: 'AI Co-Writer';
   background: #d74df6;
   border-top-left-radius: 5px;
@@ -238,7 +240,7 @@
   background: #4df6b5;
   border-top-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  color: #fff;
+  color: #125d40;
   font-weight: bold;
   font-size: 14px;
   padding: 6px 10px;
@@ -305,8 +307,8 @@
   margin-bottom: 15px;
 }
 .medioai-highlightyellow {
-  color: #7c4e0e;
-  background: #ffc777;
+  color: #7c4e0e !important;
+  background: #ffc777 !important;
   padding: 4px 7px;
   border-radius: 5px;
 }

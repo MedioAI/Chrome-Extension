@@ -1065,9 +1065,12 @@ const uiMedioAI = {
     <div id="editor"></div>
     <style id="medioCSS">
       .ql-editor {
-          font-size: ${await utilitiesMedioAI.getSettings('lyrictextsize')};
-          }
-          .medioCommand {color: ${await utilitiesMedioAI.getSettings('commandcolor')}}
+        font-size: ${await utilitiesMedioAI.getSettings('lyrictextsize')};
+      }
+      .medioComment {
+        opacity: 0.4;
+      }
+      .medioCommand {color: ${await utilitiesMedioAI.getSettings('commandcolor')}}
     </style>
   </div>
 </div>

@@ -167,10 +167,14 @@ const utilitiesMedioAI = {
       const editor = document.querySelector('#editor')
       const paragraphs = editor.querySelectorAll('p')
       paragraphs.forEach(p => {
-        if (/^\[.*\]$/.test(p.textContent.trim())) {
+        const trimmedText = p.textContent.trim()
+        if (/^\[.*\]$/.test(trimmedText)) {
           p.classList.add('medioCommand')
+        } else if (/^\/\/.*/.test(trimmedText)) {
+          p.classList.add('medioComment')
         } else {
           p.classList.remove('medioCommand')
+          p.classList.remove('medioComment')
         }
       })
     }

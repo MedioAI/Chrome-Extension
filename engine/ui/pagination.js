@@ -15,7 +15,7 @@ const paginationMedioAI = {
 
   init: (key, id, callback) => {
     chrome.storage.local.get([key], result => {
-      const items = result[key] || []
+      const items = result[key].reverse() || []
       const container = document.getElementById(id)
       const header = document.createElement('div')
       const wrapper = document.createElement('div')
@@ -37,7 +37,7 @@ const paginationMedioAI = {
       document.querySelector('#medioPageCount').setAttribute('data-max', totalPages)
       document.querySelector('#medioPageCount').setAttribute('data-current', 1)
 
-      currentPortion.reverse().forEach(item => {
+      currentPortion.forEach(item => {
         const newItem = document.createElement('div')
         newItem.setAttribute('data-id', item.id)
         newItem.innerHTML = paginationMedioAI.block(item)
@@ -130,7 +130,7 @@ const paginationMedioAI = {
     if (search === '') {
       wrapper.innerHTML = ''
       const firstChats = chats.slice(0, paginationMedioAI.perPage)
-      firstChats.reverse().forEach(item => {
+      firstChats.forEach(item => {
         const newItem = document.createElement('div')
         newItem.setAttribute('data-id', item.id)
         newItem.innerHTML = paginationMedioAI.block(item)
@@ -172,7 +172,7 @@ const paginationMedioAI = {
       wrapper.innerHTML = '<p class="italic opacity-50">Nothing found...</p>'
     }
 
-    filteredChats.reverse().forEach(item => {
+    filteredChats.forEach(item => {
       const newItem = document.createElement('div')
       newItem.setAttribute('data-id', item.id)
       newItem.innerHTML = paginationMedioAI.block(item)
@@ -199,7 +199,7 @@ const paginationMedioAI = {
       )
       document.querySelector('#medioPrev').classList.remove('medioDisabled')
       wrapper.innerHTML = ''
-      currentPortion.reverse().forEach(item => {
+      currentPortion.forEach(item => {
         const newItem = document.createElement('div')
         newItem.setAttribute('data-id', item.id)
         newItem.innerHTML = paginationMedioAI.block(item)
@@ -237,7 +237,7 @@ const paginationMedioAI = {
       )
       document.querySelector('#medioPrev').classList.remove('medioDisabled')
       container.innerHTML = ''
-      currentPortion.reverse().forEach(item => {
+      currentPortion.forEach(item => {
         const newItem = document.createElement('div')
         newItem.setAttribute('data-id', item.id)
         newItem.innerHTML = paginationMedioAI.block(item)
