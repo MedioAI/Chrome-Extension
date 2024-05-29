@@ -240,7 +240,6 @@ const utilitiesMedioAI = {
 
       delta.ops.forEach(op => {
         if (op.insert && typeof op.insert === 'string') {
-          console.log(op.insert)
           ops.push({
             insert: op.insert,
           })

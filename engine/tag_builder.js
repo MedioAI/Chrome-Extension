@@ -175,7 +175,7 @@ const tagBuilderMedioAI = {
     if (!tagId) {
       chrome.storage.local.get('medioTags', data => {
         const newTags = data.medioTags ? data.medioTags : []
-        newTags.push({
+        newTags.unshift({
           id: utilitiesMedioAI.uuidv4(),
           created_at: new Date().toISOString(),
           tags,

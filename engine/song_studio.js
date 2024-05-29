@@ -277,7 +277,7 @@ const songStudioMedioAI = {
       }
       chrome.storage.local.get(['medioLyrics'], function (result) {
         const medioLyrics = result.medioLyrics || []
-        medioLyrics.push(lyrics)
+        medioLyrics.unshift(lyrics)
         document.getElementById('lyric-id').value = lyrics.id
         chrome.storage.local.set({ medioLyrics }, function () {
           utilitiesMedioAI.showNotification('Added new song to your library.')
@@ -333,6 +333,7 @@ const songStudioMedioAI = {
           if (openaikey) {
             document.querySelector('#medioapiExplainerask').style.display = 'none'
             document.querySelector('#medioask').style.display = 'block'
+            document.querySelector('[data-tab="ask"]').style.display = 'block'
           } else {
             document.querySelector('#medioapiExplainerask').style.display = 'block'
             document.querySelector('#medioask').style.display = 'none'
@@ -342,6 +343,7 @@ const songStudioMedioAI = {
 
           if (openaikey) {
             document.querySelector('#medioapiExplainerwizard').style.display = 'none'
+            document.querySelector('[data-tab="wizard"]').style.display = 'block'
             document.querySelector('#mediowizard').style.display = 'block'
           } else {
             document.querySelector('#medioapiExplainerwizard').style.display = 'block'

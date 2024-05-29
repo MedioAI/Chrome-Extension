@@ -200,7 +200,7 @@ const apiMedioAI = {
 
       chrome.storage.local.get(['medioaiChats'], async result => {
         const chats = result.medioaiChats || []
-        chats.push({
+        chats.unshift({
           id: id,
           created_at: new Date().toISOString(),
           song_id: document.getElementById('lyric-id').value,

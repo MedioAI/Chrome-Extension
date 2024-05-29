@@ -413,7 +413,7 @@
   max-height: 140px;
   overflow-x: hidden;
   margin: 10px 0;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
   top: 100%;
 }
 #medioSearchClear {

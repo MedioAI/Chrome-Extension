@@ -97,6 +97,7 @@ const uiMedioAI = {
       <input
         type="text"
         id="searchTags"
+        autocomplete="off"
         placeholder="Search for tags..."
         class="w-full border rounded p-2 px-3"
       />
