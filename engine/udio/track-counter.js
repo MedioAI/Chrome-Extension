@@ -31,6 +31,8 @@ const medioAITrackCounter = {
   },
 
   init: () => {
+    console.log('init track counter')
+
     const elements = document.querySelectorAll(
       'button[id^="radix-"].inline-flex.items-center.justify-center.whitespace-nowrap.text-sm.font-medium.ring-offset-background'
     )

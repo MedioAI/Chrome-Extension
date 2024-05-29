@@ -44,7 +44,7 @@ const tagBuilderMedioAI = {
     const instrumentsPromise = utilitiesMedioAI.populateSelect(
       instrumentsJson,
       'medio-builder-instruments',
-      'Production'
+      'Instrument'
     )
 
     Promise.all([

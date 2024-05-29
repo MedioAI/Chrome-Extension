@@ -15,11 +15,16 @@ const medioAI = {
 
       if (sidebar) {
         clearInterval(checkSidebar)
-        const sidebar = document.querySelector(udioSidebarSelector)
-        sidebar.insertAdjacentHTML('beforeend', uiMedioAI.sidebarLinks)
-        notificationMedioAI.init()
-        tagBuilderMedioAI.init()
-        songStudioMedioAI.init()
+        const sidebarButton = document.querySelector('#lyric-tagbuilder-link')
+
+        if (!sidebarButton) {
+          const sidebar = document.querySelector(udioSidebarSelector)
+          sidebar.insertAdjacentHTML('beforeend', uiMedioAI.sidebarLinks)
+          notificationMedioAI.init()
+          tagBuilderMedioAI.init()
+          songStudioMedioAI.init()
+        }
+
         medioAITrackCounter.load()
       }
     }, 100)
@@ -33,7 +38,7 @@ window.onload = () => {
   setInterval(() => {
     if (window.location.href !== oldURL) {
       oldURL = window.location.href
-      medioAITrackCounter.init()
+      medioAI.init()
     }
-  }, 1000)
+  }, 100)
 }
