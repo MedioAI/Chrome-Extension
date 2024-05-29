@@ -6,18 +6,13 @@
 
 > Note: Work in Progress
 >
-> ### General
+> ### Tasks:
 >
 > - Claude API AI Integration
-> - More tags in database
->
-> ---
->
 > - Website
 > - Chrome Store Listing
 > - Video
 > - Documentation
-> - Promote (Reddit, Facebook, Twitter, ProductHunt, Discord, etc)
 
 ---
 
