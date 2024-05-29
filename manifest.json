@@ -3,7 +3,7 @@
   "name": "MedioAI: Enhance Udio & Suno",
   "author": "Wynter Jones (@AI.MASSIVE)",
   "version": "1.0",
-  "description": "Transform your Suno & Udio experience. Use the Song Studio, Tag Builder, AI Assistant, Audio Tools, 5k+ Built in Tags & Much More!",
+  "description": "Write lyrics with Song Studio, Tag Builder, AI (OpenAI / Claude) Co-Writer, Audio Tools, 5k+ Premade Tags, Commands & More!",
   "permissions": ["activeTab", "scripting", "storage"],
   "background": {
     "service_worker": "engine/background.js"
