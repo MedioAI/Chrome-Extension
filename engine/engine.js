@@ -21,11 +21,21 @@ const medioAI = {
         notificationMedioAI.init()
         tagBuilderMedioAI.init()
         songStudioMedioAI.init()
+        medioAITrackCounter.load()
       }
     }, 100)
   },
 }
 
-window.onload = function () {
+window.onload = () => {
   medioAI.init()
+
+  let oldURL = window.location.href
+  setInterval(() => {
+    if (window.location.href !== oldURL) {
+      oldURL = window.location.href
+      console.log('URL changed')
+      medioAITrackCounter.load()
+    }
+  }, 1000)
 }

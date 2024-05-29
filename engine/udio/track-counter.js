@@ -8,20 +8,37 @@
  */
 
 const medioAITrackCounter = {
+  load: () => {
+    const observer = new MutationObserver((mutationsList, observer) => {
+      for (let mutation of mutationsList) {
+        if (mutation.addedNodes.length) {
+          const element = document.getElementById('radix-:r1k:')
+          if (element) {
+            if (element.querySelector(`img`)) {
+              medioAITrackCounter.init()
+              observer.disconnect()
+              break
+            }
+          }
+        }
+      }
+    })
+
+    observer.observe(document, { childList: true, subtree: true })
+  },
+
   init: () => {
     const avatar = document.getElementById('radix-:r1k:')
-    if (!avatar) {
-      setTimeout(() => {
-        medioAITrackCounter.init()
-      }, 2000)
-      return
-    }
+    if (!avatar.querySelector(`img`)) return
+
     const username = avatar.querySelector(`img`).alt
     const trackArtist = document.querySelector(
       'body > section > div.mb-\\[150px\\].flex.w-full.flex-row.justify-between > div.ml-auto.mr-4 > div.mt-\\[90px\\] > section > div > div:nth-child(1) > div > div.relative.ml-0.flex.h-full.w-full.flex-grow.flex-col.justify-between.md\\:ml-8.md\\:h-\\[300px\\].\\32 xl\\:h-\\[350px\\] > div:nth-child(1) > form > div > div > div.mb-4.mt-\\[22px\\].flex.flex-row.items-center.md\\:mb-0.md\\:mt-0 > a'
     ).textContent
 
     if (username !== trackArtist) return
+
+    if (document.querySelector('#medioAITrackCount')) return
 
     document
       .querySelector(
@@ -84,9 +101,3 @@ const medioAITrackCounter = {
     <span class="ml-2">Count Credits</span>
   </button>`,
 }
-
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    medioAITrackCounter.init()
-  }, 3000)
-})
