@@ -121,12 +121,14 @@ const tagBuilderMedioAI = {
 
   open: e => {
     e.preventDefault()
+    songStudioMedioAI.isOpen = true
+
     if (!document.getElementById('medioAI-tagbuilder')) {
       document.body.style.overflow = 'auto'
     } else {
       document.body.style.overflow = 'hidden'
-      const overlay3 = document.getElementById('medioAI-tagbuilder')
-      overlay3.style.transform = 'translateX(0)'
+      const tagbuilder = document.getElementById('medioAI-tagbuilder')
+      tagbuilder.style.transform = 'translateX(0)'
     }
   },
 
@@ -134,6 +136,7 @@ const tagBuilderMedioAI = {
     const modal = document.getElementById('medioAI-tagbuilder')
     modal.style.transform = 'translateX(-100%)'
     document.body.style.overflow = 'auto'
+    songStudioMedioAI.isOpen = false
   },
 
   clear: e => {

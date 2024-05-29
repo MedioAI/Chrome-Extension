@@ -232,8 +232,8 @@ const songStudioMedioAI = {
       document.body.style.overflow = 'auto'
     } else {
       document.body.style.overflow = 'hidden'
-      const overlay = document.getElementById('medioAI-songstudio')
-      overlay.style.transform = 'translateX(0)'
+      const songstudio = document.getElementById('medioAI-songstudio')
+      songstudio.style.transform = 'translateX(0)'
     }
   },
 
