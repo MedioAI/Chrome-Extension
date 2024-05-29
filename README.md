@@ -1,20 +1,14 @@
-# MedioAI: Enhance Udio & Suno
+# MedioAI: Enhance Udio
 
-### Transform your Suno & Udio experience. Use the Song Studio, Tag Builder, AI Assistant, Audio Tools, 5k+ Built in Tags & Much More!
+### Transform your Udio experience. Use the Song Studio, Tag Builder, AI Assistant, Audio Tools, 5k+ Built in Tags & Much More!
 
 ---
 
 > Note: Work in Progress
 >
-> ### Suno
->
-> - Suno Integration
-> - Suno Download button
-> - Suno Audio Notification
->
 > ### General
 >
-> - Clause API AI Integration
+> - Claude API AI Integration
 > - More tags in database
 >
 > ---
@@ -27,7 +21,7 @@
 
 ---
 
-A chrome extension to enhance the experience of Udio.com and Suno.com, a AI music platforms.
+A chrome extension to enhance the experience of Udio.com, the best music platform online.
 
 **Features include:**
 
@@ -38,9 +32,8 @@ A chrome extension to enhance the experience of Udio.com and Suno.com, a AI musi
 5. Co-Writer: Create a song from scratch with a wizard walkthrough.
 6. Saved Library: Manage all your song lyrics, tags, chats and more in easy to use native UI.
 7. Udio: Check how many credits per published.
-8. Suno: Add a download button to download other users songs.
-9. Audio Notification: Get notified when your song is ready to listen.
-10. Audio Tools: Convert your MP3 to WAV, add a fade in or fade out, and more.
+8. Audio Notification: Get notified when your song is ready to listen.
+9. Audio Tools: Convert your MP3 to WAV, add a fade in or fade out, and more.
 
 Visit the website, [MedioAI.com](https://www.medioai.com) for more information.
 
@@ -56,7 +49,7 @@ I am open to contributions and suggestions. Please feel free to open an issue or
 
 ## Donate
 
-If you feel like the extension was worth your time or enhanced your experience creating AI music with Udio or Suno, please feel free to buy me a coffee! [Donate to Developer](https://buymeacoffee.com/wyntera) - keep on rockin' !
+If you feel like the extension was worth your time or enhanced your experience creating AI music with Udio, please feel free to buy me a coffee! [Donate to Developer](https://buymeacoffee.com/wyntera) - keep on rockin' !
 
 ## License
 
