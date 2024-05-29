@@ -9,6 +9,7 @@
 > ### Tasks:
 >
 > - Claude API AI Integration
+> - Visualizer
 > - Website
 > - Chrome Store Listing
 > - Video

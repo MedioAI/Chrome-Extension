@@ -30,31 +30,69 @@
       <div id="copyright">
         <p>
           &copy; 2024 MedioAI. All rights reserved. Crafted with ♡ by
-          <a href="https://medioai.com" class="link" target="_blank"
-            >Wynter Jones</a
-          >. <br /><br />
+          <a href="https://medioai.com" class="link" target="_blank">Wynter Jones</a>. <br /><br />
           Listen to AI music
-          <a
-            href="http://www.youtube.com/@AI.MASSIVE"
-            class="link"
-            target="_blank"
-          >
-            @AI.MASSIVE
-          </a>
+          <a href="http://www.youtube.com/@AI.MASSIVE" class="link" target="_blank"> @AI.MASSIVE </a>
         </p>
       </div>
     </div>
     <div id="app" class="w-5/6 h-screen p-12 overflow-x-hidden">
       <h1 class="text-3xl font-bold mb-1">Visualizer</h1>
       <p class="text-lg font-light text-gray-500">
-        Visualize your music with MedioAI.
+        Visualize your music with MedioAI & download .MP4 to upload on YouTube, Reddit, etc.
       </p>
 
       <hr class="my-8 border-gray-600" />
 
-      <p class="italic text-gray-400">Feature coming soon.</p>
+      <div id="setup">
+        <div class="flex space-x-6 mt-8">
+          <div class="input-group w-1/2">
+            <label for="title"> Title </label>
+            <input type="text" id="title" placeholder="Song Title" />
+          </div>
+
+          <div class="input-group w-1/2">
+            <label for="template"> Template </label>
+            <div class="slidecontainer">
+              <select name="template" id="template">
+                <option value="template1">Standard</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex space-x-6 mt-8">
+          <div class="input-group w-1/3">
+            <label for="mp3">MP3 File</label>
+            <input type="file" id="mp3" accept=".mp3" />
+          </div>
+          <div class="input-group w-1/3">
+            <label for="coverImg"> Cover Image </label>
+            <input type="file" id="coverImg" accept=".png, .jpg, .jpeg" />
+          </div>
+          <div class="input-group w-1/3">
+            <label for="bgImg"> Background Image </label>
+            <input type="file" id="bgImg" accept=".png, .jpg, .jpeg" />
+          </div>
+        </div>
+
+        <button id="build" class="btn primary mt-3">Generate</button>
+      </div>
+
+      <div id="preview" style="display: none">
+        <canvas id="editor" height="360" width="640"></canvas>
+        <div class="flex items-center justify-between">
+          <button id="convert" class="btn primary mt-3">Export to MP4</button>
+          <button id="restart" class="btn mt-3">Restart</button>
+        </div>
+
+        <audio id="audio" controls></audio>
+      </div>
     </div>
 
+    <script src="../lib/ffmpeg.min.js"></script>
+    <script src="../lib/ffmpeg-core.js"></script>
     <script src="../lib/tailwind.js"></script>
+    <script src="js/visualizer.js"></script>
   </body>
 </html>
