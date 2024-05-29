@@ -6,10 +6,6 @@
 
 > Note: Work in Progress
 >
-> ### Udio
->
-> - React moving pages, run init again.
->
 > ### Suno
 >
 > - Suno Integration

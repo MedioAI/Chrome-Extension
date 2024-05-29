@@ -11,7 +11,6 @@ const medioAI = {
   init: () => {
     const checkSidebar = setInterval(() => {
       const udioSidebarSelector = 'aside[aria-label="Sidebar"] nav ul'
-      const sunoSidebarSelector = 'body > div.css-fhtuey > div.css-lb6gzl > nav > div.chakra-stack.css-nkmpho'
       const sidebar = document.querySelector(udioSidebarSelector)
 
       if (sidebar) {
@@ -34,8 +33,7 @@ window.onload = () => {
   setInterval(() => {
     if (window.location.href !== oldURL) {
       oldURL = window.location.href
-      console.log('URL changed')
-      medioAITrackCounter.load()
+      medioAITrackCounter.init()
     }
   }, 1000)
 }

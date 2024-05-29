@@ -40,7 +40,7 @@
         "engine/song_studio.js",
         "engine/tag_builder.js",
         "engine/udio/track-counter.js",
-        "engine/engine.js"
+        "engine/udio.js"
       ],
       "css": ["engine/engine.css", "lib/quilljs.css"]
     },
@@ -56,7 +56,7 @@
         "engine/api_calls.js",
         "engine/song_studio.js",
         "engine/tag_builder.js",
-        "engine/engine.js"
+        "engine/suno.js"
       ],
       "css": ["engine/engine.css", "lib/quilljs.css"]
     }
