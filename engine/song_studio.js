@@ -234,6 +234,11 @@ const songStudioMedioAI = {
       document.body.style.overflow = 'hidden'
       const songstudio = document.getElementById('medioAI-songstudio')
       songstudio.style.transform = 'translateX(0)'
+
+      const savedButton = document.querySelector('.lyric-tab-button[data-tab="library"]')
+      if (savedButton.classList.contains('bg-black')) {
+        savedButton.click()
+      }
     }
   },
 

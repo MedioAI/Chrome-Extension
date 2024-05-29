@@ -154,6 +154,7 @@ const utilitiesMedioAI = {
 
     utilitiesMedioAI.quill = new Quill('#editor', {
       theme: 'snow',
+      scrollingContainer: '#medioai-content',
       placeholder: utilitiesMedioAI.randomStartingText(),
       modules: {
         toolbar: {
@@ -221,7 +222,7 @@ const utilitiesMedioAI = {
             className +
             "'>" +
             charCount +
-            "</strong> characters selected. <em class='italic text-gray-500'>(Recommended: Less than 350 characters per section)</em>"
+            "</strong> characters selected. <em class='italic text-gray-500'>(Recommended: Less than 350 characters per 32 second clip)</em>"
         }
       } else if (el) {
         el.style.display = 'none'
@@ -239,8 +240,9 @@ const utilitiesMedioAI = {
 
       delta.ops.forEach(op => {
         if (op.insert && typeof op.insert === 'string') {
+          console.log(op.insert)
           ops.push({
-            insert: op.insert + '\n',
+            insert: op.insert,
           })
         }
       })

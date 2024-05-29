@@ -23,7 +23,7 @@
   "web_accessible_resources": [
     {
       "resources": ["lib/*", "sounds/*", "database/*", "icon/*"],
-      "matches": ["https://www.udio.com/*", "https://www.suno.com/*"]
+      "matches": ["https://www.udio.com/*"]
     }
   ],
   "content_scripts": [
@@ -41,22 +41,6 @@
         "engine/tag_builder.js",
         "engine/udio/track-counter.js",
         "engine/udio.js"
-      ],
-      "css": ["engine/engine.css", "lib/quilljs.css"]
-    },
-    {
-      "matches": ["https://www.suno.com/*"],
-      "js": [
-        "lib/quill.js",
-        "engine/utilities.js",
-        "engine/ui/icons.js",
-        "engine/ui/suno.js",
-        "engine/ui/pagination.js",
-        "engine/audio_notification.js",
-        "engine/api_calls.js",
-        "engine/song_studio.js",
-        "engine/tag_builder.js",
-        "engine/suno.js"
       ],
       "css": ["engine/engine.css", "lib/quilljs.css"]
     }

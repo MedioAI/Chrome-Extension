@@ -129,6 +129,11 @@ const tagBuilderMedioAI = {
       document.body.style.overflow = 'hidden'
       const tagbuilder = document.getElementById('medioAI-tagbuilder')
       tagbuilder.style.transform = 'translateX(0)'
+
+      const savedButton = document.querySelector('.lyric-buildertab-button[data-tab="library"]')
+      if (savedButton.classList.contains('bg-black')) {
+        savedButton.click()
+      }
     }
   },
 

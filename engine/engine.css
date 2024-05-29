@@ -489,12 +489,21 @@ select.medioAddTag {
 .ql-custom-dropdown .ql-picker-item:before {
   content: attr(data-label);
 }
-
-.lyric-tab {
-  height: calc(100% - 15px);
+.ql-clipboard {
+  position: fixed !important;
+  left: 50% !important;
+  top: 50% !important;
+}
+.quillWrapper {
+  overflow: unset !important;
+  height: calc(100vh - 300px) !important;
+}
+.ql-container {
+  height: calc(100vh - 300px) !important;
 }
 .ql-editor {
   font-size: 21px;
+  height: calc(100vh - 300px);
 }
 
 #save-lyrics,
