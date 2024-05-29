@@ -1,3 +1,0 @@
-const medioAIGenerationCounter = {
-  init: () => {},
-}

@@ -45,13 +45,7 @@
     },
     {
       "matches": ["https://www.udio.com/songs/*"],
-      "js": ["engine/udio/track-counter.js"],
-      "css": ["engine/udio/track-counter.css"]
-    },
-    {
-      "matches": ["https://www.udio.com/creators/*"],
-      "js": ["engine/udio/generations-counter.js"],
-      "css": ["engine/udio/generations-counter.css"]
+      "js": ["engine/udio/track-counter.js"]
     },
     {
       "matches": ["https://www.suno.com/*"],
