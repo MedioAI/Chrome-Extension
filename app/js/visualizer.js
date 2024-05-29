@@ -144,11 +144,51 @@ const visualizer = {
         ctx.globalAlpha = 1
       }
 
-      if (coverImage) {
-        ctx.drawImage(coverImage, 20, 20, 200, 200)
+      drawWaveform()
+
+      function truncateText(ctx, text, maxWidth) {
+        let width = ctx.measureText(text).width
+        let ellipsis = '...'
+        let ellipsisWidth = ctx.measureText(ellipsis).width
+
+        if (width <= maxWidth || width <= ellipsisWidth) {
+          return text
+        } else {
+          let i = text.length
+          while (width >= maxWidth - ellipsisWidth && i-- > 0) {
+            text = text.substring(0, i)
+            width = ctx.measureText(text).width
+          }
+
+          return text + ellipsis
+        }
       }
 
-      drawWaveform()
+      if (coverImage) {
+        const baseSize = 16
+        const width = ctx.canvas.width * 0.3
+        const height = coverImage.height * (width / coverImage.width)
+        const x = 20
+        const y = (ctx.canvas.height - height) / 2
+
+        ctx.drawImage(coverImage, x, y, width, height)
+
+        ctx.font = `bold ${baseSize * 2}px Arial`
+        ctx.fillStyle = 'white'
+        const titleX = x + width + 20
+        const titleY = y + 50
+        let title = document.querySelector('#title').value
+        title = truncateText(ctx, title, ctx.canvas.width - titleX)
+        ctx.fillText(title, titleX, titleY)
+
+        ctx.font = `bold ${baseSize * 1}px Arial`
+        const subtitleY = titleY + 30
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
+
+        let subtitle = document.querySelector('#subtitle').value
+        subtitle = truncateText(ctx, subtitle, ctx.canvas.width - titleX)
+        ctx.fillText(subtitle, titleX, subtitleY)
+      }
     }
 
     function drawWaveform() {
@@ -157,8 +197,8 @@ const visualizer = {
 
       visualizer.analyser.getByteTimeDomainData(dataArray)
 
-      ctx.lineWidth = 2
-      ctx.strokeStyle = 'white'
+      ctx.lineWidth = 1
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)'
       ctx.beginPath()
 
       const sliceWidth = (canvas.width * 1.0) / bufferLength
