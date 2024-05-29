@@ -8,28 +8,30 @@
  */
 
 const notificationMedioAI = {
+  isChecking: false,
+
   init: () => {
     const target = "a.relative.flex.flex-row.items-center.justify-center.text-sm[href='/my-creations']"
 
     const observer = new MutationObserver(mutations => {
       mutations.forEach(async mutation => {
-        const shouldPlaySound = await engine.getSettings('notification')
+        const shouldPlaySound = await utilitiesMedioAI.getSettings('notification')
         if (
           shouldPlaySound === 'on' &&
-          !engine.state.isChecking &&
+          !notificationMedioAI.isChecking &&
           mutation.target.innerText &&
           mutation.target.innerText.split('/')[0] === mutation.target.innerText.split('/')[1]
         ) {
-          engine.state.isChecking = true
-          const sound = await engine.getSettings('notificationsound')
+          notificationMedioAI.isChecking = true
+          const sound = await utilitiesMedioAI.getSettings('notificationsound')
           const audio = new Audio(chrome.runtime.getURL(`sounds/${sound}.mp3`))
           audio.play()
 
           setTimeout(() => {
-            engine.state.isChecking = false
+            notificationMedioAI.isChecking = false
           }, 6000)
         } else {
-          engine.state.isChecking = false
+          notificationMedioAI.isChecking = false
         }
       })
     })
