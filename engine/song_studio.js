@@ -8,6 +8,8 @@
  */
 
 const songStudioMedioAI = {
+  isOpen: false,
+
   init: async () => {
     const modal = document.createElement('div')
     modal.id = 'medioAI-songstudio'
@@ -23,6 +25,24 @@ const songStudioMedioAI = {
       songStudioMedioAI.events()
       songStudioMedioAI.tabs()
     })
+
+    songStudioMedioAI.spaceKeyDown = event => {
+      if (songStudioMedioAI.isOpen && event.code === 'Space') {
+        const tagName = event.target.tagName.toLowerCase()
+        if (tagName !== 'input' && tagName !== 'textarea') {
+          event.preventDefault()
+          event.stopImmediatePropagation()
+          event.stopPropagation()
+
+          const range = utilitiesMedioAI.quill.getSelection()
+          if (range) {
+            utilitiesMedioAI.quill.insertText(range.index, ' ')
+            utilitiesMedioAI.quill.setSelection(range.index + 1)
+          }
+        }
+      }
+    }
+    window.addEventListener('keydown', songStudioMedioAI.spaceKeyDown)
   },
 
   load: callback => {
@@ -206,6 +226,8 @@ const songStudioMedioAI = {
 
   open: e => {
     e.preventDefault()
+    songStudioMedioAI.isOpen = true
+
     if (!document.getElementById('medioAI-songstudio')) {
       document.body.style.overflow = 'auto'
     } else {
@@ -219,6 +241,7 @@ const songStudioMedioAI = {
     const modal = document.getElementById('medioAI-songstudio')
     modal.style.transform = 'translateX(-100%)'
     document.body.style.overflow = 'auto'
+    songStudioMedioAI.isOpen = false
   },
 
   clear: e => {

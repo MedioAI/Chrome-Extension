@@ -35,7 +35,6 @@ const medioAITrackCounter = {
 
     const id = window.location.href.split('/').pop()
     const iframe = document.createElement('iframe')
-    console.log('https://www.udio.com/tree/' + id)
     iframe.src = 'https://www.udio.com/tree/' + id
     iframe.id = 'medioAITrackCounter'
     iframe.style.display = 'none'

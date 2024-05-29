@@ -20,24 +20,30 @@ const utilitiesMedioAI = {
 
   setHotKeys: e => {
     if (e.key === 'Escape') {
-      const overlay = document.getElementById('medioAI-songstudio')
-      overlay.style.transform = 'translateX(-100%)'
+      const songstudio = document.getElementById('medioAI-songstudio')
+      songstudio.style.transform = 'translateX(-100%)'
       document.body.style.overflow = 'auto'
-
-      const overlay2 = document.getElementById('medioAI-tagbuilder')
-      overlay2.style.transform = 'translateX(-100%)'
+      const tagbuilder = document.getElementById('medioAI-tagbuilder')
+      tagbuilder.style.transform = 'translateX(-100%)'
+      songStudioMedioAI.isOpen = false
     }
 
     if ((e.ctrlKey && e.key === 'k') || (e.metaKey && e.key === 'k')) {
-      const overlay = document.getElementById('medioAI-songstudio')
-      overlay.style.transform = 'translateX(0)'
+      const songstudio = document.getElementById('medioAI-songstudio')
+      songstudio.style.transform = 'translateX(0)'
       document.body.style.overflow = 'hidden'
+      const tagbuilder = document.getElementById('medioAI-tagbuilder')
+      tagbuilder.style.transform = 'translateX(-100%)'
+      songStudioMedioAI.isOpen = true
     }
 
     if ((e.ctrlKey && e.key === 'j') || (e.metaKey && e.key === 'j')) {
-      const overlay = document.getElementById('medioAI-tagbuilder')
-      overlay.style.transform = 'translateX(0)'
+      const tagbuilder = document.getElementById('medioAI-tagbuilder')
+      tagbuilder.style.transform = 'translateX(0)'
+      const songstudio = document.getElementById('medioAI-songstudio')
+      songstudio.style.transform = 'translateX(-100%)'
       document.body.style.overflow = 'hidden'
+      songStudioMedioAI.isOpen = true
     }
   },
 
