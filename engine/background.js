@@ -9,8 +9,8 @@
 
 chrome.runtime.onInstalled.addListener(() => {
   const defaultSettings = {
-    notification: 'on',
-    notificationsound: '1',
+    notification: 'off',
+    notificationsound: 'ding',
     slideanimation: 'on',
     commandcolor: '#26BB79',
     lyrictextsize: '18px',

@@ -8,7 +8,7 @@
 >
 > ### Udio
 >
-> - Udio Audio Notification
+> - React moving pages, run init again.
 >
 > ### Suno
 >
@@ -19,7 +19,6 @@
 > ### General
 >
 > - Clause API AI Integration
-> - Visualizer
 > - More tags in database
 >
 > ---
@@ -39,12 +38,13 @@ A chrome extension to enhance the experience of Udio.com and Suno.com, a AI musi
 1. Song Studio: Write your lyrics in large easy to use editor. (with commands for AI music apps)
 2. Rhyme: Get rhyme suggestions for your lyrics in seconds.
 3. Tag Builder: Combine genres, artists, and more and save to re-use later.
-4. Ask: AI integration for asking for feedback on your lyrics, chatting.
+4. Ask: AI integration for asking for feedback on your lyrics, chatting. (OpenAI or Claude)
 5. Co-Writer: Create a song from scratch with a wizard walkthrough.
 6. Saved Library: Manage all your song lyrics, tags, chats and more in easy to use native UI.
 7. Udio: Check how many credits per published.
-8. Audio Notification: Get notified when your song is ready to listen.
-9. Audio Tools: Convert your MP3 to WAV, add a fade in or fade out, and more.
+8. Suno: Add a download button to download other users songs.
+9. Audio Notification: Get notified when your song is ready to listen.
+10. Audio Tools: Convert your MP3 to WAV, add a fade in or fade out, and more.
 
 Visit the website, [MedioAI.com](https://www.medioai.com) for more information.
 

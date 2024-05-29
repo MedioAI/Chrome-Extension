@@ -18,9 +18,9 @@ const app = {
         document.getElementById('slideanimation').value = settings.slideanimation
         document.getElementById('lyrictextsize').value = settings.lyrictextsize
         document.getElementById('commandcolor').value = settings.commandcolor
-        // document.getElementById("aimodel").value = settings.aimodel;
+        document.getElementById('aimodel').value = settings.aimodel
         document.getElementById('openaikey').value = settings.openaikey
-        // document.getElementById("claudeapikey").value = settings.claudeapikey;
+        document.getElementById('claudeapikey').value = settings.claudeapikey
       }
     })
 
@@ -35,9 +35,9 @@ const app = {
       slideanimation: document.getElementById('slideanimation').value,
       commandcolor: document.getElementById('commandcolor').value,
       lyrictextsize: document.getElementById('lyrictextsize').value,
-      aimodel: 'openai',
+      aimodel: document.getElementById('aimodel').value,
       openaikey: document.getElementById('openaikey').value,
-      claudeapikey: '',
+      claudeapikey: document.getElementById('claudeapikey').value,
     }
 
     chrome.storage.local.set({ medioaiSettings }, function () {})
