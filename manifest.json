@@ -3,7 +3,7 @@
   "name": "MedioAI: Enhance Udio",
   "version": "1.1",
   "description": "Write lyrics with Song Studio, Tag Builder, AI (OpenAI / Claude) Co-Writer, Audio Tools, 5k+ Premade Tags, Commands & More!",
-  "permissions": ["activeTab", "scripting", "storage"],
+  "permissions": ["storage"],
   "background": {
     "service_worker": "engine/background.js"
   },
