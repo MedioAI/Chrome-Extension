@@ -4,15 +4,12 @@
 
 ---
 
-> Note: Work in Progress
+> Note: Solo developer. Forever MVP status.
 >
-> ### Tasks:
+> ### Todo:
 >
 > - Claude API AI Integration
-> - Visualizer
 > - Website
-> - Chrome Store Listing
-> - Video
 > - Documentation
 
 ---
@@ -30,12 +27,17 @@ A chrome extension to enhance the experience of Udio.com, the best music platfor
 7. Udio: Check how many credits per published.
 8. Audio Notification: Get notified when your song is ready to listen.
 9. Audio Tools: Convert your MP3 to WAV, add a fade in or fade out, and more.
+10. Track Credit Counter: Count how many credits you used for any track in your account.
 
 Visit the website, [MedioAI.com](https://www.medioai.com) for more information.
 
 ## Install on Chrome Web Store
 
 Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdljokjallnlfkibjoiolndccinoi) to install the **MedioAI** extension and start using today!
+
+## Releases
+
+- **Version 1.1** - [MedioAI v1.1](https://github.com/WynterJones/MedioAI-for-Udio/releases/tag/v1.1)
 
 ## Contributing
 

@@ -1,8 +1,7 @@
 {
   "manifest_version": 3,
   "name": "MedioAI: Enhance Udio",
-  "author": "Wynter Jones (@AI.MASSIVE)",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Write lyrics with Song Studio, Tag Builder, AI (OpenAI / Claude) Co-Writer, Audio Tools, 5k+ Premade Tags, Commands & More!",
   "permissions": ["activeTab", "scripting", "storage"],
   "background": {
