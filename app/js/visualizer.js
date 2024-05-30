@@ -277,7 +277,6 @@ const visualizer = {
 
     audioElement.addEventListener('play', () => {
       updateWaveform()
-      console.log('playing')
     })
   },
 

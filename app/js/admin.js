@@ -7,6 +7,44 @@
  * (at your option) any later version.
  */
 
+const countButton = document.getElementById('count')
+countButton.addEventListener('click', async e => {
+  const names = [
+    'songstudio/commands',
+    'songstudio/extras',
+    'songstudio/instruments',
+    'songstudio/structures',
+    'tagbuilder/emotions',
+    'tagbuilder/genres',
+    'tagbuilder/artists',
+    'tagbuilder/emotions',
+    'tagbuilder/instruments',
+    'tagbuilder/periods',
+    'tagbuilder/regions',
+    'tagbuilder/productions',
+    'tagbuilder/vocals',
+  ]
+  let total = 0
+
+  for (let name of names) {
+    const data = await fetch(chrome.runtime.getURL(`database/${name}.json`))
+      .then(response => response.json())
+      .then(data => {
+        return data
+      })
+
+    if (name === 'tagbuilder/instruments') {
+      document.querySelector(`#${name.split('/')[1]}_total.tagbuilder span`).innerHTML = data.length
+    } else {
+      document.querySelector(`#${name.split('/')[1]}_total span`).innerHTML = data.length
+    }
+
+    total += data.length
+  }
+
+  document.querySelector('#total span').innerHTML = total
+})
+
 const convertButton = document.getElementById('convert')
 convertButton.addEventListener('click', async e => {
   const currentJSONFile = chrome.runtime.getURL('database/tagbuilder/genres.json')
