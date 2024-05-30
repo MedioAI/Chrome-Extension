@@ -8,20 +8,23 @@
 
  */
 
-@import url("https://fonts.googleapis.com/css2?family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&display=swap');
 
 body {
   background: #000;
-  font-family: "Radio Canada Big", sans-serif;
+  font-family: 'Radio Canada Big', sans-serif;
   font-size: 19px;
 }
 
 * {
   -webkit-font-smoothing: antialiased;
 
-  font-family: "Radio Canada Big", sans-serif;
+  font-family: 'Radio Canada Big', sans-serif;
 }
 
+.border-light {
+  border-color: #ffffff3d;
+}
 #sidebar {
   background: #0c0f14;
   padding: 5px 20px;
@@ -189,4 +192,36 @@ body {
   color: #ffffff5a;
   font-style: italic;
   letter-spacing: 1px;
+}
+
+#upload {
+  padding: 120px;
+  border: 2px dashed #333;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+#upload:hover {
+  background: #323232;
+  border-color: #656565;
+}
+
+#visualizer {
+  margin-top: -15px;
+}
+#audio {
+  width: 100%;
+  margin-top: 30px;
+}
+#visualizeEditor {
+  width: 100%;
+  box-shadow: 0 0 10px #0000005c;
+}
+#editorWrapper {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+#editorCanvas {
+  background: url('../images/dots.webp') repeat;
 }

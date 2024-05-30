@@ -18,6 +18,7 @@ const ffmpeg = createFFmpeg({
 const visualizer = {
   init: async () => {
     visualizer.load()
+    visualizer.upload()
   },
 
   recordedChunks: [],
@@ -25,13 +26,11 @@ const visualizer = {
   recording: false,
   context: null,
   canvas: null,
-  buildButton: null,
   convertButton: null,
 
   load: async () => {
-    visualizer.canvas = document.querySelector('canvas#editor')
+    visualizer.canvas = document.querySelector('canvas#visualizeEditor')
     visualizer.context = visualizer.canvas.getContext('2d')
-    visualizer.buildButton = document.querySelector('button#build')
     visualizer.convertButton = document.querySelector('button#convert')
     visualizer.restartButton = document.querySelector('button#restart')
 
@@ -39,15 +38,22 @@ const visualizer = {
       visualizer.convert()
     })
 
-    visualizer.buildButton.addEventListener('click', () => {
-      visualizer.build()
-    })
-
     visualizer.restartButton.addEventListener('click', () => {
       location.reload()
     })
 
-    const canvas = document.getElementById('editor')
+    const addCoverImg = document.getElementById('addCoverImg')
+    const addBgImg = document.getElementById('addBgImg')
+
+    addCoverImg.addEventListener('click', () => {
+      document.getElementById('coverImg').click()
+    })
+
+    addBgImg.addEventListener('click', () => {
+      document.getElementById('bgImg').click()
+    })
+
+    const canvas = document.getElementById('visualizeEditor')
     const ctx = canvas.getContext('2d')
     const audioElement = document.getElementById('audio')
     const mp3Input = document.getElementById('mp3')
@@ -64,6 +70,23 @@ const visualizer = {
     coverImgInput.addEventListener('change', handleCoverImage)
     bgImgInput.addEventListener('change', handleBackgroundImage)
 
+    let progressBar = {
+      x: 20,
+      y: 50,
+      width: 70,
+      height: 10,
+      color: 'white',
+    }
+
+    let handle = {
+      x: progressBar.x,
+      y: progressBar.y,
+      radius: 10,
+      color: 'white',
+    }
+
+    let subtitleY = 0
+
     async function handleFile(event) {
       const file = event.target.files[0]
       if (!file) return
@@ -75,7 +98,6 @@ const visualizer = {
       await generateWaveform(url)
 
       if (coverImage && backgroundImage) {
-        document.getElementById('preview').style.display = 'block'
         drawCanvas()
       }
     }
@@ -87,7 +109,6 @@ const visualizer = {
       coverImage = await loadImage(URL.createObjectURL(file))
 
       if (audioBuffer && backgroundImage) {
-        document.getElementById('preview').style.display = 'block'
         drawCanvas()
       }
     }
@@ -99,7 +120,6 @@ const visualizer = {
       backgroundImage = await loadImage(URL.createObjectURL(file))
 
       if (audioBuffer && coverImage) {
-        document.getElementById('preview').style.display = 'block'
         drawCanvas()
       }
     }
@@ -165,29 +185,37 @@ const visualizer = {
       }
 
       if (coverImage) {
-        const baseSize = 16
+        const baseSize = 46
         const width = ctx.canvas.width * 0.3
         const height = coverImage.height * (width / coverImage.width)
-        const x = 20
+        const x = 60
         const y = (ctx.canvas.height - height) / 2
 
         ctx.drawImage(coverImage, x, y, width, height)
 
         ctx.font = `bold ${baseSize * 2}px Arial`
         ctx.fillStyle = 'white'
-        const titleX = x + width + 20
+        const titleX = x + width + 60
         const titleY = y + 50
         let title = document.querySelector('#title').value
         title = truncateText(ctx, title, ctx.canvas.width - titleX)
         ctx.fillText(title, titleX, titleY)
 
         ctx.font = `bold ${baseSize * 1}px Arial`
-        const subtitleY = titleY + 30
+        subtitleY = titleY + 60
         ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
 
         let subtitle = document.querySelector('#subtitle').value
         subtitle = truncateText(ctx, subtitle, ctx.canvas.width - titleX)
         ctx.fillText(subtitle, titleX, subtitleY)
+
+        progressBar = {
+          x: titleX,
+          y: subtitleY + 60,
+          width: ctx.canvas.width - width - 200,
+          height: 10,
+          color: 'rgba(255, 255, 255, 0.3)',
+        }
       }
     }
 
@@ -219,6 +247,20 @@ const visualizer = {
 
       ctx.lineTo(canvas.width, canvas.height / 2)
       ctx.stroke()
+
+      ctx.beginPath()
+      ctx.lineJoin = 'round'
+      ctx.lineCap = 'round'
+      ctx.lineWidth = progressBar.height
+      ctx.strokeStyle = progressBar.color
+      ctx.moveTo(progressBar.x, progressBar.y + progressBar.height / 2)
+      ctx.lineTo(progressBar.x + progressBar.width, progressBar.y + progressBar.height / 2)
+      ctx.stroke()
+
+      ctx.beginPath()
+      ctx.arc(handle.x, handle.y + subtitleY + 15, handle.radius, 0, Math.PI * 2, false)
+      ctx.fillStyle = handle.color
+      ctx.fill()
     }
 
     function updateWaveform() {
@@ -227,6 +269,11 @@ const visualizer = {
         requestAnimationFrame(updateWaveform)
       }
     }
+
+    audioElement.addEventListener('timeupdate', function () {
+      handle.x = progressBar.x + (this.currentTime / this.duration) * progressBar.width
+      drawWaveform()
+    })
 
     audioElement.addEventListener('play', () => {
       updateWaveform()
@@ -263,12 +310,57 @@ const visualizer = {
     }
   },
 
-  build: async () => {
-    const setup = document.querySelector('#setup')
-    setup.style.display = 'none'
-    const preview = document.querySelector('#preview')
-    preview.style.display = 'block'
+  upload: () => {
+    var upload = document.getElementById('upload')
+    var mp3 = document.getElementById('mp3')
+
+    upload.addEventListener('dragover', function (e) {
+      e.preventDefault()
+      upload.style.backgroundColor = '#323232'
+      upload.style.borderColor = '#656565'
+    })
+
+    upload.addEventListener('dragleave', function (e) {
+      e.preventDefault()
+      upload.style.backgroundColor = ''
+    })
+
+    upload.addEventListener('drop', function (e) {
+      e.preventDefault()
+      mp3.files = e.dataTransfer.files
+      upload.style.backgroundColor = ''
+      document.getElementById('upload').style.display = 'none'
+      document.getElementById('visualizer').style.display = 'block'
+      document.querySelector('#loadedFile span').innerHTML = mp3.files[0].name
+    })
+
+    upload.addEventListener('click', function () {
+      mp3.click()
+    })
+
+    mp3.addEventListener('change', function () {
+      document.getElementById('upload').style.display = 'none'
+      document.getElementById('visualizer').style.display = 'block'
+      document.querySelector('#loadedFile span').innerHTML = mp3.files[0].name
+    })
   },
+
+  // webm2Mp4: async blob => {
+  //   const reader = new FileReader()
+  //   reader.onload = async () => {
+  //     const mp3Reader = new FileReader()
+  //     mp3Reader.onload = async () => {
+  //       const inputFileName = 'input.webm'
+  //       const outputFileName = 'output.mp4'
+  //       const finalOutputFileName = 'final_output.mp4'
+  //       const commandStr = `-i ${inputFileName} -i ${'audio.mp3'}  -c:v libx264 -pix_fmt yuv420p -c:a aac ${finalOutputFileName}`
+  //       await visualizer.runFFmpeg(inputFileName, outputFileName, commandStr, blob, mp3Reader.result)
+  //     }
+  //     const mp3Input = document.getElementById('mp3')
+  //     mp3Reader.readAsArrayBuffer(mp3Input.files[0])
+  //   }
+  //   reader.readAsArrayBuffer(blob)
+  // },
 
   webm2Mp4: async blob => {
     const reader = new FileReader()
@@ -281,7 +373,7 @@ const visualizer = {
     reader.readAsArrayBuffer(blob)
   },
 
-  runFFmpeg: async (inputFileName, outputFileName, commandStr, file) => {
+  runFFmpeg: async (inputFileName, outputFileName, commandStr, file, audioFile) => {
     if (ffmpeg.isLoaded()) {
       await ffmpeg.exit()
     }
@@ -296,9 +388,9 @@ const visualizer = {
     }
 
     ffmpeg.FS('writeFile', inputFileName, await fetchFile(file))
-    await ffmpeg.run(...commandStr.split(' ')) // Ensure commandStr is split into arguments
+    // ffmpeg.FS('writeFile', 'audio.mp3', await fetchFile(audioFile))
+    await ffmpeg.run(...commandStr.split(' '))
     if (!ffmpeg.FS('readdir', '/').includes(outputFileName)) {
-      // Check if the file exists
       throw new Error(`${outputFileName} was not created`)
     }
     const data = ffmpeg.FS('readFile', outputFileName)
