@@ -26,7 +26,7 @@ convertButton.addEventListener('click', async e => {
 
   const cleaned = []
   for (let i = 0; i < data.length; i++) {
-    cleaned.push(data[i].value)
+    cleaned.push(data[i])
   }
 
   const combinedArray = cleaned.concat(current)

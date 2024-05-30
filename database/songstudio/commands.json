@@ -102,5 +102,857 @@
   {
     "value": "[Crescendo]",
     "text": "Crescendo"
+  },
+  {
+    "value": "[Spoken Word: Male Voice]",
+    "text": "Spoken Word: Male Voice"
+  },
+  {
+    "value": "[Spoken Word: Female Voice]",
+    "text": "Spoken Word: Female Voice"
+  },
+  {
+    "value": "[Instrumental Interlude]",
+    "text": "Instrumental Interlude"
+  },
+  {
+    "value": "[Transition to Chorus]",
+    "text": "Transition to Chorus"
+  },
+  {
+    "value": "[Screaming]",
+    "text": "Screaming"
+  },
+  {
+    "value": "[Rap Verse]",
+    "text": "Rap Verse"
+  },
+  {
+    "value": "[Refrain]",
+    "text": "Refrain"
+  },
+  {
+    "value": "[Modulation]",
+    "text": "Modulation"
+  },
+  {
+    "value": "[Reprise]",
+    "text": "Reprise"
+  },
+  {
+    "value": "[Riff]",
+    "text": "Riff"
+  },
+  {
+    "value": "[Vamp]",
+    "text": "Vamp"
+  },
+  {
+    "value": "[Chant]",
+    "text": "Chant"
+  },
+  {
+    "value": "[Humming]",
+    "text": "Humming"
+  },
+  {
+    "value": "[Whistling]",
+    "text": "Whistling"
+  },
+  {
+    "value": "[Clapping]",
+    "text": "Clapping"
+  },
+  {
+    "value": "[Foot Stomping]",
+    "text": "Foot Stomping"
+  },
+  {
+    "value": "[Shouting]",
+    "text": "Shouting"
+  },
+  {
+    "value": "[Call and Response]",
+    "text": "Call and Response"
+  },
+  {
+    "value": "[Vocal Improvisation]",
+    "text": "Vocal Improvisation"
+  },
+  {
+    "value": "[Jazzy Bebop Section]",
+    "text": "Jazzy Bebop Section"
+  },
+  {
+    "value": "[Verse: Soulful Singing]",
+    "text": "Verse: Soulful Singing"
+  },
+  {
+    "value": "[Chorus: Soulful Singing]",
+    "text": "Chorus: Soulful Singing"
+  },
+  {
+    "value": "[Verse: Whispered]",
+    "text": "Verse: Whispered"
+  },
+  {
+    "value": "[Verse: Energetic]",
+    "text": "Verse: Energetic"
+  },
+  {
+    "value": "[Verse: Melancholic]",
+    "text": "Verse: Melancholic"
+  },
+  {
+    "value": "[Chorus: Uplifting]",
+    "text": "Chorus: Uplifting"
+  },
+  {
+    "value": "[Chorus: Dramatic]",
+    "text": "Chorus: Dramatic"
+  },
+  {
+    "value": "[Chorus: Epic]",
+    "text": "Chorus: Epic"
+  },
+  {
+    "value": "[Bridge: Soft]",
+    "text": "Bridge: Soft"
+  },
+  {
+    "value": "[Bridge: Intense]",
+    "text": "Bridge: Intense"
+  },
+  {
+    "value": "[Chorus: Repeated]",
+    "text": "Chorus: Repeated"
+  },
+  {
+    "value": "[Verse: Conversational]",
+    "text": "Verse: Conversational"
+  },
+  {
+    "value": "[Verse: Rhythmic]",
+    "text": "Verse: Rhythmic"
+  },
+  {
+    "value": "[Chorus: Harmonized]",
+    "text": "Chorus: Harmonized"
+  },
+  {
+    "value": "[Verse: Narrative]",
+    "text": "Verse: Narrative"
+  },
+  {
+    "value": "[Chorus: Anthemic]",
+    "text": "Chorus: Anthemic"
+  },
+  {
+    "value": "[Chorus: Emotional]",
+    "text": "Chorus: Emotional"
+  },
+  {
+    "value": "[Verse: Fast-Paced]",
+    "text": "Verse: Fast-Paced"
+  },
+  {
+    "value": "[Verse: Slow-Paced]",
+    "text": "Verse: Slow-Paced"
+  },
+  {
+    "value": "[Chorus: Powerful]",
+    "text": "Chorus: Powerful"
+  },
+  {
+    "value": "[Chorus: Light]",
+    "text": "Chorus: Light"
+  },
+  {
+    "value": "[Verse: Playful]",
+    "text": "Verse: Playful"
+  },
+  {
+    "value": "[Verse: Serious]",
+    "text": "Verse: Serious"
+  },
+  {
+    "value": "[Bridge: Reflective]",
+    "text": "Bridge: Reflective"
+  },
+  {
+    "value": "[Bridge: Tension-Building]",
+    "text": "Bridge: Tension-Building"
+  },
+  {
+    "value": "[Chorus: Minimalistic]",
+    "text": "Chorus: Minimalistic"
+  },
+  {
+    "value": "[Verse: Aggressive]",
+    "text": "Verse: Aggressive"
+  },
+  {
+    "value": "[Verse: Gentle]",
+    "text": "Verse: Gentle"
+  },
+  {
+    "value": "[Chorus: Optimistic]",
+    "text": "Chorus: Optimistic"
+  },
+  {
+    "value": "[Chorus: Despairing]",
+    "text": "Chorus: Despairing"
+  },
+  {
+    "value": "[Verse: Lyrical]",
+    "text": "Verse: Lyrical"
+  },
+  {
+    "value": "[Verse: Monotone]",
+    "text": "Verse: Monotone"
+  },
+  {
+    "value": "[Chorus: Full-Bodied]",
+    "text": "Chorus: Full-Bodied"
+  },
+  {
+    "value": "[Chorus: Soft-Spoken]",
+    "text": "Chorus: Soft-Spoken"
+  },
+  {
+    "value": "[Verse: Breathy]",
+    "text": "Verse: Breathy"
+  },
+  {
+    "value": "[Verse: Strong]",
+    "text": "Verse: Strong"
+  },
+  {
+    "value": "[Chorus: Echoed]",
+    "text": "Chorus: Echoed"
+  },
+  {
+    "value": "[Chorus: Crisp]",
+    "text": "Chorus: Crisp"
+  },
+  {
+    "value": "[Verse: Smooth]",
+    "text": "Verse: Smooth"
+  },
+  {
+    "value": "[Verse: Raspy]",
+    "text": "Verse: Raspy"
+  },
+  {
+    "value": "[Chorus: Warm]",
+    "text": "Chorus: Warm"
+  },
+  {
+    "value": "[Chorus: Cold]",
+    "text": "Chorus: Cold"
+  },
+  {
+    "value": "[Verse: Melodic]",
+    "text": "Verse: Melodic"
+  },
+  {
+    "value": "[Verse: Spoken]",
+    "text": "Verse: Spoken"
+  },
+  {
+    "value": "[Chorus: Chanting]",
+    "text": "Chorus: Chanting"
+  },
+  {
+    "value": "[Female Narrator]",
+    "text": "Female Narrator"
+  },
+  {
+    "value": "[Male Narrator]",
+    "text": "Male Narrator"
+  },
+  {
+    "value": "[Diva Solo]",
+    "text": "Diva Solo"
+  },
+  {
+    "value": "[Gospel Choir]",
+    "text": "Gospel Choir"
+  },
+  {
+    "value": "[Primal Scream]",
+    "text": "Primal Scream"
+  },
+  {
+    "value": "[Falsetto Section]",
+    "text": "Falsetto Section"
+  },
+  {
+    "value": "[Spoken Word]",
+    "text": "Spoken Word"
+  },
+  {
+    "value": "[Operatic]",
+    "text": "Operatic"
+  },
+  {
+    "value": "[Scat Singing]",
+    "text": "Scat Singing"
+  },
+  {
+    "value": "[Beatboxing]",
+    "text": "Beatboxing"
+  },
+  {
+    "value": "[Vocal Fry]",
+    "text": "Vocal Fry"
+  },
+  {
+    "value": "[Yodeling]",
+    "text": "Yodeling"
+  },
+  {
+    "value": "[Melisma]",
+    "text": "Melisma"
+  },
+  {
+    "value": "[Harmony: Tight]",
+    "text": "Harmony: Tight"
+  },
+  {
+    "value": "[Harmony: Loose]",
+    "text": "Harmony: Loose"
+  },
+  {
+    "value": "[Rap: Aggressive]",
+    "text": "Rap: Aggressive"
+  },
+  {
+    "value": "[Rap: Laid-Back]",
+    "text": "Rap: Laid-Back"
+  },
+  {
+    "value": "[Vocal Run]",
+    "text": "Vocal Run"
+  },
+  {
+    "value": "[Vocal Crescendo]",
+    "text": "Vocal Crescendo"
+  },
+  {
+    "value": "[A Capella]",
+    "text": "A Capella"
+  },
+  {
+    "value": "[Vocal Layering]",
+    "text": "Vocal Layering"
+  },
+  {
+    "value": "[Call and Response]",
+    "text": "Call and Response"
+  },
+  {
+    "value": "[Vocal Chant]",
+    "text": "Vocal Chant"
+  },
+  {
+    "value": "[Vocal Echo]",
+    "text": "Vocal Echo"
+  },
+  {
+    "value": "[Vocal Reverb]",
+    "text": "Vocal Reverb"
+  },
+  {
+    "value": "[Vocal Distortion]",
+    "text": "Vocal Distortion"
+  },
+  {
+    "value": "[Vocal Harmony]",
+    "text": "Vocal Harmony"
+  },
+  {
+    "value": "[Choir: Children]",
+    "text": "Choir: Children"
+  },
+  {
+    "value": "[Choir: Mixed]",
+    "text": "Choir: Mixed"
+  },
+  {
+    "value": "[Shout]",
+    "text": "Shout"
+  },
+  {
+    "value": "[Whisper]",
+    "text": "Whisper"
+  },
+  {
+    "value": "[Growl]",
+    "text": "Growl"
+  },
+  {
+    "value": "[Chant]",
+    "text": "Chant"
+  },
+  {
+    "value": "[Vocal Slide]",
+    "text": "Vocal Slide"
+  },
+  {
+    "value": "[Riff]",
+    "text": "Riff"
+  },
+  {
+    "value": "[Rap: Fast Flow]",
+    "text": "Rap: Fast Flow"
+  },
+  {
+    "value": "[Rap: Slow Flow]",
+    "text": "Rap: Slow Flow"
+  },
+  {
+    "value": "[Vocal Tremolo]",
+    "text": "Vocal Tremolo"
+  },
+  {
+    "value": "[Vocal Vibrato]",
+    "text": "Vocal Vibrato"
+  },
+  {
+    "value": "[Vocal Slide]",
+    "text": "Vocal Slide"
+  },
+  {
+    "value": "[Vocal Belt]",
+    "text": "Vocal Belt"
+  },
+  {
+    "value": "[Vocal Whisper]",
+    "text": "Vocal Whisper"
+  },
+  {
+    "value": "[Vocal Screech]",
+    "text": "Vocal Screech"
+  },
+  {
+    "value": "[Choir: Male]",
+    "text": "Choir: Male"
+  },
+  {
+    "value": "[Choir: Female]",
+    "text": "Choir: Female"
+  },
+  {
+    "value": "[Vocal Staccato]",
+    "text": "Vocal Staccato"
+  },
+  {
+    "value": "[Vocal Legato]",
+    "text": "Vocal Legato"
+  },
+  {
+    "value": "[Vocal Crescendo]",
+    "text": "Vocal Crescendo"
+  },
+  {
+    "value": "[Vocal Decrescendo]",
+    "text": "Vocal Decrescendo"
+  },
+  {
+    "value": "[Vocal Humming]",
+    "text": "Vocal Humming"
+  },
+  {
+    "value": "[Transition to Bursting Horns]",
+    "text": "Transition to Bursting Horns"
+  },
+  {
+    "value": "[Cinematic Yelling]",
+    "text": "Cinematic Yelling"
+  },
+  {
+    "value": "[Gentle Whispering]",
+    "text": "Gentle Whispering"
+  },
+  {
+    "value": "[Thunderous Drumming]",
+    "text": "Thunderous Drumming"
+  },
+  {
+    "value": "[Ethereal Choir]",
+    "text": "Ethereal Choir"
+  },
+  {
+    "value": "[Majestic Brass]",
+    "text": "Majestic Brass"
+  },
+  {
+    "value": "[Soaring Strings]",
+    "text": "Soaring Strings"
+  },
+  {
+    "value": "[Hypnotic Beats]",
+    "text": "Hypnotic Beats"
+  },
+  {
+    "value": "[Ambient Soundscape]",
+    "text": "Ambient Soundscape"
+  },
+  {
+    "value": "[Explosive Percussion]",
+    "text": "Explosive Percussion"
+  },
+  {
+    "value": "[Haunting Melodies]",
+    "text": "Haunting Melodies"
+  },
+  {
+    "value": "[Vibrant Vocals]",
+    "text": "Vibrant Vocals"
+  },
+  {
+    "value": "[Pulsating Rhythm]",
+    "text": "Pulsating Rhythm"
+  },
+  {
+    "value": "[Crescendoing Harmony]",
+    "text": "Crescendoing Harmony"
+  },
+  {
+    "value": "[Whimsical Woodwinds]",
+    "text": "Whimsical Woodwinds"
+  },
+  {
+    "value": "[Dramatic Pause]",
+    "text": "Dramatic Pause"
+  },
+  {
+    "value": "[Tension-Building Silence]",
+    "text": "Tension-Building Silence"
+  },
+  {
+    "value": "[Mystical Chimes]",
+    "text": "Mystical Chimes"
+  },
+  {
+    "value": "[Electric Surge]",
+    "text": "Electric Surge"
+  },
+  {
+    "value": "[Galactic Echo]",
+    "text": "Galactic Echo"
+  },
+  {
+    "value": "[Primal Chanting]",
+    "text": "Primal Chanting"
+  },
+  {
+    "value": "[Serene Interlude]",
+    "text": "Serene Interlude"
+  },
+  {
+    "value": "[Intense Build-Up]",
+    "text": "Intense Build-Up"
+  },
+  {
+    "value": "[Dynamic Shift]",
+    "text": "Dynamic Shift"
+  },
+  {
+    "value": "[Sudden Drop]",
+    "text": "Sudden Drop"
+  },
+  {
+    "value": "[Melodic Echo]",
+    "text": "Melodic Echo"
+  },
+  {
+    "value": "[Groovy Bassline]",
+    "text": "Groovy Bassline"
+  },
+  {
+    "value": "[Soft Fade]",
+    "text": "Soft Fade"
+  },
+  {
+    "value": "[Chaotic Climax]",
+    "text": "Chaotic Climax"
+  },
+  {
+    "value": "[Energetic Pulse]",
+    "text": "Energetic Pulse"
+  },
+  {
+    "value": "[Silky Smooth Transition]",
+    "text": "Silky Smooth Transition"
+  },
+  {
+    "value": "[Epic Finale]",
+    "text": "Epic Finale"
+  },
+  {
+    "value": "[Quiet Lull]",
+    "text": "Quiet Lull"
+  },
+  {
+    "value": "[Roaring Crescendo]",
+    "text": "Roaring Crescendo"
+  },
+  {
+    "value": "[Fluttering Flutes]",
+    "text": "Fluttering Flutes"
+  },
+  {
+    "value": "[Rhythmic Pulse]",
+    "text": "Rhythmic Pulse"
+  },
+  {
+    "value": "[Cinematic Boom]",
+    "text": "Cinematic Boom"
+  },
+  {
+    "value": "[Wistful Strings]",
+    "text": "Wistful Strings"
+  },
+  {
+    "value": "[Euphoric Rise]",
+    "text": "Euphoric Rise"
+  },
+  {
+    "value": "[Funky Groove]",
+    "text": "Funky Groove"
+  },
+  {
+    "value": "[Heavy Hitting]",
+    "text": "Heavy Hitting"
+  },
+  {
+    "value": "[Chilled Vibes]",
+    "text": "Chilled Vibes"
+  },
+  {
+    "value": "[Soothing Waves]",
+    "text": "Soothing Waves"
+  },
+  {
+    "value": "[Bright Sparkle]",
+    "text": "Bright Sparkle"
+  },
+  {
+    "value": "[Deep Dive]",
+    "text": "Deep Dive"
+  },
+  {
+    "value": "[Punchy Beat]",
+    "text": "Punchy Beat"
+  },
+  {
+    "value": "[Surreal Atmosphere]",
+    "text": "Surreal Atmosphere"
+  },
+  {
+    "value": "[Warm Glow]",
+    "text": "Warm Glow"
+  },
+  {
+    "value": "[Crisp Hit]",
+    "text": "Crisp Hit"
+  },
+  {
+    "value": "[Thunderous Drum Roll]",
+    "text": "Thunderous Drum Roll"
+  },
+  {
+    "value": "[Gentle Piano Melody]",
+    "text": "Gentle Piano Melody"
+  },
+  {
+    "value": "[Lush String Ensemble]",
+    "text": "Lush String Ensemble"
+  },
+  {
+    "value": "[Rapid Fire Percussion]",
+    "text": "Rapid Fire Percussion"
+  },
+  {
+    "value": "[Whispering Winds Section]",
+    "text": "Whispering Winds Section"
+  },
+  {
+    "value": "[Bright Brass Fanfare]",
+    "text": "Bright Brass Fanfare"
+  },
+  {
+    "value": "[Deep Bass Drop]",
+    "text": "Deep Bass Drop"
+  },
+  {
+    "value": "[Eerie Synth Pulses]",
+    "text": "Eerie Synth Pulses"
+  },
+  {
+    "value": "[Flowing Harp Arpeggios]",
+    "text": "Flowing Harp Arpeggios"
+  },
+  {
+    "value": "[Jazzy Saxophone Solo]",
+    "text": "Jazzy Saxophone Solo"
+  },
+  {
+    "value": "[Driving Guitar Riff]",
+    "text": "Driving Guitar Riff"
+  },
+  {
+    "value": "[Soft Vibraphone Tones]",
+    "text": "Soft Vibraphone Tones"
+  },
+  {
+    "value": "[Spooky Theremin Wails]",
+    "text": "Spooky Theremin Wails"
+  },
+  {
+    "value": "[Punchy Snare Hits]",
+    "text": "Punchy Snare Hits"
+  },
+  {
+    "value": "[Warm String Swells]",
+    "text": "Warm String Swells"
+  },
+  {
+    "value": "[Groovy Drum Fill]",
+    "text": "Groovy Drum Fill"
+  },
+  {
+    "value": "[Soaring Vocal Harmonies]",
+    "text": "Soaring Vocal Harmonies"
+  },
+  {
+    "value": "[Subtle Electronic Beat]",
+    "text": "Subtle Electronic Beat"
+  },
+  {
+    "value": "[Funky Bass Groove]",
+    "text": "Funky Bass Groove"
+  },
+  {
+    "value": "[Hypnotic Synth Loop]",
+    "text": "Hypnotic Synth Loop"
+  },
+  {
+    "value": "[Explosive Drum Hits]",
+    "text": "Explosive Drum Hits"
+  },
+  {
+    "value": "[Mellow Acoustic Strumming]",
+    "text": "Mellow Acoustic Strumming"
+  },
+  {
+    "value": "[Energetic Brass Blasts]",
+    "text": "Energetic Brass Blasts"
+  },
+  {
+    "value": "[Dreamy Synth Pads]",
+    "text": "Dreamy Synth Pads"
+  },
+  {
+    "value": "[Playful Xylophone Notes]",
+    "text": "Playful Xylophone Notes"
+  },
+  {
+    "value": "[Rhythmic Hand Claps]",
+    "text": "Rhythmic Hand Claps"
+  },
+  {
+    "value": "[Smooth Jazz Chords]",
+    "text": "Smooth Jazz Chords"
+  },
+  {
+    "value": "[Rising Crescendo Build]",
+    "text": "Rising Crescendo Build"
+  },
+  {
+    "value": "[Staccato String Plucks]",
+    "text": "Staccato String Plucks"
+  },
+  {
+    "value": "[Ambient Sound Effects]",
+    "text": "Ambient Sound Effects"
+  },
+  {
+    "value": "[Heavy Metal Riffs]",
+    "text": "Heavy Metal Riffs"
+  },
+  {
+    "value": "[Delicate Glockenspiel Tinkles]",
+    "text": "Delicate Glockenspiel Tinkles"
+  },
+  {
+    "value": "[Lively Latin Rhythms]",
+    "text": "Lively Latin Rhythms"
+  },
+  {
+    "value": "[Energetic Drumline Beats]",
+    "text": "Energetic Drumline Beats"
+  },
+  {
+    "value": "[Gritty Electronic Bass]",
+    "text": "Gritty Electronic Bass"
+  },
+  {
+    "value": "[Bright Marimba Tones]",
+    "text": "Bright Marimba Tones"
+  },
+  {
+    "value": "[Fading Echo Effects]",
+    "text": "Fading Echo Effects"
+  },
+  {
+    "value": "[Punchy Brass Stabs]",
+    "text": "Punchy Brass Stabs"
+  },
+  {
+    "value": "[Calm Ocean Waves]",
+    "text": "Calm Ocean Waves"
+  },
+  {
+    "value": "[Pensive Piano Chords]",
+    "text": "Pensive Piano Chords"
+  },
+  {
+    "value": "[Dramatic Timpani Rolls]",
+    "text": "Dramatic Timpani Rolls"
+  },
+  {
+    "value": "[Melancholic Violin Solo]",
+    "text": "Melancholic Violin Solo"
+  },
+  {
+    "value": "[Vibrant Tropical Percussion]",
+    "text": "Vibrant Tropical Percussion"
+  },
+  {
+    "value": "[Ambient Nature Sounds]",
+    "text": "Ambient Nature Sounds"
+  },
+  {
+    "value": "[Epic Orchestral Finale]",
+    "text": "Epic Orchestral Finale"
+  },
+  {
+    "value": "[Distant Thunder Rumbles]",
+    "text": "Distant Thunder Rumbles"
+  },
+  {
+    "value": "[Wailing Electric Guitar]",
+    "text": "Wailing Electric Guitar"
+  },
+  {
+    "value": "[Gentle Rainfall Ambience]",
+    "text": "Gentle Rainfall Ambience"
+  },
+  {
+    "value": "[Mysterious Synth Drones]",
+    "text": "Mysterious Synth Drones"
   }
 ]

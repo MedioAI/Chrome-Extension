@@ -522,5 +522,1037 @@
   {
     "value": "[Low Whistle Solo]",
     "text": "Low Whistle"
+  },
+  {
+    "value": "[Cello da Spalla Solo]",
+    "text": "Cello da Spalla"
+  },
+  {
+    "value": "[Viola d'Amore Solo]",
+    "text": "Viola d'Amore"
+  },
+  {
+    "value": "[Theorbo Solo]",
+    "text": "Theorbo"
+  },
+  {
+    "value": "[Sackbut Solo]",
+    "text": "Sackbut"
+  },
+  {
+    "value": "[Baroque Trumpet Solo]",
+    "text": "Baroque Trumpet"
+  },
+  {
+    "value": "[Cornetto Solo]",
+    "text": "Cornetto"
+  },
+  {
+    "value": "[Renaissance Lute Solo]",
+    "text": "Renaissance Lute"
+  },
+  {
+    "value": "[Viola da Gamba Solo]",
+    "text": "Viola da Gamba"
+  },
+  {
+    "value": "[Rauschpfeife Solo]",
+    "text": "Rauschpfeife"
+  },
+  {
+    "value": "[Baroque Flute Solo]",
+    "text": "Baroque Flute"
+  },
+  {
+    "value": "[Tromba Marina Solo]",
+    "text": "Tromba Marina"
+  },
+  {
+    "value": "[Hurdy Gurdy Solo]",
+    "text": "Hurdy Gurdy"
+  },
+  {
+    "value": "[Nyckelharpa Solo]",
+    "text": "Nyckelharpa"
+  },
+  {
+    "value": "[Regal Solo]",
+    "text": "Regal"
+  },
+  {
+    "value": "[Hammered Dulcimer Solo]",
+    "text": "Hammered Dulcimer"
+  },
+  {
+    "value": "[Harpsichord Solo]",
+    "text": "Harpsichord"
+  },
+  {
+    "value": "[Crumhorn Solo]",
+    "text": "Crumhorn"
+  },
+  {
+    "value": "[Viola da Braccio Solo]",
+    "text": "Viola da Braccio"
+  },
+  {
+    "value": "[Baroque Oboe Solo]",
+    "text": "Baroque Oboe"
+  },
+  {
+    "value": "[Baroque Bassoon Solo]",
+    "text": "Baroque Bassoon"
+  },
+  {
+    "value": "[Baryton Solo]",
+    "text": "Baryton"
+  },
+  {
+    "value": "[Glass Armonica Solo]",
+    "text": "Glass Armonica"
+  },
+  {
+    "value": "[Serinette Solo]",
+    "text": "Serinette"
+  },
+  {
+    "value": "[Rackett Solo]",
+    "text": "Rackett"
+  },
+  {
+    "value": "[Clavichord Solo]",
+    "text": "Clavichord"
+  },
+  {
+    "value": "[Virginal Solo]",
+    "text": "Virginal"
+  },
+  {
+    "value": "[Organetto Solo]",
+    "text": "Organetto"
+  },
+  {
+    "value": "[Crwth Solo]",
+    "text": "Crwth"
+  },
+  {
+    "value": "[Lirone Solo]",
+    "text": "Lirone"
+  },
+  {
+    "value": "[Arpeggione Solo]",
+    "text": "Arpeggione"
+  },
+  {
+    "value": "[Chalumeau Solo]",
+    "text": "Chalumeau"
+  },
+  {
+    "value": "[Lyra Viol Solo]",
+    "text": "Lyra Viol"
+  },
+  {
+    "value": "[Cabinet Organ Solo]",
+    "text": "Cabinet Organ"
+  },
+  {
+    "value": "[Zampogna Solo]",
+    "text": "Zampogna"
+  },
+  {
+    "value": "[Serpent Solo]",
+    "text": "Serpent"
+  },
+  {
+    "value": "[Kit Violin Solo]",
+    "text": "Kit Violin"
+  },
+  {
+    "value": "[Trumpet Marine Solo]",
+    "text": "Trumpet Marine"
+  },
+  {
+    "value": "[Mandora Solo]",
+    "text": "Mandora"
+  },
+  {
+    "value": "[Bass Viol Solo]",
+    "text": "Bass Viol"
+  },
+  {
+    "value": "[Tromba da Tirarsi Solo]",
+    "text": "Tromba da Tirarsi"
+  },
+  {
+    "value": "[Birbyne Solo]",
+    "text": "Birbyne"
+  },
+  {
+    "value": "[Cornamuse Solo]",
+    "text": "Cornamuse"
+  },
+  {
+    "value": "[Fife Solo]",
+    "text": "Fife"
+  },
+  {
+    "value": "[Alto Recorder Solo]",
+    "text": "Alto Recorder"
+  },
+  {
+    "value": "[Tenor Recorder Solo]",
+    "text": "Tenor Recorder"
+  },
+  {
+    "value": "[Baritone Horn Solo]",
+    "text": "Baritone Horn"
+  },
+  {
+    "value": "[Tenoroon Solo]",
+    "text": "Tenoroon"
+  },
+  {
+    "value": "[Ophicleide Solo]",
+    "text": "Ophicleide"
+  },
+  {
+    "value": "[Cimbasso Solo]",
+    "text": "Cimbasso"
+  },
+  {
+    "value": "[Euphonium Solo]",
+    "text": "Euphonium"
+  },
+  {
+    "value": "[Bass Saxhorn Solo]",
+    "text": "Bass Saxhorn"
+  },
+  {
+    "value": "[Helicon Solo]",
+    "text": "Helicon"
+  },
+  {
+    "value": "[Contrabass Trombone Solo]",
+    "text": "Contrabass Trombone"
+  },
+  {
+    "value": "[Contrabass Sarrusophone Solo]",
+    "text": "Contrabass Sarrusophone"
+  },
+  {
+    "value": "[Bass Clarinet Solo]",
+    "text": "Bass Clarinet"
+  },
+  {
+    "value": "[Contrabass Clarinet Solo]",
+    "text": "Contrabass Clarinet"
+  },
+  {
+    "value": "[Sopranino Clarinet Solo]",
+    "text": "Sopranino Clarinet"
+  },
+  {
+    "value": "[Baritone Saxhorn Solo]",
+    "text": "Baritone Saxhorn"
+  },
+  {
+    "value": "[Alto Flugelhorn Solo]",
+    "text": "Alto Flugelhorn"
+  },
+  {
+    "value": "[Sopranino Trumpet Solo]",
+    "text": "Sopranino Trumpet"
+  },
+  {
+    "value": "[Contrabass Flugelhorn Solo]",
+    "text": "Contrabass Flugelhorn"
+  },
+  {
+    "value": "[Ney Solo]",
+    "text": "Ney"
+  },
+  {
+    "value": "[Qanun Solo]",
+    "text": "Qanun"
+  },
+  {
+    "value": "[Oud Solo]",
+    "text": "Oud"
+  },
+  {
+    "value": "[Darbuka Solo]",
+    "text": "Darbuka"
+  },
+  {
+    "value": "[Buzuq Solo]",
+    "text": "Buzuq"
+  },
+  {
+    "value": "[Santur Solo]",
+    "text": "Santur"
+  },
+  {
+    "value": "[Saz Solo]",
+    "text": "Saz"
+  },
+  {
+    "value": "[Riq Solo]",
+    "text": "Riq"
+  },
+  {
+    "value": "[Kanun Solo]",
+    "text": "Kanun"
+  },
+  {
+    "value": "[Mijwiz Solo]",
+    "text": "Mijwiz"
+  },
+  {
+    "value": "[Daf Solo]",
+    "text": "Daf"
+  },
+  {
+    "value": "[Oboe Solo]",
+    "text": "Oboe"
+  },
+  {
+    "value": "[Bendir Solo]",
+    "text": "Bendir"
+  },
+  {
+    "value": "[Goblet Drum Solo]",
+    "text": "Goblet Drum"
+  },
+  {
+    "value": "[Zurna Solo]",
+    "text": "Zurna"
+  },
+  {
+    "value": "[Tar Solo]",
+    "text": "Tar"
+  },
+  {
+    "value": "[Kamancheh Solo]",
+    "text": "Kamancheh"
+  },
+  {
+    "value": "[Duduk Solo]",
+    "text": "Duduk"
+  },
+  {
+    "value": "[Nagara Solo]",
+    "text": "Nagara"
+  },
+  {
+    "value": "[Arghul Solo]",
+    "text": "Arghul"
+  },
+  {
+    "value": "[Simsimiyya Solo]",
+    "text": "Simsimiyya"
+  },
+  {
+    "value": "[Bassam Solo]",
+    "text": "Bassam"
+  },
+  {
+    "value": "[Surnay Solo]",
+    "text": "Surnay"
+  },
+  {
+    "value": "[Ghaychak Solo]",
+    "text": "Ghaychak"
+  },
+  {
+    "value": "[Santoor Solo]",
+    "text": "Santoor"
+  },
+  {
+    "value": "[Kasik Solo]",
+    "text": "Kasik"
+  },
+  {
+    "value": "[Kazooz Solo]",
+    "text": "Kazooz"
+  },
+  {
+    "value": "[Oud Mijwiz Solo]",
+    "text": "Oud Mijwiz"
+  },
+  {
+    "value": "[Sintir Solo]",
+    "text": "Sintir"
+  },
+  {
+    "value": "[Mizmar Solo]",
+    "text": "Mizmar"
+  },
+  {
+    "value": "[Kanjira Solo]",
+    "text": "Kanjira"
+  },
+  {
+    "value": "[Tambourine Solo]",
+    "text": "Tambourine"
+  },
+  {
+    "value": "[Hijaz Solo]",
+    "text": "Hijaz"
+  },
+  {
+    "value": "[Keman Solo]",
+    "text": "Keman"
+  },
+  {
+    "value": "[Santouri Solo]",
+    "text": "Santouri"
+  },
+  {
+    "value": "[Nai Solo]",
+    "text": "Nai"
+  },
+  {
+    "value": "[Rebab Solo]",
+    "text": "Rebab"
+  },
+  {
+    "value": "[Erhu Solo]",
+    "text": "Erhu"
+  },
+  {
+    "value": "[Guzheng Solo]",
+    "text": "Guzheng"
+  },
+  {
+    "value": "[Pipa Solo]",
+    "text": "Pipa"
+  },
+  {
+    "value": "[Dizi Solo]",
+    "text": "Dizi"
+  },
+  {
+    "value": "[Sheng Solo]",
+    "text": "Sheng"
+  },
+  {
+    "value": "[Gong Solo]",
+    "text": "Gong"
+  },
+  {
+    "value": "[Liuqin Solo]",
+    "text": "Liuqin"
+  },
+  {
+    "value": "[Yangqin Solo]",
+    "text": "Yangqin"
+  },
+  {
+    "value": "[Guqin Solo]",
+    "text": "Guqin"
+  },
+  {
+    "value": "[Xiao Solo]",
+    "text": "Xiao"
+  },
+  {
+    "value": "[Hulusi Solo]",
+    "text": "Hulusi"
+  },
+  {
+    "value": "[Bawu Solo]",
+    "text": "Bawu"
+  },
+  {
+    "value": "[Suona Solo]",
+    "text": "Suona"
+  },
+  {
+    "value": "[Zhonghu Solo]",
+    "text": "Zhonghu"
+  },
+  {
+    "value": "[Sanxian Solo]",
+    "text": "Sanxian"
+  },
+  {
+    "value": "[Banhu Solo]",
+    "text": "Banhu"
+  },
+  {
+    "value": "[Konghou Solo]",
+    "text": "Konghou"
+  },
+  {
+    "value": "[Dongxiao Solo]",
+    "text": "Dongxiao"
+  },
+  {
+    "value": "[Zhongruan Solo]",
+    "text": "Zhongruan"
+  },
+  {
+    "value": "[Shuangguan Solo]",
+    "text": "Shuangguan"
+  },
+  {
+    "value": "[Luo Solo]",
+    "text": "Luo"
+  },
+  {
+    "value": "[Xun Solo]",
+    "text": "Xun"
+  },
+  {
+    "value": "[Pung Solo]",
+    "text": "Pung"
+  },
+  {
+    "value": "[Yueqin Solo]",
+    "text": "Yueqin"
+  },
+  {
+    "value": "[Guzheng Sanxian Solo]",
+    "text": "Guzheng Sanxian"
+  },
+  {
+    "value": "[Hornpipe Solo]",
+    "text": "Hornpipe"
+  },
+  {
+    "value": "[Bamboo Flute Solo]",
+    "text": "Bamboo Flute"
+  },
+  {
+    "value": "[Bamboo Xiao Solo]",
+    "text": "Bamboo Xiao"
+  },
+  {
+    "value": "[Bamboo Dizi Solo]",
+    "text": "Bamboo Dizi"
+  },
+  {
+    "value": "[Bamboo Sheng Solo]",
+    "text": "Bamboo Sheng"
+  },
+  {
+    "value": "[Bamboo Xun Solo]",
+    "text": "Bamboo Xun"
+  },
+  {
+    "value": "[Bamboo Pai Xiao Solo]",
+    "text": "Bamboo Pai Xiao"
+  },
+  {
+    "value": "[Bamboo Lusheng Solo]",
+    "text": "Bamboo Lusheng"
+  },
+  {
+    "value": "[Bamboo Hulusi Solo]",
+    "text": "Bamboo Hulusi"
+  },
+  {
+    "value": "[Bamboo Bawu Solo]",
+    "text": "Bamboo Bawu"
+  },
+  {
+    "value": "[Bamboo Konghou Solo]",
+    "text": "Bamboo Konghou"
+  },
+  {
+    "value": "[Bamboo Kong Hou Solo]",
+    "text": "Bamboo Kong Hou"
+  },
+  {
+    "value": "[Bamboo Shuang Guan Solo]",
+    "text": "Bamboo Shuang Guan"
+  },
+  {
+    "value": "[Bamboo Luo Solo]",
+    "text": "Bamboo Luo"
+  },
+  {
+    "value": "[Bamboo Yue Qin Solo]",
+    "text": "Bamboo Yue Qin"
+  },
+  {
+    "value": "[Bamboo Yanyue Qin Solo]",
+    "text": "Bamboo Yanyue Qin"
+  },
+  {
+    "value": "[Charango Solo]",
+    "text": "Charango"
+  },
+  {
+    "value": "[Quena Solo]",
+    "text": "Quena"
+  },
+  {
+    "value": "[Zampoña Solo]",
+    "text": "Zampoña"
+  },
+  {
+    "value": "[Bandoneon Solo]",
+    "text": "Bandoneon"
+  },
+  {
+    "value": "[Cavaquinho Solo]",
+    "text": "Cavaquinho"
+  },
+  {
+    "value": "[Cuatro Solo]",
+    "text": "Cuatro"
+  },
+  {
+    "value": "[Tiple Solo]",
+    "text": "Tiple"
+  },
+  {
+    "value": "[Siku Solo]",
+    "text": "Siku"
+  },
+  {
+    "value": "[Marimba Solo]",
+    "text": "Marimba"
+  },
+  {
+    "value": "[Tamborim Solo]",
+    "text": "Tamborim"
+  },
+  {
+    "value": "[Berimbau Solo]",
+    "text": "Berimbau"
+  },
+  {
+    "value": "[Pandeiro Solo]",
+    "text": "Pandeiro"
+  },
+  {
+    "value": "[Quinto Solo]",
+    "text": "Quinto"
+  },
+  {
+    "value": "[Congas Solo]",
+    "text": "Congas"
+  },
+  {
+    "value": "[Timbales Solo]",
+    "text": "Timbales"
+  },
+  {
+    "value": "[Bombo Solo]",
+    "text": "Bombo"
+  },
+  {
+    "value": "[Cajón Solo]",
+    "text": "Cajón"
+  },
+  {
+    "value": "[Cajita Solo]",
+    "text": "Cajita"
+  },
+  {
+    "value": "[Bombo Legüero Solo]",
+    "text": "Bombo Legüero"
+  },
+  {
+    "value": "[Charrasca Solo]",
+    "text": "Charrasca"
+  },
+  {
+    "value": "[Chocalho Solo]",
+    "text": "Chocalho"
+  },
+  {
+    "value": "[Agogô Solo]",
+    "text": "Agogô"
+  },
+  {
+    "value": "[Maracas Solo]",
+    "text": "Maracas"
+  },
+  {
+    "value": "[Guiro Solo]",
+    "text": "Guiro"
+  },
+  {
+    "value": "[Cencerro Solo]",
+    "text": "Cencerro"
+  },
+  {
+    "value": "[Reco-reco Solo]",
+    "text": "Reco-reco"
+  },
+  {
+    "value": "[Quinto Criollo Solo]",
+    "text": "Quinto Criollo"
+  },
+  {
+    "value": "[Cuarto Solo]",
+    "text": "Cuarto"
+  },
+  {
+    "value": "[Guacharaca Solo]",
+    "text": "Guacharaca"
+  },
+  {
+    "value": "[Tambora Solo]",
+    "text": "Tambora"
+  },
+  {
+    "value": "[Chirimía Solo]",
+    "text": "Chirimía"
+  },
+  {
+    "value": "[Cajita China Solo]",
+    "text": "Cajita China"
+  },
+  {
+    "value": "[Cajita Criolla Solo]",
+    "text": "Cajita Criolla"
+  },
+  {
+    "value": "[Bass Pandeiro Solo]",
+    "text": "Bass Pandeiro"
+  },
+  {
+    "value": "[Tambor Solo]",
+    "text": "Tambor"
+  },
+  {
+    "value": "[Tambor Alegre Solo]",
+    "text": "Tambor Alegre"
+  },
+  {
+    "value": "[Quinto Elegua Solo]",
+    "text": "Quinto Elegua"
+  },
+  {
+    "value": "[Conga de Comparsa Solo]",
+    "text": "Conga de Comparsa"
+  },
+  {
+    "value": "[Native American Flute Solo]",
+    "text": "Native American Flute"
+  },
+  {
+    "value": "[Drum Circle Solo]",
+    "text": "Drum Circle"
+  },
+  {
+    "value": "[Frame Drum Solo]",
+    "text": "Frame Drum"
+  },
+  {
+    "value": "[Hoop Drum Solo]",
+    "text": "Hoop Drum"
+  },
+  {
+    "value": "[Rainstick Solo]",
+    "text": "Rainstick"
+  },
+  {
+    "value": "[Buffalo Drum Solo]",
+    "text": "Buffalo Drum"
+  },
+  {
+    "value": "[Turtle Shell Rattle Solo]",
+    "text": "Turtle Shell Rattle"
+  },
+  {
+    "value": "[Shaker Solo]",
+    "text": "Shaker"
+  },
+  {
+    "value": "[Hand Drum Solo]",
+    "text": "Hand Drum"
+  },
+  {
+    "value": "[Rattle Solo]",
+    "text": "Rattle"
+  },
+  {
+    "value": "[Pueblo Drum Solo]",
+    "text": "Pueblo Drum"
+  },
+  {
+    "value": "[Pow Wow Drum Solo]",
+    "text": "Pow Wow Drum"
+  },
+  {
+    "value": "[Tom Tom Solo]",
+    "text": "Tom Tom"
+  },
+  {
+    "value": "[Native American Drum Solo]",
+    "text": "Native American Drum"
+  },
+  {
+    "value": "[Bodhran Solo]",
+    "text": "Bodhran"
+  },
+  {
+    "value": "[Talking Drum Solo]",
+    "text": "Talking Drum"
+  },
+  {
+    "value": "[Log Drum Solo]",
+    "text": "Log Drum"
+  },
+  {
+    "value": "[Gourd Rattle Solo]",
+    "text": "Gourd Rattle"
+  },
+  {
+    "value": "[Deer Hoof Rattle Solo]",
+    "text": "Deer Hoof Rattle"
+  },
+  {
+    "value": "[Clay Pot Drum Solo]",
+    "text": "Clay Pot Drum"
+  },
+  {
+    "value": "[Water Drum Solo]",
+    "text": "Water Drum"
+  },
+  {
+    "value": "[Chak Chak Solo]",
+    "text": "Chak Chak"
+  },
+  {
+    "value": "[Clay Drum Solo]",
+    "text": "Clay Drum"
+  },
+  {
+    "value": "[Coyote Bone Rattle Solo]",
+    "text": "Coyote Bone Rattle"
+  },
+  {
+    "value": "[Tubular Drum Solo]",
+    "text": "Tubular Drum"
+  },
+  {
+    "value": "[Djun Djun Solo]",
+    "text": "Djun Djun"
+  },
+  {
+    "value": "[Gong Drum Solo]",
+    "text": "Gong Drum"
+  },
+  {
+    "value": "[Thunder Drum Solo]",
+    "text": "Thunder Drum"
+  },
+  {
+    "value": "[Cane Rattle Solo]",
+    "text": "Cane Rattle"
+  },
+  {
+    "value": "[Snake Drum Solo]",
+    "text": "Snake Drum"
+  },
+  {
+    "value": "[Frog Drum Solo]",
+    "text": "Frog Drum"
+  },
+  {
+    "value": "[Stone Drum Solo]",
+    "text": "Stone Drum"
+  },
+  {
+    "value": "[Bone Rattle Solo]",
+    "text": "Bone Rattle"
+  },
+  {
+    "value": "[Deer Hide Drum Solo]",
+    "text": "Deer Hide Drum"
+  },
+  {
+    "value": "[Handmade Drum Solo]",
+    "text": "Handmade Drum"
+  },
+  {
+    "value": "[Gourd Drum Solo]",
+    "text": "Gourd Drum"
+  },
+  {
+    "value": "[Cedar Drum Solo]",
+    "text": "Cedar Drum"
+  },
+  {
+    "value": "[Pumpkin Drum Solo]",
+    "text": "Pumpkin Drum"
+  },
+  {
+    "value": "[Spirit Drum Solo]",
+    "text": "Spirit Drum"
+  },
+  {
+    "value": "[Sistrum Solo]",
+    "text": "Sistrum"
+  },
+  {
+    "value": "[Didgeridoo Solo]",
+    "text": "Didgeridoo"
+  },
+  {
+    "value": "[Clapsticks Solo]",
+    "text": "Clapsticks"
+  },
+  {
+    "value": "[Bullroarer Solo]",
+    "text": "Bullroarer"
+  },
+  {
+    "value": "[Digeridoo Solo]",
+    "text": "Digeridoo"
+  },
+  {
+    "value": "[Bukbuk Solo]",
+    "text": "Bukbuk"
+  },
+  {
+    "value": "[Bunyip Solo]",
+    "text": "Bunyip"
+  },
+  {
+    "value": "[Gong-Gong Solo]",
+    "text": "Gong-Gong"
+  },
+  {
+    "value": "[Hornbill Solo]",
+    "text": "Hornbill"
+  },
+  {
+    "value": "[Jumbuck Solo]",
+    "text": "Jumbuck"
+  },
+  {
+    "value": "[Kartuk Solo]",
+    "text": "Kartuk"
+  },
+  {
+    "value": "[Mala Solo]",
+    "text": "Mala"
+  },
+  {
+    "value": "[Pangkur Solo]",
+    "text": "Pangkur"
+  },
+  {
+    "value": "[Papu Solo]",
+    "text": "Papu"
+  },
+  {
+    "value": "[Pitch-pot Solo]",
+    "text": "Pitch-pot"
+  },
+  {
+    "value": "[Purrah Solo]",
+    "text": "Purrah"
+  },
+  {
+    "value": "[Quinkin Solo]",
+    "text": "Quinkin"
+  },
+  {
+    "value": "[Quoll Solo]",
+    "text": "Quoll"
+  },
+  {
+    "value": "[Rainmaker Solo]",
+    "text": "Rainmaker"
+  },
+  {
+    "value": "[Tjurunga Solo]",
+    "text": "Tjurunga"
+  },
+  {
+    "value": "[Wandjina Solo]",
+    "text": "Wandjina"
+  },
+  {
+    "value": "[Willy Willy Solo]",
+    "text": "Willy Willy"
+  },
+  {
+    "value": "[Woomera Solo]",
+    "text": "Woomera"
+  },
+  {
+    "value": "[Yamstick Solo]",
+    "text": "Yamstick"
+  },
+  {
+    "value": "[Yidaki Solo]",
+    "text": "Yidaki"
+  },
+  {
+    "value": "[Yowie Solo]",
+    "text": "Yowie"
+  },
+  {
+    "value": "[Bullroarer Solo]",
+    "text": "Bullroarer"
+  },
+  {
+    "value": "[Clapsticks Solo]",
+    "text": "Clapsticks"
+  },
+  {
+    "value": "[Digeridoo Solo]",
+    "text": "Digeridoo"
+  },
+  {
+    "value": "[Gong-Gong Solo]",
+    "text": "Gong-Gong"
+  },
+  {
+    "value": "[Hornbill Solo]",
+    "text": "Hornbill"
+  },
+  {
+    "value": "[Kartuk Solo]",
+    "text": "Kartuk"
+  },
+  {
+    "value": "[Mala Solo]",
+    "text": "Mala"
+  },
+  {
+    "value": "[Pangkur Solo]",
+    "text": "Pangkur"
+  },
+  {
+    "value": "[Papu Solo]",
+    "text": "Papu"
+  },
+  {
+    "value": "[Pitch-pot Solo]",
+    "text": "Pitch-pot"
+  },
+  {
+    "value": "[Purrah Solo]",
+    "text": "Purrah"
+  },
+  {
+    "value": "[Quinkin Solo]",
+    "text": "Quinkin"
+  },
+  {
+    "value": "[Quoll Solo]",
+    "text": "Quoll"
+  },
+  {
+    "value": "[Rainmaker Solo]",
+    "text": "Rainmaker"
+  },
+  {
+    "value": "[Tjurunga Solo]",
+    "text": "Tjurunga"
+  },
+  {
+    "value": "[Wandjina Solo]",
+    "text": "Wandjina"
   }
 ]

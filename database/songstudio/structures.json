@@ -1,5 +1,53 @@
 [
   {
+    "value": "[Intro]\n\n[Verse 1]\n\n[Chorus]\n\n[Verse 2]\n\n[Chorus]\n\n[Bridge]\n\n[Chorus]\n\n[Outro]",
+    "text": "Pop"
+  },
+  {
+    "value": "[Intro]\n\n[Verse 1]\n\n[Pre-Chorus]\n\n[Chorus]\n\n[Verse 2]\n\n[Pre-Chorus]\n\n[Chorus]\n\n[Bridge]\n\n[Chorus]\n\n[Outro]",
+    "text": "Pop Rock"
+  },
+  {
+    "value": "[Intro]\n\n[Verse 1]\n\n[Chorus]\n\n[Verse 2]\n\n[Chorus]\n\n[Bridge]\n\n[Chorus]\n\n[Guitar Solo]\n\n[Outro]",
+    "text": "Epic Ballad"
+  },
+  {
+    "value": "[Intro]\n\n[Verse 1]\n\n[Chorus]\n\n[Verse 2]\n\n[Chorus]\n\n[Bridge]\n\n[Chorus]\n\n[Instrumental Break]\n\n[Chorus]\n\n[Outro]",
+    "text": "Funk"
+  },
+  {
+    "value": "[Intro]\n\n[Verse 1]\n\n[Chorus]\n\n[Verse 2]\n\n[Chorus]\n\n[Bridge]\n\n[Chorus]\n\n[Reggae Break]\n\n[Chorus]\n\n[Outro]",
+    "text": "Reggae"
+  },
+  {
+    "value": "[Intro]\n\n[Verse 1]\n\n[Chorus]\n\n[Verse 2]\n\n[Chorus]\n\n[Bridge]\n\n[Chorus]\n\n[Latin Percussion Break]\n\n[Chorus]\n\n[Outro]",
+    "text": "Latin"
+  },
+  {
+    "value": "[Intro]\n\n[Verse 1]\n\n[Chorus]\n\n[Verse 2]\n\n[Chorus]\n\n[Bridge]\n\n[Chorus]\n\n[Jazz Interlude]\n\n[Chorus]\n\n[Outro]",
+    "text": "Jazz"
+  },
+  {
+    "value": "[Intro]\n\n[Verse 1]\n\n[Chorus]\n\n[Verse 2]\n\n[Chorus]\n\n[Bridge]\n\n[Chorus]\n\n[Electronic Breakdown]\n\n[Chorus]\n\n[Outro]",
+    "text": "Electronic"
+  },
+  {
+    "value": "[Intro]\n\n[Verse 1]\n\n[Chorus]\n\n[Verse 2]\n\n[Chorus]\n\n[Bridge]\n\n[Chorus]\n\n[DJ Break]\n\n[Chorus]\n\n[Outro]",
+    "text": "EDM"
+  },
+  {
+    "value": "[Intro]\n\n[Verse 1]\n\n[Chorus]\n\n[Verse 2]\n\n[Chorus]\n\n[Bridge]\n\n[Chorus]\n\n[Trap Break]\n\n[Chorus]\n\n[Outro]",
+    "text": "Hip Hop"
+  },
+  {
+    "value": "[Intro]\n\n[Verse 1]\n\n[Chorus]\n\n[Verse 2]\n\n[Chorus]\n\n[Bridge]\n\n[Chorus]\n\n[Breakdown]\n\n[Chorus]\n\n[Outro]",
+    "text": "Country"
+  },
+  {
+    "value": "[Intro]\n\n[Verse 1]\n\n[Chorus]\n\n[Verse 2]\n\n[Chorus]\n\n[Bridge]\n\n[Chorus]\n\n[Guitar Solo]\n\n[Chorus]\n\n[Outro]",
+    "text": "Classic"
+  },
+  {
     "value": "[Quatrain 1]\n\n[Quatrain 2]\n\n[Quatrain 3]\n\n[Couplet]",
     "text": "Sonnet"
   },
@@ -38,5 +86,217 @@
   {
     "value": "[Section 1]\n\n[Section 2]\n\n[Section 3]\n\n[Section 4]",
     "text": "Free Verse"
+  },
+  {
+    "value": "[Introduction]\n\n[Verse 1]\n\n[Chorus]\n\n[Verse 2]\n\n[Chorus]\n\n[Bridge]\n\n[Chorus]\n\n[Outro]",
+    "text": "Classic Pop Song"
+  },
+  {
+    "value": "[Opening]\n\n[Verse 1]\n\n[Refrain]\n\n[Verse 2]\n\n[Refrain]\n\n[Bridge]\n\n[Refrain]\n\n[Conclusion]",
+    "text": "Traditional Folk Song"
+  },
+  {
+    "value": "[Prologue]\n\n[Stanza 1]\n\n[Chorus]\n\n[Stanza 2]\n\n[Chorus]\n\n[Interlude]\n\n[Stanza 3]\n\n[Chorus]\n\n[Epilogue]",
+    "text": "Epic Poem"
+  },
+  {
+    "value": "[Introduction]\n\n[Verse 1]\n\n[Pre-Chorus]\n\n[Chorus]\n\n[Verse 2]\n\n[Pre-Chorus]\n\n[Chorus]\n\n[Bridge]\n\n[Chorus]\n\n[Outro]",
+    "text": "Contemporary Pop Song"
+  },
+  {
+    "value": "[Opening]\n\n[Stanza 1]\n\n[Refrain]\n\n[Stanza 2]\n\n[Refrain]\n\n[Bridge]\n\n[Refrain]\n\n[Conclusion]",
+    "text": "Modern Folk Song"
+  },
+  {
+    "value": "[Introduction]\n\n[Verse 1]\n\n[Chorus]\n\n[Verse 2]\n\n[Chorus]\n\n[Instrumental Break]\n\n[Verse 3]\n\n[Chorus]\n\n[Outro]",
+    "text": "Powerful Ballad"
+  },
+  {
+    "value": "[Prelude]\n\n[Strophe 1]\n\n[Chorus]\n\n[Strophe 2]\n\n[Chorus]\n\n[Interlude]\n\n[Strophe 3]\n\n[Chorus]\n\n[Postlude]",
+    "text": "Classical Ode"
+  },
+  {
+    "value": "[Introduction]\n\n[Verse 1]\n\n[Chorus]\n\n[Verse 2]\n\n[Chorus]\n\n[Instrumental Interlude]\n\n[Verse 3]\n\n[Chorus]\n\n[Outro]",
+    "text": "Heartfelt Anthem"
+  },
+  {
+    "value": "[Opening]\n\n[Verse 1]\n\n[Refrain]\n\n[Verse 2]\n\n[Refrain]\n\n[Interlude]\n\n[Verse 3]\n\n[Refrain]\n\n[Conclusion]",
+    "text": "Emotional Folk Ballad"
+  },
+  {
+    "value": "[Prologue]\n\n[Stanza 1]\n\n[Chorus]\n\n[Stanza 2]\n\n[Chorus]\n\n[Intermezzo]\n\n[Stanza 3]\n\n[Chorus]\n\n[Epilogue]",
+    "text": "Dramatic Narrative Poem"
+  },
+  {
+    "value": "[Introduction]\n\n[Verse 1]\n\n[Chorus]\n\n[Verse 2]\n\n[Chorus]\n\n[Interlude]\n\n[Verse 3]\n\n[Chorus]\n\n[Outro]",
+    "text": "Soulful R&B Song"
+  },
+  {
+    "value": "[Opening]\n\n[Stanza 1]\n\n[Refrain]\n\n[Stanza 2]\n\n[Refrain]\n\n[Bridge]\n\n[Refrain]\n\n[Conclusion]",
+    "text": "Whimsical Folk Song"
+  },
+  {
+    "value": "[Introduction]\n\n[Verse 1]\n\n[Chorus]\n\n[Verse 2]\n\n[Chorus]\n\n[Instrumental Break]\n\n[Verse 3]\n\n[Chorus]\n\n[Outro]",
+    "text": "Epic Rock Anthem"
+  },
+  {
+    "value": "[Prelude]\n\n[Strophe 1]\n\n[Chorus]\n\n[Strophe 2]\n\n[Chorus]\n\n[Interlude]\n\n[Strophe 3]\n\n[Chorus]\n\n[Postlude]",
+    "text": "Romantic Sonnet"
+  },
+  {
+    "value": "[Introduction]\n\n[Verse 1]\n\n[Chorus]\n\n[Verse 2]\n\n[Chorus]\n\n[Instrumental Interlude]\n\n[Verse 3]\n\n[Chorus]\n\n[Outro]",
+    "text": "Uplifting Pop Rock"
+  },
+  {
+    "value": "[Opening]\n\n[Verse 1]\n\n[Refrain]\n\n[Verse 2]\n\n[Refrain]\n\n[Interlude]\n\n[Verse 3]\n\n[Refrain]\n\n[Conclusion]",
+    "text": "Soothing Lullaby"
+  },
+  {
+    "value": "[Prologue]\n\n[Stanza 1]\n\n[Chorus]\n\n[Stanza 2]\n\n[Chorus]\n\n[Intermezzo]\n\n[Stanza 3]\n\n[Chorus]\n\n[Epilogue]",
+    "text": "Mystical Haiku"
+  },
+  {
+    "value": "[Introduction]\n\n[Verse 1]\n\n[Chorus]\n\n[Verse 2]\n\n[Chorus]\n\n[Instrumental Break]\n\n[Verse 3]\n\n[Chorus]\n\n[Outro]",
+    "text": "Sultry Jazz Ballad"
+  },
+  {
+    "value": "[Opening]\n\n[Stanza 1]\n\n[Refrain]\n\n[Stanza 2]\n\n[Refrain]\n\n[Bridge]\n\n[Refrain]\n\n[Conclusion]",
+    "text": "Ethereal Sonnet"
+  },
+  {
+    "value": "[Introduction]\n\n[Verse 1]\n\n[Chorus]\n\n[Verse 2]\n\n[Chorus]\n\n[Instrumental Interlude]\n\n[Verse 3]\n\n[Chorus]\n\n[Outro]",
+    "text": "Inspirational Anthem"
+  },
+  {
+    "value": "[Intro: Female]\n\n[Verse 1: Female]\n\n[Chorus: Both]\n\n[Verse 2: Male]\n\n[Chorus: Both]\n\n[Bridge: Female]\n\n[Verse 3: Male]\n\n[Chorus: Both]\n\n[Outro: Both]",
+    "text": "Duet - Male/Female"
+  },
+  {
+    "value": "[Intro: Male]\n\n[Verse 1: Male]\n\n[Chorus: Both]\n\n[Verse 2: Female]\n\n[Chorus: Both]\n\n[Bridge: Both]\n\n[Verse 3: Male]\n\n[Chorus: Both]\n\n[Outro: Female]",
+    "text": "Duet - Female/Male"
+  },
+  {
+    "value": "[Intro: Both]\n\n[Verse 1: Male]\n\n[Chorus: Female]\n\n[Verse 2: Female]\n\n[Chorus: Male]\n\n[Bridge: Both]\n\n[Verse 3: Both]\n\n[Chorus: Both]\n\n[Outro: Both]",
+    "text": "Gender-Switch Duet"
+  },
+  {
+    "value": "[Intro: Solo]\n\n[Verse 1: Male]\n\n[Chorus: Both]\n\n[Verse 2: Female]\n\n[Chorus: Both]\n\n[Bridge: Solo]\n\n[Verse 3: Male]\n\n[Chorus: Both]\n\n[Outro: Both]",
+    "text": "Solo with Duet Chorus"
+  },
+  {
+    "value": "[Intro: Both]\n\n[Verse 1: Female]\n\n[Chorus: Male]\n\n[Verse 2: Male]\n\n[Chorus: Female]\n\n[Bridge: Both]\n\n[Verse 3: Both]\n\n[Chorus: Both]\n\n[Outro: Both]",
+    "text": "Chorus Switch"
+  },
+  {
+    "value": "[Intro: Female]\n\n[Verse 1: Male]\n\n[Chorus: Female]\n\n[Verse 2: Both]\n\n[Chorus: Female]\n\n[Bridge: Male]\n\n[Verse 3: Both]\n\n[Chorus: Both]\n\n[Outro: Both]",
+    "text": "Gender-Balanced Duet"
+  },
+  {
+    "value": "[Intro: Male]\n\n[Verse 1: Female]\n\n[Chorus: Both]\n\n[Verse 2: Both]\n\n[Chorus: Female]\n\n[Bridge: Both]\n\n[Verse 3: Male]\n\n[Chorus: Both]\n\n[Outro: Female]",
+    "text": "Gender-Specific Choruses"
+  },
+  {
+    "value": "[Intro: Both]\n\n[Verse 1: Male]\n\n[Chorus: Female]\n\n[Verse 2: Female]\n\n[Chorus: Male]\n\n[Bridge: Both]\n\n[Verse 3: Both]\n\n[Chorus: Both]\n\n[Outro: Both]",
+    "text": "Alternating Chorus Genders"
+  },
+  {
+    "value": "[Intro: Male]\n\n[Verse 1: Female]\n\n[Chorus: Both]\n\n[Verse 2: Male]\n\n[Chorus: Both]\n\n[Bridge: Female]\n\n[Verse 3: Both]\n\n[Chorus: Both]\n\n[Outro: Both]",
+    "text": "Duet with Female Bridge"
+  },
+  {
+    "value": "[Intro: Both]\n\n[Verse 1: Male]\n\n[Chorus: Female]\n\n[Verse 2: Female]\n\n[Chorus: Male]\n\n[Bridge: Both]\n\n[Verse 3: Both]\n\n[Chorus: Both]\n\n[Outro: Both]",
+    "text": "Gender-Balanced Chorus"
+  },
+  {
+    "value": "[Intro: Both]\n\n[Verse 1: Both]\n\n[Chorus: Female]\n\n[Verse 2: Both]\n\n[Chorus: Male]\n\n[Bridge: Both]\n\n[Verse 3: Both]\n\n[Chorus: Both]\n\n[Outro: Both]",
+    "text": "Unified Chorus"
+  },
+  {
+    "value": "[Intro: Female]\n\n[Verse 1: Male]\n\n[Chorus: Female]\n\n[Verse 2: Female]\n\n[Chorus: Both]\n\n[Bridge: Both]\n\n[Verse 3: Male]\n\n[Chorus: Both]\n\n[Outro: Both]",
+    "text": "Female-Dominated Chorus"
+  },
+  {
+    "value": "[Intro: Both]\n\n[Verse 1: Male]\n\n[Chorus: Both]\n\n[Verse 2: Female]\n\n[Chorus: Both]\n\n[Bridge: Both]\n\n[Verse 3: Both]\n\n[Chorus: Both]\n\n[Outro: Both]",
+    "text": "Equal Duet"
+  },
+  {
+    "value": "[Intro: Both]\n\n[Verse 1: Female]\n\n[Chorus: Male]\n\n[Verse 2: Both]\n\n[Chorus: Both]\n\n[Bridge: Both]\n\n[Verse 3: Both]\n\n[Chorus: Female]\n\n[Outro: Both]",
+    "text": "Duet with Alternating Choruses"
+  },
+  {
+    "value": "[Intro: Female]\n\n[Verse 1: Male]\n\n[Chorus: Female]\n\n[Verse 2: Female]\n\n[Chorus: Both]\n\n[Bridge: Male]\n\n[Verse 3: Both]\n\n[Chorus: Both]\n\n[Outro: Both]",
+    "text": "Duet with Male Bridge"
+  },
+  {
+    "value": "[Intro: Both]\n\n[Verse 1: Male]\n\n[Chorus: Both]\n\n[Verse 2: Female]\n\n[Chorus: Both]\n\n[Bridge: Both]\n\n[Verse 3: Both]\n\n[Chorus: Both]\n\n[Outro: Both]",
+    "text": "Harmonized Duet"
+  },
+  {
+    "value": "[Opening Joke: Crowd Reaction]\n\n[First Segment: Monologue]\n\n[Audience Interaction: Improv]\n\n[Comedic Sketch: Crowd Laughter]\n\n[Stand-Up Routine: Applause]\n\n[Special Bit: Drum Roll]\n\n[Final Punchline: Roaring Applause]",
+    "text": "Classic Stand-Up Comedy Set"
+  },
+  {
+    "value": "[Introduction: Drum Roll]\n\n[Monologue Opening: Laughter]\n\n[Audience Banter: Cheers]\n\n[Observational Humor: Chuckles]\n\n[Improv Segment: Applause]\n\n[Closing Act: Standing Ovation]",
+    "text": "Traditional Comedy Show"
+  },
+  {
+    "value": "[Opening Joke: Laughter]\n\n[Storytelling Segment: Engaged Audience]\n\n[Impersonation Skit: Roaring Laughter]\n\n[Topical Jokes: Applause]\n\n[Interactive Game: Excitement]\n\n[Closing Bit: Thunderous Applause]",
+    "text": "Dynamic Comedy Performance"
+  },
+  {
+    "value": "[Introduction: Drum Roll]\n\n[Monologue Opener: Laughter]\n\n[Interactive Q&A: Engaged Audience]\n\n[Sketch Performance: Roaring Laughter]\n\n[Stand-Up Routine: Applause]\n\n[Final Joke: Thunderous Applause]",
+    "text": "High-Energy Comedy Act"
+  },
+  {
+    "value": "[Warm-Up Joke: Chuckles]\n\n[Personal Story: Engaged Audience]\n\n[Character Impersonation: Laughter]\n\n[Satirical Sketch: Applause]\n\n[Stand-Up Routine: Roaring Laughter]\n\n[Grand Finale: Standing Ovation]",
+    "text": "Lively Stand-Up Show"
+  },
+  {
+    "value": "[Opening Banter: Cheers]\n\n[Observational Humor: Chuckles]\n\n[Character Skit: Laughter]\n\n[Improv Session: Applause]\n\n[Stand-Up Routine: Roaring Laughter]\n\n[Final Act: Standing Ovation]",
+    "text": "Interactive Comedy Performance"
+  },
+  {
+    "value": "[Introduction: Applause]\n\n[Monologue Opener: Laughter]\n\n[Interactive Segment: Engaged Audience]\n\n[Sketch Performance: Roaring Laughter]\n\n[Stand-Up Routine: Applause]\n\n[Closing Joke: Thunderous Applause]",
+    "text": "Energetic Comedy Set"
+  },
+  {
+    "value": "[Opening Joke: Laughter]\n\n[Personal Anecdote: Engaged Audience]\n\n[Character Sketch: Roaring Laughter]\n\n[Political Satire: Applause]\n\n[Stand-Up Routine: Roaring Laughter]\n\n[Closing Act: Standing Ovation]",
+    "text": "Vibrant Stand-Up Act"
+  },
+  {
+    "value": "[Introductory Quip: Chuckles]\n\n[Storytelling Segment: Engaged Audience]\n\n[Impersonation Skit: Laughter]\n\n[Satirical Commentary: Applause]\n\n[Interactive Game: Excitement]\n\n[Closing Act: Thunderous Applause]",
+    "text": "Entertaining Comedy Performance"
+  },
+  {
+    "value": "[Opening Banter: Cheers]\n\n[Observational Comedy: Laughter]\n\n[Character Sketch: Roaring Laughter]\n\n[Improv Session: Applause]\n\n[Stand-Up Routine: Applause]\n\n[Closing Act: Standing Ovation]",
+    "text": "Invigorating Stand-Up Show"
+  },
+  {
+    "value": "[Introduction: Applause]\n\n[Monologue Opener: Laughter]\n\n[Interactive Q&A: Engaged Audience]\n\n[Sketch Performance: Roaring Laughter]\n\n[Stand-Up Routine: Applause]\n\n[Final Joke: Thunderous Applause]",
+    "text": "High-Spirited Comedy Act"
+  },
+  {
+    "value": "[Warm-Up Joke: Chuckles]\n\n[Personal Story: Engaged Audience]\n\n[Character Impersonation: Laughter]\n\n[Satirical Sketch: Applause]\n\n[Stand-Up Routine: Roaring Laughter]\n\n[Grand Finale: Standing Ovation]",
+    "text": "Animated Stand-Up Show"
+  },
+  {
+    "value": "[Opening Banter: Cheers]\n\n[Observational Humor: Chuckles]\n\n[Character Skit: Laughter]\n\n[Improv Session: Applause]\n\n[Stand-Up Routine: Roaring Laughter]\n\n[Final Act: Standing Ovation]",
+    "text": "Interactive Comedy Performance"
+  },
+  {
+    "value": "[Introduction: Applause]\n\n[Monologue Opener: Laughter]\n\n[Interactive Segment: Engaged Audience]\n\n[Sketch Performance: Roaring Laughter]\n\n[Stand-Up Routine: Applause]\n\n[Closing Joke: Thunderous Applause]",
+    "text": "Energetic Comedy Set"
+  },
+  {
+    "value": "[Opening Joke: Laughter]\n\n[Personal Anecdote: Engaged Audience]\n\n[Character Sketch: Roaring Laughter]\n\n[Political Satire: Applause]\n\n[Stand-Up Routine: Roaring Laughter]\n\n[Closing Act: Standing Ovation]",
+    "text": "Vibrant Stand-Up Act"
+  },
+  {
+    "value": "[Introductory Quip: Chuckles]\n\n[Storytelling Segment: Engaged Audience]\n\n[Impersonation Skit: Laughter]\n\n[Satirical Commentary: Applause]\n\n[Interactive Game: Excitement]\n\n[Closing Act: Thunderous Applause]",
+    "text": "Entertaining Comedy Performance"
+  },
+  {
+    "value": "[Opening Banter: Cheers]\n\n[Observational Comedy: Laughter]\n\n[Character Sketch: Roaring Laughter]\n\n[Improv Session: Applause]\n\n[Stand-Up Routine: Applause]\n\n[Closing Act: Standing Ovation]",
+    "text": "Invigorating Stand-Up Show"
   }
 ]
