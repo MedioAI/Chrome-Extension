@@ -4,6 +4,8 @@
 
 ![MedioAI.com](https://github.com/WynterJones/MedioAI-for-Udio/blob/main/app/images/banner.png)
 
+#### Watch the Explainer Video here: https://www.youtube.com/watch?v=Pei8oBZ7-v4
+
 A chrome extension to enhance the experience of Udio.com, the best music platform online.
 
 **Features include:**
