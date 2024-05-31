@@ -152,7 +152,8 @@
 #medioAskChatList,
 #medioSongChatList,
 #medioSongRollDice,
-#medioSongClear {
+#medioSongClear,
+#medioaiSettings {
   background: #242424;
   padding: 6px 12px;
   display: flex;
@@ -160,6 +161,9 @@
   font-size: 16px;
   border: 1px solid #474747;
   font-weight: 800;
+}
+#medioaiSettings svg {
+  margin-right: 10px;
 }
 #medioaiSendMessage {
   background: #25cc8c;
