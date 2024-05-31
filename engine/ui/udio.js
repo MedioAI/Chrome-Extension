@@ -236,10 +236,14 @@ const uiMedioAI = {
       class="text-sm text-gray-300 flex-1 whitespace-nowrap font-medium"
       ></span>
     </div>
-    <button id="medioaiSettings" class="flex items-center space-x-3">
-      ${iconsMedioAI.cog}
-      Settings
-    </button>
+    <div class="flex space-x-2 items-center">
+      <button id="medioaiTools" class="flex items-center space-x-3">
+        ${iconsMedioAI.tools}
+      </button>
+      <button id="medioaiSettings" class="flex items-center space-x-3">
+        ${iconsMedioAI.cog}
+      </button>
+    </div>
   </h1>
 
   <div

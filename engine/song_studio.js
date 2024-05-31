@@ -45,7 +45,7 @@ const songStudioMedioAI = {
     window.addEventListener('keydown', songStudioMedioAI.spaceKeyDown)
 
     songStudioMedioAI.fixPlaylistPosition()
-    songStudioMedioAI.openSettings()
+    songStudioMedioAI.appButtons()
   },
 
   load: callback => {
@@ -376,10 +376,15 @@ const songStudioMedioAI = {
     })
   },
 
-  openSettings: () => {
-    const settings = document.getElementById('medioaiSettings')
-    settings.addEventListener('click', () => {
-      chrome.runtime.sendMessage({ action: 'openSettings' })
+  appButtons: () => {
+    const medioaiSettings = document.getElementById('medioaiSettings')
+    medioaiSettings.addEventListener('click', () => {
+      chrome.runtime.sendMessage({ action: 'appButtons' })
+    })
+
+    const medioaiTools = document.getElementById('medioaiTools')
+    medioaiTools.addEventListener('click', () => {
+      chrome.runtime.sendMessage({ action: 'openApp' })
     })
   },
 

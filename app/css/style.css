@@ -164,7 +164,6 @@ body {
 .slider:hover {
   opacity: 1;
 }
-
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
@@ -186,14 +185,12 @@ body {
   align-items: center;
   justify-content: center;
 }
-
 #waveformpreview {
   font-size: 15px;
   color: #ffffff5a;
   font-style: italic;
   letter-spacing: 1px;
 }
-
 #upload {
   padding: 120px;
   border: 2px dashed #333;
@@ -205,7 +202,6 @@ body {
   background: #323232;
   border-color: #656565;
 }
-
 #visualizer {
   margin-top: -15px;
 }
@@ -221,7 +217,9 @@ body {
   max-width: 760px;
   margin: 0 auto;
 }
-
 #editorCanvas {
   background: url('../images/dots.webp') repeat;
+}
+.clr-field {
+  width: 100%;
 }

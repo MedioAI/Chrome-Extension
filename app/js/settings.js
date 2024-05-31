@@ -26,9 +26,46 @@ const app = {
 
     const saveButton = document.getElementById('save')
     saveButton.addEventListener('click', app.save)
+
+    Coloris({
+      el: '.coloris',
+      wrap: true,
+      rtl: false,
+      theme: 'default',
+      themeMode: 'dark',
+      margin: 2,
+      format: 'hex',
+      formatToggle: false,
+      alpha: true,
+      forceAlpha: false,
+      swatchesOnly: false,
+      focusInput: true,
+      selectInput: false,
+      clearButton: false,
+      clearLabel: 'Clear',
+      closeButton: false,
+      closeLabel: 'Close',
+      swatches: [
+        '#264653',
+        '#2a9d8f',
+        '#e9c46a',
+        'rgb(244,162,97)',
+        '#e76f51',
+        '#d62828',
+        'navy',
+        '#07b',
+        '#0096c7',
+        '#00b4d880',
+        'rgba(0,119,182,0.8)',
+      ],
+      defaultColor: '#26BB79',
+    })
   },
 
   save: function () {
+    const notice = document.getElementById('notice')
+    notice.style.display = 'block'
+
     const medioaiSettings = {
       notification: document.getElementById('notification').value,
       notificationsound: document.getElementById('notificationsound').value,
@@ -41,7 +78,9 @@ const app = {
     }
 
     chrome.storage.local.set({ medioaiSettings }, function () {
-      alert('Settings saved!')
+      setTimeout(() => {
+        notice.style.display = 'none'
+      }, 2000)
     })
   },
 }

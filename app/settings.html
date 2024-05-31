@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MedioAI: Your Music Assistant</title>
     <link rel="stylesheet" href="/app/css/style.css" />
+    <link rel="stylesheet" href="../lib/coloris.css" />
   </head>
   <body class="flex text-white">
     <div id="sidebar" class="w-1/6 h-screen relative">
@@ -42,17 +43,18 @@
 
       <hr class="my-8 border-gray-600" />
 
-      <h4 class="uppercase text-lg font-medium mb-2">General</h4>
+      <h4 class="uppercase text-lg font-medium mb-1">Audio Notification</h4>
+      <p class="text-sm text-gray-500 mb-4">Get notified when your Udio queue is complete.</p>
       <div class="flex w-full space-x-3">
         <div class="input-group w-1/2">
-          <label for="notification">Notification Sound</label>
+          <label for="notification">Toggle</label>
           <select id="notification">
             <option value="on">On</option>
             <option value="off">Off</option>
           </select>
         </div>
         <div class="input-group w-1/2">
-          <label for="notificationsound">Sound Type</label>
+          <label for="notificationsound">Sound</label>
           <select id="notificationsound">
             <option value="ding">Fries are Done</option>
             <option value="mc5">Kick Out the Jams</option>
@@ -71,23 +73,16 @@
         </div>
       </div>
 
-      <div class="flex w-full space-x-3">
-        <div class="input-group w-1/2">
-          <label for="slideanimation">Slide Out Animation</label>
-          <select id="slideanimation">
-            <option value="on">On</option>
-            <option value="off">Off</option>
-          </select>
-        </div>
-        <div class="input-group w-1/2">
-          <label for="commandcolor">Command Tag Color</label>
-          <input type="text" id="commandcolor" value="#26BB79" />
-        </div>
-      </div>
+      <hr class="my-8 border-gray-600" />
+      <h4 class="uppercase text-lg font-medium mb-2">General</h4>
 
       <div class="flex w-full space-x-3">
-        <div class="input-group w-1/2">
-          <label for="lyrictextsize">Lyric Text Size</label>
+        <div class="input-group w-1/3">
+          <label for="commandcolor">[Command] Tag Color</label>
+          <input class="coloris" type="text" id="commandcolor" value="#26BB79" />
+        </div>
+        <div class="input-group w-1/3">
+          <label for="lyrictextsize">Lyric Editor Text Size</label>
           <select id="lyrictextsize">
             <option value="11px">Extra Small</option>
             <option value="14px">Small</option>
@@ -95,10 +90,16 @@
             <option value="28px">Large</option>
           </select>
         </div>
+        <div class="input-group w-1/3">
+          <label for="slideanimation">Slide Out Animation</label>
+          <select id="slideanimation">
+            <option value="on">On</option>
+            <option value="off">Off</option>
+          </select>
+        </div>
       </div>
 
       <hr class="my-8 border-gray-600" />
-
       <h4 class="uppercase text-lg font-medium mb-2">A.I. Integration</h4>
       <!-- <div class="input-group">
         <label for="aimodel">AI Model</label>
@@ -117,9 +118,19 @@
         <p class="text-sm">Coming soon.</p>
       </div>
 
+      <div
+        style="display: none"
+        id="notice"
+        style="width: 200px"
+        class="fixed top-2 right-2 text-green-300 p-4 rounded-lg bg-green-900 border border-green-300"
+      >
+        Saved settings.
+      </div>
+
       <button class="btn primary mt-6" id="save">Save Changes</button>
     </div>
 
+    <script src="../lib/coloris.js"></script>
     <script src="../lib/tailwind.js"></script>
     <script src="/app/js/settings.js"></script>
   </body>
