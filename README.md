@@ -1,6 +1,6 @@
-# MedioAI: Enhance Udio
+# MedioAI: Enhance Udio (Unofficial)
 
-### Transform your Udio experience. Use the Song Studio, Tag Builder, AI Assistant, Audio Tools, 5k+ Built in Tags & Much More!
+### Transform your Udio experience. Chrome Extension for Desktop.
 
 ---
 
@@ -37,6 +37,7 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 
 ## Releases
 
+- **Version 1.2** - [MedioAI v1.2 (just more tags)](https://github.com/WynterJones/MedioAI-for-Udio/releases/tag/v1.2)
 - **Version 1.1** - [MedioAI v1.1](https://github.com/WynterJones/MedioAI-for-Udio/releases/tag/v1.1)
 
 ## Contributing
