@@ -43,6 +43,8 @@ const songStudioMedioAI = {
       }
     }
     window.addEventListener('keydown', songStudioMedioAI.spaceKeyDown)
+
+    songStudioMedioAI.fixPlaylistPosition()
   },
 
   load: callback => {
@@ -371,5 +373,21 @@ const songStudioMedioAI = {
         }
       })
     })
+  },
+
+  fixPlaylistPosition: () => {
+    const callback = function (mutationsList, observer) {
+      const element = document.querySelector(
+        'aside nav [dir="ltr"].relative.overflow-hidden.flex.w-full.flex-col'
+      )
+
+      if (element) {
+        element.style.maxHeight = 'calc(-630px + 100vh)'
+        observer.disconnect()
+      }
+    }
+
+    const observer = new MutationObserver(callback)
+    observer.observe(document, { childList: true, subtree: true })
   },
 }

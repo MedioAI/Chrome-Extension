@@ -19,15 +19,15 @@ A chrome extension to enhance the experience of Udio.com, the best music platfor
 4. **Ask**
    - AI integration for asking for feedback on your lyrics, chatting.
 5. **Co-Writer**
-    - Create a song from scratch with a wizard walkthrough.
+   - Create a song from scratch with a wizard walkthrough.
 6. **Saved Library**
-    - Manage all your song lyrics, tags, chats and more in easy to use native UI.
+   - Manage all your song lyrics, tags, chats and more in easy to use native UI.
 7. **Audio Notification**
-    - Get notified when your song is ready to listen.
+   - Get notified when your song is ready to listen.
 8. **Audio Tools**
-    - Convert your MP3 to WAV, add a fade in or fade out, and more.
+   - Convert your MP3 to WAV, add a fade in or fade out, and more.
 9. **Track Credit Counter**
-    - Count how many credits you used for any track in your account.
+   - Count how many credits you used for any track in your account.
 
 Visit the website, [MedioAI.com](https://www.medioai.com) for more information.
 
@@ -35,23 +35,31 @@ Visit the website, [MedioAI.com](https://www.medioai.com) for more information.
 
 Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdljokjallnlfkibjoiolndccinoi) to install the **MedioAI** extension and start using today!
 
-
 ## Releases
 
 - **Version 1.2** - [MedioAI v1.2 (just more tags)](https://github.com/WynterJones/MedioAI-for-Udio/releases/tag/v1.2)
 - **Version 1.1** - [MedioAI v1.1](https://github.com/WynterJones/MedioAI-for-Udio/releases/tag/v1.1)
 
+## In Progress - **Version 1.3**
+
+### Bug Fixes
+
+- Fix position of playlist in sidebar.
+
+### New Features
+
+- Claude API AI Integration
+- Make version for Firefox
+
+### Marketing
+
+- Demo video
+- Sales Copy
+- Documentation
+
 ---
 
 > Note: Solo developer. Forever MVP status.
->
-> ### Todo:
->
-> - Claude API AI Integration
-> - Website
-> - Documentation
-
----
 
 ## Contributing
 
