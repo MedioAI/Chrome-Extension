@@ -2,17 +2,7 @@
 
 ### Transform your Udio experience. Chrome Extension for Desktop.
 
----
-
-> Note: Solo developer. Forever MVP status.
->
-> ### Todo:
->
-> - Claude API AI Integration
-> - Website
-> - Documentation
-
----
+![MedioAI.com](https://github.com/WynterJones/MedioAI-for-Udio/blob/main/app/images/banner.png)
 
 A chrome extension to enhance the experience of Udio.com, the best music platform online.
 
@@ -35,10 +25,23 @@ Visit the website, [MedioAI.com](https://www.medioai.com) for more information.
 
 Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdljokjallnlfkibjoiolndccinoi) to install the **MedioAI** extension and start using today!
 
+
 ## Releases
 
 - **Version 1.2** - [MedioAI v1.2 (just more tags)](https://github.com/WynterJones/MedioAI-for-Udio/releases/tag/v1.2)
 - **Version 1.1** - [MedioAI v1.1](https://github.com/WynterJones/MedioAI-for-Udio/releases/tag/v1.1)
+
+---
+
+> Note: Solo developer. Forever MVP status.
+>
+> ### Todo:
+>
+> - Claude API AI Integration
+> - Website
+> - Documentation
+
+---
 
 ## Contributing
 
