@@ -93,6 +93,8 @@ const songStudioMedioAI = {
 
     const saveLyrics = document.getElementById('save-lyrics')
     saveLyrics.addEventListener('click', () => {
+      saveLyrics.querySelector('span').innerHTML = 'Saving...'
+      saveLyrics.disabled = true
       songStudioMedioAI.save()
     })
 
@@ -267,6 +269,7 @@ const songStudioMedioAI = {
   save: () => {
     const title = document.getElementById('lyric-title').value
     const id = document.getElementById('lyric-id').value
+    const saveLyrics = document.getElementById('save-lyrics')
 
     if (!id) {
       const lyrics = {
@@ -281,6 +284,8 @@ const songStudioMedioAI = {
         document.getElementById('lyric-id').value = lyrics.id
         chrome.storage.local.set({ medioLyrics }, function () {
           utilitiesMedioAI.showNotification('Added new song to your library.')
+          saveLyrics.querySelector('span').innerHTML = 'Save'
+          saveLyrics.disabled = false
         })
       })
     } else {
@@ -292,6 +297,8 @@ const songStudioMedioAI = {
 
         chrome.storage.local.set({ medioLyrics }, function () {
           utilitiesMedioAI.showNotification('Updated song lyrics.')
+          saveLyrics.querySelector('span').innerHTML = 'Save'
+          saveLyrics.disabled = false
         })
       })
     }
