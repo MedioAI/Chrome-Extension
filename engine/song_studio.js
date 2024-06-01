@@ -556,7 +556,7 @@ const songStudioMedioAI = {
         button.addEventListener('click', () => {
           setTimeout(() => {
             songStudioMedioAI.applyAdvancedSettings(button)
-          }, 200)
+          }, 500)
         })
       } else if (
         button.textContent === 'Create' ||
@@ -608,6 +608,11 @@ const songStudioMedioAI = {
 
     songStudioMedioAI.simulateMouseClick(allInputs[0])
     adjustQualitySlider(settings.quality)
+
+    allInputs[0].addEventListener('change', () => {
+      settings.seed = allInputs[0].value
+      songStudioMedioAI.setAdvancedSettings(settings)
+    })
   },
 
   simulateMouseClick(element, clickX, clickY) {
@@ -658,7 +663,7 @@ const songStudioMedioAI = {
         button.addEventListener('click', () => {
           setTimeout(() => {
             songStudioMedioAI.appendSeedBox(button)
-          }, 200)
+          }, 500)
         })
       }
     })
@@ -667,9 +672,9 @@ const songStudioMedioAI = {
   appendSeedBox: button => {
     const wrapper = button.closest('h3').nextElementSibling
     if (!wrapper) return
-
     const allInputs = wrapper.querySelectorAll('input')
     const seedInput = allInputs[0]
+    if (!seedInput) return
     const inputWrapper = seedInput.closest('div.relative.flex.h-full.w-full.flex-col')
     if (!inputWrapper) return
 
@@ -698,7 +703,7 @@ const songStudioMedioAI = {
     function populateOptions() {
       chrome.storage.local.get(['medioAISeeds'], function (result) {
         const seeds = result.medioAISeeds || []
-        medioAISeedbank.innerHTML = ''
+        medioAISeedbank.innerHTML = '<option value="" selected disabled>Seedbank</option>'
         seeds.forEach(seed => {
           let label = seed.label
           if (label !== seed.value) {

@@ -56,6 +56,7 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 
 ### In Progress
 
+- Manual Mode as default on
 - OpenRouter API
 - Firefox Extension version
 - Music visualizer to MP4
