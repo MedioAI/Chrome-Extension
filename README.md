@@ -52,6 +52,8 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 ### In Progress
 
 - OpenRouter API
+- Challenge button
+- Keep advanced settings
 - Make version for Firefox
 
 ### Marketing
