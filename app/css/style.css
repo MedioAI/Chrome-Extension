@@ -80,6 +80,7 @@ body {
 }
 
 .input-group input,
+.input-group textarea,
 .input-group select {
   width: 100%;
   padding: 10px;
@@ -89,6 +90,9 @@ body {
   background: #333;
 }
 
+.input-group textarea {
+  height: 300px;
+}
 .btn {
   padding: 10px 18px;
   background: #333;

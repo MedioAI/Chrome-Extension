@@ -1,0 +1,151 @@
+<!-- 
+  © MedioAI.com - Wynter Jones (@AI.MASSIVE)
+ 
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedioAI: Your Music Assistant</title>
+    <link rel="stylesheet" href="/app/css/style.css" />
+  </head>
+  <body class="flex text-white">
+    <div id="sidebar" class="w-1/6 h-screen relative">
+      <div id="logo">
+        <img src="/app/images/icon.png" alt="MedioAI" />
+        <h2>Medio<strong>AI</strong></h2>
+      </div>
+      <div id="nav">
+        <a href="/app/index.html">Dashboard</a>
+        <a href="/app/convert.html">Convert</a>
+        <a class="active" href="/app/metatags.html">Meta Tags</a>
+        <a href="/app/visualizer.html">Visualizer</a>
+        <a href="/app/settings.html">Settings</a>
+      </div>
+      <div id="copyright">
+        <p>
+          &copy; 2024 MedioAI. All rights reserved. Crafted with ♡ by
+          <a href="https://medioai.com" class="link" target="_blank">Wynter Jones</a>. <br /><br />
+          Listen to AI music
+          <a href="http://www.youtube.com/@AI.MASSIVE" class="link" target="_blank"> @AI.MASSIVE </a>
+        </p>
+      </div>
+    </div>
+    <div id="app" class="w-5/6 h-screen p-12 overflow-x-hidden">
+      <h1 class="text-3xl font-bold mb-1">Meta Tags</h1>
+      <p class="text-lg font-light text-gray-500">Quickly fill out the meta tags for your .MP3 files.</p>
+
+      <hr class="my-8 border-gray-600" />
+
+      <div class="input-group w-full">
+        <label for="mp3">MP3 File</label>
+        <input type="file" id="mp3" accept=".mp3" />
+      </div>
+
+      <div class="flex space-x-6 mt-4">
+        <div class="input-group w-full w-1/2 mb-4">
+          <label for="title" class="block text-gray-700">Title</label>
+          <input type="text" id="title" class="block w-full p-2 border rounded" />
+        </div>
+        <div class="input-group w-full w-1/2 mb-4">
+          <label for="artist" class="block text-gray-700">Artist</label>
+          <input type="text" id="artist" class="block w-full p-2 border rounded" />
+        </div>
+      </div>
+      <div class="flex space-x-6 mt-4">
+        <div class="input-group w-full w-1/3 mb-4">
+          <label for="genre" class="block text-gray-700">Genre</label>
+          <input type="text" id="genre" class="block w-full p-2 border rounded" />
+        </div>
+        <div class="input-group w-full w-1/3 mb-4">
+          <label for="album" class="block text-gray-700">Album</label>
+          <input type="text" id="album" class="block w-full p-2 border rounded" />
+        </div>
+        <div class="input-group w-full w-1/3 mb-4">
+          <label for="track" class="block text-gray-700">Track Number</label>
+          <input type="text" id="track" class="block w-full p-2 border rounded" />
+        </div>
+      </div>
+      <div class="flex space-x-6 mt-4">
+        <div class="input-group w-full w-1/3 mb-4">
+          <label for="composer" class="block text-gray-700">Composer</label>
+          <input type="text" id="composer" class="block w-full p-2 border rounded" />
+        </div>
+        <div class="input-group w-full w-1/3 mb-4">
+          <label for="publisher" class="block text-gray-700">Publisher</label>
+          <input type="text" id="publisher" class="block w-full p-2 border rounded" />
+        </div>
+        <div class="input-group w-full w-1/3 mb-4">
+          <label for="year" class="block text-gray-700">Year</label>
+          <input type="text" id="year" class="block w-full p-2 border rounded" />
+        </div>
+      </div>
+      <div class="flex space-x-6 mt-4">
+        <div class="input-group w-full w-1/2 mb-4">
+          <label for="trackcopyright" class="block text-gray-700">Copyright</label>
+          <input type="text" id="trackcopyright" class="block w-full p-2 border rounded" />
+        </div>
+        <div class="input-group w-full w-1/2 mb-4">
+          <label for="url" class="block text-gray-700">URL</label>
+          <input type="text" id="url" class="block w-full p-2 border rounded" />
+        </div>
+      </div>
+      <div class="flex space-x-6 mt-4">
+        <div class="input-group w-full w-1/2 mb-4">
+          <label for="comment" class="block text-gray-700">Comment</label>
+          <input type="text" id="comment" class="block w-full p-2 border rounded" />
+        </div>
+        <div class="input-group w-full w-1/2 px-3 mb-4">
+          <label for="original_artist" class="block text-gray-700">Original Artist</label>
+          <input type="text" id="original_artist" class="block w-full p-2 border rounded" />
+        </div>
+      </div>
+
+      <div class="flex space-x-6 mt-4">
+        <div class="input-group w-full w-full mb-4">
+          <label for="lyrics" class="block text-gray-700">Lyrics</label>
+          <textarea id="lyrics" class="block w-full p-2 border rounded"></textarea>
+        </div>
+      </div>
+
+      <div
+        style="display: none"
+        id="notice"
+        style="width: 200px"
+        class="fixed top-2 right-2 text-green-300 p-4 rounded-lg bg-green-900 border border-green-300"
+      >
+        Saved settings.
+      </div>
+
+      <div class="flex space-x-2 my-6">
+        <button class="btn primary" id="apply">Apply & Download</button>
+        <button class="btn" id="saveAsDefault">Save as Default</button>
+      </div>
+      <p class="text-sm text-gray-500">
+        * Default will be applied on load saving you time to quickly make the edits needed.
+      </p>
+      <p class="text-sm text-gray-500">
+        ** Some meta tags are omitted such as: Encoded by, Encoder Settings, Mood, Conductor, Remixed by,
+        ISRC, Disc, etc for simplicity.
+      </p>
+      <div class="credits">
+        <p>
+          <strong>FFMPEG</strong> This app uses FFMPEG (w/ WebAssembly) to convert MP3 files to WAV format,
+          allowing you to adjust bitrate, sample rate, fade-in, and fade-out effects. Note that this process
+          does not improve the quality of the original MP3 file but allows for customized audio output.
+        </p>
+      </div>
+    </div>
+
+    <script src="../lib/ffmpeg.min.js"></script>
+    <script src="../lib/ffmpeg-core.js"></script>
+    <script src="../lib/tailwind.js"></script>
+    <script src="/app/js/metatags.js"></script>
+  </body>
+</html>
