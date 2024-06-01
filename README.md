@@ -52,14 +52,16 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 
 ### In Progress
 
+- Preview sound in audio settings.
 - Keep advanced settings applied (local storage)
+- Display waveform after wav conversion (to display fade in/out)
 - OpenRouter API
 - Firefox Extension version
+- Music visualizer to MP4
 
 ### Marketing
 
 - Demo video
-- Sales Copy
 - Documentation
 
 ---
