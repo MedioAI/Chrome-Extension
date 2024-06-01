@@ -1,19 +1,495 @@
 [
   {
-    "value": "[Introduction]",
-    "text": "Introduction"
+    "value": "[A Capella]",
+    "text": "A Capella"
   },
   {
-    "value": "[Opening Theme]",
-    "text": "Opening Theme"
+    "value": "[A Cappella]",
+    "text": "A Cappella"
   },
   {
-    "value": "[Verse]",
-    "text": "Verse"
+    "value": "[A Capriccio]",
+    "text": "A Capriccio"
   },
   {
-    "value": "[Pre-Chorus]",
-    "text": "Pre-Chorus"
+    "value": "[A Deux]",
+    "text": "A Deux"
+  },
+  {
+    "value": "[A Due]",
+    "text": "A Due"
+  },
+  {
+    "value": "[A Niente]",
+    "text": "A Niente"
+  },
+  {
+    "value": "[A Piacere]",
+    "text": "A Piacere"
+  },
+  {
+    "value": "[A Tempo]",
+    "text": "A Tempo"
+  },
+  {
+    "value": "[Abafando]",
+    "text": "Abafando"
+  },
+  {
+    "value": "[Abbandonatamente]",
+    "text": "Abbandonatamente"
+  },
+  {
+    "value": "[Accarezzevole]",
+    "text": "Accarezzevole"
+  },
+  {
+    "value": "[Accelerando]",
+    "text": "Accelerando"
+  },
+  {
+    "value": "[Accelerando]",
+    "text": "Accelerando"
+  },
+  {
+    "value": "[Accelerato]",
+    "text": "Accelerato"
+  },
+  {
+    "value": "[Accent]",
+    "text": "Accent"
+  },
+  {
+    "value": "[Accentato]",
+    "text": "Accentato"
+  },
+  {
+    "value": "[Acciaccato]",
+    "text": "Acciaccato"
+  },
+  {
+    "value": "[Acciaccatura]",
+    "text": "Acciaccatura"
+  },
+  {
+    "value": "[Accuratezza]",
+    "text": "Accuratezza"
+  },
+  {
+    "value": "[Adagio]",
+    "text": "Adagio"
+  },
+  {
+    "value": "[Affannato]",
+    "text": "Affannato"
+  },
+  {
+    "value": "[Affettuoso]",
+    "text": "Affettuoso"
+  },
+  {
+    "value": "[Affrettando]",
+    "text": "Affrettando"
+  },
+  {
+    "value": "[Agitato]",
+    "text": "Agitato"
+  },
+  {
+    "value": "[Alla Polacca]",
+    "text": "Alla Polacca"
+  },
+  {
+    "value": "[Allargando]",
+    "text": "Allargando"
+  },
+  {
+    "value": "[Allegretto]",
+    "text": "Allegretto"
+  },
+  {
+    "value": "[Allegrezza]",
+    "text": "Allegrezza"
+  },
+  {
+    "value": "[Allegrissimo]",
+    "text": "Allegrissimo"
+  },
+  {
+    "value": "[Allegro]",
+    "text": "Allegro"
+  },
+  {
+    "value": "[Alzate Sordini]",
+    "text": "Alzate Sordini"
+  },
+  {
+    "value": "[Amabile]",
+    "text": "Amabile"
+  },
+  {
+    "value": "[Ambient Nature Sounds]",
+    "text": "Ambient Nature Sounds"
+  },
+  {
+    "value": "[Ambient Sound Effects]",
+    "text": "Ambient Sound Effects"
+  },
+  {
+    "value": "[Ambient Soundscape]",
+    "text": "Ambient Soundscape"
+  },
+  {
+    "value": "[Ambitus]",
+    "text": "Ambitus"
+  },
+  {
+    "value": "[Amore]",
+    "text": "Amore"
+  },
+  {
+    "value": "[Andante]",
+    "text": "Andante"
+  },
+  {
+    "value": "[Andante]",
+    "text": "Andante"
+  },
+  {
+    "value": "[Ängstlich]",
+    "text": "Ängstlich"
+  },
+  {
+    "value": "[Anima]",
+    "text": "Anima"
+  },
+  {
+    "value": "[Animandosi]",
+    "text": "Animandosi"
+  },
+  {
+    "value": "[Apaisé]",
+    "text": "Apaisé"
+  },
+  {
+    "value": "[Appassionato]",
+    "text": "Appassionato"
+  },
+  {
+    "value": "[Aria]",
+    "text": "Aria"
+  },
+  {
+    "value": "[Arioso]",
+    "text": "Arioso"
+  },
+  {
+    "value": "[Articulato]",
+    "text": "Articulato"
+  },
+  {
+    "value": "[Attacca]",
+    "text": "Attacca"
+  },
+  {
+    "value": "[Ausdruck]",
+    "text": "Ausdruck"
+  },
+  {
+    "value": "[Avec]",
+    "text": "Avec"
+  },
+  {
+    "value": "[Avoir]",
+    "text": "Avoir"
+  },
+  {
+    "value": "[Ballabile]",
+    "text": "Ballabile"
+  },
+  {
+    "value": "[Barbaro]",
+    "text": "Barbaro"
+  },
+  {
+    "value": "[Barcarola]",
+    "text": "Barcarola"
+  },
+  {
+    "value": "[Bass Line]",
+    "text": "Bass Line"
+  },
+  {
+    "value": "[Basso Continuo]",
+    "text": "Basso Continuo"
+  },
+  {
+    "value": "[Beatboxing]",
+    "text": "Beatboxing"
+  },
+  {
+    "value": "[Bedächtig]",
+    "text": "Bedächtig"
+  },
+  {
+    "value": "[Bellicoso]",
+    "text": "Bellicoso"
+  },
+  {
+    "value": "[Beschleunigend]",
+    "text": "Beschleunigend"
+  },
+  {
+    "value": "[Bestimmt]",
+    "text": "Bestimmt"
+  },
+  {
+    "value": "[Betont]",
+    "text": "Betont"
+  },
+  {
+    "value": "[Beweglich]",
+    "text": "Beweglich"
+  },
+  {
+    "value": "[Bewegt]",
+    "text": "Bewegt"
+  },
+  {
+    "value": "[Bien]",
+    "text": "Bien"
+  },
+  {
+    "value": "[Binary]",
+    "text": "Binary"
+  },
+  {
+    "value": "[Bis]",
+    "text": "Bis"
+  },
+  {
+    "value": "[Blasinstrument]",
+    "text": "Blasinstrument"
+  },
+  {
+    "value": "[Blech]",
+    "text": "Blech"
+  },
+  {
+    "value": "[Blechinstrumente]",
+    "text": "Blechinstrumente"
+  },
+  {
+    "value": "[Blechmusik]",
+    "text": "Blechmusik"
+  },
+  {
+    "value": "[Bol]",
+    "text": "Bol"
+  },
+  {
+    "value": "[Bolero]",
+    "text": "Bolero"
+  },
+  {
+    "value": "[Bravura]",
+    "text": "Bravura"
+  },
+  {
+    "value": "[Breakdown]",
+    "text": "Breakdown"
+  },
+  {
+    "value": "[Breit]",
+    "text": "Breit"
+  },
+  {
+    "value": "[Breve]",
+    "text": "Breve"
+  },
+  {
+    "value": "[Bridge]",
+    "text": "Bridge"
+  },
+  {
+    "value": "[Bridge: Intense]",
+    "text": "Bridge: Intense"
+  },
+  {
+    "value": "[Bridge: Reflective]",
+    "text": "Bridge: Reflective"
+  },
+  {
+    "value": "[Bridge: Soft]",
+    "text": "Bridge: Soft"
+  },
+  {
+    "value": "[Bridge: Tension-Building]",
+    "text": "Bridge: Tension-Building"
+  },
+  {
+    "value": "[Bright Brass Fanfare]",
+    "text": "Bright Brass Fanfare"
+  },
+  {
+    "value": "[Bright Marimba Tones]",
+    "text": "Bright Marimba Tones"
+  },
+  {
+    "value": "[Bright Sparkle]",
+    "text": "Bright Sparkle"
+  },
+  {
+    "value": "[Brillante]",
+    "text": "Brillante"
+  },
+  {
+    "value": "[Brioso]",
+    "text": "Brioso"
+  },
+  {
+    "value": "[Build-Up]",
+    "text": "Build-Up"
+  },
+  {
+    "value": "[Build-Up 2]",
+    "text": "Build-Up 2"
+  },
+  {
+    "value": "[Cadenza]",
+    "text": "Cadenza"
+  },
+  {
+    "value": "[Caesura]",
+    "text": "Caesura"
+  },
+  {
+    "value": "[Calando]",
+    "text": "Calando"
+  },
+  {
+    "value": "[Call and Response]",
+    "text": "Call and Response"
+  },
+  {
+    "value": "[Call and Response]",
+    "text": "Call and Response"
+  },
+  {
+    "value": "[Calm Ocean Waves]",
+    "text": "Calm Ocean Waves"
+  },
+  {
+    "value": "[Calmato]",
+    "text": "Calmato"
+  },
+  {
+    "value": "[Calore]",
+    "text": "Calore"
+  },
+  {
+    "value": "[Caloroso]",
+    "text": "Caloroso"
+  },
+  {
+    "value": "[Cambiare]",
+    "text": "Cambiare"
+  },
+  {
+    "value": "[Camminando]",
+    "text": "Camminando"
+  },
+  {
+    "value": "[Cantabile]",
+    "text": "Cantabile"
+  },
+  {
+    "value": "[Cantando]",
+    "text": "Cantando"
+  },
+  {
+    "value": "[Capriccio]",
+    "text": "Capriccio"
+  },
+  {
+    "value": "[Capriccioso]",
+    "text": "Capriccioso"
+  },
+  {
+    "value": "[Carazzendo]",
+    "text": "Carazzendo"
+  },
+  {
+    "value": "[Cedando]",
+    "text": "Cedando"
+  },
+  {
+    "value": "[Cédez]",
+    "text": "Cédez"
+  },
+  {
+    "value": "[Celare]",
+    "text": "Celare"
+  },
+  {
+    "value": "[Cesura]",
+    "text": "Cesura"
+  },
+  {
+    "value": "[Chalau]",
+    "text": "Chalau"
+  },
+  {
+    "value": "[Chant]",
+    "text": "Chant"
+  },
+  {
+    "value": "[Chant]",
+    "text": "Chant"
+  },
+  {
+    "value": "[Chanté]",
+    "text": "Chanté"
+  },
+  {
+    "value": "[Chaotic Climax]",
+    "text": "Chaotic Climax"
+  },
+  {
+    "value": "[Chasse]",
+    "text": "Chasse"
+  },
+  {
+    "value": "[Chiaramente]",
+    "text": "Chiaramente"
+  },
+  {
+    "value": "[Chiaro]",
+    "text": "Chiaro"
+  },
+  {
+    "value": "[Chilled Vibes]",
+    "text": "Chilled Vibes"
+  },
+  {
+    "value": "[Chiuso]",
+    "text": "Chiuso"
+  },
+  {
+    "value": "[Choir: Children]",
+    "text": "Choir: Children"
+  },
+  {
+    "value": "[Choir: Female]",
+    "text": "Choir: Female"
+  },
+  {
+    "value": "[Choir: Male]",
+    "text": "Choir: Male"
+  },
+  {
+    "value": "[Choir: Mixed]",
+    "text": "Choir: Mixed"
   },
   {
     "value": "[Chorus]",
@@ -24,52 +500,712 @@
     "text": "Chorus Variation"
   },
   {
-    "value": "[Hook]",
-    "text": "Hook"
+    "value": "[Chorus: Anthemic]",
+    "text": "Chorus: Anthemic"
   },
   {
-    "value": "[Bridge]",
-    "text": "Bridge"
+    "value": "[Chorus: Chanting]",
+    "text": "Chorus: Chanting"
   },
   {
-    "value": "[Instrumental Break]",
-    "text": "Instrumental Break"
+    "value": "[Chorus: Cold]",
+    "text": "Chorus: Cold"
   },
   {
-    "value": "[Solo]",
-    "text": "Solo"
+    "value": "[Chorus: Crisp]",
+    "text": "Chorus: Crisp"
   },
   {
-    "value": "[Interlude]",
-    "text": "Interlude"
+    "value": "[Chorus: Despairing]",
+    "text": "Chorus: Despairing"
   },
   {
-    "value": "[Build-Up]",
-    "text": "Build-Up"
+    "value": "[Chorus: Dramatic]",
+    "text": "Chorus: Dramatic"
+  },
+  {
+    "value": "[Chorus: Echoed]",
+    "text": "Chorus: Echoed"
+  },
+  {
+    "value": "[Chorus: Emotional]",
+    "text": "Chorus: Emotional"
+  },
+  {
+    "value": "[Chorus: Epic]",
+    "text": "Chorus: Epic"
+  },
+  {
+    "value": "[Chorus: Full-Bodied]",
+    "text": "Chorus: Full-Bodied"
+  },
+  {
+    "value": "[Chorus: Harmonized]",
+    "text": "Chorus: Harmonized"
+  },
+  {
+    "value": "[Chorus: Light]",
+    "text": "Chorus: Light"
+  },
+  {
+    "value": "[Chorus: Minimalistic]",
+    "text": "Chorus: Minimalistic"
+  },
+  {
+    "value": "[Chorus: Optimistic]",
+    "text": "Chorus: Optimistic"
+  },
+  {
+    "value": "[Chorus: Powerful]",
+    "text": "Chorus: Powerful"
+  },
+  {
+    "value": "[Chorus: Repeated]",
+    "text": "Chorus: Repeated"
+  },
+  {
+    "value": "[Chorus: Soft-Spoken]",
+    "text": "Chorus: Soft-Spoken"
+  },
+  {
+    "value": "[Chorus: Soulful Singing]",
+    "text": "Chorus: Soulful Singing"
+  },
+  {
+    "value": "[Chorus: Uplifting]",
+    "text": "Chorus: Uplifting"
+  },
+  {
+    "value": "[Chorus: Warm]",
+    "text": "Chorus: Warm"
+  },
+  {
+    "value": "[Cinematic Boom]",
+    "text": "Cinematic Boom"
+  },
+  {
+    "value": "[Cinematic Yelling]",
+    "text": "Cinematic Yelling"
+  },
+  {
+    "value": "[Cinq]",
+    "text": "Cinq"
+  },
+  {
+    "value": "[Clapping]",
+    "text": "Clapping"
+  },
+  {
+    "value": "[Clos]",
+    "text": "Clos"
+  },
+  {
+    "value": "[Coda]",
+    "text": "Coda"
+  },
+  {
+    "value": "[Colla Parte]",
+    "text": "Colla Parte"
+  },
+  {
+    "value": "[Colossale]",
+    "text": "Colossale"
+  },
+  {
+    "value": "[Comdamente]",
+    "text": "Comdamente"
+  },
+  {
+    "value": "[Commosso]",
+    "text": "Commosso"
+  },
+  {
+    "value": "[Comodo]",
+    "text": "Comodo"
+  },
+  {
+    "value": "[Complex]",
+    "text": "Complex"
+  },
+  {
+    "value": "[Composition]",
+    "text": "Composition"
+  },
+  {
+    "value": "[Con]",
+    "text": "Con"
+  },
+  {
+    "value": "[Con Amore]",
+    "text": "Con Amore"
+  },
+  {
+    "value": "[Crescendo]",
+    "text": "Crescendo"
+  },
+  {
+    "value": "[Crescendoing Harmony]",
+    "text": "Crescendoing Harmony"
+  },
+  {
+    "value": "[Crisp Hit]",
+    "text": "Crisp Hit"
+  },
+  {
+    "value": "[Cuarteto]",
+    "text": "Cuarteto"
+  },
+  {
+    "value": "[Cuivre]",
+    "text": "Cuivre"
+  },
+  {
+    "value": "[Dʹattaque]",
+    "text": "Dʹattaque"
+  },
+  {
+    "value": "[Da Capo]",
+    "text": "Da Capo"
+  },
+  {
+    "value": "[Dal]",
+    "text": "Dal"
+  },
+  {
+    "value": "[Dämpfer]",
+    "text": "Dämpfer"
+  },
+  {
+    "value": "[Dauernd]",
+    "text": "Dauernd"
+  },
+  {
+    "value": "[Debole]",
+    "text": "Debole"
+  },
+  {
+    "value": "[Décidé]",
+    "text": "Décidé"
+  },
+  {
+    "value": "[Decisamente]",
+    "text": "Decisamente"
+  },
+  {
+    "value": "[Deciso]",
+    "text": "Deciso"
+  },
+  {
+    "value": "[Declamato]",
+    "text": "Declamato"
+  },
+  {
+    "value": "[Decrescendo]",
+    "text": "Decrescendo"
+  },
+  {
+    "value": "[Deep Bass Drop]",
+    "text": "Deep Bass Drop"
+  },
+  {
+    "value": "[Deep Dive]",
+    "text": "Deep Dive"
+  },
+  {
+    "value": "[Dehors]",
+    "text": "Dehors"
+  },
+  {
+    "value": "[Delicatamente]",
+    "text": "Delicatamente"
+  },
+  {
+    "value": "[Delicate Glockenspiel Tinkles]",
+    "text": "Delicate Glockenspiel Tinkles"
+  },
+  {
+    "value": "[Delicatezza]",
+    "text": "Delicatezza"
+  },
+  {
+    "value": "[Delicato]",
+    "text": "Delicato"
+  },
+  {
+    "value": "[Délié]",
+    "text": "Délié"
+  },
+  {
+    "value": "[Derb]",
+    "text": "Derb"
+  },
+  {
+    "value": "[Des]",
+    "text": "Des"
+  },
+  {
+    "value": "[Détaché]",
+    "text": "Détaché"
+  },
+  {
+    "value": "[Deutlich]",
+    "text": "Deutlich"
+  },
+  {
+    "value": "[Deux]",
+    "text": "Deux"
+  },
+  {
+    "value": "[Devoto]",
+    "text": "Devoto"
+  },
+  {
+    "value": "[Di Molto]",
+    "text": "Di Molto"
+  },
+  {
+    "value": "[Di Nuovo]",
+    "text": "Di Nuovo"
+  },
+  {
+    "value": "[Diluendo]",
+    "text": "Diluendo"
+  },
+  {
+    "value": "[Diminuendo]",
+    "text": "Diminuendo"
+  },
+  {
+    "value": "[Disinvolto]",
+    "text": "Disinvolto"
+  },
+  {
+    "value": "[Dissonante]",
+    "text": "Dissonante"
+  },
+  {
+    "value": "[Distant Thunder Rumbles]",
+    "text": "Distant Thunder Rumbles"
+  },
+  {
+    "value": "[Diva Solo]",
+    "text": "Diva Solo"
+  },
+  {
+    "value": "[Divisi]",
+    "text": "Divisi"
+  },
+  {
+    "value": "[Doigté]",
+    "text": "Doigté"
+  },
+  {
+    "value": "[Dolby Atmos]",
+    "text": "Dolby Atmos"
+  },
+  {
+    "value": "[Dolce]",
+    "text": "Dolce"
+  },
+  {
+    "value": "[Dolcezza]",
+    "text": "Dolcezza"
+  },
+  {
+    "value": "[Dolcissimo]",
+    "text": "Dolcissimo"
+  },
+  {
+    "value": "[Dolente]",
+    "text": "Dolente"
+  },
+  {
+    "value": "[Doloroso]",
+    "text": "Doloroso"
+  },
+  {
+    "value": "[Doppelt]",
+    "text": "Doppelt"
+  },
+  {
+    "value": "[Doppelt So Schnell]",
+    "text": "Doppelt So Schnell"
+  },
+  {
+    "value": "[Doppio]",
+    "text": "Doppio"
+  },
+  {
+    "value": "[Doppio Movimento]",
+    "text": "Doppio Movimento"
+  },
+  {
+    "value": "[Doucement]",
+    "text": "Doucement"
+  },
+  {
+    "value": "[Douloureux]",
+    "text": "Douloureux"
+  },
+  {
+    "value": "[Doux]",
+    "text": "Doux"
+  },
+  {
+    "value": "[Dramatic Pause]",
+    "text": "Dramatic Pause"
+  },
+  {
+    "value": "[Dramatic Timpani Rolls]",
+    "text": "Dramatic Timpani Rolls"
+  },
+  {
+    "value": "[Drammatico]",
+    "text": "Drammatico"
+  },
+  {
+    "value": "[Drängend]",
+    "text": "Drängend"
+  },
+  {
+    "value": "[Dreamy Synth Pads]",
+    "text": "Dreamy Synth Pads"
+  },
+  {
+    "value": "[Driving Guitar Riff]",
+    "text": "Driving Guitar Riff"
   },
   {
     "value": "[Drop]",
     "text": "Drop"
   },
   {
-    "value": "[Breakdown]",
-    "text": "Breakdown"
+    "value": "[Duolo]",
+    "text": "Duolo"
   },
   {
-    "value": "[Build-Up 2]",
-    "text": "Build-Up 2"
+    "value": "[Dur]",
+    "text": "Dur"
   },
   {
-    "value": "[Second Drop]",
-    "text": "Second Drop"
+    "value": "[Duramente]",
+    "text": "Duramente"
   },
   {
-    "value": "[Final Chorus]",
-    "text": "Final Chorus"
+    "value": "[Durchdringend]",
+    "text": "Durchdringend"
   },
   {
-    "value": "[Outro]",
-    "text": "Outro"
+    "value": "[Dureté]",
+    "text": "Dureté"
+  },
+  {
+    "value": "[Durezza]",
+    "text": "Durezza"
+  },
+  {
+    "value": "[Dynamic Shift]",
+    "text": "Dynamic Shift"
+  },
+  {
+    "value": "[E]",
+    "text": "E"
+  },
+  {
+    "value": "[Éclatant]",
+    "text": "Éclatant"
+  },
+  {
+    "value": "[Eco]",
+    "text": "Eco"
+  },
+  {
+    "value": "[Eerie Synth Pulses]",
+    "text": "Eerie Synth Pulses"
+  },
+  {
+    "value": "[Ègalement]",
+    "text": "Ègalement"
+  },
+  {
+    "value": "[Égalité]",
+    "text": "Égalité"
+  },
+  {
+    "value": "[Eile]",
+    "text": "Eile"
+  },
+  {
+    "value": "[Eilend]",
+    "text": "Eilend"
+  },
+  {
+    "value": "[Ein Heldenleben]",
+    "text": "Ein Heldenleben"
+  },
+  {
+    "value": "[Ein Wenig]",
+    "text": "Ein Wenig"
+  },
+  {
+    "value": "[Eine Alpensinfonie]",
+    "text": "Eine Alpensinfonie"
+  },
+  {
+    "value": "[Einfacht]",
+    "text": "Einfacht"
+  },
+  {
+    "value": "[Einhlang]",
+    "text": "Einhlang"
+  },
+  {
+    "value": "[Élargissant]",
+    "text": "Élargissant"
+  },
+  {
+    "value": "[Electric Surge]",
+    "text": "Electric Surge"
+  },
+  {
+    "value": "[Élégant]",
+    "text": "Élégant"
+  },
+  {
+    "value": "[Elegante]",
+    "text": "Elegante"
+  },
+  {
+    "value": "[Empfindsamkeit]",
+    "text": "Empfindsamkeit"
+  },
+  {
+    "value": "[Empfindung]",
+    "text": "Empfindung"
+  },
+  {
+    "value": "[Empressé]",
+    "text": "Empressé"
+  },
+  {
+    "value": "[Ému]",
+    "text": "Ému"
+  },
+  {
+    "value": "[En]",
+    "text": "En"
+  },
+  {
+    "value": "[En Dehors]",
+    "text": "En Dehors"
+  },
+  {
+    "value": "[En Pressant]",
+    "text": "En Pressant"
+  },
+  {
+    "value": "[En Retenant]",
+    "text": "En Retenant"
+  },
+  {
+    "value": "[Enchaînez]",
+    "text": "Enchaînez"
+  },
+  {
+    "value": "[Energetic Brass Blasts]",
+    "text": "Energetic Brass Blasts"
+  },
+  {
+    "value": "[Energetic Drumline Beats]",
+    "text": "Energetic Drumline Beats"
+  },
+  {
+    "value": "[Energetic Pulse]",
+    "text": "Energetic Pulse"
+  },
+  {
+    "value": "[Energico]",
+    "text": "Energico"
+  },
+  {
+    "value": "[Energique]",
+    "text": "Energique"
+  },
+  {
+    "value": "[Enfatico]",
+    "text": "Enfatico"
+  },
+  {
+    "value": "[Enlevez]",
+    "text": "Enlevez"
+  },
+  {
+    "value": "[Entendre]",
+    "text": "Entendre"
+  },
+  {
+    "value": "[Entendu]",
+    "text": "Entendu"
+  },
+  {
+    "value": "[Entfernt]",
+    "text": "Entfernt"
+  },
+  {
+    "value": "[Entrain]",
+    "text": "Entrain"
+  },
+  {
+    "value": "[Entscheiden]",
+    "text": "Entscheiden"
+  },
+  {
+    "value": "[Entschlössen]",
+    "text": "Entschlössen"
+  },
+  {
+    "value": "[Epic Finale]",
+    "text": "Epic Finale"
+  },
+  {
+    "value": "[Epic Orchestral Finale]",
+    "text": "Epic Orchestral Finale"
+  },
+  {
+    "value": "[Epilogue]",
+    "text": "Epilogue"
+  },
+  {
+    "value": "[Ergriffen]",
+    "text": "Ergriffen"
+  },
+  {
+    "value": "[Erhaben]",
+    "text": "Erhaben"
+  },
+  {
+    "value": "[Erhabenhei]",
+    "text": "Erhabenhei"
+  },
+  {
+    "value": "[Erlöschend]",
+    "text": "Erlöschend"
+  },
+  {
+    "value": "[Ermattend]",
+    "text": "Ermattend"
+  },
+  {
+    "value": "[Ernst]",
+    "text": "Ernst"
+  },
+  {
+    "value": "[Ernsthaft]",
+    "text": "Ernsthaft"
+  },
+  {
+    "value": "[Eroica]",
+    "text": "Eroica"
+  },
+  {
+    "value": "[Ersatz]",
+    "text": "Ersatz"
+  },
+  {
+    "value": "[Ersterbend]",
+    "text": "Ersterbend"
+  },
+  {
+    "value": "[Erweitern]",
+    "text": "Erweitern"
+  },
+  {
+    "value": "[Espirando]",
+    "text": "Espirando"
+  },
+  {
+    "value": "[Espressif]",
+    "text": "Espressif"
+  },
+  {
+    "value": "[Espressione]",
+    "text": "Espressione"
+  },
+  {
+    "value": "[Espressivo]",
+    "text": "Espressivo"
+  },
+  {
+    "value": "[Estilo]",
+    "text": "Estilo"
+  },
+  {
+    "value": "[Estinguendo]",
+    "text": "Estinguendo"
+  },
+  {
+    "value": "[Estinto]",
+    "text": "Estinto"
+  },
+  {
+    "value": "[Estompé]",
+    "text": "Estompé"
+  },
+  {
+    "value": "[Et]",
+    "text": "Et"
+  },
+  {
+    "value": "[Éteindre]",
+    "text": "Éteindre"
+  },
+  {
+    "value": "[Ethereal Choir]",
+    "text": "Ethereal Choir"
+  },
+  {
+    "value": "[Étouffé]",
+    "text": "Étouffé"
+  },
+  {
+    "value": "[Étouffoir]",
+    "text": "Étouffoir"
+  },
+  {
+    "value": "[Etwas]",
+    "text": "Etwas"
+  },
+  {
+    "value": "[Euphoric Rise]",
+    "text": "Euphoric Rise"
+  },
+  {
+    "value": "[Eutschlossen]",
+    "text": "Eutschlossen"
+  },
+  {
+    "value": "[Explosive Drum Hits]",
+    "text": "Explosive Drum Hits"
+  },
+  {
+    "value": "[Explosive Percussion]",
+    "text": "Explosive Percussion"
+  },
+  {
+    "value": "[Extrêmement]",
+    "text": "Extrêmement"
+  },
+  {
+    "value": "[Facile]",
+    "text": "Facile"
+  },
+  {
+    "value": "[Facilmente]",
+    "text": "Facilmente"
+  },
+  {
+    "value": "[Facultatif]",
+    "text": "Facultatif"
   },
   {
     "value": "[Fade out]",
@@ -80,476 +1216,708 @@
     "text": "Fade to end"
   },
   {
-    "value": "[Bass Line]",
-    "text": "Bass Line"
+    "value": "[Fade To End]",
+    "text": "Fade To End"
   },
   {
-    "value": "[Andante]",
-    "text": "Andante"
-  },
-  {
-    "value": "[Adagio]",
-    "text": "Adagio"
-  },
-  {
-    "value": "[Glissando]",
-    "text": "Glissando"
-  },
-  {
-    "value": "[Accelerando]",
-    "text": "Accelerando"
-  },
-  {
-    "value": "[Crescendo]",
-    "text": "Crescendo"
-  },
-  {
-    "value": "[Spoken Word: Male Voice]",
-    "text": "Spoken Word: Male Voice"
-  },
-  {
-    "value": "[Spoken Word: Female Voice]",
-    "text": "Spoken Word: Female Voice"
-  },
-  {
-    "value": "[Instrumental Interlude]",
-    "text": "Instrumental Interlude"
-  },
-  {
-    "value": "[Transition to Chorus]",
-    "text": "Transition to Chorus"
-  },
-  {
-    "value": "[Screaming]",
-    "text": "Screaming"
-  },
-  {
-    "value": "[Rap Verse]",
-    "text": "Rap Verse"
-  },
-  {
-    "value": "[Refrain]",
-    "text": "Refrain"
-  },
-  {
-    "value": "[Modulation]",
-    "text": "Modulation"
-  },
-  {
-    "value": "[Reprise]",
-    "text": "Reprise"
-  },
-  {
-    "value": "[Riff]",
-    "text": "Riff"
-  },
-  {
-    "value": "[Vamp]",
-    "text": "Vamp"
-  },
-  {
-    "value": "[Chant]",
-    "text": "Chant"
-  },
-  {
-    "value": "[Humming]",
-    "text": "Humming"
-  },
-  {
-    "value": "[Whistling]",
-    "text": "Whistling"
-  },
-  {
-    "value": "[Clapping]",
-    "text": "Clapping"
-  },
-  {
-    "value": "[Foot Stomping]",
-    "text": "Foot Stomping"
-  },
-  {
-    "value": "[Shouting]",
-    "text": "Shouting"
-  },
-  {
-    "value": "[Call and Response]",
-    "text": "Call and Response"
-  },
-  {
-    "value": "[Vocal Improvisation]",
-    "text": "Vocal Improvisation"
-  },
-  {
-    "value": "[Jazzy Bebop Section]",
-    "text": "Jazzy Bebop Section"
-  },
-  {
-    "value": "[Verse: Soulful Singing]",
-    "text": "Verse: Soulful Singing"
-  },
-  {
-    "value": "[Chorus: Soulful Singing]",
-    "text": "Chorus: Soulful Singing"
-  },
-  {
-    "value": "[Verse: Whispered]",
-    "text": "Verse: Whispered"
-  },
-  {
-    "value": "[Verse: Energetic]",
-    "text": "Verse: Energetic"
-  },
-  {
-    "value": "[Verse: Melancholic]",
-    "text": "Verse: Melancholic"
-  },
-  {
-    "value": "[Chorus: Uplifting]",
-    "text": "Chorus: Uplifting"
-  },
-  {
-    "value": "[Chorus: Dramatic]",
-    "text": "Chorus: Dramatic"
-  },
-  {
-    "value": "[Chorus: Epic]",
-    "text": "Chorus: Epic"
-  },
-  {
-    "value": "[Bridge: Soft]",
-    "text": "Bridge: Soft"
-  },
-  {
-    "value": "[Bridge: Intense]",
-    "text": "Bridge: Intense"
-  },
-  {
-    "value": "[Chorus: Repeated]",
-    "text": "Chorus: Repeated"
-  },
-  {
-    "value": "[Verse: Conversational]",
-    "text": "Verse: Conversational"
-  },
-  {
-    "value": "[Verse: Rhythmic]",
-    "text": "Verse: Rhythmic"
-  },
-  {
-    "value": "[Chorus: Harmonized]",
-    "text": "Chorus: Harmonized"
-  },
-  {
-    "value": "[Verse: Narrative]",
-    "text": "Verse: Narrative"
-  },
-  {
-    "value": "[Chorus: Anthemic]",
-    "text": "Chorus: Anthemic"
-  },
-  {
-    "value": "[Chorus: Emotional]",
-    "text": "Chorus: Emotional"
-  },
-  {
-    "value": "[Verse: Fast-Paced]",
-    "text": "Verse: Fast-Paced"
-  },
-  {
-    "value": "[Verse: Slow-Paced]",
-    "text": "Verse: Slow-Paced"
-  },
-  {
-    "value": "[Chorus: Powerful]",
-    "text": "Chorus: Powerful"
-  },
-  {
-    "value": "[Chorus: Light]",
-    "text": "Chorus: Light"
-  },
-  {
-    "value": "[Verse: Playful]",
-    "text": "Verse: Playful"
-  },
-  {
-    "value": "[Verse: Serious]",
-    "text": "Verse: Serious"
-  },
-  {
-    "value": "[Bridge: Reflective]",
-    "text": "Bridge: Reflective"
-  },
-  {
-    "value": "[Bridge: Tension-Building]",
-    "text": "Bridge: Tension-Building"
-  },
-  {
-    "value": "[Chorus: Minimalistic]",
-    "text": "Chorus: Minimalistic"
-  },
-  {
-    "value": "[Verse: Aggressive]",
-    "text": "Verse: Aggressive"
-  },
-  {
-    "value": "[Verse: Gentle]",
-    "text": "Verse: Gentle"
-  },
-  {
-    "value": "[Chorus: Optimistic]",
-    "text": "Chorus: Optimistic"
-  },
-  {
-    "value": "[Chorus: Despairing]",
-    "text": "Chorus: Despairing"
-  },
-  {
-    "value": "[Verse: Lyrical]",
-    "text": "Verse: Lyrical"
-  },
-  {
-    "value": "[Verse: Monotone]",
-    "text": "Verse: Monotone"
-  },
-  {
-    "value": "[Chorus: Full-Bodied]",
-    "text": "Chorus: Full-Bodied"
-  },
-  {
-    "value": "[Chorus: Soft-Spoken]",
-    "text": "Chorus: Soft-Spoken"
-  },
-  {
-    "value": "[Verse: Breathy]",
-    "text": "Verse: Breathy"
-  },
-  {
-    "value": "[Verse: Strong]",
-    "text": "Verse: Strong"
-  },
-  {
-    "value": "[Chorus: Echoed]",
-    "text": "Chorus: Echoed"
-  },
-  {
-    "value": "[Chorus: Crisp]",
-    "text": "Chorus: Crisp"
-  },
-  {
-    "value": "[Verse: Smooth]",
-    "text": "Verse: Smooth"
-  },
-  {
-    "value": "[Verse: Raspy]",
-    "text": "Verse: Raspy"
-  },
-  {
-    "value": "[Chorus: Warm]",
-    "text": "Chorus: Warm"
-  },
-  {
-    "value": "[Chorus: Cold]",
-    "text": "Chorus: Cold"
-  },
-  {
-    "value": "[Verse: Melodic]",
-    "text": "Verse: Melodic"
-  },
-  {
-    "value": "[Verse: Spoken]",
-    "text": "Verse: Spoken"
-  },
-  {
-    "value": "[Chorus: Chanting]",
-    "text": "Chorus: Chanting"
-  },
-  {
-    "value": "[Female Narrator]",
-    "text": "Female Narrator"
-  },
-  {
-    "value": "[Male Narrator]",
-    "text": "Male Narrator"
-  },
-  {
-    "value": "[Diva Solo]",
-    "text": "Diva Solo"
-  },
-  {
-    "value": "[Gospel Choir]",
-    "text": "Gospel Choir"
-  },
-  {
-    "value": "[Primal Scream]",
-    "text": "Primal Scream"
+    "value": "[Fading Echo Effects]",
+    "text": "Fading Echo Effects"
   },
   {
     "value": "[Falsetto Section]",
     "text": "Falsetto Section"
   },
   {
-    "value": "[Spoken Word]",
-    "text": "Spoken Word"
+    "value": "[Fantasque]",
+    "text": "Fantasque"
   },
   {
-    "value": "[Operatic]",
-    "text": "Operatic"
+    "value": "[Fastoso]",
+    "text": "Fastoso"
   },
   {
-    "value": "[Scat Singing]",
-    "text": "Scat Singing"
+    "value": "[Feierlich]",
+    "text": "Feierlich"
   },
   {
-    "value": "[Beatboxing]",
-    "text": "Beatboxing"
+    "value": "[Female Narrator]",
+    "text": "Female Narrator"
   },
   {
-    "value": "[Vocal Fry]",
-    "text": "Vocal Fry"
+    "value": "[Fermata]",
+    "text": "Fermata"
   },
   {
-    "value": "[Yodeling]",
-    "text": "Yodeling"
+    "value": "[Ferne]",
+    "text": "Ferne"
   },
   {
-    "value": "[Melisma]",
-    "text": "Melisma"
+    "value": "[Fernwerk]",
+    "text": "Fernwerk"
   },
   {
-    "value": "[Harmony: Tight]",
-    "text": "Harmony: Tight"
+    "value": "[Feroce]",
+    "text": "Feroce"
   },
   {
-    "value": "[Harmony: Loose]",
-    "text": "Harmony: Loose"
+    "value": "[Feste Romane]",
+    "text": "Feste Romane"
   },
   {
-    "value": "[Rap: Aggressive]",
-    "text": "Rap: Aggressive"
+    "value": "[Festivamente]",
+    "text": "Festivamente"
   },
   {
-    "value": "[Rap: Laid-Back]",
-    "text": "Rap: Laid-Back"
+    "value": "[Festoso]",
+    "text": "Festoso"
   },
   {
-    "value": "[Vocal Run]",
-    "text": "Vocal Run"
+    "value": "[Festspiel]",
+    "text": "Festspiel"
   },
   {
-    "value": "[Vocal Crescendo]",
-    "text": "Vocal Crescendo"
+    "value": "[Feuer]",
+    "text": "Feuer"
   },
   {
-    "value": "[A Capella]",
-    "text": "A Capella"
+    "value": "[Feuerig]",
+    "text": "Feuerig"
   },
   {
-    "value": "[Vocal Layering]",
-    "text": "Vocal Layering"
+    "value": "[Fieramente]",
+    "text": "Fieramente"
   },
   {
-    "value": "[Call and Response]",
-    "text": "Call and Response"
+    "value": "[Fiero]",
+    "text": "Fiero"
   },
   {
-    "value": "[Vocal Chant]",
-    "text": "Vocal Chant"
+    "value": "[Fin]",
+    "text": "Fin"
   },
   {
-    "value": "[Vocal Echo]",
-    "text": "Vocal Echo"
+    "value": "[Final Chorus]",
+    "text": "Final Chorus"
   },
   {
-    "value": "[Vocal Reverb]",
-    "text": "Vocal Reverb"
+    "value": "[Fine]",
+    "text": "Fine"
   },
   {
-    "value": "[Vocal Distortion]",
-    "text": "Vocal Distortion"
+    "value": "[Flatt.]",
+    "text": "Flatt."
   },
   {
-    "value": "[Vocal Harmony]",
-    "text": "Vocal Harmony"
+    "value": "[Flatterzunge]",
+    "text": "Flatterzunge"
   },
   {
-    "value": "[Choir: Children]",
-    "text": "Choir: Children"
+    "value": "[Flebile]",
+    "text": "Flebile"
   },
   {
-    "value": "[Choir: Mixed]",
-    "text": "Choir: Mixed"
+    "value": "[Flowing Harp Arpeggios]",
+    "text": "Flowing Harp Arpeggios"
   },
   {
-    "value": "[Shout]",
-    "text": "Shout"
+    "value": "[Flüssig]",
+    "text": "Flüssig"
   },
   {
-    "value": "[Whisper]",
-    "text": "Whisper"
+    "value": "[Flüsternd]",
+    "text": "Flüsternd"
+  },
+  {
+    "value": "[Fluttering Flutes]",
+    "text": "Fluttering Flutes"
+  },
+  {
+    "value": "[Focoso]",
+    "text": "Focoso"
+  },
+  {
+    "value": "[Fontane Di Roma]",
+    "text": "Fontane Di Roma"
+  },
+  {
+    "value": "[Foot Stomping]",
+    "text": "Foot Stomping"
+  },
+  {
+    "value": "[Fort]",
+    "text": "Fort"
+  },
+  {
+    "value": "[Forte]",
+    "text": "Forte"
+  },
+  {
+    "value": "[Forte-piano]",
+    "text": "Forte-piano"
+  },
+  {
+    "value": "[Fortissimo]",
+    "text": "Fortissimo"
+  },
+  {
+    "value": "[Forza]",
+    "text": "Forza"
+  },
+  {
+    "value": "[Forzando]",
+    "text": "Forzando"
+  },
+  {
+    "value": "[Forzato]",
+    "text": "Forzato"
+  },
+  {
+    "value": "[Freddo]",
+    "text": "Freddo"
+  },
+  {
+    "value": "[Frei]",
+    "text": "Frei"
+  },
+  {
+    "value": "[Frescamente]",
+    "text": "Frescamente"
+  },
+  {
+    "value": "[Fresco]",
+    "text": "Fresco"
+  },
+  {
+    "value": "[Frettevole]",
+    "text": "Frettevole"
+  },
+  {
+    "value": "[Frettoloso]",
+    "text": "Frettoloso"
+  },
+  {
+    "value": "[Frettoso]",
+    "text": "Frettoso"
+  },
+  {
+    "value": "[Fröhliche]",
+    "text": "Fröhliche"
+  },
+  {
+    "value": "[Frulatto]",
+    "text": "Frulatto"
+  },
+  {
+    "value": "[Fugue]",
+    "text": "Fugue"
+  },
+  {
+    "value": "[Funebre]",
+    "text": "Funebre"
+  },
+  {
+    "value": "[Funky Bass Groove]",
+    "text": "Funky Bass Groove"
+  },
+  {
+    "value": "[Funky Groove]",
+    "text": "Funky Groove"
+  },
+  {
+    "value": "[Fuoco]",
+    "text": "Fuoco"
+  },
+  {
+    "value": "[Fuocoso]",
+    "text": "Fuocoso"
+  },
+  {
+    "value": "[Furia]",
+    "text": "Furia"
+  },
+  {
+    "value": "[Furioso]",
+    "text": "Furioso"
+  },
+  {
+    "value": "[Galactic Echo]",
+    "text": "Galactic Echo"
+  },
+  {
+    "value": "[Gentle Piano Melody]",
+    "text": "Gentle Piano Melody"
+  },
+  {
+    "value": "[Gentle Rainfall Ambience]",
+    "text": "Gentle Rainfall Ambience"
+  },
+  {
+    "value": "[Gentle Whispering]",
+    "text": "Gentle Whispering"
+  },
+  {
+    "value": "[Glissando]",
+    "text": "Glissando"
+  },
+  {
+    "value": "[Gospel Choir]",
+    "text": "Gospel Choir"
+  },
+  {
+    "value": "[Gritty Electronic Bass]",
+    "text": "Gritty Electronic Bass"
+  },
+  {
+    "value": "[Groovy Bassline]",
+    "text": "Groovy Bassline"
+  },
+  {
+    "value": "[Groovy Drum Fill]",
+    "text": "Groovy Drum Fill"
   },
   {
     "value": "[Growl]",
     "text": "Growl"
   },
   {
-    "value": "[Chant]",
-    "text": "Chant"
+    "value": "[Harmonize]",
+    "text": "Harmonize"
   },
   {
-    "value": "[Vocal Slide]",
-    "text": "Vocal Slide"
+    "value": "[Harmony: Loose]",
+    "text": "Harmony: Loose"
   },
   {
-    "value": "[Riff]",
-    "text": "Riff"
+    "value": "[Harmony: Tight]",
+    "text": "Harmony: Tight"
+  },
+  {
+    "value": "[Haunting Melodies]",
+    "text": "Haunting Melodies"
+  },
+  {
+    "value": "[Heavy Hitting]",
+    "text": "Heavy Hitting"
+  },
+  {
+    "value": "[Heavy Metal Riffs]",
+    "text": "Heavy Metal Riffs"
+  },
+  {
+    "value": "[Hook]",
+    "text": "Hook"
+  },
+  {
+    "value": "[Humming]",
+    "text": "Humming"
+  },
+  {
+    "value": "[Hypnotic Beats]",
+    "text": "Hypnotic Beats"
+  },
+  {
+    "value": "[Hypnotic Synth Loop]",
+    "text": "Hypnotic Synth Loop"
+  },
+  {
+    "value": "[Instrumental Break]",
+    "text": "Instrumental Break"
+  },
+  {
+    "value": "[Instrumental Interlude]",
+    "text": "Instrumental Interlude"
+  },
+  {
+    "value": "[Intense Build-Up]",
+    "text": "Intense Build-Up"
+  },
+  {
+    "value": "[Interlude]",
+    "text": "Interlude"
+  },
+  {
+    "value": "[Introduction]",
+    "text": "Introduction"
+  },
+  {
+    "value": "[Jazzy Bebop Section]",
+    "text": "Jazzy Bebop Section"
+  },
+  {
+    "value": "[Jazzy Saxophone Solo]",
+    "text": "Jazzy Saxophone Solo"
+  },
+  {
+    "value": "[Lively Latin Rhythms]",
+    "text": "Lively Latin Rhythms"
+  },
+  {
+    "value": "[Lush String Ensemble]",
+    "text": "Lush String Ensemble"
+  },
+  {
+    "value": "[Majestic Brass]",
+    "text": "Majestic Brass"
+  },
+  {
+    "value": "[Male Narrator]",
+    "text": "Male Narrator"
+  },
+  {
+    "value": "[Melancholic Violin Solo]",
+    "text": "Melancholic Violin Solo"
+  },
+  {
+    "value": "[Melisma]",
+    "text": "Melisma"
+  },
+  {
+    "value": "[Mellow Acoustic Strumming]",
+    "text": "Mellow Acoustic Strumming"
+  },
+  {
+    "value": "[Melodic Echo]",
+    "text": "Melodic Echo"
+  },
+  {
+    "value": "[Modulation]",
+    "text": "Modulation"
+  },
+  {
+    "value": "[Mysterious Synth Drones]",
+    "text": "Mysterious Synth Drones"
+  },
+  {
+    "value": "[Mystical Chimes]",
+    "text": "Mystical Chimes"
+  },
+  {
+    "value": "[Opening Theme]",
+    "text": "Opening Theme"
+  },
+  {
+    "value": "[Operatic]",
+    "text": "Operatic"
+  },
+  {
+    "value": "[Outro]",
+    "text": "Outro"
+  },
+  {
+    "value": "[Pensive Piano Chords]",
+    "text": "Pensive Piano Chords"
+  },
+  {
+    "value": "[Playful Xylophone Notes]",
+    "text": "Playful Xylophone Notes"
+  },
+  {
+    "value": "[Pre-Chorus]",
+    "text": "Pre-Chorus"
+  },
+  {
+    "value": "[Primal Chanting]",
+    "text": "Primal Chanting"
+  },
+  {
+    "value": "[Primal Scream]",
+    "text": "Primal Scream"
+  },
+  {
+    "value": "[Pulsating Rhythm]",
+    "text": "Pulsating Rhythm"
+  },
+  {
+    "value": "[Punchy Beat]",
+    "text": "Punchy Beat"
+  },
+  {
+    "value": "[Punchy Brass Stabs]",
+    "text": "Punchy Brass Stabs"
+  },
+  {
+    "value": "[Punchy Snare Hits]",
+    "text": "Punchy Snare Hits"
+  },
+  {
+    "value": "[Quiet Lull]",
+    "text": "Quiet Lull"
+  },
+  {
+    "value": "[Rap Verse]",
+    "text": "Rap Verse"
+  },
+  {
+    "value": "[Rap: Aggressive]",
+    "text": "Rap: Aggressive"
   },
   {
     "value": "[Rap: Fast Flow]",
     "text": "Rap: Fast Flow"
   },
   {
+    "value": "[Rap: Laid-Back]",
+    "text": "Rap: Laid-Back"
+  },
+  {
     "value": "[Rap: Slow Flow]",
     "text": "Rap: Slow Flow"
   },
   {
-    "value": "[Vocal Tremolo]",
-    "text": "Vocal Tremolo"
+    "value": "[Rapid Fire Percussion]",
+    "text": "Rapid Fire Percussion"
   },
   {
-    "value": "[Vocal Vibrato]",
-    "text": "Vocal Vibrato"
+    "value": "[Refrain]",
+    "text": "Refrain"
   },
   {
-    "value": "[Vocal Slide]",
-    "text": "Vocal Slide"
+    "value": "[Reprise]",
+    "text": "Reprise"
+  },
+  {
+    "value": "[Rhythmic Hand Claps]",
+    "text": "Rhythmic Hand Claps"
+  },
+  {
+    "value": "[Rhythmic Pulse]",
+    "text": "Rhythmic Pulse"
+  },
+  {
+    "value": "[Riff]",
+    "text": "Riff"
+  },
+  {
+    "value": "[Riff]",
+    "text": "Riff"
+  },
+  {
+    "value": "[Rising Crescendo Build]",
+    "text": "Rising Crescendo Build"
+  },
+  {
+    "value": "[Roaring Crescendo]",
+    "text": "Roaring Crescendo"
+  },
+  {
+    "value": "[Scat Singing]",
+    "text": "Scat Singing"
+  },
+  {
+    "value": "[Screaming]",
+    "text": "Screaming"
+  },
+  {
+    "value": "[Second Drop]",
+    "text": "Second Drop"
+  },
+  {
+    "value": "[Serene Interlude]",
+    "text": "Serene Interlude"
+  },
+  {
+    "value": "[Shout]",
+    "text": "Shout"
+  },
+  {
+    "value": "[Shouting]",
+    "text": "Shouting"
+  },
+  {
+    "value": "[Silky Smooth Transition]",
+    "text": "Silky Smooth Transition"
+  },
+  {
+    "value": "[Smooth Jazz Chords]",
+    "text": "Smooth Jazz Chords"
+  },
+  {
+    "value": "[Soaring Strings]",
+    "text": "Soaring Strings"
+  },
+  {
+    "value": "[Soaring Vocal Harmonies]",
+    "text": "Soaring Vocal Harmonies"
+  },
+  {
+    "value": "[Soft Fade]",
+    "text": "Soft Fade"
+  },
+  {
+    "value": "[Soft Vibraphone Tones]",
+    "text": "Soft Vibraphone Tones"
+  },
+  {
+    "value": "[Solo]",
+    "text": "Solo"
+  },
+  {
+    "value": "[Soothing Waves]",
+    "text": "Soothing Waves"
+  },
+  {
+    "value": "[Spoken Word]",
+    "text": "Spoken Word"
+  },
+  {
+    "value": "[Spoken Word: Female Voice]",
+    "text": "Spoken Word: Female Voice"
+  },
+  {
+    "value": "[Spoken Word: Male Voice]",
+    "text": "Spoken Word: Male Voice"
+  },
+  {
+    "value": "[Spooky Theremin Wails]",
+    "text": "Spooky Theremin Wails"
+  },
+  {
+    "value": "[Staccato String Plucks]",
+    "text": "Staccato String Plucks"
+  },
+  {
+    "value": "[Subtle Electronic Beat]",
+    "text": "Subtle Electronic Beat"
+  },
+  {
+    "value": "[Sudden Drop]",
+    "text": "Sudden Drop"
+  },
+  {
+    "value": "[Surreal Atmosphere]",
+    "text": "Surreal Atmosphere"
+  },
+  {
+    "value": "[Tension-Building Silence]",
+    "text": "Tension-Building Silence"
+  },
+  {
+    "value": "[Thunderous Drum Roll]",
+    "text": "Thunderous Drum Roll"
+  },
+  {
+    "value": "[Thunderous Drumming]",
+    "text": "Thunderous Drumming"
+  },
+  {
+    "value": "[Transition to Bursting Horns]",
+    "text": "Transition to Bursting Horns"
+  },
+  {
+    "value": "[Transition to Chorus]",
+    "text": "Transition to Chorus"
+  },
+  {
+    "value": "[Vamp]",
+    "text": "Vamp"
+  },
+  {
+    "value": "[Verse]",
+    "text": "Verse"
+  },
+  {
+    "value": "[Verse: Aggressive]",
+    "text": "Verse: Aggressive"
+  },
+  {
+    "value": "[Verse: Breathy]",
+    "text": "Verse: Breathy"
+  },
+  {
+    "value": "[Verse: Conversational]",
+    "text": "Verse: Conversational"
+  },
+  {
+    "value": "[Verse: Energetic]",
+    "text": "Verse: Energetic"
+  },
+  {
+    "value": "[Verse: Fast-Paced]",
+    "text": "Verse: Fast-Paced"
+  },
+  {
+    "value": "[Verse: Gentle]",
+    "text": "Verse: Gentle"
+  },
+  {
+    "value": "[Verse: Lyrical]",
+    "text": "Verse: Lyrical"
+  },
+  {
+    "value": "[Verse: Melancholic]",
+    "text": "Verse: Melancholic"
+  },
+  {
+    "value": "[Verse: Melodic]",
+    "text": "Verse: Melodic"
+  },
+  {
+    "value": "[Verse: Monotone]",
+    "text": "Verse: Monotone"
+  },
+  {
+    "value": "[Verse: Narrative]",
+    "text": "Verse: Narrative"
+  },
+  {
+    "value": "[Verse: Playful]",
+    "text": "Verse: Playful"
+  },
+  {
+    "value": "[Verse: Raspy]",
+    "text": "Verse: Raspy"
+  },
+  {
+    "value": "[Verse: Rhythmic]",
+    "text": "Verse: Rhythmic"
+  },
+  {
+    "value": "[Verse: Serious]",
+    "text": "Verse: Serious"
+  },
+  {
+    "value": "[Verse: Slow-Paced]",
+    "text": "Verse: Slow-Paced"
+  },
+  {
+    "value": "[Verse: Smooth]",
+    "text": "Verse: Smooth"
+  },
+  {
+    "value": "[Verse: Soulful Singing]",
+    "text": "Verse: Soulful Singing"
+  },
+  {
+    "value": "[Verse: Spoken]",
+    "text": "Verse: Spoken"
+  },
+  {
+    "value": "[Verse: Strong]",
+    "text": "Verse: Strong"
+  },
+  {
+    "value": "[Verse: Whispered]",
+    "text": "Verse: Whispered"
+  },
+  {
+    "value": "[Vibrant Tropical Percussion]",
+    "text": "Vibrant Tropical Percussion"
+  },
+  {
+    "value": "[Vibrant Vocals]",
+    "text": "Vibrant Vocals"
   },
   {
     "value": "[Vocal Belt]",
     "text": "Vocal Belt"
   },
   {
-    "value": "[Vocal Whisper]",
-    "text": "Vocal Whisper"
+    "value": "[Vocal Chant]",
+    "text": "Vocal Chant"
   },
   {
-    "value": "[Vocal Screech]",
-    "text": "Vocal Screech"
-  },
-  {
-    "value": "[Choir: Male]",
-    "text": "Choir: Male"
-  },
-  {
-    "value": "[Choir: Female]",
-    "text": "Choir: Female"
-  },
-  {
-    "value": "[Vocal Staccato]",
-    "text": "Vocal Staccato"
-  },
-  {
-    "value": "[Vocal Legato]",
-    "text": "Vocal Legato"
+    "value": "[Vocal Crescendo]",
+    "text": "Vocal Crescendo"
   },
   {
     "value": "[Vocal Crescendo]",
@@ -560,399 +1928,111 @@
     "text": "Vocal Decrescendo"
   },
   {
+    "value": "[Vocal Distortion]",
+    "text": "Vocal Distortion"
+  },
+  {
+    "value": "[Vocal Echo]",
+    "text": "Vocal Echo"
+  },
+  {
+    "value": "[Vocal Fry]",
+    "text": "Vocal Fry"
+  },
+  {
+    "value": "[Vocal Harmony]",
+    "text": "Vocal Harmony"
+  },
+  {
     "value": "[Vocal Humming]",
     "text": "Vocal Humming"
   },
   {
-    "value": "[Transition to Bursting Horns]",
-    "text": "Transition to Bursting Horns"
+    "value": "[Vocal Improvisation]",
+    "text": "Vocal Improvisation"
   },
   {
-    "value": "[Cinematic Yelling]",
-    "text": "Cinematic Yelling"
+    "value": "[Vocal Layering]",
+    "text": "Vocal Layering"
   },
   {
-    "value": "[Gentle Whispering]",
-    "text": "Gentle Whispering"
+    "value": "[Vocal Legato]",
+    "text": "Vocal Legato"
   },
   {
-    "value": "[Thunderous Drumming]",
-    "text": "Thunderous Drumming"
+    "value": "[Vocal Reverb]",
+    "text": "Vocal Reverb"
   },
   {
-    "value": "[Ethereal Choir]",
-    "text": "Ethereal Choir"
+    "value": "[Vocal Run]",
+    "text": "Vocal Run"
   },
   {
-    "value": "[Majestic Brass]",
-    "text": "Majestic Brass"
+    "value": "[Vocal Screech]",
+    "text": "Vocal Screech"
   },
   {
-    "value": "[Soaring Strings]",
-    "text": "Soaring Strings"
+    "value": "[Vocal Slide]",
+    "text": "Vocal Slide"
   },
   {
-    "value": "[Hypnotic Beats]",
-    "text": "Hypnotic Beats"
+    "value": "[Vocal Slide]",
+    "text": "Vocal Slide"
   },
   {
-    "value": "[Ambient Soundscape]",
-    "text": "Ambient Soundscape"
+    "value": "[Vocal Staccato]",
+    "text": "Vocal Staccato"
   },
   {
-    "value": "[Explosive Percussion]",
-    "text": "Explosive Percussion"
+    "value": "[Vocal Tremolo]",
+    "text": "Vocal Tremolo"
   },
   {
-    "value": "[Haunting Melodies]",
-    "text": "Haunting Melodies"
+    "value": "[Vocal Vibrato]",
+    "text": "Vocal Vibrato"
   },
   {
-    "value": "[Vibrant Vocals]",
-    "text": "Vibrant Vocals"
-  },
-  {
-    "value": "[Pulsating Rhythm]",
-    "text": "Pulsating Rhythm"
-  },
-  {
-    "value": "[Crescendoing Harmony]",
-    "text": "Crescendoing Harmony"
-  },
-  {
-    "value": "[Whimsical Woodwinds]",
-    "text": "Whimsical Woodwinds"
-  },
-  {
-    "value": "[Dramatic Pause]",
-    "text": "Dramatic Pause"
-  },
-  {
-    "value": "[Tension-Building Silence]",
-    "text": "Tension-Building Silence"
-  },
-  {
-    "value": "[Mystical Chimes]",
-    "text": "Mystical Chimes"
-  },
-  {
-    "value": "[Electric Surge]",
-    "text": "Electric Surge"
-  },
-  {
-    "value": "[Galactic Echo]",
-    "text": "Galactic Echo"
-  },
-  {
-    "value": "[Primal Chanting]",
-    "text": "Primal Chanting"
-  },
-  {
-    "value": "[Serene Interlude]",
-    "text": "Serene Interlude"
-  },
-  {
-    "value": "[Intense Build-Up]",
-    "text": "Intense Build-Up"
-  },
-  {
-    "value": "[Dynamic Shift]",
-    "text": "Dynamic Shift"
-  },
-  {
-    "value": "[Sudden Drop]",
-    "text": "Sudden Drop"
-  },
-  {
-    "value": "[Melodic Echo]",
-    "text": "Melodic Echo"
-  },
-  {
-    "value": "[Groovy Bassline]",
-    "text": "Groovy Bassline"
-  },
-  {
-    "value": "[Soft Fade]",
-    "text": "Soft Fade"
-  },
-  {
-    "value": "[Chaotic Climax]",
-    "text": "Chaotic Climax"
-  },
-  {
-    "value": "[Energetic Pulse]",
-    "text": "Energetic Pulse"
-  },
-  {
-    "value": "[Silky Smooth Transition]",
-    "text": "Silky Smooth Transition"
-  },
-  {
-    "value": "[Epic Finale]",
-    "text": "Epic Finale"
-  },
-  {
-    "value": "[Quiet Lull]",
-    "text": "Quiet Lull"
-  },
-  {
-    "value": "[Roaring Crescendo]",
-    "text": "Roaring Crescendo"
-  },
-  {
-    "value": "[Fluttering Flutes]",
-    "text": "Fluttering Flutes"
-  },
-  {
-    "value": "[Rhythmic Pulse]",
-    "text": "Rhythmic Pulse"
-  },
-  {
-    "value": "[Cinematic Boom]",
-    "text": "Cinematic Boom"
-  },
-  {
-    "value": "[Wistful Strings]",
-    "text": "Wistful Strings"
-  },
-  {
-    "value": "[Euphoric Rise]",
-    "text": "Euphoric Rise"
-  },
-  {
-    "value": "[Funky Groove]",
-    "text": "Funky Groove"
-  },
-  {
-    "value": "[Heavy Hitting]",
-    "text": "Heavy Hitting"
-  },
-  {
-    "value": "[Chilled Vibes]",
-    "text": "Chilled Vibes"
-  },
-  {
-    "value": "[Soothing Waves]",
-    "text": "Soothing Waves"
-  },
-  {
-    "value": "[Bright Sparkle]",
-    "text": "Bright Sparkle"
-  },
-  {
-    "value": "[Deep Dive]",
-    "text": "Deep Dive"
-  },
-  {
-    "value": "[Punchy Beat]",
-    "text": "Punchy Beat"
-  },
-  {
-    "value": "[Surreal Atmosphere]",
-    "text": "Surreal Atmosphere"
-  },
-  {
-    "value": "[Warm Glow]",
-    "text": "Warm Glow"
-  },
-  {
-    "value": "[Crisp Hit]",
-    "text": "Crisp Hit"
-  },
-  {
-    "value": "[Thunderous Drum Roll]",
-    "text": "Thunderous Drum Roll"
-  },
-  {
-    "value": "[Gentle Piano Melody]",
-    "text": "Gentle Piano Melody"
-  },
-  {
-    "value": "[Lush String Ensemble]",
-    "text": "Lush String Ensemble"
-  },
-  {
-    "value": "[Rapid Fire Percussion]",
-    "text": "Rapid Fire Percussion"
-  },
-  {
-    "value": "[Whispering Winds Section]",
-    "text": "Whispering Winds Section"
-  },
-  {
-    "value": "[Bright Brass Fanfare]",
-    "text": "Bright Brass Fanfare"
-  },
-  {
-    "value": "[Deep Bass Drop]",
-    "text": "Deep Bass Drop"
-  },
-  {
-    "value": "[Eerie Synth Pulses]",
-    "text": "Eerie Synth Pulses"
-  },
-  {
-    "value": "[Flowing Harp Arpeggios]",
-    "text": "Flowing Harp Arpeggios"
-  },
-  {
-    "value": "[Jazzy Saxophone Solo]",
-    "text": "Jazzy Saxophone Solo"
-  },
-  {
-    "value": "[Driving Guitar Riff]",
-    "text": "Driving Guitar Riff"
-  },
-  {
-    "value": "[Soft Vibraphone Tones]",
-    "text": "Soft Vibraphone Tones"
-  },
-  {
-    "value": "[Spooky Theremin Wails]",
-    "text": "Spooky Theremin Wails"
-  },
-  {
-    "value": "[Punchy Snare Hits]",
-    "text": "Punchy Snare Hits"
-  },
-  {
-    "value": "[Warm String Swells]",
-    "text": "Warm String Swells"
-  },
-  {
-    "value": "[Groovy Drum Fill]",
-    "text": "Groovy Drum Fill"
-  },
-  {
-    "value": "[Soaring Vocal Harmonies]",
-    "text": "Soaring Vocal Harmonies"
-  },
-  {
-    "value": "[Subtle Electronic Beat]",
-    "text": "Subtle Electronic Beat"
-  },
-  {
-    "value": "[Funky Bass Groove]",
-    "text": "Funky Bass Groove"
-  },
-  {
-    "value": "[Hypnotic Synth Loop]",
-    "text": "Hypnotic Synth Loop"
-  },
-  {
-    "value": "[Explosive Drum Hits]",
-    "text": "Explosive Drum Hits"
-  },
-  {
-    "value": "[Mellow Acoustic Strumming]",
-    "text": "Mellow Acoustic Strumming"
-  },
-  {
-    "value": "[Energetic Brass Blasts]",
-    "text": "Energetic Brass Blasts"
-  },
-  {
-    "value": "[Dreamy Synth Pads]",
-    "text": "Dreamy Synth Pads"
-  },
-  {
-    "value": "[Playful Xylophone Notes]",
-    "text": "Playful Xylophone Notes"
-  },
-  {
-    "value": "[Rhythmic Hand Claps]",
-    "text": "Rhythmic Hand Claps"
-  },
-  {
-    "value": "[Smooth Jazz Chords]",
-    "text": "Smooth Jazz Chords"
-  },
-  {
-    "value": "[Rising Crescendo Build]",
-    "text": "Rising Crescendo Build"
-  },
-  {
-    "value": "[Staccato String Plucks]",
-    "text": "Staccato String Plucks"
-  },
-  {
-    "value": "[Ambient Sound Effects]",
-    "text": "Ambient Sound Effects"
-  },
-  {
-    "value": "[Heavy Metal Riffs]",
-    "text": "Heavy Metal Riffs"
-  },
-  {
-    "value": "[Delicate Glockenspiel Tinkles]",
-    "text": "Delicate Glockenspiel Tinkles"
-  },
-  {
-    "value": "[Lively Latin Rhythms]",
-    "text": "Lively Latin Rhythms"
-  },
-  {
-    "value": "[Energetic Drumline Beats]",
-    "text": "Energetic Drumline Beats"
-  },
-  {
-    "value": "[Gritty Electronic Bass]",
-    "text": "Gritty Electronic Bass"
-  },
-  {
-    "value": "[Bright Marimba Tones]",
-    "text": "Bright Marimba Tones"
-  },
-  {
-    "value": "[Fading Echo Effects]",
-    "text": "Fading Echo Effects"
-  },
-  {
-    "value": "[Punchy Brass Stabs]",
-    "text": "Punchy Brass Stabs"
-  },
-  {
-    "value": "[Calm Ocean Waves]",
-    "text": "Calm Ocean Waves"
-  },
-  {
-    "value": "[Pensive Piano Chords]",
-    "text": "Pensive Piano Chords"
-  },
-  {
-    "value": "[Dramatic Timpani Rolls]",
-    "text": "Dramatic Timpani Rolls"
-  },
-  {
-    "value": "[Melancholic Violin Solo]",
-    "text": "Melancholic Violin Solo"
-  },
-  {
-    "value": "[Vibrant Tropical Percussion]",
-    "text": "Vibrant Tropical Percussion"
-  },
-  {
-    "value": "[Ambient Nature Sounds]",
-    "text": "Ambient Nature Sounds"
-  },
-  {
-    "value": "[Epic Orchestral Finale]",
-    "text": "Epic Orchestral Finale"
-  },
-  {
-    "value": "[Distant Thunder Rumbles]",
-    "text": "Distant Thunder Rumbles"
+    "value": "[Vocal Whisper]",
+    "text": "Vocal Whisper"
   },
   {
     "value": "[Wailing Electric Guitar]",
     "text": "Wailing Electric Guitar"
   },
   {
-    "value": "[Gentle Rainfall Ambience]",
-    "text": "Gentle Rainfall Ambience"
+    "value": "[Wall Of Sound]",
+    "text": "Wall Of Sound"
   },
   {
-    "value": "[Mysterious Synth Drones]",
-    "text": "Mysterious Synth Drones"
+    "value": "[Warm Glow]",
+    "text": "Warm Glow"
+  },
+  {
+    "value": "[Warm String Swells]",
+    "text": "Warm String Swells"
+  },
+  {
+    "value": "[Whimsical Woodwinds]",
+    "text": "Whimsical Woodwinds"
+  },
+  {
+    "value": "[Whisper]",
+    "text": "Whisper"
+  },
+  {
+    "value": "[Whispering Winds Section]",
+    "text": "Whispering Winds Section"
+  },
+  {
+    "value": "[Whistling]",
+    "text": "Whistling"
+  },
+  {
+    "value": "[Wistful Strings]",
+    "text": "Wistful Strings"
+  },
+  {
+    "value": "[Yodeling]",
+    "text": "Yodeling"
   }
 ]

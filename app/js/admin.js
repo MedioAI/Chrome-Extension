@@ -7,6 +7,30 @@
  * (at your option) any later version.
  */
 
+const convertCommands = document.getElementById('convertCommands')
+convertCommands.addEventListener('click', async e => {
+  const data = await fetch(chrome.runtime.getURL('database/tagbuilder/artists.json'))
+    .then(response => response.json())
+    .then(data => {
+      return data
+    })
+
+  const cleaned = []
+  // remove duplicates
+  for (let i = 0; i < data.length; i++) {
+    if (cleaned.indexOf(data[i]) === -1) {
+      cleaned.push(data[i])
+    }
+  }
+
+  // sort alphabetically by value.text
+  cleaned.sort((a, b) => {
+    return a.localeCompare(b.text)
+  })
+
+  console.log(cleaned)
+})
+
 const countButton = document.getElementById('count')
 countButton.addEventListener('click', async e => {
   const names = [
