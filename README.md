@@ -48,13 +48,13 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 - Added playlist expand button.
 - Added MP3 Metadata Editor.
 - Added 4000+ new tags to the database.
+- Challenge me button with 500+ songwriting prompts.
 
 ### In Progress
 
+- Keep advanced settings applied (local storage)
 - OpenRouter API
-- Challenge button
-- Keep advanced settings
-- Make version for Firefox
+- Firefox Extension version
 
 ### Marketing
 
