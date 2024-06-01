@@ -42,13 +42,15 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 
 ## In Progress - **Version 1.3**
 
-### Bug Fixes
+### Completed
 
 - Fix position of playlist in sidebar.
+- Added playlist expand button.
+- Added 4000+ new tags to the database.
 
-### New Features
+### In Progress
 
-- Claude API AI Integration
+- OpenRouter API
 - Make version for Firefox
 
 ### Marketing

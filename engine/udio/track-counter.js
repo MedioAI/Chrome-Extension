@@ -40,6 +40,7 @@ const medioAITrackCounter = {
     const username = avatar.querySelector(`img`).alt
     const forms = document.querySelectorAll('form')
     if (!forms || forms.length < 2) return
+    if (!forms[1].querySelector('a')) return
     const trackArtist = forms[1].querySelector('a').textContent
 
     if (username !== trackArtist) return
