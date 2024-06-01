@@ -46,6 +46,7 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 
 - Fix position of playlist in sidebar.
 - Added playlist expand button.
+- Added MP3 Metadata Editor.
 - Added 4000+ new tags to the database.
 
 ### In Progress
