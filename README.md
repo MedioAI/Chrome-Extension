@@ -45,15 +45,16 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 ### Completed
 
 - Fix position of playlist in sidebar.
-- Added playlist expand button.
+- Added playlist expand button w/ popup.
 - Added MP3 Metadata Editor.
 - Added 4000+ new tags to the database.
 - Challenge me button with 500+ songwriting prompts.
+- Keep Seed & Quality settings (toggle on/off)
 
 ### In Progress
 
+- Save and name seeds.
 - Preview sound in audio settings.
-- Keep advanced settings applied (local storage)
 - Display waveform after wav conversion (to display fade in/out)
 - OpenRouter API
 - Firefox Extension version

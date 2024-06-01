@@ -46,6 +46,13 @@ const songStudioMedioAI = {
 
     songStudioMedioAI.playlist()
     songStudioMedioAI.appButtons()
+
+    const keepAdvancedSettings = await utilitiesMedioAI.getSettings('keepAdvancedSettings')
+    if (keepAdvancedSettings === 'on') {
+      setTimeout(() => {
+        songStudioMedioAI.keepAdvancedSettings()
+      }, 1000)
+    }
   },
 
   load: callback => {
@@ -537,5 +544,90 @@ const songStudioMedioAI = {
 
     const observer = new MutationObserver(callback)
     observer.observe(document, { childList: true, subtree: true })
+  },
+
+  keepAdvancedSettings: () => {
+    let buttons = document.querySelectorAll('button[type="button"]')
+    buttons.forEach(button => {
+      if (button.textContent === 'Advanced Features') {
+        button.addEventListener('click', () => {
+          setTimeout(() => {
+            songStudioMedioAI.applyAdvancedSettings(button)
+          }, 200)
+        })
+      }
+    })
+  },
+
+  applyAdvancedSettings: async button => {
+    const wrapper = button.closest('h3').nextElementSibling
+    if (!wrapper) return
+
+    const allInputs = wrapper.querySelectorAll('input')
+    const settings = await songStudioMedioAI.getAdvancedSettings()
+
+    if (settings.seed === undefined) {
+      settings.seed = -1
+      settings.quality = 0.5
+    }
+
+    if (!allInputs[0]) return
+
+    allInputs[0].value = settings.seed
+    allInputs[1].value = settings.quality
+
+    function simulateMouseClick(element, clickX, clickY) {
+      const mouseClickEvents = ['mousedown', 'click', 'mouseup', 'change', 'input']
+      mouseClickEvents.forEach(mouseEventType => {
+        const event = {
+          view: window,
+          bubbles: true,
+          cancelable: true,
+          buttons: 1,
+        }
+        if (clickX && clickY) {
+          event.clientX = clickX
+          event.clientY = clickY
+        }
+        element.dispatchEvent(new MouseEvent(mouseEventType, event))
+      })
+    }
+
+    function adjustQualitySlider(percentage) {
+      const slider = document.querySelector('.MuiSlider-root .MuiSlider-rail')
+      if (!slider) return
+
+      const sliderRect = slider.getBoundingClientRect()
+      const clickX = sliderRect.left + percentage * sliderRect.width
+      const clickY = sliderRect.top + sliderRect.height / 2
+      simulateMouseClick(slider, clickX, clickY)
+    }
+
+    simulateMouseClick(allInputs[0])
+    adjustQualitySlider(settings.quality)
+  },
+
+  getAdvancedSettings: () => {
+    return new Promise((resolve, reject) => {
+      chrome.storage.local.get(['medioAIAdvancedSettings'], function (result) {
+        if (chrome.runtime.lastError) {
+          reject(chrome.runtime.lastError)
+        } else {
+          resolve(result.medioAIAdvancedSettings)
+        }
+      })
+    })
+  },
+
+  setAdvancedSettings: settings => {
+    return new Promise((resolve, reject) => {
+      chrome.storage.local.set({ medioAIAdvancedSettings: settings }, function () {
+        if (chrome.runtime.lastError) {
+          reject(chrome.runtime.lastError)
+        } else {
+          resolve()
+        }
+      })
+    })
   },
 }

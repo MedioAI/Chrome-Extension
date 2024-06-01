@@ -18,6 +18,7 @@ const app = {
         document.getElementById('slideanimation').value = settings.slideanimation
         document.getElementById('lyrictextsize').value = settings.lyrictextsize
         document.getElementById('commandcolor').value = settings.commandcolor
+        document.getElementById('keepAdvancedSettings').value = settings.keepAdvancedSettings
         // document.getElementById('aimodel').value = settings.aimodel
         document.getElementById('openaikey').value = settings.openaikey
         // document.getElementById('claudeapikey').value = settings.claudeapikey
@@ -75,6 +76,7 @@ const app = {
       aimodel: '',
       openaikey: document.getElementById('openaikey').value,
       claudeapikey: '',
+      keepAdvancedSettings: document.getElementById('keepAdvancedSettings').value,
     }
 
     chrome.storage.local.set({ medioaiSettings }, function () {

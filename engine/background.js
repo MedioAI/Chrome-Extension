@@ -17,6 +17,7 @@ chrome.runtime.onInstalled.addListener(() => {
     aimodel: 'openai',
     openaikey: '',
     claudeapikey: '',
+    keepAdvancedSettings: 'off',
   }
 
   chrome.storage.local.get('medioaiSettings', result => {
