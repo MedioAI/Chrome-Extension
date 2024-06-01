@@ -14,7 +14,7 @@ A chrome extension to enhance the experience of Udio.com, the best music platfor
    - Write your lyrics in large easy to use editor. (with commands for AI music apps)
 2. **Rhyme**
    - Get rhyme suggestions for your lyrics in seconds.
-3. **Tag Builder**
+3. **Tag Builder** (14,400+ Tag Database)
    - Combine genres, artists, and more and save to re-use later.
 4. **Ask**
    - AI integration for asking for feedback on your lyrics, chatting.
