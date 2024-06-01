@@ -50,12 +50,12 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 - Added 4000+ new tags to the database.
 - Challenge me button with 500+ songwriting prompts.
 - Keep Seed & Quality settings (toggle on/off)
+- Seedbank manager (save, edit, select, random, delete)
+- Preview sound in audio settings.
+- Display waveform after .WAV conversion
 
 ### In Progress
 
-- Save and name seeds.
-- Preview sound in audio settings.
-- Display waveform after wav conversion (to display fade in/out)
 - OpenRouter API
 - Firefox Extension version
 - Music visualizer to MP4

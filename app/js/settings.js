@@ -25,6 +25,13 @@ const app = {
       }
     })
 
+    const playSound = document.getElementById('playSound')
+    playSound.addEventListener('click', function () {
+      const sound = document.getElementById('notificationsound').value
+      const audio = new Audio(chrome.runtime.getURL(`../../sounds/${sound}.mp3`))
+      audio.play()
+    })
+
     const saveButton = document.getElementById('save')
     saveButton.addEventListener('click', app.save)
 

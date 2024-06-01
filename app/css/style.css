@@ -180,7 +180,6 @@ body {
 
 #waveform {
   width: 100%;
-  height: 120px;
   background: #000;
   margin-top: 20px;
   border: 1px solid #333;
@@ -191,6 +190,7 @@ body {
 }
 #waveformpreview {
   font-size: 15px;
+  padding: 30px;
   color: #ffffff5a;
   font-style: italic;
   letter-spacing: 1px;

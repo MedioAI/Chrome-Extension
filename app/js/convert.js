@@ -117,9 +117,51 @@ async function runFFmpeg(inputFileName, outputFileName, commandStr, file) {
 
   ffmpeg.FS('writeFile', inputFileName, await fetchFile(file))
   await ffmpeg.run(...commandList)
+
   const data = ffmpeg.FS('readFile', outputFileName)
   const blob = new Blob([data.buffer])
   downloadFile(blob, outputFileName)
+  showWaveForm(blob)
+}
+
+async function showWaveForm(blob) {
+  const waveformpreview = document.getElementById('waveformpreview')
+  waveformpreview.style.display = 'none'
+  const wavepreviewCanvas = document.getElementById('waveformcanvas')
+  wavepreviewCanvas.style.display = 'block'
+  const canvasContext = wavepreviewCanvas.getContext('2d')
+  const audioContext = new (window.AudioContext || window.webkitAudioContext)()
+
+  const arrayBuffer = await blob.arrayBuffer()
+  const audioBuffer = await audioContext.decodeAudioData(arrayBuffer)
+
+  const parentWidth = wavepreviewCanvas.parentElement.clientWidth
+  wavepreviewCanvas.width = parentWidth
+
+  canvasContext.clearRect(0, 0, wavepreviewCanvas.width, wavepreviewCanvas.height)
+
+  const bufferLength = audioBuffer.length
+  const data = audioBuffer.getChannelData(0)
+  const step = Math.ceil(bufferLength / wavepreviewCanvas.width)
+  const amp = wavepreviewCanvas.height / 2
+
+  canvasContext.fillStyle = 'transparent'
+  canvasContext.fillRect(0, 0, wavepreviewCanvas.width, wavepreviewCanvas.height)
+  canvasContext.strokeStyle = '#25CC8C'
+  canvasContext.lineWidth = 1
+
+  canvasContext.beginPath()
+  for (let i = 0; i < wavepreviewCanvas.width; i++) {
+    const min = data[i * step]
+    const x = i
+    const y = (1 + min) * amp
+    if (i === 0) {
+      canvasContext.moveTo(x, y)
+    } else {
+      canvasContext.lineTo(x, y)
+    }
+  }
+  canvasContext.stroke()
 }
 
 function downloadFile(blob, fileName) {
