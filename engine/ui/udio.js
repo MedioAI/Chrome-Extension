@@ -237,6 +237,9 @@ const uiMedioAI = {
       ></span>
     </div>
     <div class="flex space-x-2 items-center">
+      <button id="medioaiChallenge" class="flex items-center space-x-3">
+        ${iconsMedioAI.challenge}
+      </button>
       <button id="medioaiTools" class="flex items-center space-x-3">
         ${iconsMedioAI.tools}
       </button>

@@ -154,7 +154,8 @@
 #medioSongRollDice,
 #medioSongClear,
 #medioaiSettings,
-#medioaiTools {
+#medioaiTools,
+#medioaiChallenge {
   background: #242424;
   padding: 6px 12px;
   display: flex;
@@ -719,4 +720,18 @@ select.medioAddTag {
   color: #fff;
   font-size: 20px;
   cursor: pointer;
+}
+
+#medioAI-challenge {
+  width: 600px;
+  margin: 0 auto;
+  padding: 100px;
+  border-radius: 10px;
+  z-index: 99999999999;
+  box-shadow: 20px 20px 60px #000, -20px -20px 60px #000;
+  top: 50px;
+  text-align: center;
+}
+#medioAI-challenge-close {
+  font-size: 34px;
 }

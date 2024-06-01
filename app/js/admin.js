@@ -72,7 +72,7 @@ countButton.addEventListener('click', async e => {
 const convertButton = document.getElementById('convert')
 convertButton.addEventListener('click', async e => {
   const currentJSONFile = chrome.runtime.getURL('database/tagbuilder/genres.json')
-  const newJSONFile = chrome.runtime.getURL('database/admin.json')
+  const newJSONFile = chrome.runtime.getURL('app/admin/admin.json')
 
   const current = await fetch(currentJSONFile)
     .then(response => response.json())

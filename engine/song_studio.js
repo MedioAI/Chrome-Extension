@@ -44,7 +44,7 @@ const songStudioMedioAI = {
     }
     window.addEventListener('keydown', songStudioMedioAI.spaceKeyDown)
 
-    songStudioMedioAI.fixPlaylistPosition()
+    songStudioMedioAI.playlist()
     songStudioMedioAI.appButtons()
   },
 
@@ -386,9 +386,48 @@ const songStudioMedioAI = {
     medioaiTools.addEventListener('click', () => {
       chrome.runtime.sendMessage({ action: 'openApp' })
     })
+
+    const medioaiChallenge = document.getElementById('medioaiChallenge')
+    medioaiChallenge.addEventListener('click', () => {
+      songStudioMedioAI.challenge()
+    })
   },
 
-  fixPlaylistPosition: () => {
+  challenge: async () => {
+    const modal = document.createElement('div')
+    modal.id = 'medioAI-challenge'
+    modal.innerHTML = `<div id="medioAI-challenge" class="fixed inset-0 bg-black">
+      <button id="medioAI-challenge-close" class="absolute top-4 right-4 text-white">&times;</button>
+      <button id="medioAI-challenge-generate" class="bg-black text-white px-4 py-2 rounded-md mb-8 border rounded">Regenerate</button>
+      <h4 class="text-lg text-gray-400 mb-2 text-center">Write a song about...</h4>
+      <h2 class="text-2xl text-center">${await songStudioMedioAI.newChallenge()}</h2>
+    </div>`
+    document.body.appendChild(modal)
+
+    const close = document.getElementById('medioAI-challenge-close')
+    close.addEventListener('click', () => {
+      modal.remove()
+    })
+
+    const generate = document.getElementById('medioAI-challenge-generate')
+    generate.addEventListener('click', async () => {
+      document.querySelector('#medioAI-challenge h2').innerHTML = await songStudioMedioAI.newChallenge()
+    })
+  },
+
+  newChallenge: async () => {
+    const json = chrome.runtime.getURL('database/songstudio/challenges.json')
+
+    const current = await fetch(json)
+      .then(response => response.json())
+      .then(data => {
+        return data
+      })
+
+    return current[Math.floor(Math.random() * current.length)]
+  },
+
+  playlist: () => {
     const callback = function (mutationsList, observer) {
       const element = document.querySelector(
         'aside nav [dir="ltr"].relative.overflow-hidden.flex.w-full.flex-col'
@@ -483,7 +522,6 @@ const songStudioMedioAI = {
             sidebarPlaylist.style.maxHeight = 'calc(100vh - 40px)'
             sidebarPlaylist.style.overflow = 'visible'
             copiedPlaylist.querySelector('[role="tablist"]').remove()
-            // copiedPlaylist.querySelector('[data-state="visible"]').remove()
 
             modal.appendChild(copiedPlaylist)
             overlay.appendChild(modal)

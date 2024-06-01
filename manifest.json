@@ -21,7 +21,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["lib/*", "sounds/*", "database/*", "icon/*"],
+      "resources": ["lib/*", "sounds/*", "database/*", "icon/*", "app/admin/admin.json"],
       "matches": ["https://www.udio.com/*"]
     }
   ],
