@@ -46,12 +46,15 @@ const songStudioMedioAI = {
 
     songStudioMedioAI.playlist()
     songStudioMedioAI.appButtons()
+    setTimeout(() => {
+      songStudioMedioAI.seedBox()
+    }, 2000)
 
     const keepAdvancedSettings = await utilitiesMedioAI.getSettings('keepAdvancedSettings')
     if (keepAdvancedSettings === 'on') {
       setTimeout(() => {
         songStudioMedioAI.keepAdvancedSettings()
-      }, 1000)
+      }, 2000)
     }
   },
 
@@ -547,13 +550,30 @@ const songStudioMedioAI = {
   },
 
   keepAdvancedSettings: () => {
-    let buttons = document.querySelectorAll('button[type="button"]')
+    const buttons = document.querySelectorAll('button')
     buttons.forEach(button => {
       if (button.textContent === 'Advanced Features') {
         button.addEventListener('click', () => {
           setTimeout(() => {
             songStudioMedioAI.applyAdvancedSettings(button)
           }, 200)
+        })
+      } else if (
+        button.textContent === 'Create' ||
+        button.textContent === 'Extend' ||
+        button.textContent === 'Remix'
+      ) {
+        button.addEventListener('click', () => {
+          const buttons = document.querySelectorAll('button')
+          buttons.forEach(button => {
+            if (button.textContent === 'Advanced Features') {
+              const wrapper = button.closest('h3').nextElementSibling
+              const allInputs = wrapper.querySelectorAll('input')
+              if (!allInputs[0]) return
+
+              songStudioMedioAI.setAdvancedSettings({ seed: allInputs[0].value, quality: allInputs[1].value })
+            }
+          })
         })
       }
     })
@@ -576,35 +596,35 @@ const songStudioMedioAI = {
     allInputs[0].value = settings.seed
     allInputs[1].value = settings.quality
 
-    function simulateMouseClick(element, clickX, clickY) {
-      const mouseClickEvents = ['mousedown', 'click', 'mouseup', 'change', 'input']
-      mouseClickEvents.forEach(mouseEventType => {
-        const event = {
-          view: window,
-          bubbles: true,
-          cancelable: true,
-          buttons: 1,
-        }
-        if (clickX && clickY) {
-          event.clientX = clickX
-          event.clientY = clickY
-        }
-        element.dispatchEvent(new MouseEvent(mouseEventType, event))
-      })
-    }
-
     function adjustQualitySlider(percentage) {
       const slider = document.querySelector('.MuiSlider-root .MuiSlider-rail')
       if (!slider) return
 
       const sliderRect = slider.getBoundingClientRect()
-      const clickX = sliderRect.left + percentage * sliderRect.width
+      const clickX = sliderRect.left + percentage * sliderRect.width - 100
       const clickY = sliderRect.top + sliderRect.height / 2
-      simulateMouseClick(slider, clickX, clickY)
+      songStudioMedioAI.simulateMouseClick(slider, clickX, clickY)
     }
 
-    simulateMouseClick(allInputs[0])
+    songStudioMedioAI.simulateMouseClick(allInputs[0])
     adjustQualitySlider(settings.quality)
+  },
+
+  simulateMouseClick(element, clickX, clickY) {
+    const mouseClickEvents = ['mousedown', 'click', 'mouseup', 'change', 'input']
+    mouseClickEvents.forEach(mouseEventType => {
+      const event = {
+        view: window,
+        bubbles: true,
+        cancelable: true,
+        buttons: 1,
+      }
+      if (clickX && clickY) {
+        event.clientX = clickX
+        event.clientY = clickY
+      }
+      element.dispatchEvent(new MouseEvent(mouseEventType, event))
+    })
   },
 
   getAdvancedSettings: () => {
@@ -627,6 +647,169 @@ const songStudioMedioAI = {
         } else {
           resolve()
         }
+      })
+    })
+  },
+
+  seedBox: () => {
+    let buttons = document.querySelectorAll('button[type="button"]')
+    buttons.forEach(button => {
+      if (button.textContent === 'Advanced Features') {
+        button.addEventListener('click', () => {
+          setTimeout(() => {
+            songStudioMedioAI.appendSeedBox(button)
+          }, 200)
+        })
+      }
+    })
+  },
+
+  appendSeedBox: button => {
+    const wrapper = button.closest('h3').nextElementSibling
+    if (!wrapper) return
+
+    const allInputs = wrapper.querySelectorAll('input')
+    const seedInput = allInputs[0]
+    const inputWrapper = seedInput.closest('div.relative.flex.h-full.w-full.flex-col')
+    if (!inputWrapper) return
+
+    const seedBox = document.createElement('div')
+    seedBox.innerHTML = `<div class="absolute top-4 right-3 flex items-center justify-center text-white text-xs font-medium rounded-r-md">
+      <button id="medioAIEditSeeds" class="rounded border text-sm text-sm p-2 mr-1">${iconsMedioAI.edit}</button>
+      <button id="medioAISaveSeed" class="rounded border text-sm text-sm p-2 mr-1">${iconsMedioAI.save}</button>
+      <button id="medioAIRandomSeed" class="rounded border text-sm text-sm p-2 mr-1">${iconsMedioAI.dice}</button>
+      <select id="medioAISeedbank" class="rounded border text-sm p-1 w-full" style="width: 120px"></select>
+    </div>`
+    inputWrapper.appendChild(seedBox)
+
+    const medioAIRandomSeed = document.getElementById('medioAIRandomSeed')
+    medioAIRandomSeed.addEventListener('click', () => {
+      seedInput.value = Math.floor(Math.random() * 9999999999999) + 1
+      songStudioMedioAI.simulateMouseClick(seedInput)
+    })
+
+    const medioAISeedbank = document.getElementById('medioAISeedbank')
+    medioAISeedbank.addEventListener('change', () => {
+      seedInput.value = medioAISeedbank.value
+      songStudioMedioAI.simulateMouseClick(seedInput)
+      medioAISeedbank.value = ''
+    })
+
+    function populateOptions() {
+      chrome.storage.local.get(['medioAISeeds'], function (result) {
+        const seeds = result.medioAISeeds || []
+        medioAISeedbank.innerHTML = ''
+        seeds.forEach(seed => {
+          let label = seed.label
+          if (label !== seed.value) {
+            label = `${seed.label} - ${seed.value}`
+          }
+          const option = document.createElement('option')
+          option.value = seed.value
+          option.innerHTML = label
+          medioAISeedbank.appendChild(option)
+        })
+      })
+    }
+    populateOptions()
+
+    const medioAISaveSeed = document.getElementById('medioAISaveSeed')
+    medioAISaveSeed.addEventListener('click', () => {
+      const seed = seedInput.value
+      chrome.storage.local.get(['medioAISeeds'], function (result) {
+        const seeds = result.medioAISeeds || []
+        seeds.push({
+          value: seed,
+          label: seed,
+        })
+        chrome.storage.local.set({ medioAISeeds: seeds }, function () {
+          utilitiesMedioAI.showNotification('Seed saved.')
+          populateOptions()
+        })
+      })
+    })
+
+    const medioAIEditSeeds = document.getElementById('medioAIEditSeeds')
+    medioAIEditSeeds.addEventListener('click', () => {
+      chrome.storage.local.get(['medioAISeeds'], function (result) {
+        const seeds = result.medioAISeeds || []
+        const modal = document.createElement('div')
+        modal.id = 'medioAISeedOverlay'
+        modal.innerHTML = `<div id="medioAISeedModal" class="fixed inset-0 bg-black text-white">
+          <h2 class="text-xl font-bold  mb-4">Manage Your Seedbank</h2>
+          <ul id="medioAISeedList" class="list-disc"></ul>
+
+          <button id="medioAISeedModalClose" style="font-size: 32px" class="absolute top-4 right-4 text-white">&times;</button>
+        </div>`
+
+        const medioAISeedModalClose = modal.querySelector('#medioAISeedModalClose')
+        medioAISeedModalClose.addEventListener('click', () => {
+          populateOptions()
+          modal.remove()
+        })
+
+        function loadSeedList() {
+          const medioAISeedList = modal.querySelector('#medioAISeedList')
+          seeds.forEach((seed, index) => {
+            const listItem = document.createElement('li')
+            let label = seed.label
+            if (label === seed.value) {
+              label = ''
+            }
+            listItem.innerHTML = `<div data-index="${index}" class="medioaiSeedItem flex space-x-2 mb-1">
+            <div class="w-1/2">
+              <input type="text" value="${label}" placeholder="Label" class="medioaiInputSeedLabel w-full px-2 py-1 border rounded" />
+            </div>
+            <div class="w-1/2 flex space-x-2">
+              <input type="text" value="${seed.value}" placeholder="Seed Number" class="medioaiInputSeedNumber w-full px-2 py-1 border rounded" />
+              <button class="medioaiRemoveSeed rounded border text-sm text-sm p-2">${iconsMedioAI.trash}</button>
+            </div>
+          </div>`
+            medioAISeedList.appendChild(listItem)
+          })
+        }
+
+        loadSeedList()
+
+        const medioaiInputSeedLabel = modal.querySelectorAll('.medioaiInputSeedLabel')
+        medioaiInputSeedLabel.forEach(input => {
+          input.addEventListener('change', e => {
+            const index = e.target.closest('.medioaiSeedItem').dataset.index
+            seeds[index].label = e.target.value
+
+            chrome.storage.local.set({ medioAISeeds: seeds }, function () {
+              utilitiesMedioAI.showNotification('Seed updated.')
+            })
+          })
+        })
+
+        const medioaiInputSeedNumber = modal.querySelectorAll('.medioaiInputSeedNumber')
+        medioaiInputSeedNumber.forEach(input => {
+          input.addEventListener('change', e => {
+            const index = e.target.closest('.medioaiSeedItem').dataset.index
+            seeds[index].value = e.target.value
+
+            chrome.storage.local.set({ medioAISeeds: seeds }, function () {
+              utilitiesMedioAI.showNotification('Seed updated.')
+            })
+          })
+        })
+
+        const medioaiRemoveSeed = modal.querySelectorAll('.medioaiRemoveSeed')
+        medioaiRemoveSeed.forEach(button => {
+          button.addEventListener('click', e => {
+            const index = e.target.closest('.medioaiSeedItem').dataset.index
+            seeds.splice(index, 1)
+            chrome.storage.local.set({ medioAISeeds: seeds }, function () {
+              populateOptions()
+              medioAISeedList.innerHTML = ''
+              loadSeedList()
+              utilitiesMedioAI.showNotification('Seed removed.')
+            })
+          })
+        })
+
+        document.body.appendChild(modal)
       })
     })
   },
