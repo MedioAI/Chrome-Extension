@@ -1,5 +1,25 @@
 [
   {
+    "value": "[Introduction]",
+    "text": "Introduction"
+  },
+  {
+    "value": "[Verse]",
+    "text": "Verse"
+  },
+  {
+    "value": "[Chorus]",
+    "text": "Chorus"
+  },
+  {
+    "value": "[Bridge]",
+    "text": "Bridge"
+  },
+  {
+    "value": "[Interlude]",
+    "text": "Interlude"
+  },
+  {
     "value": "[A Capella]",
     "text": "A Capella"
   },
@@ -308,10 +328,6 @@
     "text": "Breve"
   },
   {
-    "value": "[Bridge]",
-    "text": "Bridge"
-  },
-  {
     "value": "[Bridge: Intense]",
     "text": "Bridge: Intense"
   },
@@ -491,10 +507,7 @@
     "value": "[Choir: Mixed]",
     "text": "Choir: Mixed"
   },
-  {
-    "value": "[Chorus]",
-    "text": "Chorus"
-  },
+
   {
     "value": "[Chorus Variation]",
     "text": "Chorus Variation"
@@ -1532,14 +1545,6 @@
     "text": "Intense Build-Up"
   },
   {
-    "value": "[Interlude]",
-    "text": "Interlude"
-  },
-  {
-    "value": "[Introduction]",
-    "text": "Introduction"
-  },
-  {
     "value": "[Jazzy Bebop Section]",
     "text": "Jazzy Bebop Section"
   },
@@ -1810,10 +1815,6 @@
   {
     "value": "[Vamp]",
     "text": "Vamp"
-  },
-  {
-    "value": "[Verse]",
-    "text": "Verse"
   },
   {
     "value": "[Verse: Aggressive]",
