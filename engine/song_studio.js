@@ -64,7 +64,10 @@ const songStudioMedioAI = {
       }, 2000)
     }
 
-    songStudioMedioAI.trackCovers()
+    setTimeout(() => {
+      songStudioMedioAI.trackCovers()
+      songStudioMedioAI.addLyricAttribution()
+    }, 1000)
   },
 
   load: callback => {
@@ -356,6 +359,20 @@ const songStudioMedioAI = {
         if (tab === 'rhyme') {
           document.getElementById('wordInput').focus()
           document.getElementById('wordInput').select()
+        } else if (tab === 'tags') {
+          paginationMedioAI.init('medioTags', 'medio-taglibrary-items', item => {
+            if (item) {
+              const tags = item.tags
+              const title = item.title
+              const medioTagBox = document.getElementById('medioTagBox')
+              const medioTagBoxTitle = document.getElementById('medioTagBoxTitle')
+              medioTagBox.value = tags
+              medioTagBoxTitle.value = title
+              document.querySelector('#mediotag-id').value = item.id
+              document.querySelector(`.lyric-tab-button[data-tab="build"]`).click()
+              utilitiesMedioAI.showNotification(`Opened Tag Group: "${title}"`)
+            }
+          })
         } else if (tab === 'ask') {
           const openaikey = await utilitiesMedioAI.getSettings('openaikey')
 
@@ -390,6 +407,11 @@ const songStudioMedioAI = {
               utilitiesMedioAI.showNotification(`Opened Song: "${item.title}"`)
             }
           })
+        } else if (tab === 'build') {
+          button.textContent = 'Loading...'
+          setTimeout(() => {
+            button.textContent = 'Tags'
+          }, 500)
         }
       })
     })
@@ -969,7 +991,6 @@ const songStudioMedioAI = {
 
     const base64Cover2 = await toBase64(cover2.src)
     const id2 = utilitiesMedioAI.uuidv4()
-
     images.push({
       id: id2,
       created_at: new Date().toISOString(),
@@ -980,7 +1001,6 @@ const songStudioMedioAI = {
 
     const base64Cover3 = await toBase64(cover3.src)
     const id3 = utilitiesMedioAI.uuidv4()
-
     images.push({
       id: id3,
       created_at: new Date().toISOString(),
@@ -995,6 +1015,55 @@ const songStudioMedioAI = {
       chrome.storage.local.set({ medioAICovers: covers }, function () {
         utilitiesMedioAI.showNotification('Auto saved 3 covers.')
       })
+    })
+  },
+
+  addLyricAttribution: () => {
+    const buttons = document.querySelectorAll('button')
+    buttons.forEach(button => {
+      if (button.textContent === 'Edit') {
+        button.addEventListener('click', () => {
+          const insertAttribution = document.getElementById('medioaiInsertAttribution')
+          if (insertAttribution) {
+            insertAttribution.remove()
+          } else {
+            setTimeout(() => {
+              songStudioMedioAI.appendLyricAttribution()
+            }, 500)
+          }
+        })
+      }
+    })
+  },
+
+  appendLyricAttribution: () => {
+    const h2s = document.querySelectorAll('h2')
+
+    h2s.forEach(h2 => {
+      if (h2.textContent === 'Lyrics') {
+        const attributionBox = document.createElement('div')
+        let insertAttribution = document.getElementById('medioaiInsertAttribution')
+        if (insertAttribution) return
+
+        attributionBox.innerHTML = `<button id="medioaiInsertAttribution" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-sm h-10 px-4 mr-3 py-0 md:block w-[120px]">Insert Attribution</button>`
+
+        h2.setAttribute('class', 'mb-4 text-lg font-bold lg:text-xl flex items-center justify-between')
+
+        h2.appendChild(attributionBox)
+        insertAttribution = document.getElementById('medioaiInsertAttribution')
+        insertAttribution.addEventListener('click', async () => {
+          const text = document.querySelector('textarea[placeholder="Lyrics"]').value
+          let attr = await utilitiesMedioAI.getSettings('lyricAttribution')
+          if (!attr) {
+            attr = 'Add your lyric attribution in the settings.'
+          }
+          const attribution = `${attr}\n\n`
+          const textarea = document.querySelector('textarea[placeholder="Lyrics"]')
+          textarea.focus()
+          textarea.value = attribution + text
+          textarea.dispatchEvent(new Event('input', { bubbles: true }))
+        })
+      }
     })
   },
 }

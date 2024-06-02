@@ -9,14 +9,6 @@
 
 const tagBuilderMedioAI = {
   init: async () => {
-    const modal = document.createElement('div')
-    modal.id = 'medioAI-tagbuilder'
-    const animate = await utilitiesMedioAI.getSettings('slideanimation')
-    if (animate === 'on') {
-      modal.style.transition = 'transform 0.3s'
-    }
-    modal.innerHTML = uiMedioAI.tagBuilder
-    document.body.appendChild(modal)
     tagBuilderMedioAI.load()
   },
 
@@ -75,13 +67,6 @@ const tagBuilderMedioAI = {
       tagBuilderMedioAI.search(e, totalDBTags)
     })
 
-    const lyricBuildertabButtons = document.querySelectorAll('.lyric-buildertab-button')
-    lyricBuildertabButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        tagBuilderMedioAI.tabs(button, lyricBuildertabButtons)
-      })
-    })
-
     const medioAddTag = document.querySelectorAll('.medioAddTag')
     const medioTagBox = document.getElementById('medioTagBox')
     medioAddTag.forEach(tag => {
@@ -107,41 +92,6 @@ const tagBuilderMedioAI = {
     medioCopyTags.addEventListener('click', e => {
       tagBuilderMedioAI.copy(e)
     })
-
-    const closeLyricTagBuilder = document.getElementById('close-lyric-tagbuilder')
-    closeLyricTagBuilder.addEventListener('click', () => {
-      tagBuilderMedioAI.close()
-    })
-
-    const lyricTagBuilderLink = document.getElementById('lyric-tagbuilder-link')
-    lyricTagBuilderLink.addEventListener('click', e => {
-      tagBuilderMedioAI.open(e)
-    })
-  },
-
-  open: e => {
-    e.preventDefault()
-    songStudioMedioAI.isOpen = true
-
-    if (!document.getElementById('medioAI-tagbuilder')) {
-      document.body.style.overflow = 'auto'
-    } else {
-      document.body.style.overflow = 'hidden'
-      const tagbuilder = document.getElementById('medioAI-tagbuilder')
-      tagbuilder.style.transform = 'translateX(0)'
-
-      const savedButton = document.querySelector('.lyric-buildertab-button[data-tab="library"]')
-      if (savedButton.classList.contains('bg-black')) {
-        savedButton.click()
-      }
-    }
-  },
-
-  close: () => {
-    const modal = document.getElementById('medioAI-tagbuilder')
-    modal.style.transform = 'translateX(-100%)'
-    document.body.style.overflow = 'auto'
-    songStudioMedioAI.isOpen = false
   },
 
   clear: e => {

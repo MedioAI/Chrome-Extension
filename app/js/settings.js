@@ -24,6 +24,7 @@ const app = {
         document.getElementById('openaikey').value = settings.openaikey
         // document.getElementById('claudeapikey').value = settings.claudeapikey
         document.getElementById('autoSaveCovers').value = settings.autoSaveCovers || 'off'
+        document.getElementById('lyricAttribution').value = settings.lyricAttribution || ''
       }
     })
 
@@ -88,6 +89,7 @@ const app = {
       keepAdvancedSettings: document.getElementById('keepAdvancedSettings').value,
       manualModeDefault: document.getElementById('manualModeDefault').value,
       autoSaveCovers: document.getElementById('autoSaveCovers').value,
+      lyricAttribution: document.getElementById('lyricAttribution').value,
     }
 
     chrome.storage.local.set({ medioaiSettings }, function () {

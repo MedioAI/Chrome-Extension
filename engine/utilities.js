@@ -222,7 +222,9 @@ const utilitiesMedioAI = {
             className +
             "'>" +
             charCount +
-            "</strong> characters selected. <em class='italic text-gray-500'>(Recommended: Less than 350 characters per 32 second clip)</em>"
+            '</strong> characters with <strong class="text-white">' +
+            utilitiesMedioAI.countSyllablesInText(text) +
+            '</strong> syllables selected.'
         }
       } else if (el) {
         el.style.display = 'none'
@@ -258,6 +260,48 @@ const utilitiesMedioAI = {
     })
   },
 
+  countSyllablesInText(text) {
+    // Function to count syllables in a single word
+    function countSyllables(word) {
+      word = word.toLowerCase() // Convert word to lowercase
+      if (word.length <= 3) {
+        return 1
+      } // Treat short words as one syllable
+
+      // Regex to match vowel groups (a, e, i, o, u, y)
+      const vowelGroups = word.match(/[aeiouy]+/g)
+
+      // Count vowel groups
+      let syllableCount = vowelGroups ? vowelGroups.length : 0
+
+      // Subtract one syllable for each silent 'e' at the end
+      if (word.endsWith('e')) {
+        syllableCount--
+      }
+
+      // Ensure there's at least one syllable
+      syllableCount = Math.max(syllableCount, 1)
+
+      return syllableCount
+    }
+
+    // Remove text inside square brackets
+    text = text.replace(/\[.*?\]/g, '')
+
+    // Split text into words using spaces and punctuation as delimiters
+    const words = text.match(/\b(\w+)\b/g)
+
+    // Count syllables for each word and sum them up
+    let totalSyllables = 0
+    if (words) {
+      words.forEach(word => {
+        totalSyllables += countSyllables(word)
+      })
+    }
+
+    return totalSyllables
+  },
+
   formatBytes: (bytes, decimals = 2) => {
     if (bytes === 0) return '0 Bytes'
     bytes = parseInt(bytes)
@@ -276,6 +320,7 @@ const utilitiesMedioAI = {
       .then(response => response.json())
       .then(data => {
         const select = document.getElementById(elementId)
+        if (!select) return
         const option = document.createElement('option')
         option.value = ''
         option.textContent = placeholder

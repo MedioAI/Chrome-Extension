@@ -55,13 +55,14 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 - Display waveform after .WAV conversion
 - Manual Mode as default on (toggle on/off)
 - Save track covers to library.
+- Lyric edit "Insert Attribution" button.
+- Syllable Counter (for highlighted text)
 
 ### In Progress
 
-- Lyric edit "Insert Attribution" button.
 - OpenRouter API (+ Claude)
-- Syllable Counter
 - Music visualizer to MP4
+- Bug: Slow loading tags
 
 - Firefox Extension version
 - Edge Version

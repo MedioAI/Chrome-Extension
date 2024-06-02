@@ -13,24 +13,19 @@ const uiMedioAI = {
   <div class="relative flex items-center rounded-lg p-2 hover:text-foreground">
     <a class="mr-4 flex items-center" id="medioai-link" href="#">
       <div style="font-size: 1.7rem">${iconsMedioAI.songStudio}</div>
-      <span class="ml-3 flex-1 whitespace-nowrap font-bold">Song Studio</span>
+      <span class="ml-3 flex-1 whitespace-nowrap font-bold">MedioAI</span>
     </a>
   </div>
 </div>
 
-<div class="-ml-5 pl-[16px]">
-  <div class="relative flex items-center rounded-lg p-2 hover:text-foreground">
-    <a class="mr-4 flex items-center" id="lyric-tagbuilder-link" href="#">
-      <div style="font-size: 1.7rem">${iconsMedioAI.tagBuilder}</div>
-      <span class="ml-3 flex-1 whitespace-nowrap font-bold">Tag Builder</span>
-    </a>
-  </div>
-</div>  
+ 
 `,
 
-  tagBuilder: /* html */ `
+  songStudio: async () => {
+    const logo = chrome.runtime.getURL('icon/128x128.png')
+    return /* html */ `
 <button
-  id="close-lyric-tagbuilder"
+  id="close-medioai"
   style="
     position: absolute;
     top: 16px;
@@ -41,7 +36,7 @@ const uiMedioAI = {
     font-size: 34px;
     cursor: pointer;
     background: #000;
-    border-radiu: 100%;
+    border-radius: 100%;
     padding: 6px 12px;
   "
 >
@@ -49,42 +44,111 @@ const uiMedioAI = {
 </button>
 
 <div id="medioai-content">
+  <input type="hidden" id="lyric-id" />
   <input type="hidden" id="mediotag-id" />
 
   <h1
-    class="flex items-center space-x-2 select-none"
+    class="flex justify-between items-center space-x-2"
     style="font-size: 24px; font-weight: 700; margin-bottom: 16px"
   >
-    <img src="${chrome.runtime.getURL('icon/128x128.png')}" style="width:
+    <div class="flex select-none items-center space-x-2">
+    <img src="${logo}" style="width:
     48px; height: 48px; border-radius: 6px; margin-right: 8px" />
-    <span class="font-bold">Tag Builder</span>
+    <span class="font-bold">Song Studio</span>
+    <span
+      id="medioCharactersSelected"
+      style="display: none"
+      class="text-sm text-gray-300 flex-1 whitespace-nowrap font-medium"
+      ></span>
+    </div>
+    <div class="flex space-x-2 items-center">
+      <button id="medioaiChallenge" class="flex items-center space-x-3">
+        ${iconsMedioAI.challenge}
+      </button>
+      <button id="medioaiTools" class="flex items-center space-x-3">
+        ${iconsMedioAI.tools}
+      </button>
+      <button id="medioaiSettings" class="flex items-center space-x-3">
+        ${iconsMedioAI.cog}
+      </button>
+    </div>
   </h1>
 
   <div
     role="tablist"
     aria-orientation="horizontal"
-    class="h-10 items-center select-none justify-center rounded-md bg-muted p-1 text-muted-foreground grid w-full grid-cols-2 mb-4"
+    class="h-10 items-center select-none justify-center rounded-md bg-muted p-1 text-muted-foreground grid w-full mb-4"
+    style="grid-template-columns: repeat(7, minmax(0, 1fr))"
     tabindex="0"
     data-orientation="horizontal"
     style="outline: none"
   >
     <button
       type="button"
-      data-tab="build"
-      class="lyric-buildertab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3 bg-black"
+      data-tab="write"
+      class="lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3 bg-black"
     >
-      Build
+      Write
+    </button>
+    <button
+      type="button"
+      data-tab="build"
+      class="lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3"
+    >
+      Tags
+    </button>
+    <button
+      type="button"
+      data-tab="rhyme"
+      class="lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3"
+    >
+      Rhyme
+    </button>
+    <button
+      type="button"
+      data-tab="ask"
+      class="lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3"
+    >
+      Ask
+    </button>
+    <button
+      type="button"
+      data-tab="wizard"
+      class="lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3"
+    >
+      Co-Writer
     </button>
     <button
       type="button"
       data-tab="library"
-      class="lyric-buildertab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3"
+      class="lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3"
     >
-      Saved
+      Lyrics
+    </button>
+    <button
+      type="button"
+      data-tab="tags"
+      class="lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3"
+    >
+      Tag Groups
     </button>
   </div>
 
-  <div class="lyric-buildertab" data-tab="build">
+  <div style="display: none" id="mediochattab">
+    <div id="medioaichat"></div>
+    <div class="flex w-full">
+      <textarea
+        id="medioaiMessageBox"
+        placeholder="Write message..."
+        class="w-full"
+      ></textarea>
+      <button id="medioaiSendMessage">Send</button>
+    </div>
+  </div>
+
+  <div style="display: none" id="mediochats"></div>
+
+  <div style="display: none" class="lyric-tab" data-tab="build">
     <div class="mb-4 relative">
       <span class="text-sm text-gray-200 mb-2 block select-none">Search & Browse</span>
       <div
@@ -191,123 +255,9 @@ const uiMedioAI = {
     </div>
   </div>
 
-  <div style="display: none" class="lyric-buildertab" data-tab="library">
+  <div style="display: none" class="lyric-tab" data-tab="tags">
     <div id="medio-taglibrary-items"></div>
   </div>
-</div>
-`,
-
-  songStudio: async () => {
-    const logo = chrome.runtime.getURL('icon/128x128.png')
-    return /* html */ `
-<button
-  id="close-medioai"
-  style="
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 34px;
-    cursor: pointer;
-    background: #000;
-    border-radius: 100%;
-    padding: 6px 12px;
-  "
->
-  &times;
-</button>
-
-<div id="medioai-content">
-  <input type="hidden" id="lyric-id" />
-
-  <h1
-    class="flex justify-between items-center space-x-2"
-    style="font-size: 24px; font-weight: 700; margin-bottom: 16px"
-  >
-    <div class="flex select-none items-center space-x-2">
-    <img src="${logo}" style="width:
-    48px; height: 48px; border-radius: 6px; margin-right: 8px" />
-    <span class="font-bold">Song Studio</span>
-    <span
-      id="medioCharactersSelected"
-      style="display: none"
-      class="text-sm text-gray-300 flex-1 whitespace-nowrap font-medium"
-      ></span>
-    </div>
-    <div class="flex space-x-2 items-center">
-      <button id="medioaiChallenge" class="flex items-center space-x-3">
-        ${iconsMedioAI.challenge}
-      </button>
-      <button id="medioaiTools" class="flex items-center space-x-3">
-        ${iconsMedioAI.tools}
-      </button>
-      <button id="medioaiSettings" class="flex items-center space-x-3">
-        ${iconsMedioAI.cog}
-      </button>
-    </div>
-  </h1>
-
-  <div
-    role="tablist"
-    aria-orientation="horizontal"
-    class="h-10 items-center select-none justify-center rounded-md bg-muted p-1 text-muted-foreground grid w-full mb-4"
-    style="grid-template-columns: repeat(5, minmax(0, 1fr))"
-    tabindex="0"
-    data-orientation="horizontal"
-    style="outline: none"
-  >
-    <button
-      type="button"
-      data-tab="write"
-      class="lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3 bg-black"
-    >
-      Write
-    </button>
-    <button
-      type="button"
-      data-tab="rhyme"
-      class="lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3"
-    >
-      Rhyme
-    </button>
-    <button
-      type="button"
-      data-tab="ask"
-      class="lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3"
-    >
-      Ask
-    </button>
-    <button
-      type="button"
-      data-tab="wizard"
-      class="lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3"
-    >
-      Co-Writer
-    </button>
-    <button
-      type="button"
-      data-tab="library"
-      class="lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3"
-    >
-      Saved
-    </button>
-  </div>
-
-  <div style="display: none" id="mediochattab">
-    <div id="medioaichat"></div>
-    <div class="flex w-full">
-      <textarea
-        id="medioaiMessageBox"
-        placeholder="Write message..."
-        class="w-full"
-      ></textarea>
-      <button id="medioaiSendMessage">Send</button>
-    </div>
-  </div>
-
-  <div style="display: none" id="mediochats"></div>
 
   <div style="display: none" class="lyric-tab" data-tab="ask">
     <div id="medioask" style="display: none">
