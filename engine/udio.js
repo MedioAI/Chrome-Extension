@@ -15,7 +15,7 @@ const medioAI = {
 
       if (sidebar) {
         clearInterval(checkSidebar)
-        const sidebarButton = document.querySelector('#lyric-tagbuilder-link')
+        const sidebarButton = document.querySelector('#medioai-link')
 
         if (!sidebarButton) {
           const sidebar = document.querySelector(udioSidebarSelector)
