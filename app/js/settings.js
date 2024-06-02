@@ -19,9 +19,11 @@ const app = {
         document.getElementById('lyrictextsize').value = settings.lyrictextsize
         document.getElementById('commandcolor').value = settings.commandcolor
         document.getElementById('keepAdvancedSettings').value = settings.keepAdvancedSettings || 'off'
+        document.getElementById('manualModeDefault').value = settings.manualModeDefault || 'off'
         // document.getElementById('aimodel').value = settings.aimodel
         document.getElementById('openaikey').value = settings.openaikey
         // document.getElementById('claudeapikey').value = settings.claudeapikey
+        document.getElementById('autoSaveCovers').value = settings.autoSaveCovers || 'off'
       }
     })
 
@@ -84,6 +86,8 @@ const app = {
       openaikey: document.getElementById('openaikey').value,
       claudeapikey: '',
       keepAdvancedSettings: document.getElementById('keepAdvancedSettings').value,
+      manualModeDefault: document.getElementById('manualModeDefault').value,
+      autoSaveCovers: document.getElementById('autoSaveCovers').value,
     }
 
     chrome.storage.local.set({ medioaiSettings }, function () {

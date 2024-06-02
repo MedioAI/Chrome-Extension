@@ -227,3 +227,23 @@ body {
 .clr-field {
   width: 100%;
 }
+
+.confirmDelete {
+  background: rgb(214, 19, 19);
+  color: #fff;
+}
+
+.confirmDelete:hover {
+  background: rgb(214, 19, 19);
+}
+
+#coverPreview {
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px 30px;
+  border-radius: 10px;
+  z-index: 9999999999999;
+  box-shadow: 20px 20px 60px #000, -20px -20px 60px #000;
+  top: 50px;
+  position: fixed;
+}

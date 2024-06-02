@@ -18,3 +18,11 @@ document.querySelector('#openVisualizer').addEventListener('click', () => {
 document.querySelector('#openSettings').addEventListener('click', () => {
   chrome.tabs.create({ url: 'app/settings.html' })
 })
+
+document.querySelector('#openMetaTags').addEventListener('click', () => {
+  chrome.tabs.create({ url: 'app/metatags.html' })
+})
+
+document.querySelector('#openTrackCovers').addEventListener('click', () => {
+  chrome.tabs.create({ url: 'app/covers.html' })
+})

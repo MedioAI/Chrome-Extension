@@ -56,6 +56,15 @@ const songStudioMedioAI = {
         songStudioMedioAI.keepAdvancedSettings()
       }, 2000)
     }
+
+    const defaultManualMode = await utilitiesMedioAI.getSettings('manualModeDefault')
+    if (defaultManualMode === 'on') {
+      setTimeout(() => {
+        songStudioMedioAI.toggleManualMode()
+      }, 2000)
+    }
+
+    songStudioMedioAI.trackCovers()
   },
 
   load: callback => {
@@ -601,7 +610,7 @@ const songStudioMedioAI = {
       if (!slider) return
 
       const sliderRect = slider.getBoundingClientRect()
-      const clickX = sliderRect.left + percentage * sliderRect.width - 100
+      const clickX = sliderRect.left + percentage * sliderRect.width
       const clickY = sliderRect.top + sliderRect.height / 2
       songStudioMedioAI.simulateMouseClick(slider, clickX, clickY)
     }
@@ -613,7 +622,36 @@ const songStudioMedioAI = {
       settings.seed = allInputs[0].value
       songStudioMedioAI.setAdvancedSettings(settings)
     })
+
+    // songStudioMedioAI.qualityChanged()
   },
+
+  // currentQuality: 1,
+
+  // qualityChanged: async () => {
+  //   const settings = await songStudioMedioAI.getAdvancedSettings()
+  //   songStudioMedioAI.currentQuality = settings.quality
+  //   console.log(settings.quality)
+  //   const targetNode = document.querySelector('.MuiSlider-root input')
+  //   console.log(targetNode)
+  //   const config = { attributes: true, childList: true, subtree: true }
+  //   const callback = function (mutationsList, observer) {
+  //     for (let mutation of mutationsList) {
+  //       if (mutation.type === 'attributes') {
+  //         let newValue = document.querySelector('.MuiSlider-root input').getAttribute('aria-valuenow')
+  //         if (newValue !== songStudioMedioAI.currentQuality) {
+  //           settings.quality = newValue
+  //           songStudioMedioAI.setAdvancedSettings(settings)
+  //           songStudioMedioAI.currentQuality = newValue
+
+  //           console.log('value changed', settings.quality, songStudioMedioAI.currentQuality)
+  //         }
+  //       }
+  //     }
+  //   }
+  //   const observer = new MutationObserver(callback)
+  //   observer.observe(targetNode, config)
+  // },
 
   simulateMouseClick(element, clickX, clickY) {
     const mouseClickEvents = ['mousedown', 'click', 'mouseup', 'change', 'input']
@@ -815,6 +853,147 @@ const songStudioMedioAI = {
         })
 
         document.body.appendChild(modal)
+      })
+    })
+  },
+
+  toggleManualMode: () => {
+    const button = document.querySelector('#bypass-settings')
+    if (button) {
+      songStudioMedioAI.simulateMouseClick(button)
+    }
+  },
+
+  trackCovers: () => {
+    const targetNode = document.body
+    const config = { attributes: true, childList: true, subtree: true }
+
+    const callback = function (mutationsList, observer) {
+      for (let mutation of mutationsList) {
+        if (mutation.addedNodes.length) {
+          mutation.addedNodes.forEach(node => {
+            if (node.nodeType === 1 && node.getAttribute('role') === 'dialog') {
+              const title = node.querySelector('h2')
+              if (title.textContent === 'Track Cover') {
+                const buttons = node.querySelectorAll('button')
+                const generateButton = Array.from(buttons).find(button => button.textContent === 'Generate')
+
+                generateButton.addEventListener('click', () => {
+                  songStudioMedioAI.lookForCovers(node, generateButton)
+                })
+              }
+            }
+          })
+        }
+      }
+    }
+
+    const observer = new MutationObserver(callback)
+    observer.observe(targetNode, config)
+  },
+
+  lookForCovers: (wrapper, generateButton) => {
+    const config = { attributes: true, childList: true, subtree: true }
+    const callback = function (mutationsList, observer) {
+      for (let mutation of mutationsList) {
+        if (mutation.addedNodes.length) {
+          mutation.addedNodes.forEach(async node => {
+            if (node.querySelector('img[alt="generated-image-0"]')) {
+              const autoSaveCovers = await utilitiesMedioAI.getSettings('autoSaveCovers')
+              if (autoSaveCovers === 'on') {
+                songStudioMedioAI.grabCovers(wrapper, node)
+              }
+
+              const saveImagesButton = document.createElement('button')
+              saveImagesButton.innerHTML = 'Save Covers'
+              saveImagesButton.setAttribute(
+                'class',
+                'items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-sm h-10 px-4 py-2 mr-3 block'
+              )
+              saveImagesButton.id = 'medioaiSaveCovers'
+              saveImagesButton.addEventListener('click', e => {
+                e.preventDefault()
+                e.stopPropagation()
+
+                songStudioMedioAI.grabCovers(wrapper, node)
+              })
+              generateButton.parentElement.appendChild(saveImagesButton)
+            }
+          })
+        }
+      }
+    }
+    const observer = new MutationObserver(callback)
+    observer.observe(wrapper, config)
+  },
+
+  grabCovers: async (wrapper, node) => {
+    const images = []
+    const cover1 = node.querySelector('img[alt="generated-image-0"]')
+    const cover2 = node.querySelector('img[alt="generated-image-1"]')
+    const cover3 = document.querySelector('img[alt="cover"]')
+    const prompt = wrapper.querySelector('textarea').value
+
+    function toBase64(imgSrc) {
+      return new Promise((resolve, reject) => {
+        let img = new Image()
+        img.crossOrigin = 'Anonymous'
+        img.onload = function () {
+          let canvas = document.createElement('CANVAS')
+          let ctx = canvas.getContext('2d')
+          let dataURL
+          canvas.height = this.naturalHeight
+          canvas.width = this.naturalWidth
+          ctx.drawImage(this, 0, 0)
+          dataURL = canvas.toDataURL()
+          resolve(dataURL)
+        }
+        img.onerror = reject
+        img.src = imgSrc
+        if (img.complete || img.complete === undefined) {
+          img.src = 'data:,'
+          img.src = imgSrc
+        }
+      })
+    }
+
+    const base64Cover1 = await toBase64(cover1.src)
+    const id1 = utilitiesMedioAI.uuidv4()
+    images.push({
+      id: id1,
+      created_at: new Date().toISOString(),
+      prompt: prompt,
+      bytes: base64Cover1.length,
+    })
+    chrome.storage.local.set({ ['medioAICover_' + id1]: base64Cover1 }, function () {})
+
+    const base64Cover2 = await toBase64(cover2.src)
+    const id2 = utilitiesMedioAI.uuidv4()
+
+    images.push({
+      id: id2,
+      created_at: new Date().toISOString(),
+      prompt: prompt,
+      bytes: base64Cover2.length,
+    })
+    chrome.storage.local.set({ ['medioAICover_' + id2]: base64Cover2 }, function () {})
+
+    const base64Cover3 = await toBase64(cover3.src)
+    const id3 = utilitiesMedioAI.uuidv4()
+
+    images.push({
+      id: id3,
+      created_at: new Date().toISOString(),
+      prompt: prompt,
+      bytes: base64Cover3.length,
+    })
+    chrome.storage.local.set({ ['medioAICover_' + id3]: base64Cover3 }, function () {})
+
+    chrome.storage.local.get(['medioAICovers'], function (result) {
+      const covers = result.medioAICovers || []
+      covers.unshift(...images)
+      chrome.storage.local.set({ medioAICovers: covers }, function () {
+        utilitiesMedioAI.showNotification('Auto saved 3 covers.')
       })
     })
   },

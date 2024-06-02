@@ -47,19 +47,24 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 - Fix position of playlist in sidebar.
 - Added playlist expand button w/ popup.
 - Added MP3 Metadata Editor.
-- Added 4000+ new tags to the database.
+- Added 4,000+ new tags to the database.
 - Challenge me button with 500+ songwriting prompts.
 - Keep Seed & Quality settings (toggle on/off)
 - Seedbank manager (save, edit, select, random, delete)
 - Preview sound in audio settings.
 - Display waveform after .WAV conversion
+- Manual Mode as default on (toggle on/off)
+- Save track covers to library.
 
 ### In Progress
 
-- Manual Mode as default on
-- OpenRouter API
-- Firefox Extension version
+- Lyric edit "Insert Attribution" button.
+- OpenRouter API (+ Claude)
+- Syllable Counter
 - Music visualizer to MP4
+
+- Firefox Extension version
+- Edge Version
 
 ### Marketing
 
