@@ -60,12 +60,19 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 
 ### In Progress
 
-- OpenRouter API (+ Claude)
+- OpenRouter API
+- Claude API
 - Music visualizer to MP4
-- Bug: Slow loading tags
-
+- Phonetic replacer suggestion
 - Firefox Extension version
 - Edge Version
+
+### Bugs
+
+- Bug: slow loading tags
+- Bug: fix ctrl+j for tagbuilder
+- Bug: new extension quality/seed not applied
+- Bug: lyric attribution button sometimes not visible
 
 ### Marketing
 

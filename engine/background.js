@@ -17,7 +17,11 @@ chrome.runtime.onInstalled.addListener(() => {
     aimodel: 'openai',
     openaikey: '',
     claudeapikey: '',
+    openrouterapikey: '',
     keepAdvancedSettings: 'off',
+    manualModeDefault: 'off',
+    autoSaveCovers: 'off',
+    lyricAttribution: '',
   }
 
   chrome.storage.local.get('medioaiSettings', result => {

@@ -20,11 +20,12 @@ const app = {
         document.getElementById('commandcolor').value = settings.commandcolor
         document.getElementById('keepAdvancedSettings').value = settings.keepAdvancedSettings || 'off'
         document.getElementById('manualModeDefault').value = settings.manualModeDefault || 'off'
-        // document.getElementById('aimodel').value = settings.aimodel
+        document.getElementById('aimodel').value = settings.aimodel || 'openai'
         document.getElementById('openaikey').value = settings.openaikey
-        // document.getElementById('claudeapikey').value = settings.claudeapikey
+        document.getElementById('claudeapikey').value = settings.claudeapikey
         document.getElementById('autoSaveCovers').value = settings.autoSaveCovers || 'off'
         document.getElementById('lyricAttribution').value = settings.lyricAttribution || ''
+        document.getElementById('openrouterapikey').value = settings.openrouterapikey || ''
       }
     })
 
@@ -85,7 +86,8 @@ const app = {
       lyrictextsize: document.getElementById('lyrictextsize').value,
       aimodel: '',
       openaikey: document.getElementById('openaikey').value,
-      claudeapikey: '',
+      claudeapikey: document.getElementById('claudeapikey').value,
+      openrouterapikey: document.getElementById('openrouterapikey').value,
       keepAdvancedSettings: document.getElementById('keepAdvancedSettings').value,
       manualModeDefault: document.getElementById('manualModeDefault').value,
       autoSaveCovers: document.getElementById('autoSaveCovers').value,
