@@ -61,11 +61,13 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 ### In Progress
 
 - OpenRouter API
-- Claude API
 - Music visualizer to MP4
 - Phonetic replacer suggestion
-- Firefox Extension version
-- Edge Version
+
+### Next
+
+- Firefox
+- Edge
 
 ### Bugs
 

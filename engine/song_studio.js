@@ -375,8 +375,9 @@ const songStudioMedioAI = {
           })
         } else if (tab === 'ask') {
           const openaikey = await utilitiesMedioAI.getSettings('openaikey')
+          const openrouterapikey = await utilitiesMedioAI.getSettings('openrouterapikey')
 
-          if (openaikey) {
+          if (openaikey || openrouterapikey) {
             document.querySelector('#medioapiExplainerask').style.display = 'none'
             document.querySelector('#medioask').style.display = 'block'
             document.querySelector('[data-tab="ask"]').style.display = 'block'
@@ -386,8 +387,9 @@ const songStudioMedioAI = {
           }
         } else if (tab === 'wizard') {
           const openaikey = await utilitiesMedioAI.getSettings('openaikey')
+          const openrouterapikey = await utilitiesMedioAI.getSettings('openrouterapikey')
 
-          if (openaikey) {
+          if (openaikey || openrouterapikey) {
             document.querySelector('#medioapiExplainerwizard').style.display = 'none'
             document.querySelector('[data-tab="wizard"]').style.display = 'block'
             document.querySelector('#mediowizard').style.display = 'block'

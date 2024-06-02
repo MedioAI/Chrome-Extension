@@ -8,6 +8,156 @@
  */
 
 const apiMedioAI = {
+  apiRouter: async (messages, openaikey, isChat = false, id, request, callback, isJSON, key) => {
+    const aimodel = await utilitiesMedioAI.getSettings('aimodel')
+
+    switch (aimodel) {
+      case 'openai':
+        apiMedioAI.openAI(messages, openaikey, isChat, id, request, callback, isJSON, key)
+        break
+      case 'claudeai':
+        apiMedioAI.claudeAI(messages, openaikey, isChat, id, request, callback, isJSON, key)
+        break
+      case 'openrouterai':
+        apiMedioAI.openRouterAI(messages, openaikey, isChat, id, request, callback, isJSON, key)
+        break
+    }
+  },
+
+  openAI: async (messages, openaikey, isChat = false, id, request, callback, isJSON, key) => {
+    const url = 'https://api.openai.com/v1/chat/completions'
+    const apikey = await utilitiesMedioAI.getSettings('openaikey')
+    const bearer = 'Bearer ' + apikey
+    const modal = 'gpt-4o'
+
+    if (isChat) {
+      chrome.storage.local.get([key], function (result) {
+        const allMessages = result[key].find(chat => chat.id === id).messages
+        allMessages.push({
+          role: 'user',
+          content: messages,
+        })
+
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            Authorization: bearer,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            model: modal,
+            messages: allMessages,
+          }),
+        })
+          .then(response => {
+            return response.json()
+          })
+          .then(data => {
+            callback(data, id, request)
+          })
+          .catch(error => {
+            console.log('Something bad happened ' + error)
+          })
+      })
+    } else {
+      let body = {
+        model: modal,
+        messages: messages,
+      }
+
+      if (isJSON) {
+        body = {
+          model: modal,
+          response_format: { type: 'json_object' },
+          messages: messages,
+        }
+      }
+
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          Authorization: bearer,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      })
+        .then(response => {
+          return response.json()
+        })
+        .then(data => {
+          callback(data, id, request)
+        })
+        .catch(error => {
+          console.log('Something bad happened ' + error)
+        })
+    }
+  },
+
+  openRouterAI: async (messages, openaikey, isChat = false, id, request, callback, isJSON, key) => {
+    const url = 'https://api.anthropic.com/v1/messages'
+    const apikey = await utilitiesMedioAI.getSettings('claudeapikey')
+    const bearer = 'x-api-key ' + apikey
+    const modal = 'claude-3-opus-20240229'
+
+    if (isChat) {
+      chrome.storage.local.get([key], function (result) {
+        const allMessages = result[key].find(chat => chat.id === id).messages
+        allMessages.push({
+          role: 'user',
+          content: messages,
+        })
+
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            Authorization: bearer,
+            'anthropic-version': '2023-06-01',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            model: modal,
+            max_tokens: 1000,
+            messages: allMessages,
+          }),
+        })
+          .then(response => {
+            return response.json()
+          })
+          .then(data => {
+            callback(data, id, request)
+          })
+          .catch(error => {
+            console.log('Something bad happened ' + error)
+          })
+      })
+    } else {
+      let body = {
+        model: modal,
+        max_tokens: 1000,
+        messages: messages,
+      }
+
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          Authorization: bearer,
+          'anthropic-version': '2023-06-01',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      })
+        .then(response => {
+          return response.json()
+        })
+        .then(data => {
+          callback(data, id, request)
+        })
+        .catch(error => {
+          console.log('Something bad happened ' + error)
+        })
+    }
+  },
+
   checkRhymes: async () => {
     const word = document.getElementById('wordInput').value
     const resultsDiv = document.getElementById('results')
@@ -47,73 +197,6 @@ const apiMedioAI = {
       })
     } catch (error) {
       resultsDiv.innerHTML = `<p>Error fetching rhyming words: ${error.message}</p>`
-    }
-  },
-
-  askOpenAI: (messages, openaikey, isChat = false, id, request, callback, isJSON, key) => {
-    const url = 'https://api.openai.com/v1/chat/completions'
-    const bearer = 'Bearer ' + openaikey
-
-    if (isChat) {
-      chrome.storage.local.get([key], function (result) {
-        const allMessages = result[key].find(chat => chat.id === id).messages
-        allMessages.push({
-          role: 'user',
-          content: messages,
-        })
-
-        fetch(url, {
-          method: 'POST',
-          headers: {
-            Authorization: bearer,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            model: 'gpt-4o',
-            messages: allMessages,
-          }),
-        })
-          .then(response => {
-            return response.json()
-          })
-          .then(data => {
-            callback(data, id, request)
-          })
-          .catch(error => {
-            console.log('Something bad happened ' + error)
-          })
-      })
-    } else {
-      let body = {
-        model: 'gpt-4o',
-        messages: messages,
-      }
-
-      if (isJSON) {
-        body = {
-          model: 'gpt-4o',
-          response_format: { type: 'json_object' },
-          messages: messages,
-        }
-      }
-
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          Authorization: bearer,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      })
-        .then(response => {
-          return response.json()
-        })
-        .then(data => {
-          callback(data, id, request)
-        })
-        .catch(error => {
-          console.log('Something bad happened ' + error)
-        })
     }
   },
 
@@ -221,7 +304,7 @@ const apiMedioAI = {
         chrome.storage.local.set({ medioaiChats: chats })
 
         const openaikey = await utilitiesMedioAI.getSettings('openaikey')
-        await apiMedioAI.askOpenAI(
+        await apiMedioAI.apiRouter(
           [
             {
               role: 'system',
@@ -267,7 +350,7 @@ const apiMedioAI = {
     const id = document.querySelector('#medioaichat').getAttribute('data-id')
 
     const openaikey = await utilitiesMedioAI.getSettings('openaikey')
-    await apiMedioAI.askOpenAI(
+    await apiMedioAI.apiRouter(
       request,
       openaikey,
       true,
@@ -339,7 +422,7 @@ const apiMedioAI = {
       chrome.storage.local.set({ medioaiSongChats: chats })
 
       const openaikey = await utilitiesMedioAI.getSettings('openaikey')
-      await apiMedioAI.askOpenAI(
+      await apiMedioAI.apiRouter(
         [
           {
             role: 'system',
@@ -384,7 +467,7 @@ const apiMedioAI = {
     Come up with a title and use 2-3 sentences to describe each part. When doing the Structure make sure to pick from one of the following: standard, epic, duet, storytelling and sonnet. You can come up with a random song each time.`
 
     const openaikey = await utilitiesMedioAI.getSettings('openaikey')
-    await apiMedioAI.askOpenAI(
+    await apiMedioAI.apiRouter(
       [
         {
           role: 'system',

@@ -22,10 +22,10 @@ const app = {
         document.getElementById('manualModeDefault').value = settings.manualModeDefault || 'off'
         document.getElementById('aimodel').value = settings.aimodel || 'openai'
         document.getElementById('openaikey').value = settings.openaikey
-        document.getElementById('claudeapikey').value = settings.claudeapikey
         document.getElementById('autoSaveCovers').value = settings.autoSaveCovers || 'off'
         document.getElementById('lyricAttribution').value = settings.lyricAttribution || ''
         document.getElementById('openrouterapikey').value = settings.openrouterapikey || ''
+        document.getElementById('openaiModal').value = settings.openaiModal || 'gpt-4o'
       }
     })
 
@@ -84,14 +84,14 @@ const app = {
       slideanimation: document.getElementById('slideanimation').value,
       commandcolor: document.getElementById('commandcolor').value,
       lyrictextsize: document.getElementById('lyrictextsize').value,
-      aimodel: '',
+      aimodel: document.getElementById('aimodel').value,
       openaikey: document.getElementById('openaikey').value,
-      claudeapikey: document.getElementById('claudeapikey').value,
       openrouterapikey: document.getElementById('openrouterapikey').value,
       keepAdvancedSettings: document.getElementById('keepAdvancedSettings').value,
       manualModeDefault: document.getElementById('manualModeDefault').value,
       autoSaveCovers: document.getElementById('autoSaveCovers').value,
       lyricAttribution: document.getElementById('lyricAttribution').value,
+      openaiModal: document.getElementById('openaiModal').value,
     }
 
     chrome.storage.local.set({ medioaiSettings }, function () {

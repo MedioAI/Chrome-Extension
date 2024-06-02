@@ -166,7 +166,6 @@
         <label for="aimodel">AI Model</label>
         <select id="aimodel">
           <option value="openai">OpenAI</option>
-          <option value="claudeai">Claude</option>
           <option value="openrouterai">OpenRouter</option>
         </select>
       </div>
@@ -175,9 +174,14 @@
         <input type="password" id="openaikey" />
       </div>
       <div class="input-group">
-        <label for="claudeapikey">Claude API Key</label>
-        <input type="password" id="claudeapikey" />
+        <label for="openaiModal">OpenAI Model</label>
+        <select id="openaiModal">
+          <option value="gpt-4o">GPT4o</option>
+          <option value="gpt-4-turbo">GPT4 Turbo</option>
+          <option value="gpt-3.5-turbo">GPT3.5 Turbo</option>
+        </select>
       </div>
+
       <div class="input-group">
         <label for="openrouterapikey">OpenRouter API Key</label>
         <input type="password" id="openrouterapikey" />
