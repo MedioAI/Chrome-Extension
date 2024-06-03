@@ -626,7 +626,7 @@ const songStudioMedioAI = {
     if (!allInputs[0]) return
 
     allInputs[0].value = settings.seed
-    allInputs[1].value = settings.quality
+    // allInputs[1].value = settings.quality
 
     function adjustQualitySlider(percentage) {
       const slider = document.querySelector('.MuiSlider-root .MuiSlider-rail')
@@ -646,33 +646,33 @@ const songStudioMedioAI = {
       songStudioMedioAI.setAdvancedSettings(settings)
     })
 
-    // songStudioMedioAI.qualityChanged()
+    songStudioMedioAI.lookForExtends(button)
   },
 
-  // currentQuality: 1,
+  lookForExtends: theButton => {
+    const buttons = document.querySelectorAll('button')
+    buttons.forEach(button => {
+      if (button.textContent === 'Extend') {
+        button.addEventListener('click', () => {
+          console.log('Extend clicked')
+          setTimeout(() => {
+            songStudioMedioAI.applyAdvancedSettings(theButton)
+          }, 500)
+        })
+      }
+    })
 
-  // qualityChanged: async () => {
-  //   const settings = await songStudioMedioAI.getAdvancedSettings()
-  //   songStudioMedioAI.currentQuality = settings.quality
-  //   const targetNode = document.querySelector('.MuiSlider-root input')
-  //   const config = { attributes: true, childList: true, subtree: true }
-  //   const callback = function (mutationsList, observer) {
-  //     for (let mutation of mutationsList) {
-  //       if (mutation.type === 'attributes') {
-  //         let newValue = document.querySelector('.MuiSlider-root input').getAttribute('aria-valuenow')
-  //         if (newValue !== songStudioMedioAI.currentQuality) {
-  //           settings.quality = newValue
-  //           songStudioMedioAI.setAdvancedSettings(settings)
-  //           songStudioMedioAI.currentQuality = newValue
+    // const callback = function (mutationsList, observer) {
+    //   console.log('page changed')
+    //   setTimeout(() => {
+    //     applyClickEvent()
+    //   }, 300)
+    //   observer.disconnect()
+    // }
 
-  //           console.log('value changed', settings.quality, songStudioMedioAI.currentQuality)
-  //         }
-  //       }
-  //     }
-  //   }
-  //   const observer = new MutationObserver(callback)
-  //   observer.observe(targetNode, config)
-  // },
+    // const observer = new MutationObserver(callback)
+    // observer.observe(document.querySelector('table'), { childList: true, subtree: true, attributes: true })
+  },
 
   simulateMouseClick(element, clickX, clickY) {
     const mouseClickEvents = ['mousedown', 'click', 'mouseup', 'change', 'input']

@@ -71,7 +71,7 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 
 ### Bugs
 
-- Bug: new extension quality/seed not applied
+> Please add any bugs to Issues.
 
 ### Marketing
 

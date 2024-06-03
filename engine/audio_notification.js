@@ -27,6 +27,13 @@ const notificationMedioAI = {
           const audio = new Audio(chrome.runtime.getURL(`sounds/${sound}.mp3`))
           audio.play()
 
+          const buttons = document.querySelectorAll('button')
+          buttons.forEach(button => {
+            if (button.textContent === 'Advanced Features') {
+              songStudioMedioAI.lookForExtends(button)
+            }
+          })
+
           setTimeout(() => {
             notificationMedioAI.isChecking = false
           }, 6000)
