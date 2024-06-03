@@ -103,21 +103,22 @@ const medioAITrackCounter = {
   },
 
   addLyricAttribution: () => {
-    const buttons = document.querySelectorAll('button')
-    buttons.forEach(button => {
-      if (button.textContent === 'Edit') {
-        button.addEventListener('click', () => {
-          const insertAttribution = document.getElementById('medioaiInsertAttribution')
-          if (insertAttribution) {
-            insertAttribution.remove()
-          } else {
-            setTimeout(() => {
-              medioAITrackCounter.appendLyricAttribution()
-            }, 400)
-          }
-        })
-      }
-    })
+    // const buttons = document.querySelectorAll('button')
+    // buttons.forEach(button => {
+    //   if (button.textContent === 'Edit') {
+    //     button.addEventListener('click', () => {
+    //       const insertAttribution = document.getElementById('medioaiInsertAttribution')
+    //       if (insertAttribution) {
+    //         insertAttribution.remove()
+    //       } else {
+    //         setTimeout(() => {
+    //           medioAITrackCounter.appendLyricAttribution()
+    //         }, 400)
+    //       }
+    //     })
+    //   }
+    // })
+    medioAITrackCounter.appendLyricAttribution()
   },
 
   appendLyricAttribution: () => {
@@ -136,7 +137,11 @@ const medioAITrackCounter = {
         h2.appendChild(attributionBox)
         insertAttribution = document.getElementById('medioaiInsertAttribution')
         insertAttribution.addEventListener('click', async () => {
-          const text = document.querySelector('textarea[placeholder="Lyrics"]').value
+          const domTextarea = document.querySelector('textarea[placeholder="Lyrics"]')
+          if (!domTextarea) {
+            utilitiesMedioAI.showNotification('Click "Edit" to append attribution.')
+          }
+          const text = domTextarea.value
           let attr = await utilitiesMedioAI.getSettings('lyricAttribution')
           if (!attr) {
             attr = 'Add your lyric attribution in the settings.'

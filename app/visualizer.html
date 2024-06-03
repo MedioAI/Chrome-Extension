@@ -19,7 +19,7 @@
     <div id="sidebar" class="w-1/6 h-screen relative">
       <div id="logo">
         <img src="/app/images/icon.png" alt="MedioAI" />
-        <h2>Medio<strong>AI</strong></h2>
+        <h2>Medio<strong>AI</strong> <span class="text-sm ml-1" style="color: #1dcca0">v1.3</span></h2>
       </div>
       <div id="nav">
         <a href="/app/index.html">Dashboard</a>
@@ -39,16 +39,18 @@
       </div>
     </div>
     <div id="app" class="w-5/6 h-screen p-12 overflow-x-hidden">
-      <h1 class="text-3xl font-bold mb-1">Visualizer</h1>
+      <h1 class="text-3xl font-bold mb-1">
+        Visualizer <strong class="text-sm ml-3" style="color: #1dcca0">(Work in Progress)</strong>
+      </h1>
       <p class="text-lg font-light text-gray-500">
-        Visualize your music with MedioAI & download .MP4 to upload on YouTube, Reddit, etc.
+        Visualize your music with MedioAI & upload to YouTube, Reddit, etc.
       </p>
 
       <hr class="my-8 border-gray-600" />
 
-      <p>Coming soon!</p>
+      <!-- <p>Coming soon!</p> -->
 
-      <div id="upload" style="display: none">
+      <div id="upload">
         <h3 class="text-xl font-medium">Drag a .MP3 file here or click to browse files.</h3>
         <input type="file" id="mp3" accept=".mp3" style="display: none" />
       </div>
@@ -93,7 +95,8 @@
 
           <div class="flex items-center justify-between space-x-2">
             <button id="restart" class="btn">Restart</button>
-            <button id="convert" class="btn primary">Export to MP4</button>
+            <button id="record" class="btn primary">Record</button>
+            <button id="convert" class="btn">Convert</button>
           </div>
         </div>
 
@@ -110,7 +113,7 @@
 
         <div id="editorCanvas" class="p-8 border-light rounded-b border-b border-l border-r">
           <div id="editorWrapper">
-            <canvas id="visualizeEditor" height="1080" width="1920"></canvas>
+            <canvas id="visualizeEditor" width="1920" height="1080"></canvas>
           </div>
           <audio id="audio" controls></audio>
         </div>

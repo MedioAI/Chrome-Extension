@@ -302,7 +302,7 @@ const uiMedioAI = {
       <h4 class="text-sm text-gray-400 font-medium mb-2 select-none">Pre-made Requests</h4>
       <div class="grid grid-cols-4 gap-4" id="medioSuggestions">
         <div class="medioAskAIPremadeQuestion border rounded p-6">
-          Replace the words with phonetic spelling.
+          Replace the lyrics with phonetic spelling.
         </div>
         <div class="medioAskAIPremadeQuestion border rounded p-6">
           Check my lyrics for grammar & spelling mistakes.

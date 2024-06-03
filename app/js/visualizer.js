@@ -26,15 +26,17 @@ const visualizer = {
   recording: false,
   context: null,
   canvas: null,
+  recordButton: null,
   convertButton: null,
 
   load: async () => {
     visualizer.canvas = document.querySelector('canvas#visualizeEditor')
     visualizer.context = visualizer.canvas.getContext('2d')
+    visualizer.recordButton = document.querySelector('button#record')
     visualizer.convertButton = document.querySelector('button#convert')
     visualizer.restartButton = document.querySelector('button#restart')
 
-    visualizer.convertButton.addEventListener('click', () => {
+    visualizer.recordButton.addEventListener('click', () => {
       visualizer.convert()
     })
 
@@ -108,7 +110,7 @@ const visualizer = {
 
       coverImage = await loadImage(URL.createObjectURL(file))
 
-      if (audioBuffer && backgroundImage) {
+      if (audioBuffer) {
         drawCanvas()
       }
     }
@@ -119,7 +121,7 @@ const visualizer = {
 
       backgroundImage = await loadImage(URL.createObjectURL(file))
 
-      if (audioBuffer && coverImage) {
+      if (audioBuffer) {
         drawCanvas()
       }
     }
@@ -196,13 +198,13 @@ const visualizer = {
         ctx.font = `bold ${baseSize * 2}px Arial`
         ctx.fillStyle = 'white'
         const titleX = x + width + 60
-        const titleY = y + 50
+        const titleY = y + 230
         let title = document.querySelector('#title').value
         title = truncateText(ctx, title, ctx.canvas.width - titleX)
         ctx.fillText(title, titleX, titleY)
 
         ctx.font = `bold ${baseSize * 1}px Arial`
-        subtitleY = titleY + 60
+        subtitleY = titleY + 80
         ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
 
         let subtitle = document.querySelector('#subtitle').value
@@ -283,7 +285,7 @@ const visualizer = {
   convert: () => {
     visualizer.recording = !visualizer.recording
     if (visualizer.recording) {
-      visualizer.convertButton.textContent = 'Stop'
+      visualizer.recordButton.textContent = 'Stop'
       const stream = visualizer.canvas.captureStream(25)
       visualizer.mediaRecorder = new MediaRecorder(stream, {
         mimeType: 'video/webm;codecs=vp9',
@@ -297,14 +299,23 @@ const visualizer = {
       }
       visualizer.mediaRecorder.start()
     } else {
-      visualizer.convertButton.textContent = 'Record'
+      visualizer.recordButton.textContent = 'Record'
       visualizer.mediaRecorder.stop()
       setTimeout(() => {
         const blob = new Blob(visualizer.recordedChunks, {
           type: 'video/webm',
         })
+        // download the webm file
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        document.body.appendChild(a)
+        a.style = 'display: none'
+        a.href = url
+        a.download = 'output.webm'
+        a.click()
+        window.URL.revokeObjectURL(url)
 
-        visualizer.webm2Mp4(blob)
+        // visualizer.webm2Mp4(blob)
       }, 0)
     }
   },

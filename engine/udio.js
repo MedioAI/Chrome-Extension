@@ -22,7 +22,9 @@ const medioAI = {
           sidebar.insertAdjacentHTML('beforeend', uiMedioAI.sidebarLinks)
           notificationMedioAI.init()
           songStudioMedioAI.init()
-          tagBuilderMedioAI.init()
+          setTimeout(() => {
+            tagBuilderMedioAI.init()
+          }, 100)
         }
 
         medioAITrackCounter.load()

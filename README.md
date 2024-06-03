@@ -63,6 +63,7 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 ### In Progress
 
 - Music visualizer to MP4
+- Make all tags editable in local storage
 
 ### Next
 
