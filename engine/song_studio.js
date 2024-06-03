@@ -66,8 +66,7 @@ const songStudioMedioAI = {
 
     setTimeout(() => {
       songStudioMedioAI.trackCovers()
-      songStudioMedioAI.addLyricAttribution()
-    }, 1000)
+    }, 2000)
   },
 
   load: callback => {
@@ -655,9 +654,7 @@ const songStudioMedioAI = {
   // qualityChanged: async () => {
   //   const settings = await songStudioMedioAI.getAdvancedSettings()
   //   songStudioMedioAI.currentQuality = settings.quality
-  //   console.log(settings.quality)
   //   const targetNode = document.querySelector('.MuiSlider-root input')
-  //   console.log(targetNode)
   //   const config = { attributes: true, childList: true, subtree: true }
   //   const callback = function (mutationsList, observer) {
   //     for (let mutation of mutationsList) {
@@ -1017,55 +1014,6 @@ const songStudioMedioAI = {
       chrome.storage.local.set({ medioAICovers: covers }, function () {
         utilitiesMedioAI.showNotification('Auto saved 3 covers.')
       })
-    })
-  },
-
-  addLyricAttribution: () => {
-    const buttons = document.querySelectorAll('button')
-    buttons.forEach(button => {
-      if (button.textContent === 'Edit') {
-        button.addEventListener('click', () => {
-          const insertAttribution = document.getElementById('medioaiInsertAttribution')
-          if (insertAttribution) {
-            insertAttribution.remove()
-          } else {
-            setTimeout(() => {
-              songStudioMedioAI.appendLyricAttribution()
-            }, 500)
-          }
-        })
-      }
-    })
-  },
-
-  appendLyricAttribution: () => {
-    const h2s = document.querySelectorAll('h2')
-
-    h2s.forEach(h2 => {
-      if (h2.textContent === 'Lyrics') {
-        const attributionBox = document.createElement('div')
-        let insertAttribution = document.getElementById('medioaiInsertAttribution')
-        if (insertAttribution) return
-
-        attributionBox.innerHTML = `<button id="medioaiInsertAttribution" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-sm h-10 px-4 mr-3 py-0 md:block w-[120px]">Insert Attribution</button>`
-
-        h2.setAttribute('class', 'mb-4 text-lg font-bold lg:text-xl flex items-center justify-between')
-
-        h2.appendChild(attributionBox)
-        insertAttribution = document.getElementById('medioaiInsertAttribution')
-        insertAttribution.addEventListener('click', async () => {
-          const text = document.querySelector('textarea[placeholder="Lyrics"]').value
-          let attr = await utilitiesMedioAI.getSettings('lyricAttribution')
-          if (!attr) {
-            attr = 'Add your lyric attribution in the settings.'
-          }
-          const attribution = `${attr}\n\n`
-          const textarea = document.querySelector('textarea[placeholder="Lyrics"]')
-          textarea.focus()
-          textarea.value = attribution + text
-          textarea.dispatchEvent(new Event('input', { bubbles: true }))
-        })
-      }
     })
   },
 }

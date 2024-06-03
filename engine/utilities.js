@@ -23,25 +23,21 @@ const utilitiesMedioAI = {
       const songstudio = document.getElementById('medioAI-songstudio')
       songstudio.style.transform = 'translateX(-100%)'
       document.body.style.overflow = 'auto'
-      const tagbuilder = document.getElementById('medioAI-tagbuilder')
-      tagbuilder.style.transform = 'translateX(-100%)'
       songStudioMedioAI.isOpen = false
     }
 
     if ((e.ctrlKey && e.key === 'k') || (e.metaKey && e.key === 'k')) {
+      document.querySelector('.lyric-tab-button[data-tab="write"]').click()
       const songstudio = document.getElementById('medioAI-songstudio')
       songstudio.style.transform = 'translateX(0)'
       document.body.style.overflow = 'hidden'
-      const tagbuilder = document.getElementById('medioAI-tagbuilder')
-      tagbuilder.style.transform = 'translateX(-100%)'
       songStudioMedioAI.isOpen = true
     }
 
     if ((e.ctrlKey && e.key === 'j') || (e.metaKey && e.key === 'j')) {
-      const tagbuilder = document.getElementById('medioAI-tagbuilder')
-      tagbuilder.style.transform = 'translateX(0)'
+      document.querySelector('.lyric-tab-button[data-tab="build"]').click()
       const songstudio = document.getElementById('medioAI-songstudio')
-      songstudio.style.transform = 'translateX(-100%)'
+      songstudio.style.transform = 'translateX(0)'
       document.body.style.overflow = 'hidden'
       songStudioMedioAI.isOpen = true
     }

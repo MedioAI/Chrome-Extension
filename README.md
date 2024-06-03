@@ -71,11 +71,7 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 
 ### Bugs
 
-- Bug: slow loading tags
-- Bug: fix ctrl+j for tagbuilder
 - Bug: new extension quality/seed not applied
-- Bug: lyric attribution button sometimes not visible
-- Bug: Dyanaform settings (ffmpeg)
 
 ### Marketing
 

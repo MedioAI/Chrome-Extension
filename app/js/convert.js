@@ -62,6 +62,9 @@ async function convertMp3ToWav(e) {
       case 'volume_down':
         audioFilter = 'volume=0.5,'
         break
+      case 'dynaudnorm':
+        audioFilter = 'dynaudnorm=f=250:g=8,'
+        break
       case 'none':
       default:
         audioFilter = ''
@@ -70,7 +73,7 @@ async function convertMp3ToWav(e) {
     const duration = await getAudioDurationInSeconds(inputAudioUrl)
     const fadeOutStartTime = duration - fadeOutDuration
 
-    const commandStr = `ffmpeg -i ${sampleFileName} -af dynaudnorm=f=150:g=13,${audioFilter}afade=t=in:ss=0:d=${fadeInDuration},afade=t=out:st=${fadeOutStartTime}:d=${fadeOutDuration} -b:a ${bitrate}k -ar ${samplerate} ${outputFileName}`
+    const commandStr = `ffmpeg -i ${sampleFileName} -af ${audioFilter}afade=t=in:ss=0:d=${fadeInDuration},afade=t=out:st=${fadeOutStartTime}:d=${fadeOutDuration} -b:a ${bitrate}k -ar ${samplerate} ${outputFileName}`
 
     await runFFmpeg(sampleFileName, outputFileName, commandStr, inputAudioUrl)
 
