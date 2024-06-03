@@ -688,6 +688,7 @@ select.medioAddTag {
   display: block;
   border-radius: 6px;
   padding: 25px;
+  margin: 10px 0;
 }
 
 .medioai-summary {
@@ -698,6 +699,7 @@ select.medioAddTag {
   font-size: 12px;
   line-height: 1.5;
   padding: 15px;
+  margin: 10px 0;
 }
 .medioai-summary * {
   margin-bottom: 5px !important;

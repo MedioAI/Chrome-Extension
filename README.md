@@ -57,12 +57,12 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 - Save track covers to library.
 - Lyric edit "Insert Attribution" button.
 - Syllable Counter (for highlighted text)
+- OpenRouter API
+- System prompts
 
 ### In Progress
 
-- OpenRouter API
 - Music visualizer to MP4
-- Phonetic replacer suggestion
 
 ### Next
 
@@ -75,6 +75,7 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 - Bug: fix ctrl+j for tagbuilder
 - Bug: new extension quality/seed not applied
 - Bug: lyric attribution button sometimes not visible
+- Bug: Dyanaform settings (ffmpeg)
 
 ### Marketing
 

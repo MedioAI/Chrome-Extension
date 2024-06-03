@@ -169,22 +169,243 @@
           <option value="openrouterai">OpenRouter</option>
         </select>
       </div>
-      <div class="input-group">
-        <label for="openaikey">OpenAI API Key</label>
-        <input type="password" id="openaikey" />
-      </div>
-      <div class="input-group">
-        <label for="openaiModal">OpenAI Model</label>
-        <select id="openaiModal">
-          <option value="gpt-4o">GPT4o</option>
-          <option value="gpt-4-turbo">GPT4 Turbo</option>
-          <option value="gpt-3.5-turbo">GPT3.5 Turbo</option>
-        </select>
+
+      <div id="openai">
+        <div class="input-group">
+          <label for="openaikey">OpenAI API Key</label>
+          <input type="password" id="openaikey" />
+        </div>
+        <div class="input-group">
+          <label for="openaiModal">Model</label>
+          <select id="openaiModal">
+            <option value="gpt-4o">GPT4o</option>
+            <option value="gpt-4-turbo">GPT4 Turbo</option>
+            <option value="gpt-3.5-turbo">GPT3.5 Turbo</option>
+          </select>
+        </div>
       </div>
 
-      <div class="input-group">
-        <label for="openrouterapikey">OpenRouter API Key</label>
-        <input type="password" id="openrouterapikey" />
+      <div id="openrouter" style="display: none">
+        <div class="input-group">
+          <label for="openrouterapikey">OpenRouter API Key</label>
+          <input type="password" id="openrouterapikey" />
+        </div>
+        <div class="input-group">
+          <label for="openrouterModal">Model</label>
+          <select id="openrouterModal">
+            <option value="mistralai/mistral-7b-instruct">mistralai/mistral-7b-instruct</option>
+            <option value="mistralai/mistral-7b-instruct-v0.3">mistralai/mistral-7b-instruct-v0.3</option>
+            <option value="nousresearch/hermes-2-pro-llama-3-8b">nousresearch/hermes-2-pro-llama-3-8b</option>
+            <option value="microsoft/phi-3-mini-128k-instruct:free">
+              microsoft/phi-3-mini-128k-instruct:free
+            </option>
+            <option value="microsoft/phi-3-mini-128k-instruct">microsoft/phi-3-mini-128k-instruct</option>
+            <option value="microsoft/phi-3-medium-128k-instruct:free">
+              microsoft/phi-3-medium-128k-instruct:free
+            </option>
+            <option value="microsoft/phi-3-medium-128k-instruct">microsoft/phi-3-medium-128k-instruct</option>
+            <option value="neversleep/llama-3-lumimaid-70b">neversleep/llama-3-lumimaid-70b</option>
+            <option value="google/gemini-flash-1.5">google/gemini-flash-1.5</option>
+            <option value="perplexity/llama-3-sonar-small-32k-chat">
+              perplexity/llama-3-sonar-small-32k-chat
+            </option>
+            <option value="perplexity/llama-3-sonar-small-32k-online">
+              perplexity/llama-3-sonar-small-32k-online
+            </option>
+            <option value="perplexity/llama-3-sonar-large-32k-chat">
+              perplexity/llama-3-sonar-large-32k-chat
+            </option>
+            <option value="perplexity/llama-3-sonar-large-32k-online">
+              perplexity/llama-3-sonar-large-32k-online
+            </option>
+            <option value="deepseek/deepseek-chat">deepseek/deepseek-chat</option>
+            <option value="deepseek/deepseek-coder">deepseek/deepseek-coder</option>
+            <option value="meta-llama/llama-3-8b">meta-llama/llama-3-8b</option>
+            <option value="meta-llama/llama-3-70b">meta-llama/llama-3-70b</option>
+            <option value="openai/gpt-4o">openai/gpt-4o</option>
+            <option value="openai/gpt-4o-2024-05-13">openai/gpt-4o-2024-05-13</option>
+            <option value="meta-llama/llama-guard-2-8b">meta-llama/llama-guard-2-8b</option>
+            <option value="liuhaotian/llava-yi-34b">liuhaotian/llava-yi-34b</option>
+            <option value="allenai/olmo-7b-instruct">allenai/olmo-7b-instruct</option>
+            <option value="qwen/qwen-110b-chat">qwen/qwen-110b-chat</option>
+            <option value="qwen/qwen-14b-chat">qwen/qwen-14b-chat</option>
+            <option value="qwen/qwen-7b-chat">qwen/qwen-7b-chat</option>
+            <option value="qwen/qwen-4b-chat">qwen/qwen-4b-chat</option>
+            <option value="qwen/qwen-72b-chat">qwen/qwen-72b-chat</option>
+            <option value="qwen/qwen-32b-chat">qwen/qwen-32b-chat</option>
+            <option value="meta-llama/llama-3-8b-instruct:free">meta-llama/llama-3-8b-instruct:free</option>
+            <option value="neversleep/llama-3-lumimaid-8b">neversleep/llama-3-lumimaid-8b</option>
+            <option value="neversleep/llama-3-lumimaid-8b:extended">
+              neversleep/llama-3-lumimaid-8b:extended
+            </option>
+            <option value="snowflake/snowflake-arctic-instruct">snowflake/snowflake-arctic-instruct</option>
+            <option value="fireworks/firellava-13b">fireworks/firellava-13b</option>
+            <option value="lynn/soliloquy-l3">lynn/soliloquy-l3</option>
+            <option value="sao10k/fimbulvetr-11b-v2">sao10k/fimbulvetr-11b-v2</option>
+            <option value="meta-llama/llama-3-8b-instruct:extended">
+              meta-llama/llama-3-8b-instruct:extended
+            </option>
+            <option value="meta-llama/llama-3-8b-instruct:nitro">meta-llama/llama-3-8b-instruct:nitro</option>
+            <option value="meta-llama/llama-3-70b-instruct:nitro">
+              meta-llama/llama-3-70b-instruct:nitro
+            </option>
+            <option value="meta-llama/llama-3-8b-instruct">meta-llama/llama-3-8b-instruct</option>
+            <option value="meta-llama/llama-3-70b-instruct">meta-llama/llama-3-70b-instruct</option>
+            <option value="mistralai/mixtral-8x22b-instruct">mistralai/mixtral-8x22b-instruct</option>
+            <option value="microsoft/wizardlm-2-8x22b">microsoft/wizardlm-2-8x22b</option>
+            <option value="microsoft/wizardlm-2-7b">microsoft/wizardlm-2-7b</option>
+            <option value="undi95/toppy-m-7b:nitro">undi95/toppy-m-7b:nitro</option>
+            <option value="mistralai/mixtral-8x22b">mistralai/mixtral-8x22b</option>
+            <option value="openai/gpt-4-turbo">openai/gpt-4-turbo</option>
+            <option value="google/gemini-pro-1.5">google/gemini-pro-1.5</option>
+            <option value="cohere/command-r-plus">cohere/command-r-plus</option>
+            <option value="databricks/dbrx-instruct">databricks/dbrx-instruct</option>
+            <option value="sophosympatheia/midnight-rose-70b">sophosympatheia/midnight-rose-70b</option>
+            <option value="cohere/command">cohere/command</option>
+            <option value="cohere/command-r">cohere/command-r</option>
+            <option value="anthropic/claude-3-haiku">anthropic/claude-3-haiku</option>
+            <option value="anthropic/claude-3-haiku:beta">anthropic/claude-3-haiku:beta</option>
+            <option value="google/gemma-7b-it:nitro">google/gemma-7b-it:nitro</option>
+            <option value="mistralai/mistral-7b-instruct:nitro">mistralai/mistral-7b-instruct:nitro</option>
+            <option value="mistralai/mixtral-8x7b-instruct:nitro">
+              mistralai/mixtral-8x7b-instruct:nitro
+            </option>
+            <option value="meta-llama/llama-2-70b-chat:nitro">meta-llama/llama-2-70b-chat:nitro</option>
+            <option value="gryphe/mythomax-l2-13b:nitro">gryphe/mythomax-l2-13b:nitro</option>
+            <option value="anthropic/claude-3-opus">anthropic/claude-3-opus</option>
+            <option value="anthropic/claude-3-sonnet">anthropic/claude-3-sonnet</option>
+            <option value="anthropic/claude-3-opus:beta">anthropic/claude-3-opus:beta</option>
+            <option value="anthropic/claude-3-sonnet:beta">anthropic/claude-3-sonnet:beta</option>
+            <option value="mistralai/mistral-large">mistralai/mistral-large</option>
+            <option value="google/gemma-7b-it:free">google/gemma-7b-it:free</option>
+            <option value="google/gemma-7b-it">google/gemma-7b-it</option>
+            <option value="nousresearch/nous-hermes-2-mistral-7b-dpo">
+              nousresearch/nous-hermes-2-mistral-7b-dpo
+            </option>
+            <option value="anthropic/claude-2:beta">anthropic/claude-2:beta</option>
+            <option value="anthropic/claude-2.0:beta">anthropic/claude-2.0:beta</option>
+            <option value="anthropic/claude-2.1:beta">anthropic/claude-2.1:beta</option>
+            <option value="anthropic/claude-instant-1:beta">anthropic/claude-instant-1:beta</option>
+            <option value="openai/gpt-3.5-turbo-0125">openai/gpt-3.5-turbo-0125</option>
+            <option value="codellama/codellama-70b-instruct">codellama/codellama-70b-instruct</option>
+            <option value="recursal/eagle-7b">recursal/eagle-7b</option>
+            <option value="openai/gpt-4-turbo-preview">openai/gpt-4-turbo-preview</option>
+            <option value="undi95/remm-slerp-l2-13b:extended">undi95/remm-slerp-l2-13b:extended</option>
+            <option value="nousresearch/nous-hermes-2-mixtral-8x7b-sft">
+              nousresearch/nous-hermes-2-mixtral-8x7b-sft
+            </option>
+            <option value="nousresearch/nous-hermes-2-mixtral-8x7b-dpo">
+              nousresearch/nous-hermes-2-mixtral-8x7b-dpo
+            </option>
+            <option value="mistralai/mistral-tiny">mistralai/mistral-tiny</option>
+            <option value="mistralai/mistral-small">mistralai/mistral-small</option>
+            <option value="mistralai/mistral-medium">mistralai/mistral-medium</option>
+            <option value="austism/chronos-hermes-13b">austism/chronos-hermes-13b</option>
+            <option value="nousresearch/nous-hermes-yi-34b">nousresearch/nous-hermes-yi-34b</option>
+            <option value="neversleep/noromaid-mixtral-8x7b-instruct">
+              neversleep/noromaid-mixtral-8x7b-instruct
+            </option>
+            <option value="mistralai/mistral-7b-instruct-v0.2">mistralai/mistral-7b-instruct-v0.2</option>
+            <option value="cognitivecomputations/dolphin-mixtral-8x7b">
+              cognitivecomputations/dolphin-mixtral-8x7b
+            </option>
+            <option value="google/gemini-pro">google/gemini-pro</option>
+            <option value="google/gemini-pro-vision">google/gemini-pro-vision</option>
+            <option value="mistralai/mixtral-8x7b">mistralai/mixtral-8x7b</option>
+            <option value="mistralai/mixtral-8x7b-instruct">mistralai/mixtral-8x7b-instruct</option>
+            <option value="rwkv/rwkv-5-world-3b">rwkv/rwkv-5-world-3b</option>
+            <option value="recursal/rwkv-5-3b-ai-town">recursal/rwkv-5-3b-ai-town</option>
+            <option value="togethercomputer/stripedhyena-nous-7b">
+              togethercomputer/stripedhyena-nous-7b
+            </option>
+            <option value="togethercomputer/stripedhyena-hessian-7b">
+              togethercomputer/stripedhyena-hessian-7b
+            </option>
+            <option value="koboldai/psyfighter-13b-2">koboldai/psyfighter-13b-2</option>
+            <option value="01-ai/yi-34b-chat">01-ai/yi-34b-chat</option>
+            <option value="01-ai/yi-34b">01-ai/yi-34b</option>
+            <option value="01-ai/yi-6b">01-ai/yi-6b</option>
+            <option value="nousresearch/nous-hermes-2-vision-7b">nousresearch/nous-hermes-2-vision-7b</option>
+            <option value="nousresearch/nous-capybara-7b:free">nousresearch/nous-capybara-7b:free</option>
+            <option value="nousresearch/nous-capybara-7b">nousresearch/nous-capybara-7b</option>
+            <option value="openchat/openchat-7b:free">openchat/openchat-7b:free</option>
+            <option value="openchat/openchat-7b">openchat/openchat-7b</option>
+            <option value="gryphe/mythomist-7b:free">gryphe/mythomist-7b:free</option>
+            <option value="neversleep/noromaid-20b">neversleep/noromaid-20b</option>
+            <option value="gryphe/mythomist-7b">gryphe/mythomist-7b</option>
+            <option value="intel/neural-chat-7b">intel/neural-chat-7b</option>
+            <option value="anthropic/claude-2">anthropic/claude-2</option>
+            <option value="anthropic/claude-2.1">anthropic/claude-2.1</option>
+            <option value="teknium/openhermes-2.5-mistral-7b">teknium/openhermes-2.5-mistral-7b</option>
+            <option value="liuhaotian/llava-13b">liuhaotian/llava-13b</option>
+            <option value="nousresearch/nous-capybara-34b">nousresearch/nous-capybara-34b</option>
+            <option value="openai/gpt-4-vision-preview">openai/gpt-4-vision-preview</option>
+            <option value="lizpreciatior/lzlv-70b-fp16-hf">lizpreciatior/lzlv-70b-fp16-hf</option>
+            <option value="undi95/toppy-m-7b:free">undi95/toppy-m-7b:free</option>
+            <option value="alpindale/goliath-120b">alpindale/goliath-120b</option>
+            <option value="undi95/toppy-m-7b">undi95/toppy-m-7b</option>
+            <option value="openrouter/auto">openrouter/auto</option>
+            <option value="huggingfaceh4/zephyr-7b-beta:free">huggingfaceh4/zephyr-7b-beta:free</option>
+            <option value="google/palm-2-chat-bison-32k">google/palm-2-chat-bison-32k</option>
+            <option value="google/palm-2-codechat-bison-32k">google/palm-2-codechat-bison-32k</option>
+            <option value="teknium/openhermes-2-mistral-7b">teknium/openhermes-2-mistral-7b</option>
+            <option value="open-orca/mistral-7b-openorca">open-orca/mistral-7b-openorca</option>
+            <option value="jondurbin/airoboros-l2-70b">jondurbin/airoboros-l2-70b</option>
+            <option value="gryphe/mythomax-l2-13b:extended">gryphe/mythomax-l2-13b:extended</option>
+            <option value="xwin-lm/xwin-lm-70b">xwin-lm/xwin-lm-70b</option>
+            <option value="mistralai/mistral-7b-instruct:free">mistralai/mistral-7b-instruct:free</option>
+            <option value="openai/gpt-3.5-turbo-instruct">openai/gpt-3.5-turbo-instruct</option>
+            <option value="mistralai/mistral-7b-instruct-v0.1">mistralai/mistral-7b-instruct-v0.1</option>
+            <option value="pygmalionai/mythalion-13b">pygmalionai/mythalion-13b</option>
+            <option value="openai/gpt-3.5-turbo-16k">openai/gpt-3.5-turbo-16k</option>
+            <option value="openai/gpt-4-32k">openai/gpt-4-32k</option>
+            <option value="meta-llama/codellama-34b-instruct">meta-llama/codellama-34b-instruct</option>
+            <option value="phind/phind-codellama-34b">phind/phind-codellama-34b</option>
+            <option value="nousresearch/nous-hermes-llama2-13b">nousresearch/nous-hermes-llama2-13b</option>
+            <option value="mancer/weaver">mancer/weaver</option>
+            <option value="anthropic/claude-2.0">anthropic/claude-2.0</option>
+            <option value="anthropic/claude-instant-1">anthropic/claude-instant-1</option>
+            <option value="undi95/remm-slerp-l2-13b">undi95/remm-slerp-l2-13b</option>
+            <option value="google/palm-2-chat-bison">google/palm-2-chat-bison</option>
+            <option value="google/palm-2-codechat-bison">google/palm-2-codechat-bison</option>
+            <option value="gryphe/mythomax-l2-13b">gryphe/mythomax-l2-13b</option>
+            <option value="meta-llama/llama-2-13b-chat">meta-llama/llama-2-13b-chat</option>
+            <option value="meta-llama/llama-2-70b-chat">meta-llama/llama-2-70b-chat</option>
+            <option value="openai/gpt-3.5-turbo">openai/gpt-3.5-turbo</option>
+            <option value="openai/gpt-4">openai/gpt-4</option>
+          </select>
+        </div>
+      </div>
+
+      <hr class="my-8 border-gray-600" />
+      <button id="showAdvancedSettings" class="btn">Show Advanced Settings</button>
+
+      <hr class="my-8 border-gray-600" />
+
+      <div id="advancedSettings" style="display: none">
+        <h4 class="uppercase text-lg font-medium mb-2">System Prompts</h4>
+
+        <div class="w-full space-y-3">
+          <div class="input-group w-full">
+            <label for="systemPromptAsk">Ask</label>
+            <p class="text-xs opacity-70 -mt-1 mb-2">This prompt controls the ask about your lyrics chat.</p>
+            <textarea id="systemPromptAsk" style="height: 100px"></textarea>
+          </div>
+          <div class="input-group w-full">
+            <label for="systemPromptSongWriter">Co-Writer</label>
+            <p class="text-xs opacity-70 -mt-1 mb-2">This prompt controls the co-writer chat.</p>
+            <textarea id="systemPromptSongWriter" style="height: 100px"></textarea>
+          </div>
+          <div class="input-group w-full">
+            <label for="systemPromptRandom">Random Song</label>
+            <p class="text-xs opacity-70 -mt-1 mb-2">
+              This prompt controls the random song generator. Do not change the JSON structure.
+            </p>
+            <textarea id="systemPromptRandom" style="height: 100px"></textarea>
+          </div>
+        </div>
+
+        <hr class="my-8 border-gray-600" />
       </div>
 
       <div

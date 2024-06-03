@@ -52,14 +52,17 @@ const uiMedioAI = {
     style="font-size: 24px; font-weight: 700; margin-bottom: 16px"
   >
     <div class="flex select-none items-center space-x-2">
-    <img src="${logo}" style="width:
-    48px; height: 48px; border-radius: 6px; margin-right: 8px" />
-    <span class="font-bold">Song Studio</span>
-    <span
-      id="medioCharactersSelected"
-      style="display: none"
-      class="text-sm text-gray-300 flex-1 whitespace-nowrap font-medium"
-      ></span>
+      <img src="${logo}" style="width:
+      48px; height: 48px; border-radius: 6px; margin-right: 8px" />
+      <span class="font-bold">MedioAI</span>
+      <span class="text-xs font-bold -mt-2" style="color: #20CC9F">v${
+        chrome.runtime.getManifest().version
+      }</span>
+      <span
+        id="medioCharactersSelected"
+        style="display: none"
+        class="text-sm text-gray-300 flex-1 whitespace-nowrap font-medium"
+        ></span>
     </div>
     <div class="flex space-x-2 items-center">
       <button id="medioaiChallenge" class="flex items-center space-x-3">
@@ -299,10 +302,13 @@ const uiMedioAI = {
       <h4 class="text-sm text-gray-400 font-medium mb-2 select-none">Pre-made Requests</h4>
       <div class="grid grid-cols-4 gap-4" id="medioSuggestions">
         <div class="medioAskAIPremadeQuestion border rounded p-6">
+          Replace the words with phonetic spelling.
+        </div>
+        <div class="medioAskAIPremadeQuestion border rounded p-6">
           Check my lyrics for grammar & spelling mistakes.
         </div>
         <div class="medioAskAIPremadeQuestion border rounded p-6">
-          Write 10 critical social media comments about my song.
+          Write 5 critical social media comments about my lyrics.
         </div>
         <div class="medioAskAIPremadeQuestion border rounded p-6">
           Review my song as if you were a music critic.
