@@ -22,21 +22,52 @@ const tagBuilderMedioAI = {
     const productionsJson = chrome.runtime.getURL('database/tagbuilder/productions.json')
     const instrumentsJson = chrome.runtime.getURL('database/tagbuilder/instruments.json')
 
-    const artistsPromise = utilitiesMedioAI.populateSelect(artistsJson, 'medio-builder-artist', 'Artist')
-    const genresPromise = utilitiesMedioAI.populateSelect(genresJson, 'medio-builder-genre', 'Genre')
-    const emotionsPromise = utilitiesMedioAI.populateSelect(emotionsJson, 'medio-builder-emotion', 'Emotion')
-    const periodsPromise = utilitiesMedioAI.populateSelect(periodsJson, 'medio-builder-period', 'Period')
-    const regionsPromise = utilitiesMedioAI.populateSelect(regionsJson, 'medio-builder-region', 'Region')
-    const vocalsPromise = utilitiesMedioAI.populateSelect(vocalsJson, 'medio-builder-vocal', 'Vocal')
+    const artistsPromise = utilitiesMedioAI.populateSelect(artistsJson, 'medio-builder-artist', 'Artist', {
+      key: 'tagbuilderArtist',
+      name: 'artists',
+    })
+    const genresPromise = utilitiesMedioAI.populateSelect(genresJson, 'medio-builder-genre', 'Genre', {
+      key: 'tagbuilderGenre',
+      name: 'genres',
+    })
+    const emotionsPromise = utilitiesMedioAI.populateSelect(
+      emotionsJson,
+      'medio-builder-emotion',
+      'Emotion',
+      {
+        key: 'tagbuilderEmotion',
+        name: 'emotions',
+      }
+    )
+    const periodsPromise = utilitiesMedioAI.populateSelect(periodsJson, 'medio-builder-period', 'Period', {
+      key: 'tagbuilderPeriod',
+      name: 'periods',
+    })
+    const regionsPromise = utilitiesMedioAI.populateSelect(regionsJson, 'medio-builder-region', 'Region', {
+      key: 'tagbuilderRegion',
+      name: 'regions',
+    })
+    const vocalsPromise = utilitiesMedioAI.populateSelect(vocalsJson, 'medio-builder-vocal', 'Vocal', {
+      key: 'tagbuilderVocal',
+      name: 'vocals',
+    })
     const productionsPromise = utilitiesMedioAI.populateSelect(
       productionsJson,
       'medio-builder-production',
-      'Production'
+      'Production',
+      {
+        key: 'tagbuilderProduction',
+        name: 'productions',
+      }
     )
     const instrumentsPromise = utilitiesMedioAI.populateSelect(
       instrumentsJson,
       'medio-builder-instruments',
-      'Instrument'
+      'Instrument',
+      {
+        key: 'tagbuilderInstrument',
+        name: 'instruments',
+      }
     )
 
     Promise.all([

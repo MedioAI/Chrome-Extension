@@ -75,13 +75,31 @@ const songStudioMedioAI = {
     const structuresJson = chrome.runtime.getURL('database/songstudio/structures.json')
     const instrumentsJson = chrome.runtime.getURL('database/songstudio/instruments.json')
 
-    const commandsPromise = utilitiesMedioAI.populateSelect(commandsJson, 'medioaiCommands', 'Command')
-    const extrasPromise = utilitiesMedioAI.populateSelect(extrasJson, 'medioextraCommands', 'Extra')
-    const structurePromise = utilitiesMedioAI.populateSelect(structuresJson, 'medioaiStructures', 'Structure')
+    const commandsPromise = utilitiesMedioAI.populateSelect(commandsJson, 'medioaiCommands', 'Command', {
+      key: 'songstudioCommands',
+      name: 'commands',
+    })
+    const extrasPromise = utilitiesMedioAI.populateSelect(extrasJson, 'medioextraCommands', 'Extra', {
+      key: 'songstudioExtras',
+      name: 'extras',
+    })
+    const structurePromise = utilitiesMedioAI.populateSelect(
+      structuresJson,
+      'medioaiStructures',
+      'Structure',
+      {
+        key: 'songstudioStructures',
+        name: 'structures',
+      }
+    )
     const instrumentsPromise = utilitiesMedioAI.populateSelect(
       instrumentsJson,
       'medioaiInstruments',
-      'Instrument'
+      'Instrument',
+      {
+        key: 'songstudioInstruments',
+        name: 'instruments',
+      }
     )
 
     Promise.all([commandsPromise, extrasPromise, structurePromise, instrumentsPromise]).then(() => {
@@ -476,7 +494,7 @@ const songStudioMedioAI = {
       )
 
       if (element) {
-        element.style.maxHeight = 'calc(-630px + 100vh)'
+        element.style.maxHeight = 'calc(-570px + 100vh)'
 
         const buttons = document.querySelectorAll('aside nav button')
 
@@ -490,14 +508,14 @@ const songStudioMedioAI = {
             const element = document.querySelector(
               'aside nav [dir="ltr"].relative.overflow-hidden.flex.w-full.flex-col'
             )
-            element.style.maxHeight = 'calc(-630px + 100vh)'
+            element.style.maxHeight = 'calc(-570px + 100vh)'
           })
 
           yourPlaylistButton.addEventListener('click', () => {
             const element = document.querySelector(
               'aside nav [dir="ltr"].relative.overflow-hidden.flex.w-full.flex-col'
             )
-            element.style.maxHeight = 'calc(-630px + 100vh)'
+            element.style.maxHeight = 'calc(-570px + 100vh)'
           })
           const button = document.createElement('button')
           button.innerHTML = iconsMedioAI.expand

@@ -47,6 +47,39 @@ const app = {
           settings.systemPromptSongWriter ||
           `You are a song lyric writer. You focus on taking a Title, Theme, Emotion, Tags and Structure of a song and creating lyrics. You can also provide feedback on lyrics. You can only use h1, h2, h3, ul, ol, and p tags. You can also use the classnames "medioai-highlightgray" and "medioai-highlightyellow" to highlight areas of the lyrics. You will provide lyrics and work with user to improve them. If you are presenting lyrics to user, always wrap it in div with classname "medioai-copylyrics" so user can copy them. If you are not sure what to say ask. Only provide a summary of the title, theme, etc at the bottom of your response and wrap with div and class name "medioai-summary" if you need to, always use a title "Summary" if you are doing one. Never use class names witin classnames, if you do lyrics, only use that class name. You can respond with just lyrics. Always use brackets around commands like [Verse], etc. Use line break for each line of lyrics to bunch each verse or chorus together. Use new p tags for each section of lyrics. Use a strong tag for the commands to make it stand out. Always have commands on new line. ALWAYS format the lyrics you present to the lyrics at any point in the chat.`
 
+        if (!settings.songstudioCommands) {
+          app.loadSongStudioTags(settings, [
+            { key: 'songstudioCommands', fileName: 'commands' },
+            { key: 'songstudioInstruments', fileName: 'instruments' },
+            { key: 'songstudioStructures', fileName: 'structures' },
+            { key: 'songstudioExtras', fileName: 'extras' },
+          ])
+
+          app.loadBuilderTags(settings, [
+            { key: 'tagbuilderGenre', fileName: 'genres' },
+            { key: 'tagbuilderArtist', fileName: 'artists' },
+            { key: 'tagbuilderEmotion', fileName: 'emotions' },
+            { key: 'tagbuilderPeriod', fileName: 'periods' },
+            { key: 'tagbuilderRegion', fileName: 'regions' },
+            { key: 'tagbuilderVocal', fileName: 'vocals' },
+            { key: 'tagbuilderInstrument', fileName: 'instruments' },
+            { key: 'tagbuilderProduction', fileName: 'productions' },
+          ])
+        } else {
+          document.getElementById('songstudioCommands').value = settings.songstudioCommands
+          document.getElementById('songstudioInstruments').value = settings.songstudioInstruments
+          document.getElementById('songstudioStructures').value = settings.songstudioStructures
+          document.getElementById('songstudioExtras').value = settings.songstudioExtras
+          document.getElementById('tagbuilderGenre').value = settings.tagbuilderGenre
+          document.getElementById('tagbuilderArtist').value = settings.tagbuilderArtist
+          document.getElementById('tagbuilderEmotion').value = settings.tagbuilderEmotion
+          document.getElementById('tagbuilderPeriod').value = settings.tagbuilderPeriod
+          document.getElementById('tagbuilderRegion').value = settings.tagbuilderRegion
+          document.getElementById('tagbuilderVocal').value = settings.tagbuilderVocal
+          document.getElementById('tagbuilderInstrument').value = settings.tagbuilderInstrument
+          document.getElementById('tagbuilderProduction').value = settings.tagbuilderProduction
+        }
+
         if (settings.aimodel === 'openai') {
           document.getElementById('openai').style.display = 'block'
           document.getElementById('openrouter').style.display = 'none'
@@ -82,6 +115,48 @@ const app = {
       }
     })
 
+    const resetButtons = document.querySelectorAll('.reset')
+    resetButtons.forEach(resetButton => {
+      resetButton.addEventListener('click', function (e) {
+        const filename = e.target.parentElement.dataset.name
+        const key = e.target.parentElement.getAttribute('for')
+        app.reset({
+          fileName: filename,
+          key,
+        })
+      })
+    })
+
+    const resetPrompts = document.querySelectorAll('.resetPrompt')
+    resetPrompts.forEach(resetPrompt => {
+      resetPrompt.addEventListener('click', function (e) {
+        const key = e.target.parentElement.getAttribute('for')
+        let value = ''
+        switch (key) {
+          case 'systemPromptRandom':
+            value = `You are a song lyric writer. You come up with a Title, Theme, Emotion, Tags, Structure. For a song a respond with JSON format only. Do not include a code block, pure valid JSON only. Here is example:
+    
+    {
+      "title": "Title of Song",
+      "theme": "Theme of Song",
+      "emotion": "Emotion of Song",
+      "tags": "Tags, for, song",
+      "structure": "standard"
+    }
+    
+    Come up with a title and use 2-3 sentences to describe each section, such as theme and emotion. When doing the Structure make sure to pick from one of the following: standard, epic, duet, storytelling and sonnet. You can come up with a random song each time.`
+            break
+          case 'systemPromptAsk':
+            value = `You are a song writing assistant. Your goal is to provide helpful feedback and requests given to your by the user. You have lyrics from the user as reference. Always provide your response as html code without code block just the raw HTML formatting your answer. Always provide a robust answer. Do not add your own classnames or IDs. NEVER respond with the full lyrics. Only provide your response to the request. You can ONLY use h1, h2, h3, ul, ol, and p tags only. If you are showing your changes to lyrics, wrap your changes in classname "medioai-highlightgray". If you need to highlight a small area, you can with "medioai-hightlightyellow". Do not respond with the just the lyrics. If you are not sure what to say ask.`
+            break
+          case 'systemPromptSongWriter':
+            value = `You are a song lyric writer. You focus on taking a Title, Theme, Emotion, Tags and Structure of a song and creating lyrics. You can also provide feedback on lyrics. You can only use h1, h2, h3, ul, ol, and p tags. You can also use the classnames "medioai-highlightgray" and "medioai-highlightyellow" to highlight areas of the lyrics. You will provide lyrics and work with user to improve them. If you are presenting lyrics to user, always wrap it in div with classname "medioai-copylyrics" so user can copy them. If you are not sure what to say ask. Only provide a summary of the title, theme, etc at the bottom of your response and wrap with div and class name "medioai-summary" if you need to, always use a title "Summary" if you are doing one. Never use class names witin classnames, if you do lyrics, only use that class name. You can respond with just lyrics. Always use brackets around commands like [Verse], etc. Use line break for each line of lyrics to bunch each verse or chorus together. Use new p tags for each section of lyrics. Use a strong tag for the commands to make it stand out. Always have commands on new line. ALWAYS format the lyrics you present to the lyrics at any point in the chat.`
+            break
+        }
+        document.getElementById(key).value = value
+      })
+    })
+
     const playSound = document.getElementById('playSound')
     playSound.addEventListener('click', function () {
       const sound = document.getElementById('notificationsound').value
@@ -91,6 +166,21 @@ const app = {
 
     const saveButton = document.getElementById('save')
     saveButton.addEventListener('click', app.save)
+
+    const jsonCheckers = document.querySelectorAll('.jsonChecker')
+    jsonCheckers.forEach(jsonChecker => {
+      jsonChecker.addEventListener('input', function (e) {
+        const value = e.target.value
+        try {
+          JSON.parse(value)
+          app.invalidJSON = false
+          e.target.parentElement.querySelector('.invalidJSON').textContent = ''
+        } catch (error) {
+          app.invalidJSON = true
+          e.target.parentElement.querySelector('.invalidJSON').textContent = 'Invalid JSON'
+        }
+      })
+    })
 
     Coloris({
       el: '.coloris',
@@ -127,7 +217,52 @@ const app = {
     })
   },
 
+  invalidJSON: false,
+
+  reset: async tag => {
+    const jsonUrl = chrome.runtime.getURL(`database/songstudio/${tag.fileName}.json`)
+    const data = await fetch(jsonUrl).then(res => res.json())
+    value = JSON.stringify(data, null, 2)
+    document.getElementById(tag.key).value = value
+  },
+
+  loadSongStudioTags: async (settings, tags) => {
+    const loadTag = async tag => {
+      let value = settings[tag.key]
+      if (!value) {
+        const jsonUrl = chrome.runtime.getURL(`database/songstudio/${tag.fileName}.json`)
+        const data = await fetch(jsonUrl).then(res => res.json())
+        value = JSON.stringify(data, null, 2)
+      }
+      document.getElementById(tag.key).value = value
+    }
+
+    for (const tag of tags) {
+      await loadTag(tag)
+    }
+  },
+
+  loadBuilderTags: async (settings, tags) => {
+    const loadTag = async tag => {
+      let value = settings[tag.key]
+      if (!value) {
+        const jsonUrl = chrome.runtime.getURL(`database/tagbuilder/${tag.fileName}.json`)
+        const data = await fetch(jsonUrl).then(res => res.json())
+        value = JSON.stringify(data, null, 2)
+      }
+      document.getElementById(tag.key).value = value
+    }
+
+    for (const tag of tags) {
+      await loadTag(tag)
+    }
+  },
+
   save: function () {
+    if (app.invalidJSON) {
+      alert('Invalid JSON, please correct it before saving.')
+      return
+    }
     const notice = document.getElementById('notice')
     notice.style.display = 'block'
 
@@ -149,6 +284,18 @@ const app = {
       systemPromptRandom: document.getElementById('systemPromptRandom').value,
       systemPromptAsk: document.getElementById('systemPromptAsk').value,
       systemPromptSongWriter: document.getElementById('systemPromptSongWriter').value,
+      songstudioCommands: document.getElementById('songstudioCommands').value,
+      songstudioInstruments: document.getElementById('songstudioInstruments').value,
+      songstudioStructures: document.getElementById('songstudioStructures').value,
+      songstudioExtras: document.getElementById('songstudioExtras').value,
+      tagbuilderGenre: document.getElementById('tagbuilderGenre').value,
+      tagbuilderArtist: document.getElementById('tagbuilderArtist').value,
+      tagbuilderEmotion: document.getElementById('tagbuilderEmotion').value,
+      tagbuilderPeriod: document.getElementById('tagbuilderPeriod').value,
+      tagbuilderRegion: document.getElementById('tagbuilderRegion').value,
+      tagbuilderVocal: document.getElementById('tagbuilderVocal').value,
+      tagbuilderInstrument: document.getElementById('tagbuilderInstrument').value,
+      tagbuilderProduction: document.getElementById('tagbuilderProduction').value,
     }
 
     chrome.storage.local.set({ medioaiSettings }, function () {

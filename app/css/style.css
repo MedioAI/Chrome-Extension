@@ -114,6 +114,11 @@ body {
   background: #403846;
 }
 
+.btn.small {
+  font-size: 13px;
+  padding: 6px 8px;
+}
+
 .credits {
   color: #ffffff80;
   font-size: 18px;

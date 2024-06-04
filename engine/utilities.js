@@ -311,31 +311,41 @@ const utilitiesMedioAI = {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
   },
 
-  populateSelect: (jsonUrl, elementId, placeholder) => {
-    return fetch(jsonUrl)
-      .then(response => response.json())
-      .then(data => {
-        const select = document.getElementById(elementId)
-        if (!select) return
-        const option = document.createElement('option')
-        option.value = ''
-        option.textContent = placeholder
-        option.disabled = true
-        option.selected = true
-        select.appendChild(option)
-        data.forEach(item => {
-          let value = item
-          let text = item
-          if (item.value) {
-            value = item.value
-            text = item.text
-          }
-          const option = document.createElement('option')
-          option.value = value
-          option.textContent = text
-          select.appendChild(option)
+  populateSelect: async (jsonUrl, elementId, placeholder, settingsData) => {
+    const database = await utilitiesMedioAI.getSettings(settingsData.key)
+    // console.log(database)
+    if (database) {
+      return utilitiesMedioAI.buildSelectBoxes(JSON.parse(database), elementId, placeholder)
+    } else {
+      return fetch(jsonUrl)
+        .then(response => response.json())
+        .then(data => {
+          utilitiesMedioAI.buildSelectBoxes(data, elementId, placeholder)
         })
-      })
+    }
+  },
+
+  buildSelectBoxes: (data, elementId, placeholder) => {
+    const select = document.getElementById(elementId)
+    if (!select) return
+    const option = document.createElement('option')
+    option.value = ''
+    option.textContent = placeholder
+    option.disabled = true
+    option.selected = true
+    select.appendChild(option)
+    data.forEach(item => {
+      let value = item
+      let text = item
+      if (item.value) {
+        value = item.value
+        text = item.text
+      }
+      const option = document.createElement('option')
+      option.value = value
+      option.textContent = text
+      select.appendChild(option)
+    })
   },
 
   placeholders: [

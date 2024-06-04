@@ -59,14 +59,11 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 - Syllable Counter (for highlighted text)
 - OpenRouter API
 - System prompts
+- Edit all tags (commands, etc)
 
-### In Progress
+### Coming Soon
 
 - Music visualizer to MP4
-- Make all tags editable in local storage
-
-### Next
-
 - Firefox
 - Edge
 
