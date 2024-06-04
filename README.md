@@ -29,36 +29,21 @@ A chrome extension to enhance the experience of Udio.com, the best music platfor
 9. **Track Credit Counter**
    - Count how many credits you used for any track in your account.
 10. **MP3 Metadata Editor**
-
-- Edit the metadata of your MP3 files.
-
+   - Edit the metadata of your MP3 files.
 11. **Challenge Me**
-
-- Get a random songwriting prompt to challenge your creativity.
-
+   - Get a random songwriting prompt to challenge your creativity.
 12. **Seedbank Manager**
-
-- Save, edit, select, randomize, and delete your seed settings.
-
+   - Save, edit, select, randomize, and delete your seed settings.
 13. **Syllable Counter**
-
-- Count the syllables in your highlighted text.
-
+   - Count the syllables in your highlighted text.
 14. **OpenRouter API**
-
-- Access the OpenRouter API for more AI LLMs (including Claude)
-
+   - Access the OpenRouter API for more AI LLMs (including Claude)
 15. **System Prompts**
-
-- Edit the system prompts for the AI chat.
-
+   - Edit the system prompts for the AI chat.
 16. **Edit All Tags**
-
-- Edit all tags in the database (commands, etc).
-
+   - Edit all tags in the database (commands, etc).
 17. **Lyric Attribution**
-
-- Insert attribution for lyrics.
+   - Insert attribution for lyrics.
 
 Visit the website, [MedioAI.com](https://www.medioai.com) for more information.
 
