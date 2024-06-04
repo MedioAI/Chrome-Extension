@@ -29,21 +29,23 @@ A chrome extension to enhance the experience of Udio.com, the best music platfor
 9. **Track Credit Counter**
    - Count how many credits you used for any track in your account.
 10. **MP3 Metadata Editor**
-      - Edit the metadata of your MP3 files.
+    - Edit the metadata of your MP3 files.
 11. **Challenge Me**
-      - Get a random songwriting prompt to challenge your creativity.
+    - Get a random songwriting prompt to challenge your creativity.
 12. **Seedbank Manager**
-      - Save, edit, select, randomize, and delete your seed settings.
+    - Save, edit, select, randomize, and delete your seed settings.
 13. **Syllable Counter**
-      - Count the syllables in your highlighted text.
+    - Count the syllables in your highlighted text.
 14. **OpenRouter API**
-      - Access the OpenRouter API for more AI LLMs (including Claude)
+    - Access the OpenRouter API for more AI LLMs (including Claude)
 15. **System Prompts**
-      - Edit the system prompts for the AI chat.
+    - Edit the system prompts for the AI chat.
 16. **Edit All Tags**
-      - Edit all tags in the database (commands, etc).
+    - Edit all tags in the database (commands, etc).
 17. **Lyric Attribution**
-      - Insert attribution for lyrics.
+    - Insert attribution for lyrics.
+18. **Save Track Covers**
+    - Save all the covers you make in your Udio library.
 
 Visit the website, [MedioAI.com](https://www.medioai.com) for more information.
 
@@ -55,27 +57,6 @@ Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdlj
 
 - **Version 1.2** - [MedioAI v1.2 (just more tags)](https://github.com/WynterJones/MedioAI-for-Udio/releases/tag/v1.2)
 - **Version 1.1** - [MedioAI v1.1](https://github.com/WynterJones/MedioAI-for-Udio/releases/tag/v1.1)
-
-## In Progress - **Version 1.3**
-
-### Completed
-
-- Fix position of playlist in sidebar.
-- Added playlist expand button w/ popup.
-- Added MP3 Metadata Editor.
-- Added 4,000+ new tags to the database.
-- Challenge me button with 500+ songwriting prompts.
-- Keep Seed & Quality settings (toggle on/off)
-- Seedbank manager (save, edit, select, random, delete)
-- Preview sound in audio settings.
-- Display waveform after .WAV conversion
-- Manual Mode as default on (toggle on/off)
-- Save track covers to library.
-- Lyric edit "Insert Attribution" button.
-- Syllable Counter (for highlighted text)
-- OpenRouter API
-- System prompts
-- Edit all tags (commands, etc)
 
 ### Coming Soon
 
