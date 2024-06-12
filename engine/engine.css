@@ -757,3 +757,120 @@ select.medioAddTag {
   top: 50px;
   position: fixed;
 }
+
+#medio-radio {
+  width: 450px;
+  background: #000;
+  box-shadow: 20px 20px 60px #000, -20px -20px 60px #000;
+  z-index: 999999999999;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 40px;
+  border-radius: 10px;
+  color: #fff;
+}
+
+#medio-radio .track-cover {
+  position: relative;
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+#medio-radio .track-cover img {
+  width: 100%;
+  border-radius: 10px;
+}
+#medio-radio .track-cover:hover .track-play {
+  display: flex;
+}
+
+#medio-radio .track-cover .track-play,
+#medio-radio .track-cover .track-pause {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0000006a;
+  display: none;
+  align-items: center;
+  font-size: 6em;
+  justify-content: center;
+  cursor: pointer;
+}
+#medio-radio.playing .track-cover:hover .track-pause {
+  display: flex;
+}
+#medio-radio.playing .track-cover:hover .track-play {
+  display: none;
+}
+
+#medio-radio .medio-radio-pause {
+  font-size: 49px;
+  margin-left: -2px;
+}
+#medio-radio .medio-radio-play {
+  font-size: 49px;
+}
+#medio-radio .medio-radio-next {
+  font-size: 26px;
+}
+
+#medio-radio .medio-radio-controls {
+  padding-bottom: 20px;
+  position: relative;
+}
+#medio-radio .medio-radio-progress {
+  height: 5px;
+  background: #4b4b4b6a;
+  border-radius: 5px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+#medio-radio .medio-radio-progress .audio-radio-bar {
+  height: 100%;
+  background: #e3095d;
+  border-radius: 5px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#dj-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #000000b5;
+  z-index: 999999999999;
+  padding-top: 100px;
+  font-size: 20px;
+  display: block;
+  text-align: center;
+}
+
+#dj-text {
+  height: 200px;
+  width: 60%;
+  margin: 0 auto;
+  overflow-x: hidden;
+  font-size: 11px;
+  line-height: 1.6em;
+  margin-top: 10px;
+  color: #ffffffd0;
+}
+
+#dj-text p {
+  margin-bottom: 10px;
+}
+
+#dj-text .highlighted-track {
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 2px 5px;
+  background: #070003da;
+}
