@@ -38,7 +38,7 @@
         "engine/api_calls.js",
         "engine/song_studio.js",
         "engine/tag_builder.js",
-        "engine/udio/track-counter.js",
+        "engine/track-counter.js",
         "engine/udio.js"
       ],
       "css": ["engine/engine.css", "lib/quilljs.css"]
