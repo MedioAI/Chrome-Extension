@@ -37,7 +37,7 @@ const covers = {
               resolve(data['medioAICover_' + element.id])
             })
           })
-          const html = /* html */ `<div class="relative coverWrapper" data-index="${index}">
+          const html = /* html */ `<div class="relative coverWrapper" data-id="${element.id}" data-index="${index}">
           <img
             src="${cover_image}"
             class="open cursor-pointer rounded-lg mb-2"
@@ -115,7 +115,6 @@ const covers = {
     chrome.storage.local.get('medioAICovers', async data => {
       const covers = data.medioAICovers
       const cover = covers[index]
-      // overlay with modal
       const overlay = document.createElement('div')
       overlay.setAttribute('class', 'fixed inset-0 bg-black bg-opacity-50 z-50')
 
@@ -153,13 +152,12 @@ const covers = {
   },
 
   download: event => {
-    const index = event.target.closest('.coverWrapper').dataset.index
-    chrome.storage.local.get('medioAICovers', function (data) {
-      const covers = data.medioAICovers
-      const cover = covers[index]
+    const id = event.target.closest('.coverWrapper').dataset.id
+    chrome.storage.local.get('medioAICover_' + id, function (data) {
+      const cover = data['medioAICover_' + id]
       const a = document.createElement('a')
-      a.href = cover.image
-      a.download = 'cover.png'
+      a.href = cover
+      a.download = 'udio-track-cover.png'
       a.click()
     })
   },

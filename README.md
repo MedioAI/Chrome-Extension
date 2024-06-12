@@ -53,16 +53,30 @@ Visit the website, [MedioAI.com](https://www.medioai.com) for more information.
 
 Go to [Chrome Web Store](https://chromewebstore.google.com/detail/me-dio/gkajdljokjallnlfkibjoiolndccinoi) to install the **MedioAI** extension and start using today!
 
+## Install on Microsoft Edge
+
+Go to [Microsoft Edge Store](https://microsoftedge.microsoft.com/addons/detail/medioai-enhance-udio/lbiepnaolpfacabhmcibjhmgmfaobppa) to install the **MedioAI** extension and start using today!
+
+## Install on Firefox, Opera, Safari
+
+Coming soon.
+
 ## Releases
 
+- **Version 1.3** - In development.
+- **Version 1.3** - [More features]
 - **Version 1.2** - [MedioAI v1.2 (just more tags)](https://github.com/WynterJones/MedioAI-for-Udio/releases/tag/v1.2)
 - **Version 1.1** - [MedioAI v1.1](https://github.com/WynterJones/MedioAI-for-Udio/releases/tag/v1.1)
 
-### Coming Soon
+### Version 1.4
+
+- Fix: Track credit counter.
+- Fix: Save cover button duplicating
+- Fix: Track cover not downloading.
+
+### In Development
 
 - Music visualizer to MP4
-- Firefox
-- Edge
 
 ### Bugs
 

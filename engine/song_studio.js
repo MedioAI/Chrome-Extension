@@ -943,20 +943,22 @@ const songStudioMedioAI = {
                 songStudioMedioAI.grabCovers(wrapper, node)
               }
 
-              const saveImagesButton = document.createElement('button')
-              saveImagesButton.innerHTML = 'Save Covers'
-              saveImagesButton.setAttribute(
-                'class',
-                'items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-sm h-10 px-4 py-2 mr-3 block'
-              )
-              saveImagesButton.id = 'medioaiSaveCovers'
-              saveImagesButton.addEventListener('click', e => {
-                e.preventDefault()
-                e.stopPropagation()
+              if (!document.querySelector('#medioaiSaveCovers')) {
+                const saveImagesButton = document.createElement('button')
+                saveImagesButton.innerHTML = 'Save Covers'
+                saveImagesButton.setAttribute(
+                  'class',
+                  'items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-sm h-10 px-4 py-2 mr-3 block'
+                )
+                saveImagesButton.id = 'medioaiSaveCovers'
+                saveImagesButton.addEventListener('click', e => {
+                  e.preventDefault()
+                  e.stopPropagation()
 
-                songStudioMedioAI.grabCovers(wrapper, node)
-              })
-              generateButton.parentElement.appendChild(saveImagesButton)
+                  songStudioMedioAI.grabCovers(wrapper, node)
+                })
+                generateButton.parentElement.appendChild(saveImagesButton)
+              }
             }
           })
         }
@@ -1030,7 +1032,7 @@ const songStudioMedioAI = {
       const covers = result.medioAICovers || []
       covers.unshift(...images)
       chrome.storage.local.set({ medioAICovers: covers }, function () {
-        utilitiesMedioAI.showNotification('Auto saved 3 covers.')
+        utilitiesMedioAI.showNotification('Saved track (3) covers.')
       })
     })
   },
