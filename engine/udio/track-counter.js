@@ -41,17 +41,20 @@ const medioAITrackCounter = {
     const username = avatar.querySelector(`img`).alt
     const forms = document.querySelectorAll('form')
     if (!forms || forms.length < 2) return
-    if (!forms[1].querySelector('a')) return
-    const trackArtist = forms[1].querySelector('a').textContent
+    console.log('form found', forms)
+    if (!forms[2].querySelector('a')) return
+    const trackArtist = forms[2].querySelector('a').textContent
 
+    console.log(username, trackArtist)
     if (username !== trackArtist) return
     if (document.querySelector('#medioAITrackCount')) return
 
-    document
-      .querySelector(
-        'body > section > div.mb-\\[150px\\].flex.w-full.flex-row.justify-between > div.ml-auto.mr-4 > div.mt-\\[90px\\] > section > div > div:nth-child(1) > div > div.relative.ml-0.flex.h-full.w-full.flex-grow.flex-col.justify-between.md\\:ml-8.md\\:h-\\[300px\\].\\32 xl\\:h-\\[350px\\] > div.bottom-0.mt-5.flex.w-full.justify-between.md\\:flex-col.md\\:space-y-3 > div > div.mb-3.hidden.items-center.md\\:flex'
-      )
-      .insertAdjacentHTML('beforeend', medioAITrackCounter.ui)
+    let editButton = Array.from(document.querySelectorAll('button')).find(
+      button => button.textContent === 'Edit'
+    )
+    if (editButton) {
+      editButton.insertAdjacentHTML('afterend', medioAITrackCounter.ui)
+    }
 
     medioAITrackCounter.events()
   },
