@@ -8,7 +8,7 @@
  */
 
 const apiMedioAI = {
-  apiRouter: async (messages, isChat = false, id, request, callback, isJSON, key) => {
+  apiRouter: async (messages, isChat = false, id, request, callback, isJSON = false, key) => {
     const aimodel = await utilitiesMedioAI.getSettings('aimodel')
 
     switch (aimodel) {
@@ -91,6 +91,36 @@ const apiMedioAI = {
           console.log('Something bad happened ' + error)
         })
     }
+  },
+
+  openAITalk: async (message, voice = 'alloy', callback) => {
+    const url = 'https://api.openai.com/v1/audio/speech'
+    const apikey = await utilitiesMedioAI.getSettings('openaikey')
+    const bearer = 'Bearer ' + apikey
+
+    const body = {
+      model: 'tts-1',
+      input: message,
+      voice: voice,
+      response_format: 'mp3',
+    }
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        Authorization: bearer,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+      .then(response => response.blob())
+      .then(blob => {
+        const url = URL.createObjectURL(blob)
+        callback(url)
+      })
+      .catch(error => {
+        console.log('Something bad happened ' + error)
+      })
   },
 
   openRouterAI: async (messages, isChat = false, id, request, callback, isJSON, key) => {

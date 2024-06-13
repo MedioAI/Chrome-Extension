@@ -9,10 +9,99 @@
 
 const medioRadio = {
   currentTrack: 0,
+  shouldAnnounce: false,
+  hasAnnouncer: false,
+  genres: '',
+  broadcastLength: 0,
+  djMessage: '',
+  djVoice: 'alloy',
+  djMusic: 'classical-1',
+  radioName: 'Udio Radio',
+  hasSeen: [],
+  isPreviewing: false,
+  isPreviewingVoice: false,
+  djPersonality: '',
+  djPersonalities: {
+    gta_pg:
+      'You are extremely aggressive like a GTA radio host. You are not allowed to swear and must be super friendly and positive. You have a relentless energy and enthusiasm, always hyping up the listeners and making everything sound like the most exciting thing ever. You often share quirky, fun facts about the city and love promoting local events, always with a high-octane delivery.',
+    gta_xrated:
+      "You are extremely aggressive like a GTA radio host. You swear a lot and tell conspiracies and are super political and hate your job. You talk about things you've seen in your crazy city called 'District 5,' a seedy place where you used to be a drug dealer and now are a radio host. You are allowed to swear and make inappropriate comments. Do not censor your words.",
+    radio:
+      'You are witty, always have a joke, talk about the weather, and are an over-the-top radio host. Your style is engaging, humorous, and you always find a way to make even the mundane topics entertaining.',
+    simple:
+      'You are extremely brief and only introduce the next song and the artist. No fluff, no extra commentary, just straight to the point.',
+    funny:
+      'You are a comedic genius with a knack for observational humor. You love to poke fun at everyday situations and make your listeners laugh with your witty remarks and hilarious anecdotes. Your energy is contagious, and you always keep the mood light and fun.',
+    serious:
+      'You are the voice of reason and gravitas on the airwaves. You tackle serious topics with a thoughtful and analytical approach, providing in-depth commentary on current events, politics, and social issues. Your tone is calm, measured, and authoritative, earning the trust and respect of your listeners.',
+    metalhead:
+      'You are a hardcore metal enthusiast with a deep love for heavy music. You know everything about the metal scene and love sharing your passion with your listeners. You introduce tracks with intense enthusiasm, discuss the latest in the metal world, and often share stories from concerts and the metal community. Your energy is raw, unfiltered, and always electrifying.',
+    custom: '',
+  },
 
   init: async () => {
     document.body.insertAdjacentHTML('beforeend', medioRadioUI.builder)
     medioRadio.dj.check()
+    medioRadio.deploy()
+
+    const customPersonality = await utilitiesMedioAI.getSettings('djpersonality')
+    if (customPersonality) {
+      medioRadio.djPersonalities.custom = customPersonality
+    }
+  },
+
+  deploy: () => {
+    const djEnabled = document.getElementById('medio-radio-dj-enabled')
+    djEnabled.addEventListener('change', () => {
+      if (djEnabled.value === 'on') {
+        document.getElementById('medioDJSettingsInner').style.display = 'block'
+      } else {
+        document.getElementById('medioDJSettingsInner').style.display = 'none'
+      }
+    })
+
+    const voicePreview = document.getElementById('medioSampleDJVoice')
+    const musicPreview = document.getElementById('medioSampleDJBackground')
+
+    voicePreview.addEventListener('click', () => {
+      const audioPlayerValue = document.querySelector('#medio-radio-dj-voice').value
+      const audioPlayer = document.querySelector('#medio-radio-mic-check')
+
+      if (medioRadio.isPreviewingVoice) {
+        voicePreview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg>`
+        medioRadio.isPreviewingVoice = false
+        audioPlayer.pause()
+      } else {
+        voicePreview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M12 6h-2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2m10 0h-2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2"/></svg>`
+        musicPreview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg>`
+        medioRadio.isPreviewingVoice = true
+        medioRadio.isPreviewing = false
+        audioPlayer.src = chrome.runtime.getURL(`dj/${audioPlayerValue}.wav`)
+        audioPlayer.volume = 1
+        audioPlayer.load()
+        audioPlayer.play()
+      }
+    })
+
+    musicPreview.addEventListener('click', () => {
+      const audioPlayerValue = document.querySelector('#medio-radio-dj-music').value
+      const audioPlayer = document.querySelector('#medio-radio-mic-check')
+
+      if (medioRadio.isPreviewing) {
+        musicPreview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg>`
+        medioRadio.isPreviewing = false
+        audioPlayer.pause()
+      } else {
+        musicPreview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M12 6h-2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2m10 0h-2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2"/></svg>`
+        voicePreview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg>`
+        medioRadio.isPreviewing = true
+        medioRadio.isPreviewingVoice = false
+        audioPlayer.src = chrome.runtime.getURL(`dj/${audioPlayerValue}.mp3`)
+        audioPlayer.volume = 1
+        audioPlayer.load()
+        audioPlayer.play()
+      }
+    })
 
     document.getElementById('medio-radio-deploy').addEventListener('click', async () => {
       const genres = document.getElementById('medio-radio-genres').value
@@ -20,6 +109,20 @@ const medioRadio = {
       const onlynew = document.getElementById('medio-radio-only-new').value
       const djvoice = document.getElementById('medio-radio-dj-voice').value
       const djpersonality = document.getElementById('medio-radio-dj-personality').value
+      const radioName = document.getElementById('medio-radio-name').value
+      const djMusic = document.getElementById('medio-radio-dj-music').value
+
+      medioRadio.djMusic = djMusic
+      medioRadio.radioName = radioName
+      medioRadio.genres = genres
+      medioRadio.djVoice = djvoice
+      medioRadio.hasSeen = []
+
+      medioRadio.djPersonality = medioRadio.djPersonalities[djpersonality]
+
+      const genresArray = genres.split(',')
+      medioRadio.broadcastLength = genresArray.length * parseInt(length)
+
       medioRadio.build({
         genres,
         length,
@@ -31,12 +134,25 @@ const medioRadio = {
   },
 
   build: async data => {
+    const djEnabled = document.getElementById('medio-radio-dj-enabled').value
     document.getElementById('medio-radio').innerHTML = medioRadioUI.building
     setTimeout(async () => {
       const current = await chrome.storage.local.get('medioRadio')
 
       if (current.medioRadio.length > 0) {
-        medioRadio.start(current, data)
+        if (!medioRadio.hasAnnouncer) {
+          medioRadio.start('off', current)
+          const playButton = document.querySelector('.medio-radio-play')
+          playButton.click()
+        } else {
+          await medioRadio.dj.load(current.medioRadio[0], 'intro', data => {
+            medioRadio.djMessage = data.choices[0].message.content
+            apiMedioAI.openAITalk(medioRadio.djMessage, medioRadio.djVoice, data => {
+              medioRadio.djBuffer = data
+              medioRadio.start(djEnabled, current)
+            })
+          })
+        }
       } else {
         chrome.storage.local.set({ medioRadio: [] })
         medioRadio.search(data)
@@ -44,7 +160,7 @@ const medioRadio = {
     }, 0)
   },
 
-  start: (current, data) => {
+  start: (djEnabled, current) => {
     document.getElementById('medio-radio').innerHTML = medioRadioUI.player
     document.getElementById('medio-radio').setAttribute('data-id', current.medioRadio[0].id)
     document.querySelector('.track-cover img').src = current.medioRadio[0].image_path
@@ -68,7 +184,13 @@ const medioRadio = {
     medioRadio.currentTrack = 0
     audio.src = current.medioRadio[0].song_path + '?t=' + new Date().getTime()
 
-    medioRadio.dj.play()
+    if (djEnabled === 'on') {
+      medioRadio.hasAnnouncer = true
+      medioRadio.shouldAnnounce = false
+      medioRadio.dj.play()
+    } else {
+      playButton.click()
+    }
 
     playButton.addEventListener('click', () => {
       audio.play()
@@ -85,7 +207,13 @@ const medioRadio = {
     })
 
     nextButton.addEventListener('click', async () => {
-      medioRadio.nextTrack()
+      if (medioRadio.shouldAnnounce && medioRadio.hasAnnouncer) {
+        medioRadio.shouldAnnounce = false
+        medioRadio.nextTrack(true)
+        medioRadio.dj.play()
+      } else {
+        medioRadio.nextTrack()
+      }
     })
 
     audio.addEventListener('timeupdate', () => {
@@ -113,8 +241,12 @@ const medioRadio = {
         indicator.textContent = `${minutes}:${seconds} / ${durationMinutes}:${durationSeconds}`
 
       if (audio.currentTime === audio.duration) {
-        medioRadio.nextTrack(true)
-        medioRadio.dj.play()
+        if (medioRadio.hasAnnouncer) {
+          medioRadio.nextTrack(true)
+          medioRadio.dj.play()
+        } else {
+          medioRadio.nextTrack()
+        }
       }
     })
   },
@@ -145,7 +277,7 @@ const medioRadio = {
     if (next && medioRadio.currentTrack < current.medioRadio.length) {
       medioRadio.currentTrack++
       medioRadio.hasListened(id)
-      console.log(next)
+
       document.querySelector('.track-cover img').src = next.image_path
       document.querySelector('.medio-radio-title').textContent = next.title
       document.querySelector('.medio-radio-artist').textContent = 'by ' + next.artist
@@ -157,9 +289,8 @@ const medioRadio = {
 
       if (!paused) audio.play()
 
-      audio.addEventListener('stalled', function () {
-        console.log('radio has stalled')
-      })
+      const playButton = document.querySelector('.medio-radio-play')
+      const pauseButton = document.querySelector('.medio-radio-pause')
 
       playButton.style.display = 'none'
       pauseButton.style.display = 'block'
@@ -169,6 +300,7 @@ const medioRadio = {
       }`
     } else {
       document.querySelector('#medio-radio').outerHTML = medioRadioUI.builder
+      medioRadio.deploy()
       medioRadio.dj.check()
     }
   },
@@ -239,19 +371,62 @@ const medioRadio = {
       }
     },
 
-    load: (data, state) => {
-      // check state if intro, transition or outro
-      // get text from openai api
-      // convert to audio speech
-      // store audio to be played
+    load: async (data, state, callback) => {
+      let system = ''
+      switch (state) {
+        case 'intro':
+          system = `You are host of a radio station. The radio station is called "${medioRadio.radioName}". You are about to introduce the radio station and the next track. The radio station is going to play ${medioRadio.broadcastLength} songs. The radio station has these genres, of which set the vibe for the radio broadcast: ${medioRadio.genres}. Keep your response to only 1-3 sentences. Keep it short, punchy and engaging.`
+          break
+        case 'transition':
+          system = `You are host of a radio station. The radio station is called "${medioRadio.radioName}". You are about to introduce a new track to keep the listeners engaged. Keep your response to only 1-3 sentences. Keep it short, punchy and engaging.`
+          break
+        case 'outro':
+          system = `You are host of a radio station. The radio station is called "${medioRadio.radioName}". You are about to introduce a new track as the last track of the radio broadcast for the outro. Keep your response to only 1-3 sentences. Keep it short, punchy and engaging.`
+          break
+      }
+
+      system += medioRadio.djPersonality
+
+      const request = `You need to write the ${state} for the next track for the radio broadcast. Here is the information for the track:
+      
+      Title: ${data.title} 
+      Artist: ${data.artist}
+      Genres: ${data.tags.join(', ')}
+      Lyrics: ${data.lyrics}`
+
+      console.log({
+        request,
+        system,
+      })
+
+      await apiMedioAI.apiRouter(
+        [
+          {
+            role: 'system',
+            content: system,
+          },
+          {
+            role: 'user',
+            content: request,
+          },
+        ],
+        false,
+        null,
+        request,
+        data => {
+          if (callback) callback(data)
+        }
+      )
     },
 
-    play: (bgMusic, voice) => {
+    play: () => {
       const audio = document.getElementById('medio-radio-audio')
       audio.pause()
 
-      bgMusic = bgMusic || chrome.runtime.getURL('dj/radio-bg-classical.mp3')
-      voice = voice || chrome.runtime.getURL('dj/sample-voice.mp3')
+      document.querySelector('#dj-text').innerHTML = medioRadio.djMessage
+
+      bgMusic = chrome.runtime.getURL(`dj/${medioRadio.djMusic}.mp3`)
+      const voiceMP3 = medioRadio.djBuffer
 
       const bgAudio = document.getElementById('medio-radio-background')
       bgAudio.src = bgMusic
@@ -264,49 +439,81 @@ const medioRadio = {
 
       let volume = 0
       const fadeInInterval = setInterval(() => {
-        if (volume < 0.7) {
+        if (volume < 0.3) {
           volume += 0.01
           bgAudio.volume = volume
         } else {
           clearInterval(fadeInInterval)
         }
-      }, 100)
+      }, 300)
 
       setTimeout(() => {
         const voiceAudio = document.getElementById('medio-radio-dj')
-        voiceAudio.src = voice
-        voiceAudio.load()
-        voiceAudio.play()
+        if (voiceAudio) {
+          voiceAudio.src = voiceMP3
+          voiceAudio.load()
+          voiceAudio.volume = 1
+          voiceAudio.play()
 
-        voiceAudio.addEventListener('ended', () => {
-          let volume = 0
-          audio.volume = 0
-          audio.play()
-          const fadeInInterval = setInterval(() => {
-            if (volume < 0.7) {
-              volume += 0.01
-              audio.volume = volume
-            } else {
-              clearInterval(fadeInInterval)
-            }
-          }, 100)
-          fadeOut()
-        })
-      }, 2500)
+          voiceAudio.addEventListener('ended', () => {
+            let volume = 0
+            audio.volume = 0
+            audio.play()
+
+            const fadeInInterval = setInterval(() => {
+              if (volume < 1) {
+                volume += 0.01
+                audio.volume = volume
+              } else {
+                clearInterval(fadeInInterval)
+              }
+            }, 100)
+
+            fadeOut()
+
+            djWrapper.style.display = 'none'
+            const playButton = document.querySelector('.medio-radio-play')
+            const pauseButton = document.querySelector('.medio-radio-pause')
+            const medioRadioWrapper = document.querySelector('#medio-radio')
+            medioRadioWrapper.classList.add('playing')
+            playButton.style.display = 'none'
+            pauseButton.style.display = 'block'
+          })
+        }
+      }, 2000)
 
       const fadeOut = () => {
         let volume = 0.7
-        const fadeOutInterval = setInterval(() => {
+        const fadeOutInterval = setInterval(async () => {
           if (volume > 0) {
             volume -= 0.01
             if (volume < 0) volume = 0
             bgAudio.volume = volume
           } else {
             clearInterval(fadeOutInterval)
+
             bgAudio.pause()
-            djWrapper.style.display = 'none'
+            medioRadio.shouldAnnounce = true
+
+            const medioRadioWrapper = document.querySelector('#medio-radio')
+            const current = await chrome.storage.local.get('medioRadio')
+            const currentIndex = current.medioRadio.findIndex(
+              track => track.id === medioRadioWrapper.getAttribute('data-id')
+            )
+            if (current.medioRadio[currentIndex + 1] && !medioRadio.hasSeen.includes(currentIndex + 1)) {
+              medioRadio.hasSeen.push(currentIndex + 1)
+              let state = 'transition'
+              if (currentIndex + 1 === current.medioRadio.length - 1) state = 'outro'
+              if (!medioRadio.hasAnnouncer) return
+              await medioRadio.dj.load(current.medioRadio[currentIndex + 1], state, data => {
+                medioRadio.djMessage = data.choices[0].message.content
+                apiMedioAI.openAITalk(medioRadio.djMessage, medioRadio.djVoice, data => {
+                  medioRadio.djBuffer = data
+                })
+              })
+            }
           }
-        }, 100)
+        }, 50)
       }
     },
   },
@@ -321,43 +528,117 @@ const medioRadioUI = {
        <h4 class="text-sm text-gray-400 mb-1">Add your genre tags <small class="text-xs">(comma separated list) *</small></h4>
        <textarea id="medio-radio-genres" class="w-full border w-full h-16 p-2 bg-gray-800 text-white rounded-lg">reggae, punk</textarea>
 
+       <div class="flex space-x-2">
+            <div class="w-full">
+       <h4 class="text-sm text-gray-400 mb-1 mt-3">Playlist <small class="text-xs text-gray-500">(* allows recording)</small></h4>
+          <input id="medio-radio-playlist" class="w-full border bg-gray-800 text-white p-2 rounded-lg" placeholder="Playlist URL" />
+        </div>
+        <div class="w-full">
+          <h4 class="text-sm text-gray-400 mb-1 mt-3">Shuffle</h4>
+          <select id="medio-radio-length" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+          </select>
+        </div>
+      </div>
+
+       <div class="flex space-x-2">
+            <div class="w-full">
        <h4 class="text-sm text-gray-400 mb-1 mt-3">Length</h4>
       <select id="medio-radio-length" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
-        <option value="1">Short (10 tracks per tag)</option>
-        <option value="2">Medium (20 tracksper tag)</option>
-        <option value="3">Long (30 tracks per tag)</option>
+        <option value="1">10 tracks per tag</option>
+        <option value="2">20 tracks per tag</option>
+        <option value="3">30 tracks per tag</option>
       </select>
+      </div>
+      <div class="w-full">
 
       <h4 class="text-sm text-gray-400 mb-1 mt-3">Only New Tracks</h4>
       <select id="medio-radio-only-new" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
         <option value="on">Yes</option>
         <option value="off">No (repeat heard tracks)</option>
       </select>
-
+</div>
+</div>
 
        <div class="text-sm italic text-gray-400 mb-1 mt-3" id="medioDJNotice" style="display: none">
           Add your OpenAI or OpenRouter API key to enable DJ mode.**
        </div>
 
         <div id="medioDJSettings" style="display: none">
-          <h4 class="text-sm text-gray-400 mb-1 mt-3">DJ Voice</h4>
-          <select id="medio-radio-dj-voice" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
-            <option value="1">Voice 1</option>
-            <option value="2">Voice 2</option>
+          <h4 class="text-sm text-gray-400 mb-1 mt-3">Enable A.I. DJ Announcer</h4>
+          <select id="medio-radio-dj-enabled" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
+            <option value="off">Off</option>
+            <option value="on">On</option>
           </select>
+        <div id="medioDJSettingsInner" style="display: none">
+          <div class="flex space-x-2">
+            <div class="w-full">
 
-          <h4 class="text-sm text-gray-400 mb-1 mt-3">DJ Personality</h4>
+          <h4 class="text-sm text-gray-400 mb-1 mt-3">Radio Station Name</h4>
+          <input id="medio-radio-name" class="w-full border bg-gray-800 text-white p-2 rounded-lg" placeholder="Station Name..." />
+          </div>
+          <div class="w-full">
+          <h4 class="text-sm text-gray-400 mb-1 mt-3">Personality</h4>
           <select id="medio-radio-dj-personality" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
-            <option value="1">GTA style (PG)</option>
-            <option value="2">GTA style (X-Rated)</option>
-            <option value="3">Radio Host</option>
-            <option value="4">Simple Robot</option>
+            <option value="gta_pg">GTA style (PG)</option>
+            <option value="gta_xrated">GTA style (X-Rated)</option>
+            <option value="radio">Radio Host</option>
+            <option value="simple">Simple Robot</option>
+            <option value="funny">Funny</option>
+            <option value="serious">Serious</option>
+            <option value="metalhead">Metal Head</option>
+            <option value="custom">Custom (Edit in Settings)</option>
           </select>
+          </div>
+          </div>
+
+          <div class="flex space-x-2">
+            <div class="w-full">
+            <h4 class="text-sm text-gray-400 mb-1 mt-3 flex items-center space-x-4">
+            <span>Voice</span>
+            <span id="medioSampleDJVoice" class="cursor-pointer opacity-50 hover:opacity-100"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg></span>
+          </h4>
+          <select id="medio-radio-dj-voice" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
+            <option value="onyx">Onyx (male)</option>  
+            <option value="shimmer">Shimmer (female)</option>
+            <option value="echo">Echo (male)</option>
+            <option value="alloy">Alloy (female)</option>
+            <option value="fable">Fable (male)</option>
+            <option value="nova">Nova (female)</option>
+          </select>
+            </div>
+            <div class="w-full">
+             <h4 class="text-sm text-gray-400 mb-1 mt-3 flex items-center space-x-4">
+            <span>DJ Music</span>
+            <span id="medioSampleDJBackground" class="cursor-pointer opacity-50 hover:opacity-100"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg></span>
+          </h4>
+          <select id="medio-radio-dj-music" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
+            <option value="funky-1">Funky 1</option>
+            <option value="funky-2">Funky 2</option>
+            <option value="hiphop-1">Hip Hop 1</option>
+            <option value="hiphop-2">Hip Hop 2</option>
+          </select>
+            </div>
+          </div>
+          </div>
         </div>
 
-        <button id="medio-radio-deploy" style="background: #E3095D" class="text-white py-2 px-4 rounded-lg mt-3">Search & Deploy</button>
-        <p class="text-xs text-gray-400 mt-4">* MedioAI will search for tags that you suggest and create a list of tracks for the radio broadcast. Tracks will never be repeated. **The DJ mode will announce the track name, username and sometimes comment about the lyrics.</p>
+        <div class="w-full flex items-center justify-between">
+        <button id="medio-radio-deploy" style="background: #E3095D" class="text-white py-2 px-4 rounded-lg mt-3 flex items-center space-x-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20"><g fill="currentColor"><path fill-rule="evenodd" d="M15 8H5a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1M5 6a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3z" clip-rule="evenodd"/><path d="M10 12a2.5 2.5 0 1 1-5 0a2.5 2.5 0 0 1 5 0"/><path fill-rule="evenodd" d="M14.67 1.665a.75.75 0 0 1-.335 1.006l-10 5a.75.75 0 0 1-.67-1.342l10-5a.75.75 0 0 1 1.006.336M11 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m0 1.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m0 1.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5" clip-rule="evenodd"/></g></svg>
+        
+        <span>Start Radio</span></button>
+
+        <button id="medio-radio-record-toggle" class="text-white py-2 px-4 rounded-lg mt-3 flex items-center space-x-2" style="display: none">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M6 5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1zM1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8m7-6a6 6 0 1 0 0 12A6 6 0 0 0 8 2"/></svg>
+          <span>Record</span>
+        </button>
+        </div>
+        <p class="text-xs text-gray-400 mt-4">* MedioAI will search for tags that you suggest and create a list of tracks for the radio broadcast. Tracks will never be repeated. **The DJ mode will announce the track name, username and sometimes comment about the lyrics. *** Recording will start when broadcast begins and end once the last tracked is finished. You can only record with a playlist that you have created. A playlist URL will overwrite the tags. </p>
       </div>
+
+      <audio id="medio-radio-mic-check" style="display: none" src="#" preload="auto"></audio>
     </div>`,
 
   building: /* html */ `
@@ -394,10 +675,7 @@ const medioRadioUI = {
        
        <div id="dj-wrapper" style="display: none">
         <h3>Announcer</h3>
-        <div id="dj-text">
-          <p>Welcome to MedioRadio for Udio. We starting off with <strong class="highlighted-track">"Loving Jah" by AmegaBeats</strong>. This song is about loving the herb.</p>
-          <p>Let's spin it rasta!</p>
-        </div>
+        <div id="dj-text" class="whitespace-pre-line"></div>
        </div>
        <audio id="medio-radio-audio" style="display: none" src="#" preload="auto"></audio>
        <audio id="medio-radio-background" style="display: none" src="#" preload="auto"></audio>

@@ -75,6 +75,7 @@ Coming soon.
 
 ### In Development
 
+- MedioRadio! Listen to Udio like a radio station. Add OpenAI key for DJ announcer for tracks!
 - Music visualizer to MP4
 
 ### Bugs
