@@ -155,7 +155,8 @@
 #medioSongClear,
 #medioaiSettings,
 #medioaiTools,
-#medioaiChallenge {
+#medioaiChallenge,
+#medioaiRadio {
   background: #242424;
   padding: 6px 12px;
   display: flex;
@@ -163,6 +164,10 @@
   font-size: 16px;
   border: 1px solid #474747;
   font-weight: 800;
+}
+
+#medioaiRadio span {
+  font-size: 11px;
 }
 
 #medioaiSendMessage {
@@ -762,6 +767,7 @@ select.medioAddTag {
   width: 450px;
   background: #000;
   box-shadow: 20px 20px 60px #000, -20px -20px 60px #000;
+  border: 1px solid #ffffff3e;
   z-index: 999999999999;
   position: fixed;
   bottom: 20px;
@@ -769,6 +775,15 @@ select.medioAddTag {
   padding: 40px;
   border-radius: 10px;
   color: #fff;
+}
+
+#medio-radio-close {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
 }
 
 #medio-radio .track-cover {
@@ -919,7 +934,7 @@ select.medioAddTag {
 #radioHelp:hover #radioHelpDesc {
   display: block;
   position: absolute;
-  top: -300px;
+  top: -190px;
   left: -250px;
   width: 250px;
   padding: 10px;

@@ -65,6 +65,10 @@ const uiMedioAI = {
         ></span>
     </div>
     <div class="flex space-x-2 items-center">
+      <button id="medioaiRadio" class="flex items-center space-x-1">
+        ${iconsMedioAI.radio}
+        <span>Udio Radio</span>
+      </button>
       <button id="medioaiChallenge" class="flex items-center space-x-3">
         ${iconsMedioAI.challenge}
       </button>

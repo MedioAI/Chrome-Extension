@@ -19,7 +19,7 @@ const medioRadio = {
   djMessage: '',
   djVoice: 'alloy',
   djMusic: 'classical-1',
-  radioName: 'Udio Radio',
+  radioName: 'MedioAI Radio',
   hasSeen: [],
   isPreviewing: false,
   isPreviewingVoice: false,
@@ -114,10 +114,22 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       await chrome.storage.local.set({ medioRadioListened: [] })
       hasListened = []
     }
-    console.log(hasListened)
   },
 
   deploy: () => {
+    const close = document.getElementById('medio-radio-close')
+    close.addEventListener('click', () => {
+      medioRadio.currentIndex = 0
+      medioRadio.currentTrack = 0
+      medioRadio.page = 0
+      medioRadio.hasSeen = []
+      medioRadio.broadcastLength = 0
+      document.getElementById('medio-radio').outerHTML = medioRadioUI.builder
+      document.getElementById('medio-radio').style.display = 'none'
+      medioRadio.dj.check()
+      medioRadio.deploy()
+    })
+
     const djEnabled = document.getElementById('medio-radio-dj-enabled')
     djEnabled.addEventListener('change', () => {
       if (djEnabled.value === 'on') {
@@ -129,6 +141,8 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
 
     const voicePreview = document.getElementById('medioSampleDJVoice')
     const musicPreview = document.getElementById('medioSampleDJBackground')
+
+    medioRadio.currentIndex = 0
 
     voicePreview.addEventListener('click', () => {
       const audioPlayerValue = document.querySelector('#medio-radio-dj-voice').value
@@ -182,7 +196,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       medioRadio.hasAnnouncer = djEnabled.value === 'on'
       medioRadio.onlyUnique = onlynew === 'on'
       medioRadio.djMusic = djMusic
-      medioRadio.radioName = radioName
+      medioRadio.radioName = radioName || 'MedioAI Radio'
       medioRadio.genres = genres
       medioRadio.djVoice = djvoice
       medioRadio.hasSeen = []
@@ -201,8 +215,9 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     }, 0)
   },
 
-  start: (djEnabled, current) => {
+  start: async (djEnabled, current) => {
     document.getElementById('medio-radio').innerHTML = medioRadioUI.player
+
     if (!current.medioRadio[0]?.id) {
       alert('No tracks found. Please enable repeating tracks or try again.')
       document.getElementById('medio-radio').outerHTML = medioRadioUI.builder
@@ -221,11 +236,22 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       '.medio-radio-artist'
     ).href = `https://www.udio.com/creators/${current.medioRadio[0].artist}`
 
+    const close = document.getElementById('medio-radio-close')
+    close.addEventListener('click', () => {
+      document.getElementById('medio-radio').outerHTML = medioRadioUI.builder
+      document.getElementById('medio-radio').style.display = 'none'
+      medioRadio.dj.check()
+      medioRadio.deploy()
+    })
+
     const playButton = document.querySelector('.medio-radio-play')
     const pauseButton = document.querySelector('.medio-radio-pause')
     const nextButton = document.querySelector('.medio-radio-next')
     const medioRadioWrapper = document.querySelector('#medio-radio')
     const audio = document.getElementById('medio-radio-audio')
+
+    const playCoverButton = document.querySelector('.track-play')
+    const pauseCoverButton = document.querySelector('.track-pause')
 
     document.querySelector('.medio-radio-broadcast').textContent = `Track 1 of ${current.medioRadio.length}`
 
@@ -253,6 +279,20 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       pauseButton.style.display = 'none'
     })
 
+    playCoverButton.addEventListener('click', () => {
+      audio.play()
+      medioRadioWrapper.classList.add('playing')
+      playButton.style.display = 'none'
+      pauseButton.style.display = 'block'
+    })
+
+    pauseCoverButton.addEventListener('click', () => {
+      audio.pause()
+      medioRadioWrapper.classList.remove('playing')
+      playButton.style.display = 'block'
+      pauseButton.style.display = 'none'
+    })
+
     nextButton.addEventListener('click', async () => {
       if (medioRadio.shouldAnnounce && medioRadio.hasAnnouncer) {
         medioRadio.shouldAnnounce = false
@@ -266,6 +306,8 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     audio.addEventListener('timeupdate', () => {
       const progress = document.querySelector('.audio-radio-bar')
       const indicator = document.querySelector('.medio-radio-indicator')
+
+      if (!progress) return
 
       const percent = (audio.currentTime / audio.duration) * 100
       progress.style.width = percent + '%'
@@ -339,17 +381,26 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
 
       if (!paused) audio.play()
 
+      const medioRadioWrapper = document.querySelector('#medio-radio')
+      medioRadioWrapper.classList.add('playing')
+
       const playButton = document.querySelector('.medio-radio-play')
       const pauseButton = document.querySelector('.medio-radio-pause')
 
       playButton.style.display = 'none'
       pauseButton.style.display = 'block'
 
-      document.querySelector(
-        '.medio-radio-broadcast'
-      ).textContent = `Track ${medioRadio.currentIndex} of ${current.medioRadio.length}`
+      document.querySelector('.medio-radio-broadcast').textContent = `Track ${
+        medioRadio.currentIndex + 1
+      } of ${current.medioRadio.length}`
     } else {
+      medioRadio.currentIndex = 0
+      medioRadio.currentTrack = 0
+      medioRadio.page = 0
+      medioRadio.hasSeen = []
+      medioRadio.broadcastLength = 0
       document.querySelector('#medio-radio').outerHTML = medioRadioUI.builder
+      document.querySelector('#medio-radio').style.display = 'block'
       medioRadio.deploy()
       medioRadio.dj.check()
     }
@@ -384,16 +435,28 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     }
 
     medioRadio.trimTrackList(genres, medioRadio.broadcastLength)
+    await new Promise(resolve => setTimeout(resolve, 300))
     document.getElementById('medio-radio').innerHTML = medioRadioUI.player
     const current = await chrome.storage.local.get('medioRadio')
 
-    console.log(medioRadio.hasAnnouncer)
+    const close = document.getElementById('medio-radio-close')
+    close.addEventListener('click', () => {
+      medioRadio.currentIndex = 0
+      medioRadio.currentTrack = 0
+      medioRadio.page = 0
+      medioRadio.hasSeen = []
+      medioRadio.broadcastLength = 0
+      document.getElementById('medio-radio').outerHTML = medioRadioUI.builder
+      document.getElementById('medio-radio').style.display = 'none'
+      medioRadio.dj.check()
+      medioRadio.deploy()
+    })
+
     if (!medioRadio.hasAnnouncer) {
       medioRadio.start('off', current)
       const playButton = document.querySelector('.medio-radio-play')
       playButton.click()
     } else {
-      console.log('dj enabled wtf')
       await medioRadio.dj.load(current.medioRadio[0], 'intro', data => {
         medioRadio.djMessage = data.choices[0].message.content
         apiMedioAI.openAITalk(medioRadio.djMessage, medioRadio.djVoice, data => {
@@ -407,7 +470,14 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
   processTracks: async tracks => {
     const hasListened = await chrome.storage.local.get('medioRadioListened')
     const current = await chrome.storage.local.get('medioRadio')
-    for (const track of tracks) {
+    const dups = []
+    const removeDuplicates = tracks.filter(track => {
+      if (!dups.includes(track.id)) {
+        dups.push(track.id)
+        return track
+      }
+    })
+    for (const track of removeDuplicates) {
       current.medioRadio.push(track)
     }
     await chrome.storage.local.set({ medioRadio: current.medioRadio })
@@ -421,7 +491,9 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
   trimTrackList: async (genres, length) => {
     const current = await chrome.storage.local.get('medioRadio')
     const trimmed = current.medioRadio.slice(0, genres.length * length)
-    await chrome.storage.local.set({ medioRadio: trimmed })
+    const shuffled = trimmed.sort(() => 0.5 - Math.random())
+    console.log({ shuffled })
+    await chrome.storage.local.set({ medioRadio: shuffled })
   },
 
   hasListened: async id => {
@@ -468,11 +540,6 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       Artist: ${data.artist}
       Genres: ${data.tags.join(', ')}
       Lyrics: ${data.lyrics}`
-
-      console.log({
-        request,
-        system,
-      })
 
       await apiMedioAI.apiRouter(
         [
@@ -544,6 +611,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
 
             const playButton = document.querySelector('.medio-radio-play')
             const pauseButton = document.querySelector('.medio-radio-pause')
+
             const medioRadioWrapper = document.querySelector('#medio-radio')
             medioRadioWrapper.classList.add('playing')
             playButton.style.display = 'none'
@@ -619,14 +687,15 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
 
 const medioRadioUI = {
   builder: /* html */ `
-    <div id="medio-radio">
+    <div id="medio-radio" style="display: none">
+      <div id="medio-radio-close"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20"><path fill="currentColor" d="M2.93 17.07A10 10 0 1 1 17.07 2.93A10 10 0 0 1 2.93 17.07M11.4 10l2.83-2.83l-1.41-1.41L10 8.59L7.17 5.76L5.76 7.17L8.59 10l-2.83 2.83l1.41 1.41L10 11.41l2.83 2.83l1.41-1.41L11.41 10z"/></svg></div>
       <div>
        <h2 class="text-2xl mb-2">Udio Radio <span class="text-sm ml-1" style="color: #1dcca0">powered by MedioAI</span></h2>
       
        <h4 class="text-sm text-gray-400 mb-1">Tags <small class="text-xs opacity-50">(comma separated list) *</small></h4>
        <input id="medio-radio-genres" class="w-full border bg-gray-800 text-white p-2 rounded-lg" placeholder="Add your tags here..." />
 
-       <div class="flex space-x-2">
+       <div class="flex space-x-2 hidden">
             <div class="w-full">
        <h4 class="text-sm text-gray-400 mb-1 mt-3">Playlist / Profile <small class="text-xs opacity-50">(overwrites tags) **</small></h4>
           <input id="medio-radio-playlist" class="w-full border bg-gray-800 text-white p-2 rounded-lg" placeholder="Full URL here..." />
@@ -648,7 +717,7 @@ const medioRadioUI = {
       </select>
 </div>
 
-<div class="w-full">
+<div class="w-full hidden">
           <h4 class="text-sm text-gray-400 mb-1 mt-3">Shuffle</h4>
           <select id="medio-radio-shuffle" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
             <option value="no">No</option>
@@ -735,10 +804,8 @@ const medioRadioUI = {
           <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0m9 5v.01"/><path d="M12 13.5a1.5 1.5 0 0 1 1-1.5a2.6 2.6 0 1 0-3-4"/></g></svg>
          <div id="radioHelpDesc">
           <p class="text-xs text-gray-400">
-          <p><strong>*</strong> MedioAI will search for tags that you suggest and create a list of tracks for the radio broadcast. Tracks will never be repeated from broadcast to broadcast unless turned off.</p>
+          <p><strong>*</strong> MedioAI will search for tags that you suggest and create a list of tracks for the radio broadcast. Tracks will be shuffled for variety.</p>
           <p><strong>**</strong> The DJ mode will announce the track name, username and sometimes comment about the lyrics. </p>
-          
-          <p><strong>***</strong> Recording will start when broadcast begins and end once the last tracked is finished. You can only record with a playlist that you have created. A playlist URL will overwrite the tags. </p>
          </div>
         </div>
         
@@ -762,14 +829,15 @@ const medioRadioUI = {
     </div>`,
 
   player: /* html */ `
+    <div id="medio-radio-close"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20"><path fill="currentColor" d="M2.93 17.07A10 10 0 1 1 17.07 2.93A10 10 0 0 1 2.93 17.07M11.4 10l2.83-2.83l-1.41-1.41L10 8.59L7.17 5.76L5.76 7.17L8.59 10l-2.83 2.83l1.41 1.41L10 11.41l2.83 2.83l1.41-1.41L11.41 10z"/></svg></div>
        <div class="track-cover">
-        <img src="https://medioai.com/assets/img/logo.png" />
+       <img src="https://imagedelivery.net/C9yUr1FL21Q6JwfYYh2ozQ/7c49c1ba-8e70-476f-2693-e988e7a9ae00/width=728,quality=100" />
         <div class="track-play"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"><defs><mask id="ipSPlay0"><g fill="none" stroke-linejoin="round" stroke-width="4"><path fill="#fff" d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20Z"/><path fill="#000" stroke="#000" d="M20 24v-6.928l6 3.464L32 24l-6 3.464l-6 3.464z"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSPlay0)"/></svg></div>
         <div class="track-pause"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20"><path fill="currentColor" d="M2.93 17.07A10 10 0 1 1 17.07 2.93A10 10 0 0 1 2.93 17.07M7 6v8h2V6zm4 0v8h2V6z"/></svg></div>
        </div>
       
        <div class="medio-radio-info mb-2">
-        <a href="#" class="medio-radio-title block truncate text-3xl font-bold mb-1 hover:underline">Track Title</a>
+        <a href="#" target="_blank" class="medio-radio-title block truncate text-3xl font-bold mb-1 hover:underline">Track Title</a>
         <a href="#" target="_blank" class="medio-radio-artist block hover:underline text-lg opacity-50 mb-4">Track Artist</a>
        </div>
 

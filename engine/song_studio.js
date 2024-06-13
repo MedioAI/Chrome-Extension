@@ -437,6 +437,12 @@ const songStudioMedioAI = {
     medioaiChallenge.addEventListener('click', () => {
       songStudioMedioAI.challenge()
     })
+
+    const medioaiRadio = document.getElementById('medioaiRadio')
+    medioaiRadio.addEventListener('click', () => {
+      songStudioMedioAI.close()
+      document.querySelector('#medio-radio').style.display = 'block'
+    })
   },
 
   challenge: async () => {
