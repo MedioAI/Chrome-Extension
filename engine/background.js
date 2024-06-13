@@ -18,8 +18,6 @@ chrome.runtime.onInstalled.addListener(() => {
     openaikey: '',
     openrouterapikey: '',
     openaiModal: 'gpt-4o',
-    keepAdvancedSettings: 'off',
-    manualModeDefault: 'off',
     autoSaveCovers: 'off',
     lyricAttribution: '',
     songstudioCommands: '',

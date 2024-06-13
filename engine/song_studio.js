@@ -50,20 +50,6 @@ const songStudioMedioAI = {
       songStudioMedioAI.seedBox()
     }, 2000)
 
-    const keepAdvancedSettings = await utilitiesMedioAI.getSettings('keepAdvancedSettings')
-    if (keepAdvancedSettings === 'on') {
-      setTimeout(() => {
-        songStudioMedioAI.keepAdvancedSettings()
-      }, 2000)
-    }
-
-    const defaultManualMode = await utilitiesMedioAI.getSettings('manualModeDefault')
-    if (defaultManualMode === 'on') {
-      setTimeout(() => {
-        songStudioMedioAI.toggleManualMode()
-      }, 2000)
-    }
-
     setTimeout(() => {
       songStudioMedioAI.trackCovers()
     }, 2000)
@@ -599,36 +585,6 @@ const songStudioMedioAI = {
     observer.observe(document, { childList: true, subtree: true })
   },
 
-  keepAdvancedSettings: () => {
-    const buttons = document.querySelectorAll('button')
-    buttons.forEach(button => {
-      if (button.textContent === 'Advanced Features') {
-        button.addEventListener('click', () => {
-          setTimeout(() => {
-            songStudioMedioAI.applyAdvancedSettings(button)
-          }, 500)
-        })
-      } else if (
-        button.textContent === 'Create' ||
-        button.textContent === 'Extend' ||
-        button.textContent === 'Remix'
-      ) {
-        button.addEventListener('click', () => {
-          const buttons = document.querySelectorAll('button')
-          buttons.forEach(button => {
-            if (button.textContent === 'Advanced Features') {
-              const wrapper = button.closest('h3').nextElementSibling
-              const allInputs = wrapper.querySelectorAll('input')
-              if (!allInputs[0]) return
-
-              songStudioMedioAI.setAdvancedSettings({ seed: allInputs[0].value, quality: allInputs[1].value })
-            }
-          })
-        })
-      }
-    })
-  },
-
   applyAdvancedSettings: async button => {
     const wrapper = button.closest('h3').nextElementSibling
     if (!wrapper) return
@@ -894,13 +850,6 @@ const songStudioMedioAI = {
         document.body.appendChild(modal)
       })
     })
-  },
-
-  toggleManualMode: () => {
-    const button = document.querySelector('#bypass-settings')
-    if (button) {
-      songStudioMedioAI.simulateMouseClick(button)
-    }
   },
 
   trackCovers: () => {

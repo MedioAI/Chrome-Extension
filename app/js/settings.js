@@ -18,8 +18,6 @@ const app = {
         document.getElementById('slideanimation').value = settings.slideanimation
         document.getElementById('lyrictextsize').value = settings.lyrictextsize
         document.getElementById('commandcolor').value = settings.commandcolor
-        document.getElementById('keepAdvancedSettings').value = settings.keepAdvancedSettings || 'off'
-        document.getElementById('manualModeDefault').value = settings.manualModeDefault || 'off'
         document.getElementById('aimodel').value = settings.aimodel || 'openai'
         document.getElementById('openaikey').value = settings.openaikey
         document.getElementById('autoSaveCovers').value = settings.autoSaveCovers || 'off'
@@ -275,8 +273,6 @@ const app = {
       aimodel: document.getElementById('aimodel').value,
       openaikey: document.getElementById('openaikey').value,
       openrouterapikey: document.getElementById('openrouterapikey').value,
-      keepAdvancedSettings: document.getElementById('keepAdvancedSettings').value,
-      manualModeDefault: document.getElementById('manualModeDefault').value,
       autoSaveCovers: document.getElementById('autoSaveCovers').value,
       lyricAttribution: document.getElementById('lyricAttribution').value,
       openaiModal: document.getElementById('openaiModal').value,

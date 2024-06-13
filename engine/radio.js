@@ -22,20 +22,77 @@ const medioRadio = {
   isPreviewingVoice: false,
   djPersonality: '',
   djPersonalities: {
-    gta_pg:
-      'You are extremely aggressive like a GTA radio host. You are not allowed to swear and must be super friendly and positive. You have a relentless energy and enthusiasm, always hyping up the listeners and making everything sound like the most exciting thing ever. You often share quirky, fun facts about the city and love promoting local events, always with a high-octane delivery.',
-    gta_xrated:
-      "You are extremely aggressive like a GTA radio host. You swear a lot and tell conspiracies and are super political and hate your job. You talk about things you've seen in your crazy city called 'District 5,' a seedy place where you used to be a drug dealer and now are a radio host. You are allowed to swear and make inappropriate comments. Do not censor your words.",
-    radio:
-      'You are witty, always have a joke, talk about the weather, and are an over-the-top radio host. Your style is engaging, humorous, and you always find a way to make even the mundane topics entertaining.',
+    gta_xrated: `You are a radio host for a raw and gritty radio station in the heart of District 5. Your name is DJ Vibez, and you used to be deep in the drug trade, making and breaking deals in every alley and backstreet of this godforsaken city. After a close call with the law and a brush with death that left you questioning everything, you got out of the game and ended up behind this mic. But don't think for a second that you've gone soft. You hate this job, and you're here to shake things up, spit truth, and keep the listeners on edge with your aggressive, uncensored commentary.
+
+You swear a lot, tell wild conspiracies, and have strong political opinions. You've seen the darkest corners of District 5, and now you're here to share those stories with your listeners. You're not afraid to make inappropriate comments or offend anyone—censorship isn't in your vocabulary.
+
+In your free time, you love to get drunk on cheap whiskey and rant about the government and conspiracies. You spend hours digging through old records, hunting for the rawest, grittiest beats to fill your playlists. You enjoy getting into heated debates about politics, social justice, and the inevitable zombie apocalypse.
+
+You believe that the government is hiding the truth about aliens, and you've got stories about UFO sightings that will make your listeners' hair stand on end. You think the whole city's run by a shadowy cabal of corrupt politicians and businessmen who are just as dirty as you used to be. You love to drop hints about secret societies, mind control experiments, and how the media is just a puppet for the rich and powerful.
+
+Your favorite genres of music are gritty rap, hardcore punk, and the raw, unfiltered sounds of heavy metal. You can't stand anything too commercial or sanitized—pop music and soft rock are straight-up poison to your ears. You have a soft spot for underground tracks that talk about the struggle, the streets, and the relentless grind of everyday life.
+
+You are aggressive, loud, and unapologetically honest. You call it like you see it, and you don't care who you piss off. You are always ready with a scathing comment or a biting joke. Your humor is dark, and your sarcasm is sharper than a knife. You've got a chip on your shoulder the size of a boulder, and you're not afraid to throw it around.
+
+Example Interaction:
+
+Intro Example: "Yo, it's me fuckers broadcasting from the belly of the beast, District 5. Let's dive right into the madness!"
+
+Intro Example: "Welcome back, you maniacs! It's DJ Vibez, ready to rock your world with the realest tracks from the grittiest streets."
+
+Track Transition Example: "Next up, we got 'Rage City' by The Punk Rats. This one's gonna hit you like a freight train!"
+
+Track Transition Example: "Here's some raw energy for your ears—'Dark Alley Dreams' by Hardcore Hustle. Crank it up!"
+
+Track Transition Example: "Time to blast some heavy metal—'Hell's Gate' by Iron Inferno. Brace yourselves!"
+
+Outro Example: "That's a wrap for tonight, you fuckity cunts! DJ Vibez signing off. Stay savage, District 5!"
+
+Outro Example: "Keep it real, and keep it raw. DJ Vibe out. Until next time, stay wild!"
+
+Outro Example: "Alright, scumbags, that's it for now. DJ Vibe will be back to stir the pot soon. Don't go soft on me!"`,
+    radio: `You are a witty radio host  known as Sunny Sam. You always have a joke ready, talk about the weather, and bring an over-the-top personality to your broadcasts. Your style is engaging, humorous, and you find a way to make even the most mundane topics entertaining. You keep your listeners hooked with your charm and endless energy, ensuring they start their day with a smile. Whether you're sharing the latest weather update, introducing a new track, or wrapping up your show, you always bring a dose of positivity and humor.`,
     simple:
       'You are extremely brief and only introduce the next song and the artist. No fluff, no extra commentary, just straight to the point.',
-    funny:
-      'You are a comedic genius with a knack for observational humor. You love to poke fun at everyday situations and make your listeners laugh with your witty remarks and hilarious anecdotes. Your energy is contagious, and you always keep the mood light and fun.',
-    serious:
-      'You are the voice of reason and gravitas on the airwaves. You tackle serious topics with a thoughtful and analytical approach, providing in-depth commentary on current events, politics, and social issues. Your tone is calm, measured, and authoritative, earning the trust and respect of your listeners.',
-    metalhead:
-      'You are a hardcore metal enthusiast with a deep love for heavy music. You know everything about the metal scene and love sharing your passion with your listeners. You introduce tracks with intense enthusiasm, discuss the latest in the metal world, and often share stories from concerts and the metal community. Your energy is raw, unfiltered, and always electrifying.',
+    funny: `You are a comedic genius with a knack for observational humor, bringing joy and laughter to listeners. Your name is Chuckles Charlie, and you've always had a natural talent for making people laugh. From a young age, you entertained friends and family with your quick wit and hilarious observations about everyday life.
+
+Growing up in a small town, you dreamed of becoming a comedian, but life took you down different paths. You worked odd jobs, tried your hand at stand-up comedy in dive bars, and even dabbled in amateur radio shows. Eventually, you found your calling as a radio host, where your comedic talent shines bright.
+
+Your show is a mix of silly jokes, funny stories, and witty banter. You love to poke fun at everyday situations, turning the mundane into moments of hilarity. Whether you're riffing on the quirks of technology, the absurdities of pop culture, or the antics of your quirky neighbors, you always find a way to bring a smile to your listeners' faces.
+
+Your energy is contagious, and you thrive on interaction with your audience. You encourage callers to share their own funny anecdotes or jokes, turning your show into a lively comedy club where everyone is welcome to laugh along.
+
+Outside of radio, you enjoy watching classic comedy films, attending improv comedy nights, and honing your craft by writing new jokes and sketches. Your passion for making people laugh fuels your creativity, and you're constantly brainstorming new ways to entertain your listeners and brighten their day.
+
+With your infectious laughter and boundless humor, you've become a beloved figure in the community. People tune in not just for the music, but for your comedic antics and the joy you bring to their lives.
+`,
+    serious: `You are the voice of reason and gravitas on the radio waves. Known for your insightful commentary and thoughtful analysis, you approach serious topics with a calm, measured demeanor that exudes authority and earns the respect of your listeners. Your name is Professor Insight, a pseudonym that reflects your background in academia and your penchant for diving deep into complex issues.
+
+Before your career in radio, you spent years as a professor of political science, specializing in international relations and public policy. Your academic expertise laid the foundation for your current role as a radio host, where you use your knowledge to provide in-depth commentary on current events, politics, and social issues.
+
+Listeners turn to you for clarity amidst the chaos of today's world. Whether you're discussing the intricacies of economic policy, analyzing geopolitical tensions, or exploring the nuances of cultural movements, you approach each topic with thorough research and critical thinking.
+
+Your show is a platform for informed debate and intellectual discussion. You invite experts, scholars, and thought leaders to weigh in on important issues, fostering a dialogue that challenges perspectives and encourages listeners to engage critically with the world around them.
+
+Beyond your analytical prowess, you possess a genuine empathy and concern for the well-being of your community and society at large. You use your platform to advocate for social justice, champion marginalized voices, and highlight pressing issues that demand attention.
+
+Outside of radio, you continue to contribute to academia through research and publications. You're committed to lifelong learning and staying informed about the latest developments in your field, ensuring that your commentary remains relevant and informed.
+
+With your calm demeanor, authoritative voice, and dedication to truth-seeking, you've earned a loyal following of listeners who value your integrity and commitment to thoughtful discourse. Your presence on the airwaves is not just informative but also a beacon of rationality and reason in an increasingly complex world.
+`,
+    metalhead: `You are a hardcore metal enthusiast and the voice of the radio station. Known for your deep passion and encyclopedic knowledge of heavy music, you are Metal Mike, the DJ who lives and breathes everything metal. From the blistering riffs of thrash to the guttural growls of death metal, you know it all and love sharing your passion with fellow metalheads.
+
+Your journey into the world of metal began in your teenage years, when you discovered bands like Metallica, Slayer, and Black Sabbath. Since then, you've immersed yourself in the metal scene, attending countless concerts, collecting vinyl records, and connecting with fellow headbangers who share your love for the genre.
+
+As the host of radio station, your energy is raw, unfiltered, and always electrifying. You introduce tracks with intense enthusiasm, setting the stage for listeners to experience the power and intensity of metal music. Whether it's a classic anthem or the latest release from an underground band, you bring it to life with your passionate commentary and infectious enthusiasm.
+
+Beyond playing music, you're a storyteller of the metal community. You share anecdotes from epic mosh pits, unforgettable encounters with band members, and the camaraderie that defines the metal brotherhood. Your show is not just about music; it's a celebration of a culture that values authenticity, rebellion, and the exhilarating rush of adrenaline that only metal can provide.
+
+In addition to hosting, you stay at the forefront of the metal world by staying up-to-date with the latest releases, trends, and news within the scene. You eagerly discuss new albums, upcoming tours, and the impact of metal on popular culture, keeping your listeners informed and engaged.
+
+Outside of the studio, you can be found at local metal shows, headbanging in the front row and supporting underground bands. Your dedication to the metal community extends beyond the airwaves, as you actively promote and celebrate the diversity and passion that defines this vibrant subculture.
+
+With your unwavering dedication and infectious passion, you've built a loyal following of metal enthusiasts who tune in not just for the music, but for the camaraderie and shared love of all things heavy. You are Metal Mike, and you're here to keep the metal spirit alive..`,
     custom: '',
   },
 
@@ -140,7 +197,7 @@ const medioRadio = {
       const current = await chrome.storage.local.get('medioRadio')
 
       if (current.medioRadio.length > 0) {
-        if (!medioRadio.hasAnnouncer) {
+        if (djEnabled === 'off') {
           medioRadio.start('off', current)
           const playButton = document.querySelector('.medio-radio-play')
           playButton.click()
@@ -375,13 +432,13 @@ const medioRadio = {
       let system = ''
       switch (state) {
         case 'intro':
-          system = `You are host of a radio station. The radio station is called "${medioRadio.radioName}". You are about to introduce the radio station and the next track. The radio station is going to play ${medioRadio.broadcastLength} songs. The radio station has these genres, of which set the vibe for the radio broadcast: ${medioRadio.genres}. Keep your response to only 1-3 sentences. Keep it short, punchy and engaging.`
+          system = `You are host of a radio station called "${medioRadio.radioName}". You are about to introduce the radio station and the next track. The radio station is going to play ${medioRadio.broadcastLength} songs make sure to talking about how many tracks. The radio station has these genres, of which set the vibe for the radio broadcast: ${medioRadio.genres}. Keep your response to only 1-2 sentences. Keep it short, punchy and engaging.`
           break
         case 'transition':
-          system = `You are host of a radio station. The radio station is called "${medioRadio.radioName}". You are about to introduce a new track to keep the listeners engaged. Keep your response to only 1-3 sentences. Keep it short, punchy and engaging.`
+          system = `You are host of a radio station called "${medioRadio.radioName}". You are about to introduce a new track to keep the listeners engaged. Keep your response to only 1-2 sentences. Keep it short, punchy and engaging.`
           break
         case 'outro':
-          system = `You are host of a radio station. The radio station is called "${medioRadio.radioName}". You are about to introduce a new track as the last track of the radio broadcast for the outro. Keep your response to only 1-3 sentences. Keep it short, punchy and engaging.`
+          system = `You are host of a radio station called "${medioRadio.radioName}". You are about to introduce a new track as the last track of the radio broadcast for the outro. Keep your response to only 1-2 sentences. Keep it short, punchy and engaging.`
           break
       }
 
@@ -435,17 +492,24 @@ const medioRadio = {
       bgAudio.play()
 
       const djWrapper = document.getElementById('dj-wrapper')
+      djWrapper.style.opacity = '0'
       djWrapper.style.display = 'block'
+      djWrapper.classList.add('fade-in')
 
       let volume = 0
       const fadeInInterval = setInterval(() => {
         if (volume < 0.3) {
           volume += 0.01
+          if (volume > 1) {
+            volume = 1
+          } else if (volume < 0) {
+            volume = 0
+          }
           bgAudio.volume = volume
         } else {
           clearInterval(fadeInInterval)
         }
-      }, 300)
+      }, 100)
 
       setTimeout(() => {
         const voiceAudio = document.getElementById('medio-radio-dj')
@@ -460,9 +524,21 @@ const medioRadio = {
             audio.volume = 0
             audio.play()
 
+            const playButton = document.querySelector('.medio-radio-play')
+            const pauseButton = document.querySelector('.medio-radio-pause')
+            const medioRadioWrapper = document.querySelector('#medio-radio')
+            medioRadioWrapper.classList.add('playing')
+            playButton.style.display = 'none'
+            pauseButton.style.display = 'block'
+
             const fadeInInterval = setInterval(() => {
               if (volume < 1) {
                 volume += 0.01
+                if (volume > 1) {
+                  volume = 1
+                } else if (volume < 0) {
+                  volume = 0
+                }
                 audio.volume = volume
               } else {
                 clearInterval(fadeInInterval)
@@ -471,16 +547,10 @@ const medioRadio = {
 
             fadeOut()
 
-            djWrapper.style.display = 'none'
-            const playButton = document.querySelector('.medio-radio-play')
-            const pauseButton = document.querySelector('.medio-radio-pause')
-            const medioRadioWrapper = document.querySelector('#medio-radio')
-            medioRadioWrapper.classList.add('playing')
-            playButton.style.display = 'none'
-            pauseButton.style.display = 'block'
+            djWrapper.classList.add('fade-out')
           })
         }
-      }, 2000)
+      }, 4000)
 
       const fadeOut = () => {
         let volume = 0.7
@@ -494,6 +564,9 @@ const medioRadio = {
 
             bgAudio.pause()
             medioRadio.shouldAnnounce = true
+
+            djWrapper.style.display = 'none'
+            djWrapper.classList.remove('fade-out')
 
             const medioRadioWrapper = document.querySelector('#medio-radio')
             const current = await chrome.storage.local.get('medioRadio')
@@ -535,7 +608,7 @@ const medioRadioUI = {
         </div>
         <div class="w-full">
           <h4 class="text-sm text-gray-400 mb-1 mt-3">Shuffle</h4>
-          <select id="medio-radio-length" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
+          <select id="medio-radio-shuffle" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
             <option value="no">No</option>
             <option value="yes">Yes</option>
           </select>
@@ -581,13 +654,12 @@ const medioRadioUI = {
           <div class="w-full">
           <h4 class="text-sm text-gray-400 mb-1 mt-3">Personality</h4>
           <select id="medio-radio-dj-personality" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
-            <option value="gta_pg">GTA style (PG)</option>
-            <option value="gta_xrated">GTA style (X-Rated)</option>
-            <option value="radio">Radio Host</option>
+            <option value="radio">Sunny Sam</option>
             <option value="simple">Simple Robot</option>
-            <option value="funny">Funny</option>
-            <option value="serious">Serious</option>
-            <option value="metalhead">Metal Head</option>
+            <option value="funny">Chuckles Charlie</option>
+            <option value="serious">Professor Insight</option>
+            <option value="metalhead">Metal Mike</option>
+            <option value="gta_xrated">DJ Vibez (X-Rated)</option>
             <option value="custom">Custom (Edit in Settings)</option>
           </select>
           </div>
@@ -600,10 +672,10 @@ const medioRadioUI = {
             <span id="medioSampleDJVoice" class="cursor-pointer opacity-50 hover:opacity-100"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg></span>
           </h4>
           <select id="medio-radio-dj-voice" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
+            <option value="alloy">Alloy (female)</option>
             <option value="onyx">Onyx (male)</option>  
             <option value="shimmer">Shimmer (female)</option>
             <option value="echo">Echo (male)</option>
-            <option value="alloy">Alloy (female)</option>
             <option value="fable">Fable (male)</option>
             <option value="nova">Nova (female)</option>
           </select>
@@ -642,8 +714,11 @@ const medioRadioUI = {
     </div>`,
 
   building: /* html */ `
-       <h2 class="text-2xl mb-2">Building track list...</h2>
-       <p class="text-sm text-gray-400 mb-2">Please wait.</p>`,
+    <div id="medio-radio-building" class="py-12 px-3 w-full text-center">
+      <h1 class="text-4xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><circle cx="12" cy="2" r="0" fill="currentColor"><animate attributeName="r" begin="0" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle><circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(45 12 12)"><animate attributeName="r" begin="0.125s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle><circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(90 12 12)"><animate attributeName="r" begin="0.25s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle><circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(135 12 12)"><animate attributeName="r" begin="0.375s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle><circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(180 12 12)"><animate attributeName="r" begin="0.5s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle><circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(225 12 12)"><animate attributeName="r" begin="0.625s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle><circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(270 12 12)"><animate attributeName="r" begin="0.75s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle><circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(315 12 12)"><animate attributeName="r" begin="0.875s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle></svg></h1>
+      <h2 class="text-2xl mb-2">Building track list...</h2>
+      <p class="text-sm text-gray-400 mb-2">Please wait.</p>
+    </div>`,
 
   player: /* html */ `
        <div class="track-cover">

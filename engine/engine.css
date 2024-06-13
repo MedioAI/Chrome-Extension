@@ -874,3 +874,29 @@ select.medioAddTag {
   padding: 2px 5px;
   background: #070003da;
 }
+
+.fade-in {
+  animation: fadeIn 1.4s forwards;
+}
+
+.fade-out {
+  animation: fadeOut 3s forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -103,11 +103,11 @@
       <h4 class="uppercase text-lg font-medium mb-2">General</h4>
 
       <div class="flex w-full space-x-3">
-        <div class="input-group w-1/3">
+        <div class="input-group w-1/2">
           <label for="commandcolor">[Command] Tag Color</label>
           <input class="coloris" type="text" id="commandcolor" value="#26BB79" />
         </div>
-        <div class="input-group w-1/3">
+        <div class="input-group w-1/2">
           <label for="lyrictextsize">Lyric Editor Text Size</label>
           <select id="lyrictextsize">
             <option value="11px">Extra Small</option>
@@ -116,37 +116,17 @@
             <option value="28px">Large</option>
           </select>
         </div>
-        <div class="input-group w-1/3">
+      </div>
+
+      <div class="flex w-full space-x-3">
+        <div class="input-group w-1/2">
           <label for="slideanimation">Slide Out Animation</label>
           <select id="slideanimation">
             <option value="on">On</option>
             <option value="off">Off</option>
           </select>
         </div>
-      </div>
-
-      <div class="flex w-full space-x-3">
-        <div class="input-group w-1/3">
-          <label for="keepAdvancedSettings"></label>
-            <span
-              >Keep Quality & Seed Settings <span class="text-sm ml-1" style="color: #1dcca0">*</span></span
-            ></label
-          >
-          <select id="keepAdvancedSettings">
-            <option value="on">On</option>
-            <option value="off">Off</option>
-          </select>
-        </div>
-        <div class="input-group w-1/3">
-          <label for="manualModeDefault">
-            <span>Manual Mode as Default <span class="text-sm ml-1" style="color: #1dcca0">*</span></span>
-          </label>
-          <select id="manualModeDefault">
-            <option value="on">On</option>
-            <option value="off">Off</option>
-          </select>
-        </div>
-        <div class="input-group w-1/3">
+        <div class="input-group w-1/2">
           <label for="autoSaveCovers">Auto Save Album Covers</label>
           <select id="autoSaveCovers">
             <option value="on">On</option>
@@ -398,12 +378,16 @@
             <textarea id="systemPromptAsk" style="height: 300px"></textarea>
           </div>
           <div class="input-group w-full">
-            <label for="systemPromptSongWriter">Co-Writer <button class="btn small resetPrompt">Reset</button></label>
+            <label for="systemPromptSongWriter"
+              >Co-Writer <button class="btn small resetPrompt">Reset</button></label
+            >
             <p class="text-xs opacity-70 -mt-1 mb-2">This prompt controls the co-writer chat.</p>
             <textarea id="systemPromptSongWriter" style="height: 300px"></textarea>
           </div>
           <div class="input-group w-full">
-            <label for="systemPromptRandom">Random Song <button class="btn small resetPrompt">Reset</button></label>
+            <label for="systemPromptRandom"
+              >Random Song <button class="btn small resetPrompt">Reset</button></label
+            >
             <p class="text-xs opacity-70 -mt-1 mb-2">
               This prompt controls the random song generator. Do not change the JSON structure.
             </p>
@@ -420,21 +404,30 @@
           <div class="input-group w-full">
             <label for="songstudioCommands" data-name="commands">
               Commands
-              <span class="invalidJSON text-red-400"></span> 
+              <span class="invalidJSON text-red-400"></span>
               <button class="btn small reset">Reset</button>
             </label>
             <textarea class="jsonChecker" id="songstudioCommands" style="height: 300px"></textarea>
           </div>
           <div class="input-group w-full">
-            <label for="songstudioInstruments" data-name="instruments">Instruments <span class="invalidJSON text-red-400"></span> <button class="btn small reset">Reset</button></label>
+            <label for="songstudioInstruments" data-name="instruments"
+              >Instruments <span class="invalidJSON text-red-400"></span>
+              <button class="btn small reset">Reset</button></label
+            >
             <textarea class="jsonChecker" id="songstudioInstruments" style="height: 300px"></textarea>
           </div>
           <div class="input-group w-full">
-            <label for="songstudioStructures" data-name="structures">Structures <span class="invalidJSON text-red-400"></span> <button class="btn small reset">Reset</button></label>
+            <label for="songstudioStructures" data-name="structures"
+              >Structures <span class="invalidJSON text-red-400"></span>
+              <button class="btn small reset">Reset</button></label
+            >
             <textarea class="jsonChecker" id="songstudioStructures" style="height: 300px"></textarea>
           </div>
           <div class="input-group w-full">
-            <label for="songstudioExtras" data-name="extras">Extras <span class="invalidJSON text-red-400"></span> <button class="btn small reset">Reset</button></label>
+            <label for="songstudioExtras" data-name="extras"
+              >Extras <span class="invalidJSON text-red-400"></span>
+              <button class="btn small reset">Reset</button></label
+            >
             <textarea class="jsonChecker" id="songstudioExtras" style="height: 300px"></textarea>
           </div>
         </div>
@@ -446,35 +439,59 @@
 
         <div class="w-full space-y-3">
           <div class="input-group w-full">
-            <label for="tagbuilderGenre" data-name="genres">Genres <span class="invalidJSON text-red-400"></span> <button class="btn small reset">Reset</button></label>
+            <label for="tagbuilderGenre" data-name="genres"
+              >Genres <span class="invalidJSON text-red-400"></span>
+              <button class="btn small reset">Reset</button></label
+            >
             <textarea class="jsonChecker" id="tagbuilderGenre" style="height: 300px"></textarea>
           </div>
           <div class="input-group w-full" data-name="artists">
-            <label for="tagbuilderArtist">Artists <span class="invalidJSON text-red-400"></span> <button class="btn small reset">Reset</button></label>
+            <label for="tagbuilderArtist"
+              >Artists <span class="invalidJSON text-red-400"></span>
+              <button class="btn small reset">Reset</button></label
+            >
             <textarea class="jsonChecker" id="tagbuilderArtist" style="height: 300px"></textarea>
           </div>
           <div class="input-group w-full" data-name="emotions">
-            <label for="tagbuilderEmotion">Emotions <span class="invalidJSON text-red-400"></span> <button class="btn small reset">Reset</button></label>
+            <label for="tagbuilderEmotion"
+              >Emotions <span class="invalidJSON text-red-400"></span>
+              <button class="btn small reset">Reset</button></label
+            >
             <textarea class="jsonChecker" id="tagbuilderEmotion" style="height: 300px"></textarea>
           </div>
           <div class="input-group w-full" data-name="periods">
-            <label for="tagbuilderPeriod">Periods <span class="invalidJSON text-red-400"></span> <button class="btn small reset">Reset</button></label>
+            <label for="tagbuilderPeriod"
+              >Periods <span class="invalidJSON text-red-400"></span>
+              <button class="btn small reset">Reset</button></label
+            >
             <textarea class="jsonChecker" id="tagbuilderPeriod" style="height: 300px"></textarea>
           </div>
           <div class="input-group w-full" data-name="regions">
-            <label for="tagbuilderRegion">Regions <span class="invalidJSON text-red-400"></span> <button class="btn small reset">Reset</button></label>
+            <label for="tagbuilderRegion"
+              >Regions <span class="invalidJSON text-red-400"></span>
+              <button class="btn small reset">Reset</button></label
+            >
             <textarea class="jsonChecker" id="tagbuilderRegion" style="height: 300px"></textarea>
           </div>
           <div class="input-group w-full" data-name="vocals">
-            <label for="tagbuilderVocal">Vocals <span class="invalidJSON text-red-400"></span> <button class="btn small reset">Reset</button></label>
+            <label for="tagbuilderVocal"
+              >Vocals <span class="invalidJSON text-red-400"></span>
+              <button class="btn small reset">Reset</button></label
+            >
             <textarea class="jsonChecker" id="tagbuilderVocal" style="height: 300px"></textarea>
           </div>
           <div class="input-group w-full">
-            <label for="tagbuilderInstrument" data-name="instruments">Instruments <span class="invalidJSON text-red-400"></span> <button class="btn small reset">Reset</button></label>
+            <label for="tagbuilderInstrument" data-name="instruments"
+              >Instruments <span class="invalidJSON text-red-400"></span>
+              <button class="btn small reset">Reset</button></label
+            >
             <textarea class="jsonChecker" id="tagbuilderInstrument" style="height: 300px"></textarea>
           </div>
           <div class="input-group w-full">
-            <label for="tagbuilderProduction" data-name="productions">Productions <span class="invalidJSON text-red-400"></span> <button class="btn small reset">Reset</button></label>
+            <label for="tagbuilderProduction" data-name="productions"
+              >Productions <span class="invalidJSON text-red-400"></span>
+              <button class="btn small reset">Reset</button></label
+            >
             <textarea class="jsonChecker" id="tagbuilderProduction" style="height: 300px"></textarea>
           </div>
         </div>

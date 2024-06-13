@@ -69,13 +69,14 @@ Coming soon.
 
 ### Version 1.4
 
+- MedioRadio! Listen to Udio like a radio station. Add OpenAI key for DJ announcer for tracks!
 - Fix: Track credit counter.
 - Fix: Save cover button duplicating
 - Fix: Track cover not downloading.
+- Removed "Manual Mode + Keep Settings" as Udio has updated.
 
 ### In Development
 
-- MedioRadio! Listen to Udio like a radio station. Add OpenAI key for DJ announcer for tracks!
 - Music visualizer to MP4
 
 ### Bugs
