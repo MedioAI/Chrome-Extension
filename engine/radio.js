@@ -178,6 +178,8 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       const djpersonality = document.getElementById('medio-radio-dj-personality').value
       const radioName = document.getElementById('medio-radio-name').value
       const djMusic = document.getElementById('medio-radio-dj-music').value
+      const djEnabled = document.getElementById('medio-radio-dj-enabled')
+      medioRadio.hasAnnouncer = djEnabled.value === 'on'
       medioRadio.onlyUnique = onlynew === 'on'
       medioRadio.djMusic = djMusic
       medioRadio.radioName = radioName
@@ -187,15 +189,15 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       medioRadio.djPersonality = medioRadio.djPersonalities[djpersonality]
       const genresArray = genres.split(',')
       medioRadio.broadcastLength = genresArray.length * parseInt(length)
-      medioRadio.build()
+      medioRadio.build(djEnabled)
     })
   },
 
-  build: async () => {
+  build: async djEnabled => {
     document.getElementById('medio-radio').innerHTML = medioRadioUI.building
     setTimeout(async () => {
       chrome.storage.local.set({ medioRadio: [] })
-      medioRadio.search()
+      medioRadio.search(djEnabled)
     }, 0)
   },
 
@@ -230,8 +232,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     medioRadio.currentTrack = 0
     audio.src = current.medioRadio[0].song_path + '?t=' + new Date().getTime()
 
-    if (djEnabled === 'on') {
-      medioRadio.hasAnnouncer = true
+    if (medioRadio.hasAnnouncer) {
       medioRadio.shouldAnnounce = false
       medioRadio.dj.play()
     } else {
@@ -354,7 +355,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     }
   },
 
-  search: async () => {
+  search: async djEnabled => {
     const genres = medioRadio.genres.split(',')
     const pageSize = parseInt(medioRadio.broadcastLength) || 30
     let page = medioRadio.page
@@ -386,11 +387,13 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     document.getElementById('medio-radio').innerHTML = medioRadioUI.player
     const current = await chrome.storage.local.get('medioRadio')
 
+    console.log(medioRadio.hasAnnouncer)
     if (!medioRadio.hasAnnouncer) {
       medioRadio.start('off', current)
       const playButton = document.querySelector('.medio-radio-play')
       playButton.click()
     } else {
+      console.log('dj enabled wtf')
       await medioRadio.dj.load(current.medioRadio[0], 'intro', data => {
         medioRadio.djMessage = data.choices[0].message.content
         apiMedioAI.openAITalk(medioRadio.djMessage, medioRadio.djVoice, data => {
@@ -405,20 +408,14 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     const hasListened = await chrome.storage.local.get('medioRadioListened')
     const current = await chrome.storage.local.get('medioRadio')
     for (const track of tracks) {
-      if (medioRadio.onlyUnique && hasListened.medioRadioListened) {
-        if (!hasListened.medioRadioListened.includes(track.id)) {
-          current.medioRadio.push(track)
-        }
-      } else {
-        current.medioRadio.push(track)
-      }
+      current.medioRadio.push(track)
     }
     await chrome.storage.local.set({ medioRadio: current.medioRadio })
 
-    if (!current.medioRadio.length) {
-      medioRadio.page++
-      medioRadio.search()
-    }
+    // if (!current.medioRadio.length) {
+    //   medioRadio.page++
+    //   medioRadio.search()
+    // }
   },
 
   trimTrackList: async (genres, length) => {
@@ -642,12 +639,12 @@ const medioRadioUI = {
        <h4 class="text-sm text-gray-400 mb-1 mt-3"># of Tracks <small class="text-xs opacity-50">(per tag)</small></h4>
       <input id="medio-radio-length" type="number" value="2" class="w-full border bg-gray-800 text-white p-2 rounded-lg" />
       </div>
-      <div class="w-full">
+      <div class="w-full" style="display: none">
 
       <h4 class="text-sm text-gray-400 mb-1 mt-3">Only New Tracks</h4>
       <select id="medio-radio-only-new" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
-        <option value="on">Yes</option>
         <option value="off">No</option>
+        <option value="on">Yes</option>
       </select>
 </div>
 
