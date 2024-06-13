@@ -774,6 +774,7 @@ select.medioAddTag {
 #medio-radio .track-cover {
   position: relative;
   margin-bottom: 15px;
+  height: 370px;
   overflow: hidden;
 }
 #medio-radio .track-cover img {
@@ -899,4 +900,42 @@ select.medioAddTag {
   to {
     opacity: 1;
   }
+}
+
+#medio-radio-building svg {
+  font-size: 40px;
+}
+#radioHelpDesc {
+  display: none;
+}
+#radioHelp {
+  position: relative;
+  cursor: help;
+}
+
+#radioHelp svg {
+  font-size: 23px;
+}
+#radioHelp:hover #radioHelpDesc {
+  display: block;
+  position: absolute;
+  top: -300px;
+  left: -250px;
+  width: 250px;
+  padding: 10px;
+  background: #000000;
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #000;
+  z-index: 999999999999;
+}
+
+#radioHelp:hover #radioHelpDesc p {
+  color: #fff;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+#radioHelp:hover #radioHelpDesc p strong {
+  color: #26c282;
 }
