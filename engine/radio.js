@@ -751,14 +751,21 @@ const medioRadioUI = {
           
           </div>
         <div id="medioDJSettingsInner" style="display: none">
+
+         <h4 class="text-sm text-gray-400 mb-1 mt-3">Radio Station Name</h4>
+          <input id="medio-radio-name" class="w-full border bg-gray-800 text-white p-2 rounded-lg" placeholder="Station Name..." />
+
         <div class="flex space-x-2">
             <div class="w-full">
-
-        <h4 class="text-sm text-gray-400 mb-1 mt-3">Radio Station Name</h4>
-          <input id="medio-radio-name" class="w-full border bg-gray-800 text-white p-2 rounded-lg" placeholder="Station Name..." />
+<h4 class="text-sm text-gray-400 mb-1 mt-3">Style</h4>
+          <select id="medio-radio-dj-personality" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
+            <option value="fly">On-the-fly, per track (less tokens)</option>
+            <option value="preload">Write script, preload (more tokens)</option>
+          </select>
+       
           </div>
           <div class="w-full">
- <h4 class="text-sm text-gray-400 mb-1 mt-3">Random</h4>
+          <h4 class="text-sm text-gray-400 mb-1 mt-3">Random</h4>
           <select id="medio-radio-dj-personality" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
             <option value="both">Fake Commercials + Callers</option>
             <option value="commercials">Fake Commercials</option>
@@ -796,7 +803,7 @@ const medioRadioUI = {
           <div class="flex space-x-2">
             <div class="w-full">
             <h4 class="text-sm text-gray-400 mb-1 mt-3 flex items-center space-x-4">
-            <span>Voice</span>
+            <span>DJ Voice</span>
             <span id="medioSampleDJVoice" class="cursor-pointer opacity-50 hover:opacity-100"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg></span>
           </h4>
           <select id="medio-radio-dj-voice" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
