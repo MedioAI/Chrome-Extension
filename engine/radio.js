@@ -532,9 +532,10 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
   dj: {
     check: async () => {
       const openaikey = await utilitiesMedioAI.getSettings('openaikey')
+      const openaikey_voice = await utilitiesMedioAI.getSettings('openaiapikey_voice')
       const openrouterapikey = await utilitiesMedioAI.getSettings('openrouterapikey')
 
-      if (openaikey || openrouterapikey) {
+      if ((openaikey || openrouterapikey) && openaikey_voice) {
         document.getElementById('medioDJSettings').style.display = 'block'
       } else {
         document.getElementById('medioDJNotice').style.display = 'block'
@@ -549,13 +550,13 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       let system = ''
       switch (state) {
         case 'intro':
-          system = `You are host of a radio station called "${medioRadio.radioName}". You are about to introduce the radio station and the next track. The radio station is going to play ${medioRadio.broadcastLength} songs make sure to talking about how many tracks. The radio station has these genres, of which set the vibe for the radio broadcast: ${medioRadio.genres}. Keep your response to only ${medioRadio.djLength} sentences. Keep it short, punchy and engaging. Never include URLs.`
+          system = `You are host of a radio station called "${medioRadio.radioName}". You are about to introduce the radio station and the next track. The radio station is going to play ${medioRadio.broadcastLength} songs make sure to talking about how many tracks. The radio station has these genres, of which set the vibe for the radio broadcast: ${medioRadio.genres}. Keep your response to only ${medioRadio.djLength} sentences. Keep it short, punchy and engaging. Never include URLs. Only do the text, no *actions or notes*, just the text.`
           break
         case 'transition':
-          system = `You are host of a radio station called "${medioRadio.radioName}". You are about to introduce a new track to keep the listeners engaged. Keep your response to only ${medioRadio.djLength} sentences. Keep it short, punchy and engaging. Never include URLS.`
+          system = `You are host of a radio station called "${medioRadio.radioName}". You are about to introduce a new track to keep the listeners engaged. Keep your response to only ${medioRadio.djLength} sentences. Keep it short, punchy and engaging. Never include URLS. Only do the text, no *actions or notes*, just the text.`
           break
         case 'outro':
-          system = `You are host of a radio station called "${medioRadio.radioName}". You are about to introduce a new track as the last track of the radio broadcast for the outro. Keep your response to only ${medioRadio.djLength} sentences. Keep it short, punchy and engaging. Never include URLs.`
+          system = `You are host of a radio station called "${medioRadio.radioName}". You are about to introduce a new track as the last track of the radio broadcast for the outro. Keep your response to only ${medioRadio.djLength} sentences. Keep it short, punchy and engaging. Never include URLs. Only do the text, no *actions or notes*, just the text.`
           break
       }
 
@@ -892,7 +893,7 @@ const medioRadioUI = {
 </div>
 
        <div class="text-sm italic text-gray-400 mb-1 mt-3" id="medioDJNotice" style="display: none">
-          Add your OpenAI or OpenRouter API key to enable DJ mode.**
+          Add your OpenAI Key for Voice and OpenAI or OpenRouter API key for text to enable DJ mode.**
        </div>
 
         <div id="medioDJSettings" style="display: none">
