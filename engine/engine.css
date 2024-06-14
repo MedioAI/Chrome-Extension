@@ -862,11 +862,12 @@ select.medioAddTag {
   top: 0;
   left: 0;
   background: #000000b5;
-  z-index: 999999999999;
+  z-index: 99999999999;
   padding-top: 100px;
   font-size: 20px;
   display: block;
   text-align: center;
+  border-radius: 10px;
 }
 
 #dj-text {
@@ -934,7 +935,7 @@ select.medioAddTag {
 #radioHelp:hover #radioHelpDesc {
   display: block;
   position: absolute;
-  top: -190px;
+  top: -280px;
   left: -250px;
   width: 250px;
   padding: 10px;
@@ -955,22 +956,31 @@ select.medioAddTag {
   color: #26c282;
 }
 
-#medio-radio-loading {
+#medio-radio-loading,
+#medio-radio-commercial,
+#medio-radio-caller {
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
   background: #000000b5;
-  z-index: 999999999999;
+  z-index: 999999999;
   padding-top: 100px;
   font-size: 26px;
   display: block;
   text-align: center;
+  border-radius: 20px;
 }
 
-#medio-radio-loading svg {
+#medio-radio-loading svg,
+#medio-radio-commercial svg,
+#medio-radio-caller svg {
   font-size: 40px;
   display: block;
   margin: 0 auto;
+}
+
+#medio-radio-close {
+  z-index: 999999999999999;
 }

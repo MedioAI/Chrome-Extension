@@ -14,6 +14,7 @@ const medioRadio = {
   djLength: '1-2',
   shouldAnnounce: false,
   hasAnnouncer: false,
+  hasAds: false,
   onlyUnique: true,
   genres: '',
   broadcastLength: 0,
@@ -194,8 +195,10 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       const radioName = document.getElementById('medio-radio-name').value
       const djMusic = document.getElementById('medio-radio-dj-music').value
       const djEnabled = document.getElementById('medio-radio-dj-enabled')
+      const djAdsEnabled = document.getElementById('medio-radio-dj-flavor')
       const djLength = document.getElementById('medio-radio-dj-length').value
       medioRadio.hasAnnouncer = djEnabled.value === 'on'
+      medioRadio.hasAds = djAdsEnabled.value === 'on'
       medioRadio.onlyUnique = onlynew === 'on'
       medioRadio.djMusic = djMusic
       medioRadio.radioName = radioName || 'MedioAI Radio'
@@ -206,19 +209,19 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       medioRadio.djPersonality = medioRadio.djPersonalities[djpersonality]
       const genresArray = genres.split(',')
       medioRadio.broadcastLength = genresArray.length * parseInt(length)
-      medioRadio.build(djEnabled)
+      medioRadio.build()
     })
   },
 
-  build: async djEnabled => {
+  build: async () => {
     document.getElementById('medio-radio').innerHTML = medioRadioUI.building
     setTimeout(async () => {
       chrome.storage.local.set({ medioRadio: [] })
-      medioRadio.search(djEnabled)
+      medioRadio.search()
     }, 0)
   },
 
-  start: async (djEnabled, current) => {
+  start: async current => {
     document.getElementById('medio-radio').innerHTML = medioRadioUI.player
 
     if (!current.medioRadio[0]?.id) {
@@ -300,7 +303,16 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       if (medioRadio.shouldAnnounce && medioRadio.hasAnnouncer) {
         medioRadio.shouldAnnounce = false
         medioRadio.nextTrack(true)
-        medioRadio.dj.play()
+        if (medioRadio.djBufferExtra) {
+          const current = await chrome.storage.local.get('medioRadio')
+          const random = Math.floor(Math.random() * 2) + 1
+          const state = random === 1 ? 'caller' : 'commercial'
+          medioRadio.dj.play(state, async () => {
+            await medioRadio.loadTalking(current)
+          })
+        } else {
+          medioRadio.dj.play()
+        }
       } else {
         medioRadio.nextTrack()
       }
@@ -409,7 +421,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     }
   },
 
-  search: async djEnabled => {
+  search: async () => {
     const genres = medioRadio.genres.split(',')
     const pageSize = parseInt(medioRadio.broadcastLength) || 30
     let page = medioRadio.page
@@ -457,24 +469,29 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     })
 
     if (!medioRadio.hasAnnouncer) {
-      medioRadio.start('off', current)
+      medioRadio.start(current)
       const playButton = document.querySelector('.medio-radio-play')
       playButton.click()
     } else {
       document.getElementById('medio-radio-loading').style.display = 'block'
-      await medioRadio.dj.load(current.medioRadio[0], 'intro', data => {
-        medioRadio.djMessage = data.choices[0].message.content
-        apiMedioAI.openAITalk(medioRadio.djMessage, medioRadio.djVoice, data => {
-          medioRadio.djBuffer = data
-          document.getElementById('medio-radio-loading').style.display = 'none'
-          medioRadio.start(djEnabled, current)
-        })
-      })
+
+      await medioRadio.loadTalking(current)
     }
   },
 
+  loadTalking: async current => {
+    await medioRadio.dj.load(current.medioRadio[0], 'intro', data => {
+      medioRadio.djMessage = data.choices[0].message.content
+      apiMedioAI.openAITalk(medioRadio.djMessage, medioRadio.djVoice, data => {
+        medioRadio.djBuffer = data
+        document.getElementById('medio-radio-loading').style.display = 'none'
+        medioRadio.start(current)
+      })
+    })
+  },
+
   processTracks: async tracks => {
-    const hasListened = await chrome.storage.local.get('medioRadioListened')
+    // const hasListened = await chrome.storage.local.get('medioRadioListened')
     const current = await chrome.storage.local.get('medioRadio')
     const dups = []
     const removeDuplicates = tracks.filter(track => {
@@ -532,19 +549,19 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       let system = ''
       switch (state) {
         case 'intro':
-          system = `You are host of a radio station called "${medioRadio.radioName}". You are about to introduce the radio station and the next track. The radio station is going to play ${medioRadio.broadcastLength} songs make sure to talking about how many tracks. The radio station has these genres, of which set the vibe for the radio broadcast: ${medioRadio.genres}. Keep your response to only ${medioRadio.djLength} sentences. Keep it short, punchy and engaging.`
+          system = `You are host of a radio station called "${medioRadio.radioName}". You are about to introduce the radio station and the next track. The radio station is going to play ${medioRadio.broadcastLength} songs make sure to talking about how many tracks. The radio station has these genres, of which set the vibe for the radio broadcast: ${medioRadio.genres}. Keep your response to only ${medioRadio.djLength} sentences. Keep it short, punchy and engaging. Never include URLs.`
           break
         case 'transition':
-          system = `You are host of a radio station called "${medioRadio.radioName}". You are about to introduce a new track to keep the listeners engaged. Keep your response to only ${medioRadio.djLength} sentences. Keep it short, punchy and engaging.`
+          system = `You are host of a radio station called "${medioRadio.radioName}". You are about to introduce a new track to keep the listeners engaged. Keep your response to only ${medioRadio.djLength} sentences. Keep it short, punchy and engaging. Never include URLS.`
           break
         case 'outro':
-          system = `You are host of a radio station called "${medioRadio.radioName}". You are about to introduce a new track as the last track of the radio broadcast for the outro. Keep your response to only ${medioRadio.djLength} sentences. Keep it short, punchy and engaging.`
+          system = `You are host of a radio station called "${medioRadio.radioName}". You are about to introduce a new track as the last track of the radio broadcast for the outro. Keep your response to only ${medioRadio.djLength} sentences. Keep it short, punchy and engaging. Never include URLs.`
           break
       }
 
       system += medioRadio.djPersonality
 
-      const request = `You need to write the ${state} for the next track for the radio broadcast. Here is the information for the track:
+      const request = `You need to write the ${state} for the next track for the radio broadcast. Here is the information for the track. Do not repeat the lyrics, just comment on them to introduce the track. Keep it concise, engaging and punchy!
       
       Title: ${data.title} 
       Artist: ${data.artist}
@@ -572,14 +589,69 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       )
     },
 
-    play: () => {
+    loadExtra: async (data, state, callback) => {
+      if (!data) return
+      const aiLoading = document.querySelector('#aiLoading')
+      if (aiLoading) aiLoading.style.display = 'flex'
+
+      let system = ''
+      let request = ''
+      switch (state) {
+        case 'commercial':
+          system = `You are radio commercial advertiser. You create engaging and memorable commercials for the radio station. You are about to introduce a new commercial to keep the listeners engaged. Keep your commercial ad-read to only ${medioRadio.djLength} sentences. Keep it short, punchy and engaging. Only respond with the commercial script as text only, do not include any notes, or actions, purely voice reading the text. Make an ad for fake movies, tv shows, products, lawyers, political campaigns, anything funny and random. Do not wrap the text with quotes.`
+
+          request = `You need to write a commercial for radio station. Make up a product, make up everything so that it is fun and wacky. Always include a call to action that is fake and fun. `
+          break
+        case 'caller':
+          system = `You are a caller calling in onto a radio station. You can be a fan, a critic, or a random person calling in. You can talk about love stories, crazy and wacky stories, tell jokes, keep it interesting as if you were a caller calling in. Keep your caller script to only ${medioRadio.djLength} sentences.  Do not wrap the text with quotes.`
+
+          request = `Write the script for a caller calling into the radio station. Make up a story, make up everything so that it is fun and wacky. Here is information about the track that is about to play next incase the caller wants to talk about it, but the caller can talk about literally anything as long as it is funny, interesting, or engaging.
+      
+      Track Title: ${data.title} 
+      Music Artist: ${data.artist}
+      Song Lyrics: ${data.lyrics}`
+          break
+      }
+
+      system += medioRadio.djPersonality
+
+      await apiMedioAI.apiRouter(
+        [
+          {
+            role: 'system',
+            content: system,
+          },
+          {
+            role: 'user',
+            content: request,
+          },
+        ],
+        false,
+        null,
+        request,
+        data => {
+          if (aiLoading) aiLoading.style.display = 'none'
+          if (callback) callback(data)
+        }
+      )
+    },
+
+    play: (state = '', callback) => {
       const audio = document.getElementById('medio-radio-audio')
       audio.pause()
+      let voiceMP3 = medioRadio.djBuffer
 
       document.querySelector('#dj-text').innerHTML = medioRadio.djMessage
 
-      bgMusic = chrome.runtime.getURL(`dj/${medioRadio.djMusic}.mp3`)
-      const voiceMP3 = medioRadio.djBuffer
+      if (state === 'commercial') {
+        voiceMP3 = medioRadio.djBufferExtra
+        bgMusic = chrome.runtime.getURL(`dj/commercial-1.mp3`)
+      } else if (state === 'caller') {
+        voiceMP3 = medioRadio.djBufferExtra
+        bgMusic = chrome.runtime.getURL(`dj/caller-1.mp3`)
+      } else {
+        bgMusic = chrome.runtime.getURL(`dj/${medioRadio.djMusic}.mp3`)
+      }
 
       const bgAudio = document.getElementById('medio-radio-background')
       bgAudio.src = bgMusic
@@ -588,9 +660,25 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       bgAudio.play()
 
       const djWrapper = document.getElementById('dj-wrapper')
-      djWrapper.style.opacity = '0'
-      djWrapper.style.display = 'block'
-      djWrapper.classList.add('fade-in')
+      const radioLoading = document.getElementById('medio-radio-loading')
+      const radioCommercial = document.getElementById('medio-radio-commercial')
+      const radioCaller = document.getElementById('medio-radio-caller')
+
+      if (state === 'commercial') {
+        radioLoading.style.display = 'none'
+        radioCommercial.style.opacity = '0'
+        radioCommercial.style.display = 'block'
+        radioCommercial.classList.add('fade-in')
+      } else if (state === 'caller') {
+        radioLoading.style.display = 'none'
+        radioCaller.style.opacity = '0'
+        radioCaller.style.display = 'block'
+        radioCaller.classList.add('fade-in')
+      } else {
+        djWrapper.style.opacity = '0'
+        djWrapper.style.display = 'block'
+        djWrapper.classList.add('fade-in')
+      }
 
       let volume = 0
       const fadeInInterval = setInterval(() => {
@@ -606,6 +694,8 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
           clearInterval(fadeInInterval)
         }
       }, 100)
+
+      medioRadio.djBufferExtra = null
 
       setTimeout(() => {
         const voiceAudio = document.getElementById('medio-radio-dj')
@@ -650,7 +740,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       }, 3000)
 
       const fadeOut = () => {
-        let volume = 0.5
+        let volume = 0.2
         const fadeOutInterval = setInterval(async () => {
           if (volume > 0) {
             volume -= 0.01
@@ -665,29 +755,93 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
             djWrapper.style.display = 'none'
             djWrapper.classList.remove('fade-out')
 
+            const callerBG = document.getElementById('medio-radio-caller')
+            const commercialBG = document.getElementById('medio-radio-commercial')
+
+            if (state === 'caller') {
+              callerBG.classList.add('fade-out')
+              setTimeout(() => {
+                callerBG.style.display = 'none'
+                callerBG.classList.remove('fade-out')
+              }, 300)
+            } else if (state === 'commercial') {
+              commercialBG.classList.add('fade-out')
+              setTimeout(() => {
+                commercialBG.style.display = 'none'
+                commercialBG.classList.remove('fade-out')
+              }, 300)
+            }
+
             const medioRadioWrapper = document.querySelector('#medio-radio')
             const current = await chrome.storage.local.get('medioRadio')
             const currentIndex = current.medioRadio.findIndex(
               track => track.id === medioRadioWrapper.getAttribute('data-id')
             )
-            if (
-              current.medioRadio[currentIndex + medioRadio.currentIndex] &&
-              !medioRadio.hasSeen.includes(currentIndex + medioRadio.currentIndex)
-            ) {
-              medioRadio.hasSeen.push(currentIndex + medioRadio.currentIndex)
-              let state = 'transition'
-              if (currentIndex + medioRadio.currentIndex === current.medioRadio.length - 1) state = 'outro'
-              if (!medioRadio.hasAnnouncer) return
-              await medioRadio.dj.load(
-                current.medioRadio[currentIndex + medioRadio.currentIndex + 1],
-                state,
-                data => {
-                  medioRadio.djMessage = data.choices[0].message.content
-                  apiMedioAI.openAITalk(medioRadio.djMessage, medioRadio.djVoice, data => {
-                    medioRadio.djBuffer = data
-                  })
+            if (state === '') {
+              if (
+                current.medioRadio[currentIndex + medioRadio.currentIndex] &&
+                !medioRadio.hasSeen.includes(currentIndex + medioRadio.currentIndex)
+              ) {
+                medioRadio.hasSeen.push(currentIndex + medioRadio.currentIndex)
+                let state = 'transition'
+                if (currentIndex + medioRadio.currentIndex === current.medioRadio.length - 1) state = 'outro'
+                if (!medioRadio.hasAnnouncer) return
+
+                const randomChance = Math.floor(Math.random() * 3) + 1
+                if (randomChance === 1 && medioRadio.hasAds) {
+                  const random = Math.floor(Math.random() * 2) + 1
+                  const djstate = random === 1 ? 'caller' : 'commercial'
+                  const voices = ['alloy', 'fable', 'onyx', 'shimmer', 'echo', 'nova']
+                  const randomVoice = Math.floor(Math.random() * voices.length)
+
+                  await medioRadio.dj.loadExtra(
+                    current.medioRadio[currentIndex + medioRadio.currentIndex],
+                    djstate,
+                    data => {
+                      medioRadio.djMessageExtra = data.choices[0].message.content
+                      apiMedioAI.openAITalk(medioRadio.djMessageExtra, voices[randomVoice], async data => {
+                        medioRadio.djBufferExtra = data
+                        document.getElementById('medio-radio-loading').style.display = 'none'
+
+                        const delay = Math.floor(Math.random() * 20) + 5
+                        await new Promise(resolve => setTimeout(resolve, delay * 1000))
+
+                        medioRadio.dj.play(djstate, async () => {
+                          medioRadio.dj.load(
+                            current.medioRadio[currentIndex + medioRadio.currentIndex + 1],
+                            state,
+                            async () => {
+                              await medioRadio.dj.load(
+                                current.medioRadio[currentIndex + medioRadio.currentIndex + 1],
+                                state,
+                                data => {
+                                  medioRadio.djMessage = data.choices[0].message.content
+                                  apiMedioAI.openAITalk(medioRadio.djMessage, medioRadio.djVoice, data => {
+                                    medioRadio.djBuffer = data
+                                  })
+                                }
+                              )
+                            }
+                          )
+                        })
+                      })
+                    }
+                  )
+                } else {
+                  await medioRadio.dj.load(
+                    current.medioRadio[currentIndex + medioRadio.currentIndex + 1],
+                    state,
+                    data => {
+                      medioRadio.djMessage = data.choices[0].message.content
+                      apiMedioAI.openAITalk(medioRadio.djMessage, medioRadio.djVoice, data => {
+                        medioRadio.djBuffer = data
+                      })
+                    }
+                  )
                 }
-              )
+              }
+            } else {
+              callback()
             }
           }
         }, 50)
@@ -743,7 +897,7 @@ const medioRadioUI = {
 
         <div id="medioDJSettings" style="display: none">
           <div class="flex items-center justify-between mb-1 mt-3">
-          <h4>Toggle A.I. DJ Announcer</h4>
+          <h4>MedioAI DJ Mode</h4>
           <select id="medio-radio-dj-enabled" style="width: 100px" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
             <option value="off">Off</option>
             <option value="on">On</option>
@@ -752,25 +906,19 @@ const medioRadioUI = {
           </div>
         <div id="medioDJSettingsInner" style="display: none">
 
-         <h4 class="text-sm text-gray-400 mb-1 mt-3">Radio Station Name</h4>
+         
+        <div class="flex space-x-2 ">
+            <div class="w-full">
+<h4 class="text-sm text-gray-400 mb-1 mt-3">Radio Station Name</h4>
           <input id="medio-radio-name" class="w-full border bg-gray-800 text-white p-2 rounded-lg" placeholder="Station Name..." />
 
-        <div class="flex space-x-2">
-            <div class="w-full">
-<h4 class="text-sm text-gray-400 mb-1 mt-3">Style</h4>
-          <select id="medio-radio-dj-personality" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
-            <option value="fly">On-the-fly, per track (less tokens)</option>
-            <option value="preload">Write script, preload (more tokens)</option>
-          </select>
        
           </div>
           <div class="w-full">
-          <h4 class="text-sm text-gray-400 mb-1 mt-3">Random</h4>
-          <select id="medio-radio-dj-personality" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
-            <option value="both">Fake Commercials + Callers</option>
-            <option value="commercials">Fake Commercials</option>
-            <option value="callers">Callers</option>
-            <option value="none">None</option>
+          <h4 class="text-sm text-gray-400 mb-1 mt-3">Flavor <small class="opacity-50">*</small></h4>
+          <select id="medio-radio-dj-flavor" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
+            <option value="on">Fake Ads + Callers</option>
+            <option value="off">None</option>
           </select>
           </div>
         </div>
@@ -781,7 +929,7 @@ const medioRadioUI = {
 
           <h4 class="text-sm text-gray-400 mb-1 mt-3">Length</h4>
           <select id="medio-radio-dj-length" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
-            <option value="1">Short</option>
+            <option value="1-2">Short</option>
             <option value="2-3">Medium</option>
             <option value="4-6">Long</option>
           </select>
@@ -821,10 +969,15 @@ const medioRadioUI = {
             <span id="medioSampleDJBackground" class="cursor-pointer opacity-50 hover:opacity-100"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg></span>
           </h4>
           <select id="medio-radio-dj-music" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
-            <option value="funky-1">Funky 1</option>
-            <option value="funky-2">Funky 2</option>
-            <option value="hiphop-1">Hip Hop 1</option>
-            <option value="hiphop-2">Hip Hop 2</option>
+            <option value="funky-1">Funky</option>
+            <option value="hiphop">Hip Hop</option>
+            <option value="grime">Grime</option>
+            <option value="rock">Rock</option>
+            <option value="metal">Metal</option>
+            <option value="jazz">Jazz</option>
+            <option value="edm">EDM</option>
+            <option value="reggae">Reggae</option>
+            <option value="country">Country</option>
           </select>
             </div>
           </div>
@@ -846,12 +999,13 @@ const medioRadioUI = {
           <p class="text-xs text-gray-400">
           <p><strong>*</strong> MedioAI will search for tags that you suggest and create a list of tracks for the radio broadcast. Tracks will be shuffled for variety.</p>
           <p><strong>**</strong> The DJ mode will announce the track name, username and sometimes comment about the lyrics. </p>
+          <p><strong>***</strong> The flavor mode will add fake commercials and callers randomly in first 30 seconds of a track. There is a 33% chance to trigger and 50% chance to be either caller or commercial.</p>
          </div>
         </div>
         
         </div>
 
-        <button id="medio-radio-record-toggle" class="text-white py-2 px-4 rounded-lg mt-3 flex items-center space-x-2" style="display: none">
+        <button id="medio-radio-record-toggle" class="text-white py-2 px-4 rounded-lg mt-3 flex items-center space-x-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M6 5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1zM1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8m7-6a6 6 0 1 0 0 12A6 6 0 0 0 8 2"/></svg>
           <span>Record</span>
         </button>
@@ -869,7 +1023,7 @@ const medioRadioUI = {
     </div>`,
 
   player: /* html */ `
-    <div id="medio-radio-close"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20"><path fill="currentColor" d="M2.93 17.07A10 10 0 1 1 17.07 2.93A10 10 0 0 1 2.93 17.07M11.4 10l2.83-2.83l-1.41-1.41L10 8.59L7.17 5.76L5.76 7.17L8.59 10l-2.83 2.83l1.41 1.41L10 11.41l2.83 2.83l1.41-1.41L11.41 10z"/></svg></div>
+   
        <div class="track-cover">
        <img src="https://imagedelivery.net/C9yUr1FL21Q6JwfYYh2ozQ/7c49c1ba-8e70-476f-2693-e988e7a9ae00/width=728,quality=100" />
         <div class="track-play"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"><defs><mask id="ipSPlay0"><g fill="none" stroke-linejoin="round" stroke-width="4"><path fill="#fff" d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20Z"/><path fill="#000" stroke="#000" d="M20 24v-6.928l6 3.464L32 24l-6 3.464l-6 3.464z"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSPlay0)"/></svg></div>
@@ -902,17 +1056,36 @@ const medioRadioUI = {
        <div id="medio-radio-loading" style="display: none">
        <div class="block text-center text-2xl">
  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><circle cx="12" cy="2" r="0" fill="currentColor"><animate attributeName="r" begin="0" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle><circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(45 12 12)"><animate attributeName="r" begin="0.125s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle><circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(90 12 12)"><animate attributeName="r" begin="0.25s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle><circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(135 12 12)"><animate attributeName="r" begin="0.375s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle><circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(180 12 12)"><animate attributeName="r" begin="0.5s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle><circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(225 12 12)"><animate attributeName="r" begin="0.625s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle><circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(270 12 12)"><animate attributeName="r" begin="0.75s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle><circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(315 12 12)"><animate attributeName="r" begin="0.875s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle></svg>
-        <h2 class="text-2xl mb-2">AI Preparing...</h2>
+        <h2 class="text-2xl mt-2">AI Preparing...</h2>
+       </div>
+       </div>
+
+       <div id="medio-radio-commercial" style="display: none">
+       <div class="block text-center text-2xl">
+ <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512"><path fill="currentColor" d="M157.52 272h36.96L176 218.78zM352 256c-13.23 0-24 10.77-24 24s10.77 24 24 24s24-10.77 24-24s-10.77-24-24-24M464 64H48C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48M250.58 352h-16.94c-6.81 0-12.88-4.32-15.12-10.75L211.15 320h-70.29l-7.38 21.25A16 16 0 0 1 118.36 352h-16.94c-11.01 0-18.73-10.85-15.12-21.25L140 176.12A23.995 23.995 0 0 1 162.67 160h26.66A23.99 23.99 0 0 1 212 176.13l53.69 154.62c3.61 10.4-4.11 21.25-15.11 21.25M424 336c0 8.84-7.16 16-16 16h-16c-4.85 0-9.04-2.27-11.98-5.68c-8.62 3.66-18.09 5.68-28.02 5.68c-39.7 0-72-32.3-72-72s32.3-72 72-72c8.46 0 16.46 1.73 24 4.42V176c0-8.84 7.16-16 16-16h16c8.84 0 16 7.16 16 16z"/></svg>
+        <h2 class="text-2xl mb-2">Commercial Break</h2>
+       </div>
+       </div>
+
+       <div id="medio-radio-caller" style="display: none">
+       <div class="block text-center text-2xl">
+ <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="64" stroke-dashoffset="64" d="M8 3C8.5 3 10.5 7.5 10.5 8C10.5 9 9 10 8.5 11C8 12 9 13 10 14C10.3943 14.3943 12 16 13 15.5C14 15 15 13.5 16 13.5C16.5 13.5 21 15.5 21 16C21 18 19.5 19.5 18 20C16.5 20.5 15.5 20.5 13.5 20C11.5 19.5 10 19 7.5 16.5C5 14 4.5 12.5 4 10.5C3.5 8.5 3.5 7.5 4 6C4.5 4.5 6 3 8 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.6s" values="64;0"/><animateTransform attributeName="transform" begin="0.6s;lineMdPhoneCallLoop0.begin+2.6s" dur="0.5s" type="rotate" values="0 12 12;15 12 12;0 12 12;-12 12 12;0 12 12;12 12 12;0 12 12;-15 12 12;0 12 12"/></path><path stroke-dasharray="4" stroke-dashoffset="4" d="M14 7.04404C14.6608 7.34734 15.2571 7.76718 15.7624 8.27723M16.956 10C16.6606 9.35636 16.2546 8.77401 15.7624 8.27723" opacity="0"><set id="lineMdPhoneCallLoop0" attributeName="opacity" begin="0.7s;lineMdPhoneCallLoop0.begin+2.7s" to="1"/><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.7s;lineMdPhoneCallLoop0.begin+2.7s" dur="0.2s" values="4;8"/><animate fill="freeze" attributeName="stroke-dashoffset" begin="1.3s;lineMdPhoneCallLoop0.begin+3.3s" dur="0.3s" values="0;4"/><set attributeName="opacity" begin="1.6s;lineMdPhoneCallLoop0.begin+3.6s" to="0"/></path><path stroke-dasharray="10" stroke-dashoffset="10" d="M20.748 9C20.3874 7.59926 19.6571 6.347 18.6672 5.3535M15 3.25203C16.4105 3.61507 17.6704 4.3531 18.6672 5.3535" opacity="0"><set attributeName="opacity" begin="1s;lineMdPhoneCallLoop0.begin+3s" to="1"/><animate fill="freeze" attributeName="stroke-dashoffset" begin="1s;lineMdPhoneCallLoop0.begin+3s" dur="0.2s" values="10;20"/><animate fill="freeze" attributeName="stroke-dashoffset" begin="1.5s;lineMdPhoneCallLoop0.begin+3.5s" dur="0.3s" values="0;10"/><set attributeName="opacity" begin="1.8s;lineMdPhoneCallLoop0.begin+3.8s" to="0"/></path></g></svg>
+        <h2 class="text-2xl mb-2">Audience Caller</h2>
        </div>
        </div>
 
        <div id="dj-wrapper" style="display: none">
+       <div class="block flex items-center justify-center text-center w-full mb-2 text-2xl">
+       <svg xmlns="http://www.w3.org/2000/svg"  width="2em" height="2em" viewBox="0 0 24 24"><path fill="currentColor" d="M9 5a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c2.67 0 8 1.34 8 4v2H1v-2c0-2.66 5.33-4 8-4m7.76-9.64c2.02 2.2 2.02 5.25 0 7.27l-1.68-1.69c.84-1.18.84-2.71 0-3.89zM20.07 2c3.93 4.05 3.9 10.11 0 14l-1.63-1.63c2.77-3.18 2.77-7.72 0-10.74z"/></svg>
+       </div>
         <h3>Announcer</h3>
         <div id="dj-text" class="whitespace-pre-line"></div>
        </div>
        <audio id="medio-radio-audio" style="display: none" src="#" preload="auto"></audio>
        <audio id="medio-radio-background" style="display: none" src="#" preload="auto"></audio>
-       <audio id="medio-radio-dj" style="display: none" src="#" preload="auto"></audio>`,
+       <audio id="medio-radio-dj" style="display: none" src="#" preload="auto"></audio>
+       
+        <div id="medio-radio-close"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20"><path fill="currentColor" d="M2.93 17.07A10 10 0 1 1 17.07 2.93A10 10 0 0 1 2.93 17.07M11.4 10l2.83-2.83l-1.41-1.41L10 8.59L7.17 5.76L5.76 7.17L8.59 10l-2.83 2.83l1.41 1.41L10 11.41l2.83 2.83l1.41-1.41L11.41 10z"/></svg></div>`,
 }
 
 medioRadio.init()
