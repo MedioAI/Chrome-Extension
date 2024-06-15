@@ -29,7 +29,6 @@
     {
       "matches": ["https://www.udio.com/*"],
       "js": [
-        "lib/streammixer.js",
         "lib/quill.js",
         "engine/utilities.js",
         "engine/ui/icons.js",
