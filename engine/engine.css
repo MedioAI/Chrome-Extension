@@ -770,8 +770,10 @@ select.medioAddTag {
   border: 1px solid #ffffff3e;
   z-index: 999999999999;
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  top: 20px;
+  right: auto;
+  left: 50%;
+  margin-left: -225px;
   padding: 40px;
   border-radius: 10px;
   color: #fff;
@@ -935,11 +937,12 @@ select.medioAddTag {
 #radioHelp:hover #radioHelpDesc {
   display: block;
   position: absolute;
-  top: -280px;
-  left: -250px;
-  width: 250px;
-  padding: 10px;
-  background: #000000;
+  top: -275px;
+  left: 30px;
+  width: 310px;
+  padding: 20px;
+  background: #0c0f14;
+  border: 1px solid #ffffff3e;
   color: #fff;
   border-radius: 10px;
   box-shadow: 0 0 10px #000;
@@ -985,7 +988,102 @@ select.medioAddTag {
   z-index: 999999999999999;
 }
 
+#medio-radio {
+  cursor: move;
+}
+
+#medio-radio * {
+  cursor: auto;
+}
+
 .bg-gray-1000 {
   background: #1a202b;
   border-color: #293141;
+}
+
+.medio-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.medio-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.medio-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+  background-color: #1a202b;
+  transition: 0.4s;
+}
+
+.medio-slider:before {
+  position: absolute;
+  content: '';
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 3px;
+  background-color: #6f7d9a;
+  transition: 0.4s;
+}
+
+input:checked + .medio-slider {
+  background-color: #23cb8d;
+}
+
+input:focus + .medio-slider {
+  box-shadow: 0 0 1px #23cb8d;
+}
+
+input:checked + .medio-slider:before {
+  transform: translateX(14px);
+  background-color: #96ffd8;
+}
+
+.medio-slider.medio-round {
+  border-radius: 34px;
+  border: 1px solid #262d3b;
+}
+
+.medio-slider.medio-round:before {
+  border-radius: 50%;
+}
+
+#medio-radio-record-toggle {
+  background: #1a1f2a;
+  color: #4f5b74;
+}
+#medio-radio-record-toggle * {
+  pointer-events: none;
+}
+#medio-radio-record-toggle.recordActive {
+  background: #3b0d1c;
+  color: #e3095d;
+  box-shadow: 0 0 0 2px #e3095d !important;
+}
+#medio-radio-record-toggle.recordActive svg {
+  color: #e3095d !important;
+}
+
+#medio-toggle-shuffle {
+  padding: 0 5px;
+  padding-top: 11px;
+}
+#medio-toggle-shuffle * {
+  pointer-events: none;
+}
+
+#medio-radio-length.disabled {
+  opacity: 0.4;
 }

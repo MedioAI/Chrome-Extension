@@ -92,7 +92,7 @@ const utilitiesMedioAI = {
     return utilitiesMedioAI.placeholders[Math.floor(Math.random() * utilitiesMedioAI.placeholders.length)]
   },
 
-  showNotification: msg => {
+  showNotification: (msg, type) => {
     if (document.querySelector('.medioaiNotice')) {
       document.querySelector('.medioaiNotice').remove()
     }
@@ -100,14 +100,24 @@ const utilitiesMedioAI = {
     const notification = document.createElement('div')
     notification.setAttribute(
       'class',
-      'medioaiNotice fixed top-2 right-2 p-4 bg-gray-400 border rounded text-gray-300 text-white text-center'
-    )
-    notification.setAttribute(
-      'style',
-      'z-index: 999999999999999999; background: #111; color: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.23); border: 1px solid #24CA8B;'
+      'medioaiNotice fixed top-3 right-3 px-6 py-4 bg-gray-400 border rounded text-gray-300 text-white text-center'
     )
 
-    notification.innerHTML = `<p>${msg}</p>`
+    let icon = `<svg style="color: #24CA8B" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"><defs><mask id="ipTSuccess0"><g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path fill="#555" d="m24 4l5.253 3.832l6.503-.012l1.997 6.188l5.268 3.812L41 24l2.021 6.18l-5.268 3.812l-1.997 6.188l-6.503-.012L24 44l-5.253-3.832l-6.503.012l-1.997-6.188l-5.268-3.812L7 24l-2.021-6.18l5.268-3.812l1.997-6.188l6.503.012z"/><path d="m17 24l5 5l10-10"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipTSuccess0)"/></svg>`
+    if (type === 'error') {
+      notification.setAttribute(
+        'style',
+        'z-index: 999999999999999999; background: #111; color: #fff; box-shadow: 0 0 20px #E3095D; border: 2px solid #E3095D;'
+      )
+      icon = `<svg style="color: #E3095D" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4c-4.42 0-8 3.58-8 8s3.58 8 8 8s8-3.58 8-8s-3.58-8-8-8m1 13h-2v-2h2zm0-4h-2V7h2z" opacity="0.3"/><path fill="currentColor" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2M12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8s8 3.58 8 8s-3.58 8-8 8m-1-5h2v2h-2zm0-8h2v6h-2z"/></svg>`
+    } else {
+      notification.setAttribute(
+        'style',
+        'z-index: 999999999999999999; background: #111; color: #fff; box-shadow: 0 0 20px #24CA8B; border: 2px solid #24CA8B;'
+      )
+    }
+
+    notification.innerHTML = `<p class="flex space-x-2 items-center">${icon} <span>${msg}</span></p>`
 
     document.body.appendChild(notification)
 
