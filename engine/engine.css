@@ -984,3 +984,8 @@ select.medioAddTag {
 #medio-radio-close {
   z-index: 999999999999999;
 }
+
+.bg-gray-1000 {
+  background: #1a202b;
+  border-color: #293141;
+}

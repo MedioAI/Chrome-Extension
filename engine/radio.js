@@ -189,7 +189,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     document.getElementById('medio-radio-deploy').addEventListener('click', async () => {
       const genres = document.getElementById('medio-radio-genres').value
       const length = document.getElementById('medio-radio-length').value
-      const onlynew = document.getElementById('medio-radio-only-new').value
+      const listType = document.getElementById('medio-radio-type').value
       const djvoice = document.getElementById('medio-radio-dj-voice').value
       const djpersonality = document.getElementById('medio-radio-dj-personality').value
       const radioName = document.getElementById('medio-radio-name').value
@@ -197,9 +197,9 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       const djEnabled = document.getElementById('medio-radio-dj-enabled')
       const djAdsEnabled = document.getElementById('medio-radio-dj-flavor')
       const djLength = document.getElementById('medio-radio-dj-length').value
+      medioRadio.listType = listType
       medioRadio.hasAnnouncer = djEnabled.value === 'on'
       medioRadio.hasAds = djAdsEnabled.value === 'on'
-      medioRadio.onlyUnique = onlynew === 'on'
       medioRadio.djMusic = djMusic
       medioRadio.radioName = radioName || 'MedioAI Radio'
       medioRadio.genres = genres
@@ -422,11 +422,35 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
   },
 
   search: async () => {
-    const genres = medioRadio.genres.split(',')
-    const pageSize = parseInt(medioRadio.broadcastLength) || 30
+    let pageSize = parseInt(medioRadio.broadcastLength) || 30
     let page = medioRadio.page
 
-    for (const genre of genres) {
+    if (medioRadio.listType === 'tags') {
+      let genres = medioRadio.genres.split(',')
+      for (const genre of genres) {
+        await fetch(`https://www.udio.com/api/songs/search`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            searchQuery: {
+              sort: 'cache_trending_score',
+              searchTerm: genre,
+            },
+            pageParam: page,
+            pageSize: pageSize,
+          }),
+        })
+          .then(response => response.json())
+          .then(tracks => {
+            medioRadio.processTracks(tracks.data)
+          })
+
+        await new Promise(resolve => setTimeout(resolve, 2000))
+      }
+      medioRadio.trimTrackList(genres, medioRadio.broadcastLength)
+    } else if (medioRadio.listType === 'trending') {
       await fetch(`https://www.udio.com/api/songs/search`, {
         method: 'POST',
         headers: {
@@ -434,8 +458,9 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
         },
         body: JSON.stringify({
           searchQuery: {
-            sort: 'cache_trending_score',
-            searchTerm: genre,
+            maxAgeInHours: 168,
+            sort: 'likes',
+            searchTerm: '',
           },
           pageParam: page,
           pageSize: pageSize,
@@ -445,11 +470,48 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
         .then(tracks => {
           medioRadio.processTracks(tracks.data)
         })
+    } else if (medioRadio.listType === 'playlist') {
+      await fetch(`https://www.udio.com/api/playlists?id=b0cb876a-9bbd-4612-b573-bd0b8eb4cb53`, {
+        method: 'GET',
+      })
+        .then(response => response.json())
+        .then(async tracks => {
+          if (!tracks.playlists[0]) {
+            alert('No playlist found. Please try again.')
+            return
+          }
+          const songIds = tracks.playlists[0].song_list.join(',')
 
-      await new Promise(resolve => setTimeout(resolve, 2000))
+          await fetch(`https://www.udio.com/api/songs?songIds=${songIds}`, {
+            method: 'GET',
+          })
+            .then(response => response.json())
+            .then(tracks => {
+              console.log(tracks, 'songs')
+              medioRadio.processTracks(tracks.songs)
+            })
+        })
+    } else if (medioRadio.listType === 'artist') {
+      await fetch(`https://www.udio.com/api/songs/search`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          searchQuery: {
+            sort: 'created_at',
+            userId: '46d16791-d72d-4e24-80c2-edff1a93f928',
+          },
+          pageParam: page,
+          pageSize: pageSize,
+        }),
+      })
+        .then(response => response.json())
+        .then(tracks => {
+          medioRadio.processTracks(tracks.data)
+        })
     }
 
-    medioRadio.trimTrackList(genres, medioRadio.broadcastLength)
     await new Promise(resolve => setTimeout(resolve, 300))
     document.getElementById('medio-radio').innerHTML = medioRadioUI.player
 
@@ -474,7 +536,6 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       playButton.click()
     } else {
       document.getElementById('medio-radio-loading').style.display = 'block'
-
       await medioRadio.loadTalking(current)
     }
   },
@@ -853,18 +914,21 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
 
 const medioRadioUI = {
   builder: /* html */ `
-    <div id="medio-radio" style="display: none">
+    <div id="medio-radio" style="background: #0C0F14;display: none">
       <div id="medio-radio-close"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20"><path fill="currentColor" d="M2.93 17.07A10 10 0 1 1 17.07 2.93A10 10 0 0 1 2.93 17.07M11.4 10l2.83-2.83l-1.41-1.41L10 8.59L7.17 5.76L5.76 7.17L8.59 10l-2.83 2.83l1.41 1.41L10 11.41l2.83 2.83l1.41-1.41L11.41 10z"/></svg></div>
       <div>
-       <h2 class="text-2xl mb-2">Udio Radio <span class="text-sm ml-1" style="color: #1dcca0">powered by MedioAI</span></h2>
+       <h2 class="text-2xl flex items-center mb-2">
+        <img src="${chrome.runtime.getURL('icon/128x128.png')}" style="width:
+      48px; height: 48px; border-radius: 6px; margin-right: 8px" />
+       <span>MedioAI Radio</span> <span class="text-sm ml-1" style="color: #1dcca0">v1.4</span></h2>
       
        <h4 class="text-sm text-gray-400 mb-1">Tags <small class="text-xs opacity-50">(comma separated list) *</small></h4>
-       <input autocomplete="off" id="medio-radio-genres" class="w-full border bg-gray-800 text-white p-2 rounded-lg" placeholder="Add your tags here..." />
+       <input autocomplete="off" id="medio-radio-genres" class="w-full border bg-gray-1000 text-white p-2 rounded-lg" placeholder="Add your tags here..." />
 
        <div class="flex space-x-2 hidden">
             <div class="w-full">
        <h4 class="text-sm text-gray-400 mb-1 mt-3">Playlist / Profile <small class="text-xs opacity-50">(overwrites tags) **</small></h4>
-          <input autocomplete="off" id="medio-radio-playlist" class="w-full border bg-gray-800 text-white p-2 rounded-lg" placeholder="Full URL here..." />
+          <input autocomplete="off" id="medio-radio-playlist" class="w-full border bg-gray-1000 text-white p-2 rounded-lg" placeholder="Full URL here..." />
         </div>
        
       </div>
@@ -872,20 +936,22 @@ const medioRadioUI = {
        <div class="flex space-x-2">
             <div class="w-full">
        <h4 class="text-sm text-gray-400 mb-1 mt-3"># of Tracks <small class="text-xs opacity-50">(per tag)</small></h4>
-      <input id="medio-radio-length" autocomplete="off" type="number" value="2" class="w-full border bg-gray-800 text-white p-2 rounded-lg" />
+      <input id="medio-radio-length" autocomplete="off" type="number" value="2" class="w-full border bg-gray-1000 text-white p-2 rounded-lg" />
       </div>
-      <div class="w-full" style="display: none">
+      <div class="w-full">
 
-      <h4 class="text-sm text-gray-400 mb-1 mt-3">Only New Tracks</h4>
-      <select id="medio-radio-only-new" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
-        <option value="off">No</option>
-        <option value="on">Yes</option>
+      <h4 class="text-sm text-gray-400 mb-1 mt-3">Type</h4>
+      <select id="medio-radio-type" class="w-full border bg-gray-1000 text-white p-2 rounded-lg">
+        <option value="tags">Tag Search</option>
+        <option value="trending">Trending</option>
+        <option value="playlist">Playlist</option>
+        <option value="artist">Artist Profile</option>
       </select>
 </div>
 
 <div class="w-full hidden">
           <h4 class="text-sm text-gray-400 mb-1 mt-3">Shuffle</h4>
-          <select id="medio-radio-shuffle" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
+          <select id="medio-radio-shuffle" class="w-full border bg-gray-1000 text-white p-2 rounded-lg">
             <option value="no">No</option>
             <option value="yes">Yes</option>
           </select>
@@ -898,8 +964,8 @@ const medioRadioUI = {
 
         <div id="medioDJSettings" style="display: none">
           <div class="flex items-center justify-between mb-1 mt-3">
-          <h4>MedioAI DJ Mode</h4>
-          <select id="medio-radio-dj-enabled" style="width: 100px" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
+          <h4>OpenAI Powered DJ Mode</h4>
+          <select id="medio-radio-dj-enabled" style="width: 100px" class="w-full border bg-gray-1000 text-white p-2 rounded-lg">
             <option value="off">Off</option>
             <option value="on">On</option>
           </select>
@@ -911,13 +977,13 @@ const medioRadioUI = {
         <div class="flex space-x-2 ">
             <div class="w-full">
 <h4 class="text-sm text-gray-400 mb-1 mt-3">Radio Station Name</h4>
-          <input id="medio-radio-name" class="w-full border bg-gray-800 text-white p-2 rounded-lg" placeholder="Station Name..." />
+          <input id="medio-radio-name" class="w-full border bg-gray-1000 text-white p-2 rounded-lg" placeholder="Station Name..." />
 
        
           </div>
           <div class="w-full">
           <h4 class="text-sm text-gray-400 mb-1 mt-3">Flavor <small class="opacity-50">*</small></h4>
-          <select id="medio-radio-dj-flavor" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
+          <select id="medio-radio-dj-flavor" class="w-full border bg-gray-1000 text-white p-2 rounded-lg">
             <option value="on">Fake Ads + Callers</option>
             <option value="off">None</option>
           </select>
@@ -929,7 +995,7 @@ const medioRadioUI = {
           
 
           <h4 class="text-sm text-gray-400 mb-1 mt-3">Length</h4>
-          <select id="medio-radio-dj-length" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
+          <select id="medio-radio-dj-length" class="w-full border bg-gray-1000 text-white p-2 rounded-lg">
             <option value="1-2">Short</option>
             <option value="2-3">Medium</option>
             <option value="4-6">Long</option>
@@ -937,7 +1003,7 @@ const medioRadioUI = {
           </div>
           <div class="w-full">
           <h4 class="text-sm text-gray-400 mb-1 mt-3">Personality</h4>
-          <select id="medio-radio-dj-personality" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
+          <select id="medio-radio-dj-personality" class="w-full border bg-gray-1000 text-white p-2 rounded-lg">
             <option value="radio">Sunny Sam</option>
             <option value="simple">Simple Robot</option>
             <option value="funny">Chuckles Charlie</option>
@@ -955,7 +1021,7 @@ const medioRadioUI = {
             <span>DJ Voice</span>
             <span id="medioSampleDJVoice" class="cursor-pointer opacity-50 hover:opacity-100"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg></span>
           </h4>
-          <select id="medio-radio-dj-voice" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
+          <select id="medio-radio-dj-voice" class="w-full border bg-gray-1000 text-white p-2 rounded-lg">
             <option value="alloy">Alloy (female)</option>
             <option value="onyx">Onyx (male)</option>  
             <option value="shimmer">Shimmer (female)</option>
@@ -969,7 +1035,7 @@ const medioRadioUI = {
             <span>DJ Music</span>
             <span id="medioSampleDJBackground" class="cursor-pointer opacity-50 hover:opacity-100"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg></span>
           </h4>
-          <select id="medio-radio-dj-music" class="w-full border bg-gray-800 text-white p-2 rounded-lg">
+          <select id="medio-radio-dj-music" class="w-full border bg-gray-1000 text-white p-2 rounded-lg">
             <option value="funky-1">Funky</option>
             <option value="hiphop">Hip Hop</option>
             <option value="grime">Grime</option>
