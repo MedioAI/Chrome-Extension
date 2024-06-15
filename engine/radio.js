@@ -16,10 +16,12 @@ const medioRadio = {
   shouldAnnounce: false,
   hasAnnouncer: false,
   shouldRecord: false,
+  isRecording: false,
   shuffle: false,
   hasAds: false,
   onlyUnique: true,
   genres: '',
+  mediaRecorder: null,
   broadcastLength: 0,
   djMessage: '',
   djVoice: 'alloy',
@@ -122,6 +124,12 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
   },
 
   deploy: () => {
+    if (medioRadio.isRecording) {
+      console.log('STOPPING')
+      medioRadio.isRecording = false
+      medioRadio.mediaRecorder.stop()
+    }
+
     medioRadio.shuffle = false
 
     const close = document.getElementById('medio-radio-close')
@@ -132,6 +140,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       medioRadio.hasSeen = []
       medioRadio.broadcastLength = 0
       document.getElementById('medio-radio').outerHTML = medioRadioUI.builder
+
       medioRadio.shuffle = false
       document.getElementById('medio-radio').style.display = 'none'
       medioRadio.dj.check()
@@ -214,7 +223,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
         musicPreview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg>`
         medioRadio.isPreviewingVoice = true
         medioRadio.isPreviewing = false
-        audioPlayer.src = chrome.runtime.getURL(`dj/${audioPlayerValue}.wav`)
+        audioPlayer.src = chrome.runtime.getURL(`dj/voices/${audioPlayerValue}.wav`)
         audioPlayer.volume = 1
         audioPlayer.load()
         audioPlayer.play()
@@ -234,7 +243,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
         voicePreview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg>`
         medioRadio.isPreviewing = true
         medioRadio.isPreviewingVoice = false
-        audioPlayer.src = chrome.runtime.getURL(`dj/${audioPlayerValue}.mp3`)
+        audioPlayer.src = chrome.runtime.getURL(`dj/music/${audioPlayerValue}.mp3`)
         audioPlayer.volume = 1
         audioPlayer.load()
         audioPlayer.play()
@@ -386,7 +395,6 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
         const artistIdPattern = /\\"userId\\":\\"([^"]*)\\"/
         const artistIdMatch = html.match(artistIdPattern)
 
-        console.log({ artistIdMatch })
         if (!artistIdMatch) {
           utilitiesMedioAI.showNotification('Could not find a Artist ID.', 'error')
           return
@@ -626,6 +634,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       medioRadio.broadcastLength = 0
       document.querySelector('#medio-radio').outerHTML = medioRadioUI.builder
       document.querySelector('#medio-radio').style.display = 'block'
+
       medioRadio.deploy()
       medioRadio.dj.check()
     }
@@ -753,6 +762,9 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
 
     if (!medioRadio.hasAnnouncer) {
       medioRadio.start(current)
+      if (medioRadio.shouldRecord) {
+        medioRadio.record()
+      }
       const playButton = document.querySelector('.medio-radio-play')
       playButton.click()
     } else {
@@ -767,9 +779,77 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       apiMedioAI.openAITalk(medioRadio.djMessage, medioRadio.djVoice, data => {
         medioRadio.djBuffer = data
         document.getElementById('medio-radio-loading').style.display = 'none'
+        if (medioRadio.shouldRecord) {
+          medioRadio.record()
+        }
         medioRadio.start(current)
       })
     })
+  },
+
+  record: async () => {
+    // const djmusic = document.getElementById('medio-radio-background')
+    // const djvoice = document.getElementById('medio-radio-dj')
+    // const music = document.getElementById('medio-radio-audio')
+    // const audioMixer = new MultiStreamsMixer([djmusic, djvoice, music])
+
+    // record using MediaRecorder API
+    // medioRadio.mediaRecorder = new MediaRecorder(audioMixer.getMixedStream())
+
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)()
+
+    // Create a MediaStreamDestination node
+    const mediaStreamDestination = audioContext.createMediaStreamDestination()
+
+    // Connect the destination node to the context's output
+    audioContext.destination.connect(mediaStreamDestination)
+
+    // Get the MediaStream from the MediaStreamDestination
+    const mediaStream = mediaStreamDestination.stream
+
+    // Now you have a MediaStream that contains the audio output of the context
+
+    // You can use this mediaStream to record audio using MediaRecorder API
+    const mediaRecorder = new MediaRecorder(mediaStream)
+    // const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+    // medioRadio.mediaRecorder = new MediaRecorder(stream)
+    // const audioChunks = []
+
+    medioRadio.mediaRecorder.ondataavailable = event => {
+      audioChunks.push(event.data)
+    }
+
+    medioRadio.isRecording = true
+    medioRadio.mediaRecorder.start()
+
+    medioRadio.mediaRecorder.onstop = async () => {
+      const id = utilitiesMedioAI.uuidv4()
+      let recorded = await chrome.storage.local.get('medioRadioRecorded')
+      if (!recorded.medioRadio) {
+        recorded = {
+          medioRadioRecorded: [],
+        }
+      }
+      recorded.medioRadioRecorded.push({
+        id: id,
+        created_at: new Date().toISOString(),
+      })
+
+      console.log(audioChunks)
+      const audioBlob = new Blob(audioChunks, { type: 'audio/webm' })
+
+      await chrome.storage.local.set({ medioRadioRecorded: recorded.medioRadioRecorded })
+      await chrome.storage.local.set({ ['medioRadioWAV_' + id]: audioBlob })
+      utilitiesMedioAI.showNotification('Recording saved. Download in settings panel.', 'success')
+
+      // download audioBlob
+      const url = URL.createObjectURL(audioBlob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `medio_radio_${id}.wav`
+      a.click()
+      URL.revokeObjectURL(url)
+    }
   },
 
   processTracks: async tracks => {
@@ -922,14 +1002,16 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
 
       document.querySelector('#dj-text').innerHTML = medioRadio.djMessage
 
+      const randomBGSong = Math.floor(Math.random() * 3) + 1
+
       if (state === 'commercial') {
         voiceMP3 = medioRadio.djBufferExtra
-        bgMusic = chrome.runtime.getURL(`dj/commercial-1.mp3`)
+        bgMusic = chrome.runtime.getURL(`dj/commercials/${randomBGSong}.mp3`)
       } else if (state === 'caller') {
         voiceMP3 = medioRadio.djBufferExtra
-        bgMusic = chrome.runtime.getURL(`dj/caller-1.mp3`)
+        bgMusic = chrome.runtime.getURL(`dj/callers/${randomBGSong}.mp3`)
       } else {
-        bgMusic = chrome.runtime.getURL(`dj/${medioRadio.djMusic}.mp3`)
+        bgMusic = chrome.runtime.getURL(`dj/music/${medioRadio.djMusic}.mp3`)
       }
 
       const bgAudio = document.getElementById('medio-radio-background')
@@ -1262,13 +1344,14 @@ const medioRadioUI = {
             <span id="medioSampleDJBackground" class="cursor-pointer opacity-50 hover:opacity-100"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg></span>
           </h4>
           <select id="medio-radio-dj-music" class="w-full border bg-gray-1000 text-white p-2 rounded-lg">
-            <option value="funky-1">Funky</option>
+            <option value="funk">Funky</option>
             <option value="hiphop">Hip Hop</option>
+            <option value="reggae">Reggae</option>
             <option value="metal">Metal</option>
             <option value="jazz">Jazz</option>
             <option value="dance">Dance</option>
-            <option value="reggae">Reggae</option>
             <option value="country">Country</option>
+            <option value="electro">Electro Swing</option>
           </select>
             </div>
           </div>
@@ -1304,7 +1387,7 @@ const medioRadioUI = {
         
         </div>
 
-        <button id="medio-radio-record-toggle" class="text-white py-2 px-4 rounded-lg mt-3 flex items-center space-x-2">
+        <button id="medio-radio-record-toggle" style="display: none" class="text-white py-2 px-4 rounded-lg mt-3 flex items-center space-x-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M6 5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1zM1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8m7-6a6 6 0 1 0 0 12A6 6 0 0 0 8 2"/></svg>
           <span>Record</span>
         </button>
