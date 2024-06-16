@@ -985,6 +985,7 @@ select.medioAddTag {
 
 #medio-radio-loading,
 #medio-radio-commercial,
+#medio-radio-commercial-ad,
 #medio-radio-caller {
   position: absolute;
   width: 100%;
@@ -1002,6 +1003,7 @@ select.medioAddTag {
 
 #medio-radio-loading svg,
 #medio-radio-commercial svg,
+#medio-radio-commercial-ad svg,
 #medio-radio-caller svg {
   font-size: 40px;
   display: block;
