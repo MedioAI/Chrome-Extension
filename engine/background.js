@@ -19,6 +19,8 @@ chrome.runtime.onInstalled.addListener(() => {
     openrouterapikey: '',
     openaiModal: 'gpt-4o',
     openaiapikey_voice: '',
+    medioRadioBanned: [],
+    medioRadioListened: [],
     autoSaveCovers: 'off',
     lyricAttribution: '',
     songstudioCommands: '',

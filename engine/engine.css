@@ -852,23 +852,21 @@ select.medioAddTag {
 }
 
 #medio-radio .medio-radio-controls {
-  padding-bottom: 20px;
   position: relative;
 }
 #medio-radio .medio-radio-progress {
-  height: 5px;
+  height: 7px;
+  margin: 8px 0;
   background: #212a35;
-  border-radius: 5px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  border-radius: 17px;
+  position: relative;
   width: 100%;
 }
 
 #medio-radio .medio-radio-progress .audio-radio-bar {
   height: 100%;
   background: #e3095d;
-  border-radius: 5px;
+  border-radius: 17px;
   position: absolute;
   top: 0;
   left: 0;
@@ -1105,15 +1103,17 @@ input:checked + .medio-slider:before {
   opacity: 0.4;
 }
 
-#medioHasHeard {
+#medioHasHeard,
+#medioHasNotHeard,
+#medio-radio-ban {
   position: relative;
 }
-#medioHasHeard .medio-tooltip {
+.medio-tooltip {
   display: none;
   position: absolute;
   top: -10px;
   left: 20px;
-  background: #000;
+  background: #0c0f14;
   border: 1px solid #3c3c3c;
   box-shadow: 0 0 10px #000;
   color: #fff;
@@ -1126,7 +1126,9 @@ input:checked + .medio-slider:before {
   z-index: 999999999999;
 }
 
-#medioHasHeard:hover .medio-tooltip {
+#medioHasHeard:hover .medio-tooltip,
+#medioHasNotHeard:hover .medio-tooltip,
+#medio-radio-ban:hover .medio-tooltip {
   display: block;
 }
 
@@ -1137,13 +1139,13 @@ input:checked + .medio-slider:before {
   cursor: pointer;
   background-color: rgb(34 41 53);
   border-radius: 5px;
-  margin-bottom: -26px;
   padding: 3px 6px;
+  margin-left: 12px;
 }
 
 #medio-follow.medio-following {
-  color: #fff;
-  background-color: rgb(66, 77, 96);
+  color: #1ccfa5;
+  box-shadow: 0 0 0 1px #074e3d, 0 0 0 2px #1ccfa5;
 }
 
 .text-light-gray {
@@ -1152,4 +1154,8 @@ input:checked + .medio-slider:before {
 
 .text-light-gray.medio-radio-next {
   color: rgb(166, 180, 208);
+}
+
+#medio-radio.medio-radio-small .track-cover {
+  display: none !important;
 }
