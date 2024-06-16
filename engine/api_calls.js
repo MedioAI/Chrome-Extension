@@ -105,22 +105,34 @@ const apiMedioAI = {
       response_format: 'mp3',
     }
 
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        Authorization: bearer,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    })
-      .then(response => response.blob())
-      .then(blob => {
-        const url = URL.createObjectURL(blob)
-        callback(url)
+    try {
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          Authorization: bearer,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
       })
-      .catch(error => {
-        console.log('Something bad happened ' + error)
-      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`${response.status} - Something went wrong with OpenAI request.`)
+          }
+          return response.blob()
+        })
+        .then(blob => {
+          const url = URL.createObjectURL(blob)
+          callback(url)
+        })
+        .catch(error => {
+          console.log('Something bad happened ' + error)
+        })
+    } catch (error) {
+      utilitiesMedioAI.showNotification(error, 'error')
+      if (document.querySelector('#medio-radio-close')) {
+        document.querySelector('#medio-radio-close').click()
+      }
+    }
   },
 
   openRouterAI: async (messages, isChat = false, id, request, callback, isJSON, key) => {
@@ -128,67 +140,139 @@ const apiMedioAI = {
     const apikey = await utilitiesMedioAI.getSettings('openrouterapikey')
     const bearer = 'Bearer ' + apikey
     const modal = await utilitiesMedioAI.getSettings('openrouterModal')
-    const YOUR_SITE_URL = 'https://www.udio.com'
-    const YOUR_SITE_NAME = 'Udio + MedioAI'
+    const site_url = 'https://www.udio.com'
+    const site_name = 'Udio + MedioAI'
 
-    if (isChat) {
-      chrome.storage.local.get([key], function (result) {
-        const allMessages = result[key].find(chat => chat.id === id).messages
-        allMessages.push({
-          role: 'user',
-          content: messages,
+    try {
+      if (isChat) {
+        chrome.storage.local.get([key], function (result) {
+          const allMessages = result[key].find(chat => chat.id === id).messages
+          allMessages.push({
+            role: 'user',
+            content: messages,
+          })
+
+          fetch(url, {
+            method: 'POST',
+            headers: {
+              Authorization: bearer,
+              'HTTP-Referer': `${site_url}`,
+              'X-Title': `${site_name}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              model: modal,
+              max_tokens: 1000,
+              messages: allMessages,
+            }),
+          })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error(`${response.status} - Something went wrong with OpenRouter request.`)
+              }
+              return response.json()
+            })
+            .then(data => {
+              callback(data, id, request)
+            })
+            .catch(error => {
+              console.log('Something bad happened ' + error)
+            })
         })
+      } else {
+        let body = {
+          model: modal,
+          max_tokens: 1000,
+          messages: messages,
+        }
 
         fetch(url, {
           method: 'POST',
           headers: {
             Authorization: bearer,
-            'HTTP-Referer': `${YOUR_SITE_URL}`,
-            'X-Title': `${YOUR_SITE_NAME}`,
+            'HTTP-Referer': `${site_url}`,
+            'X-Title': `${site_name}`,
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            model: modal,
-            max_tokens: 1000,
-            messages: allMessages,
-          }),
+          body: JSON.stringify(body),
         })
           .then(response => {
+            if (!response.ok) {
+              throw new Error(`${response.status} - Something went wrong with OpenRouter request.`)
+            }
             return response.json()
           })
           .then(data => {
+            if (data.error) {
+              utilitiesMedioAI.showNotification(data.error.message, 'error')
+              if (document.querySelector('#medio-radio-close')) {
+                document.querySelector('#medio-radio-close').click()
+              }
+              return
+            }
             callback(data, id, request)
           })
           .catch(error => {
+            utilitiesMedioAI.showNotification(error, 'error')
+            if (document.querySelector('#medio-radio-close')) {
+              document.querySelector('#medio-radio-close').click()
+            }
             console.log('Something bad happened ' + error)
           })
-      })
-    } else {
-      let body = {
-        model: modal,
-        max_tokens: 1000,
-        messages: messages,
       }
+    } catch (error) {
+      utilitiesMedioAI.showNotification(error, 'error')
+      if (document.querySelector('#medio-radio-close')) {
+        document.querySelector('#medio-radio-close').click()
+      }
+    }
+  },
 
+  elevenLabsTalk: async (message, voice_id = '21m00Tcm4TlvDq8ikWAM', callback) => {
+    const url = `https://api.elevenlabs.io/v1/text-to-speech/${'21m00Tcm4TlvDq8ikWAM'}`
+    const apikey = await utilitiesMedioAI.getSettings('elevenlabsapikey_voice')
+
+    const body = {
+      text: message,
+      model_id: 'eleven_monolingual_v1',
+      voice_settings: {
+        stability: 0.5,
+        similarity_boost: 0.5,
+        use_speaker_boost: true,
+      },
+    }
+
+    try {
       fetch(url, {
         method: 'POST',
         headers: {
-          Authorization: bearer,
-          'HTTP-Referer': `${YOUR_SITE_URL}`,
-          'X-Title': `${YOUR_SITE_NAME}`,
+          'xi-api-key': apikey,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(body),
       })
         .then(response => {
-          return response.json()
+          if (!response.ok) {
+            throw new Error(`${response.status} - Something went wrong with ElevenLabs request.`)
+          }
+          return response.blob()
         })
-        .then(data => {
-          callback(data, id, request)
+        .then(blob => {
+          const url = URL.createObjectURL(blob)
+          callback(url)
         })
         .catch(error => {
+          utilitiesMedioAI.showNotification(error, 'error')
+          if (document.querySelector('#medio-radio-close')) {
+            document.querySelector('#medio-radio-close').click()
+          }
           console.log('Something bad happened ' + error)
         })
+    } catch (error) {
+      utilitiesMedioAI.showNotification(error, 'error')
+      if (document.querySelector('#medio-radio-close')) {
+        document.querySelector('#medio-radio-close').click()
+      }
     }
   },
 

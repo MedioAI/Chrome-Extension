@@ -24,7 +24,7 @@
       </div>
       <div id="nav">
         <a href="/app/index.html">Dashboard</a>
-        <a href="/app/convert.html">Convert</a>
+        <a href="/app/convert.html">Filter</a>
         <a href="/app/metatags.html">Meta Tags</a>
         <a href="/app/visualizer.html">Visualizer</a>
         <a href="/app/covers.html">Track Covers</a>
@@ -169,11 +169,6 @@
             <option value="gpt-3.5-turbo">GPT3.5 Turbo</option>
           </select>
         </div>
-      </div>
-
-      <div class="input-group">
-        <label for="openaiapikey_voice">OpenAI API Key (* required for Radio DJ announcer)</label>
-        <input type="password" id="openaiapikey_voice" />
       </div>
 
       <div id="openrouter" style="display: none">
@@ -369,6 +364,18 @@
       </div>
 
       <hr class="my-8 border-gray-600" />
+      <h4 class="uppercase text-lg font-medium mb-2">A.I. DJ (text to speech)</h4>
+      <div class="input-group">
+        <label for="openaiapikey_voice">OpenAI API Key</label>
+        <input type="password" id="openaiapikey_voice" />
+      </div>
+
+      <div class="input-group">
+        <label for="elevenlabsapikey_voice">ElevenLabs API Key</label>
+        <input type="password" id="elevenlabsapikey_voice" />
+      </div>
+
+      <hr class="my-8 border-gray-600" />
       <button id="showAdvancedSettings" class="btn">Show Advanced Settings</button>
 
       <hr class="my-8 border-gray-600" />
@@ -512,13 +519,6 @@
       >
         Saved settings.
       </div>
-
-      <p class="text-sm my-2">
-        <span class="text-sm ml-1" style="color: #1dcca0">*</span>
-        <span class="opacity-50"
-          >Note: Settings marked with * may be removed in the future or are in a beta state.</span
-        >
-      </p>
 
       <button class="btn primary mt-6" id="save">Save Changes</button>
     </div>

@@ -1167,6 +1167,11 @@ input:checked + .medio-slider:before {
   color: rgb(166, 180, 208);
 }
 
+.medio-radio-next.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 #medio-radio.medio-radio-small .track-cover {
   display: none !important;
 }

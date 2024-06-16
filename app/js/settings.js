@@ -16,6 +16,7 @@ const app = {
         document.getElementById('notification').value = settings.notification
         document.getElementById('notificationsound').value = settings.notificationsound
         document.getElementById('openaiapikey_voice').value = settings.openaiapikey_voice || ''
+        document.getElementById('elevenlabsapikey_voice').value = settings.elevenlabsapikey_voice || ''
         document.getElementById('slideanimation').value = settings.slideanimation
         document.getElementById('lyrictextsize').value = settings.lyrictextsize
         document.getElementById('commandcolor').value = settings.commandcolor
@@ -269,6 +270,7 @@ const app = {
       notification: document.getElementById('notification').value,
       notificationsound: document.getElementById('notificationsound').value,
       openaiapikey_voice: document.getElementById('openaiapikey_voice').value,
+      elevenlabsapikey_voice: document.getElementById('elevenlabsapikey_voice').value,
       slideanimation: document.getElementById('slideanimation').value,
       commandcolor: document.getElementById('commandcolor').value,
       lyrictextsize: document.getElementById('lyrictextsize').value,
