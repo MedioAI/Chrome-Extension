@@ -505,7 +505,11 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     ).href = `https://www.udio.com/creators/${current.medioRadio[0].artist}`
 
     medioRadio.isFollowing = false
-    medioRadio.checkIfHeard(current.medioRadio[0].id, current.medioRadio[0].liked)
+    medioRadio.checkIfHeard(
+      current.medioRadio[0].id,
+      current.medioRadio[0].liked,
+      current.medioRadio[0].artist
+    )
 
     const banTrack = document.getElementById('medio-radio-ban')
     if (!banTrack) return
@@ -559,9 +563,11 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       if (medioRadio.isFollowing) {
         followingArtist.textContent = 'Following'
         followingArtist.classList.add('medio-following')
+        medioRadio.follow()
       } else {
         followingArtist.textContent = 'Follow'
         followingArtist.classList.remove('medio-following')
+        medioRadio.unfollow()
       }
     })
 
@@ -582,6 +588,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     audio.src = current.medioRadio[0].song_path + '?t=' + new Date().getTime()
 
     medioRadio.trackId = current.medioRadio[0].id
+    medioRadio.trackUserId = current.medioRadio[0].user_id
 
     if (medioRadio.hasAnnouncer) {
       medioRadio.shouldAnnounce = false
@@ -689,6 +696,18 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     })
   },
 
+  follow: async () => {
+    fetch(`/api/users/${medioRadio.trackUserId}/follow`, {
+      method: 'POST',
+    })
+  },
+
+  unfollow: async () => {
+    fetch(`/api/users/${medioRadio.trackUserId}/follow`, {
+      method: 'POST',
+    })
+  },
+
   likeTrack: async () => {
     fetch('https://www.udio.com/api/songs/like', {
       method: 'POST',
@@ -707,7 +726,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     })
   },
 
-  checkIfHeard: async (id, liked) => {
+  checkIfHeard: async (id, liked, userId) => {
     medioRadio.trackHearted = liked
 
     const hasHeard = document.querySelector('#medioHasHeard')
@@ -732,8 +751,29 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       unhearted.style.display = 'block'
     }
 
-    // TODO: check if following
-    // TODO: trigger listen
+    const hiddenIframe = document.createElement('iframe')
+    hiddenIframe.src = `https://www.udio.com/creators/${userId}`
+    hiddenIframe.style.display = 'none'
+    document.body.appendChild(hiddenIframe)
+
+    await new Promise(resolve => {
+      hiddenIframe.onload = resolve
+    })
+
+    await new Promise(resolve => setTimeout(resolve, 1000))
+
+    const html = hiddenIframe.contentWindow.document.body.innerHTML
+    if (html && html.includes('Following</button')) {
+      document.getElementById('medio-follow').textContent = 'Following'
+      document.getElementById('medio-follow').classList.add('medio-following')
+      medioRadio.isFollowing = true
+    } else {
+      document.getElementById('medio-follow').textContent = 'Follow'
+      document.getElementById('medio-follow').classList.remove('medio-following')
+      medioRadio.isFollowing = false
+    }
+
+    hiddenIframe.remove()
   },
 
   nextTrack: async (paused = false) => {
@@ -743,6 +783,11 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     const current = await chrome.storage.local.get('medioRadio')
     let id = document.getElementById('medio-radio').getAttribute('data-id')
     let currentIndex = current.medioRadio.findIndex(track => track.id === id)
+
+    document.getElementById('medio-follow').classList.remove('medio-following')
+    document.getElementById(
+      'medio-follow'
+    ).innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-dasharray="15" stroke-dashoffset="15" stroke-linecap="round" stroke-width="2" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg>`
 
     if (!id) {
       id = current.medioRadio[0].id
@@ -766,7 +811,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     if (next && medioRadio.currentTrack < current.medioRadio.length) {
       medioRadio.currentTrack++
 
-      medioRadio.checkIfHeard(next.id, next.liked)
+      medioRadio.checkIfHeard(next.id, next.liked, next.artist)
 
       document.querySelector('.track-cover img').src = next.image_path
       document.querySelector('.medio-radio-title').textContent = next.title
@@ -775,6 +820,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       document.querySelector('.medio-radio-title').href = `https://www.udio.com/songs/${next.id}`
 
       medioRadio.trackId = next.id
+      medioRadio.trackUserId = next.user_id
 
       if (next.liked) {
         document.querySelector('#medio-hearted').style.display = 'block'
@@ -882,7 +928,6 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
           if (medioRadio.shuffle) {
             result = result.sort(() => 0.5 - Math.random())
           }
-          console.log(result)
           medioRadio.processTracks(result)
         })
     } else if (medioRadio.listType === 'playlist') {
@@ -1589,7 +1634,9 @@ const medioRadioUI = {
               <div class="medio-tooltip">Ban this track from playing.</div>
             </button>
 
-            <button id="medio-follow">Follow</button>
+            <button id="medio-follow">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-dasharray="15" stroke-dashoffset="15" stroke-linecap="round" stroke-width="2" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg>
+            </button>
           </div>
 
           <div id="aiLoading" class="flex items-center space-x-2" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8A8 8 0 0 1 12 20Z" opacity="0.5"/><path fill="currentColor" d="M20 12h2A10 10 0 0 0 12 2V4A8 8 0 0 1 20 12Z"><animateTransform attributeName="transform" dur="1s" from="0 12 12" repeatCount="indefinite" to="360 12 12" type="rotate"/></path></svg> <span class="text-xs opacity-50">AI Preparing...</span></div>
