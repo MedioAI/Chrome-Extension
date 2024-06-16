@@ -779,10 +779,26 @@ select.medioAddTag {
   color: #fff;
 }
 
-#medio-radio-close {
+#medio-radio-topactions {
   position: absolute;
-  top: -10px;
-  right: -10px;
+  top: 3px;
+  right: 8px;
+}
+
+#medio-radio-ban {
+  cursor: pointer;
+  margin-left: 10px !important;
+  color: #ffffff80;
+}
+#medio-radio-ban:hover {
+  color: #ffffff;
+}
+
+#medio-radio-ban.confirmBan {
+  color: #e3095d;
+}
+
+#medio-radio-close {
   color: #fff;
   font-size: 20px;
   cursor: pointer;
@@ -825,10 +841,11 @@ select.medioAddTag {
 
 #medio-radio .medio-radio-pause {
   font-size: 49px;
-  margin-left: -2px;
+  margin-right: 10px !important;
 }
 #medio-radio .medio-radio-play {
   font-size: 49px;
+  margin-right: 10px !important;
 }
 #medio-radio .medio-radio-next {
   font-size: 26px;
@@ -840,7 +857,7 @@ select.medioAddTag {
 }
 #medio-radio .medio-radio-progress {
   height: 5px;
-  background: #4b4b4b6a;
+  background: #212a35;
   border-radius: 5px;
   position: absolute;
   bottom: 0;
@@ -1086,4 +1103,53 @@ input:checked + .medio-slider:before {
 
 #medio-radio-length.disabled {
   opacity: 0.4;
+}
+
+#medioHasHeard {
+  position: relative;
+}
+#medioHasHeard .medio-tooltip {
+  display: none;
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  background: #000;
+  border: 1px solid #3c3c3c;
+  box-shadow: 0 0 10px #000;
+  color: #fff;
+  padding: 8px;
+  width: 180px;
+  cursor: help;
+  text-align: center;
+  font-size: 11px;
+  border-radius: 5px;
+  z-index: 999999999999;
+}
+
+#medioHasHeard:hover .medio-tooltip {
+  display: block;
+}
+
+#medio-follow {
+  position: relative;
+  font-size: 12px;
+  color: #b0b0c0;
+  cursor: pointer;
+  background-color: rgb(34 41 53);
+  border-radius: 5px;
+  margin-bottom: -26px;
+  padding: 3px 6px;
+}
+
+#medio-follow.medio-following {
+  color: #fff;
+  background-color: rgb(66, 77, 96);
+}
+
+.text-light-gray {
+  color: rgb(117, 131, 159);
+}
+
+.text-light-gray.medio-radio-next {
+  color: rgb(166, 180, 208);
 }

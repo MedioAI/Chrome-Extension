@@ -16,7 +16,9 @@ const medioRadio = {
   shouldAnnounce: false,
   hasAnnouncer: false,
   shouldRecord: false,
+  trackHearted: false,
   isRecording: false,
+  isFollowing: false,
   shuffle: false,
   hasAds: false,
   onlyUnique: true,
@@ -28,6 +30,7 @@ const medioRadio = {
   djMusic: 'classical-1',
   radioName: 'MedioAI Radio',
   hasSeen: [],
+  trackId: null,
   isPreviewing: false,
   isPreviewingVoice: false,
   djPersonality: '',
@@ -124,12 +127,6 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
   },
 
   deploy: () => {
-    if (medioRadio.isRecording) {
-      console.log('STOPPING')
-      medioRadio.isRecording = false
-      medioRadio.mediaRecorder.stop()
-    }
-
     medioRadio.shuffle = false
 
     const close = document.getElementById('medio-radio-close')
@@ -145,6 +142,18 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       document.getElementById('medio-radio').style.display = 'none'
       medioRadio.dj.check()
       medioRadio.deploy()
+    })
+
+    const lights = document.getElementById('medio-radio-lights')
+    lights.addEventListener('click', () => {
+      medioRadio.lights = !medioRadio.lights
+      if (medioRadio.lights) {
+        lights.querySelector('#medio-lights-on').style.display = 'block'
+        lights.querySelector('#medio-lights-off').style.display = 'none'
+      } else {
+        lights.querySelector('#medio-lights-on').style.display = 'none'
+        lights.querySelector('#medio-lights-off').style.display = 'block'
+      }
     })
 
     const container = document.getElementById('medio-radio')
@@ -285,17 +294,6 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
           document.querySelector('#medio-radio-length').removeAttribute('disabled')
           document.querySelector('#medio-radio-length').classList.remove('disabled')
           break
-        case 'trending':
-          genres.style.display = 'none'
-          playlist.style.display = 'none'
-          artist.style.display = 'none'
-          genreTitle.style.display = 'none'
-          artistTitle.style.display = 'none'
-          playlistTitle.style.display = 'none'
-          lengthTitle.querySelector('small').style.display = 'none'
-          document.querySelector('#medio-radio-length').removeAttribute('disabled')
-          document.querySelector('#medio-radio-length').classList.remove('disabled')
-          break
         case 'playlist':
           genres.style.display = 'none'
           playlist.style.display = 'block'
@@ -318,6 +316,18 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
           document.querySelector('#medio-radio-length').removeAttribute('disabled')
           document.querySelector('#medio-radio-length').classList.remove('disabled')
           break
+      }
+
+      if (value === 'mostliked' || value === 'trending') {
+        genres.style.display = 'none'
+        playlist.style.display = 'none'
+        artist.style.display = 'none'
+        genreTitle.style.display = 'none'
+        artistTitle.style.display = 'none'
+        playlistTitle.style.display = 'none'
+        lengthTitle.querySelector('small').style.display = 'none'
+        document.querySelector('#medio-radio-length').removeAttribute('disabled')
+        document.querySelector('#medio-radio-length').classList.remove('disabled')
       }
     })
 
@@ -460,6 +470,40 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       '.medio-radio-artist'
     ).href = `https://www.udio.com/creators/${current.medioRadio[0].artist}`
 
+    medioRadio.isFollowing = false
+    medioRadio.checkIfHeard(current.medioRadio[0].id, current.medioRadio[0].liked)
+
+    const heartTrack = document.getElementById('medio-radio-heart')
+    if (!heartTrack) return
+    heartTrack.addEventListener('click', async () => {
+      medioRadio.trackHearted = !medioRadio.trackHearted
+
+      const hearted = document.querySelector('#medio-hearted')
+      const unhearted = document.querySelector('#medio-unhearted')
+      if (medioRadio.trackHearted) {
+        hearted.style.display = 'block'
+        unhearted.style.display = 'none'
+        medioRadio.likeTrack()
+      } else {
+        hearted.style.display = 'none'
+        unhearted.style.display = 'block'
+        medioRadio.dislikeTrack()
+      }
+    })
+
+    const followingArtist = document.getElementById('medio-follow')
+    if (!followingArtist) return
+    followingArtist.addEventListener('click', async () => {
+      medioRadio.isFollowing = !medioRadio.isFollowing
+      if (medioRadio.isFollowing) {
+        followingArtist.textContent = 'Following'
+        followingArtist.classList.add('medio-following')
+      } else {
+        followingArtist.textContent = 'Follow'
+        followingArtist.classList.remove('medio-following')
+      }
+    })
+
     const close = document.getElementById('medio-radio-close')
     close.addEventListener('click', () => {
       document.getElementById('medio-radio').outerHTML = medioRadioUI.builder
@@ -481,6 +525,8 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
 
     medioRadio.currentTrack = 0
     audio.src = current.medioRadio[0].song_path + '?t=' + new Date().getTime()
+
+    medioRadio.trackId = current.medioRadio[0].id
 
     if (medioRadio.hasAnnouncer) {
       medioRadio.shouldAnnounce = false
@@ -559,10 +605,13 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       if (durationSeconds < 10) durationSeconds = '0' + durationSeconds
       if (durationMinutes < 10) durationMinutes = '0' + durationMinutes
 
-      if (audio.duration)
-        indicator.textContent = `${minutes}:${seconds} / ${durationMinutes}:${durationSeconds}`
+      if (audio.duration) {
+        indicator.querySelector('#medio-radio-timestamp').textContent = `${minutes}:${seconds}`
+        indicator.querySelector('#medio-radio-duration').textContent = `${durationMinutes}:${durationSeconds}`
+      }
 
       if (audio.currentTime === audio.duration) {
+        medioRadio.trackListen()
         if (medioRadio.hasAnnouncer) {
           medioRadio.nextTrack(true)
           medioRadio.dj.play()
@@ -571,6 +620,62 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
         }
       }
     })
+  },
+
+  trackListen: async () => {
+    fetch('https://www.udio.com/api/increment-play-count', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        songId: medioRadio.trackId,
+      }),
+    })
+  },
+
+  likeTrack: async () => {
+    fetch('https://www.udio.com/api/songs/like', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        songId: medioRadio.trackId,
+      }),
+    })
+  },
+
+  dislikeTrack: async () => {
+    fetch('https://www.udio.com/api/songs/like/' + medioRadio.trackId, {
+      method: 'DELETE',
+    })
+  },
+
+  checkIfHeard: async (id, liked) => {
+    medioRadio.trackHearted = liked
+
+    const hasHeard = document.querySelector('#medioHasHeard')
+    if (!hasHeard) return
+    let hasListened = await chrome.storage.local.get('medioRadioListened')
+    if (hasListened.medioRadioListened.includes(id)) {
+      hasHeard.style.display = 'block'
+    } else {
+      hasHeard.style.display = 'none'
+    }
+
+    const hearted = document.querySelector('#medio-hearted')
+    const unhearted = document.querySelector('#medio-unhearted')
+    if (liked) {
+      hearted.style.display = 'block'
+      unhearted.style.display = 'none'
+    } else {
+      hearted.style.display = 'none'
+      unhearted.style.display = 'block'
+    }
+
+    // TODO: check if following
+    // TODO: trigger listen
   },
 
   nextTrack: async (paused = false) => {
@@ -603,11 +708,23 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     if (next && medioRadio.currentTrack < current.medioRadio.length) {
       medioRadio.currentTrack++
 
+      medioRadio.checkIfHeard(next.id, next.liked)
+
       document.querySelector('.track-cover img').src = next.image_path
       document.querySelector('.medio-radio-title').textContent = next.title
       document.querySelector('.medio-radio-artist').textContent = 'by ' + next.artist
       document.querySelector('.medio-radio-artist').href = `https://www.udio.com/creators/${next.artist}`
       document.querySelector('.medio-radio-title').href = `https://www.udio.com/songs/${next.id}`
+
+      medioRadio.trackId = next.id
+
+      if (next.liked) {
+        document.querySelector('#medio-hearted').style.display = 'block'
+        document.querySelector('#medio-unhearted').style.display = 'none'
+      } else {
+        document.querySelector('#medio-hearted').style.display = 'none'
+        document.querySelector('#medio-unhearted').style.display = 'block'
+      }
 
       audio.src = next.song_path + '?t=' + new Date().getTime()
       audio.load()
@@ -654,7 +771,6 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
           },
           body: JSON.stringify({
             searchQuery: {
-              sort: 'cache_trending_score',
               searchTerm: genre,
             },
             pageParam: page,
@@ -669,18 +785,35 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
         await new Promise(resolve => setTimeout(resolve, 2000))
       }
       medioRadio.trimTrackList(genres, medioRadio.broadcastLength)
-    } else if (medioRadio.listType === 'trending') {
+    } else if (medioRadio.listType === 'trending' || medioRadio.listType === 'mostliked') {
+      let query = {
+        maxAgeInHours: 168,
+        sort: 'cache_trending_score',
+        searchTerm: '',
+      }
+      switch (medioRadio.listType) {
+        case 'mostliked':
+          query = {
+            maxAgeInHours: 168,
+            searchTerm: '',
+            sort: 'likes',
+          }
+          break
+        case 'trending':
+          query = {
+            maxAgeInHours: 168,
+            sort: 'cache_trending_score',
+            searchTerm: '',
+          }
+          break
+      }
       await fetch(`https://www.udio.com/api/songs/search`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          searchQuery: {
-            maxAgeInHours: 168,
-            sort: 'likes',
-            searchTerm: '',
-          },
+          searchQuery: query,
           pageParam: page,
           pageSize: pageSize,
         }),
@@ -691,6 +824,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
           if (medioRadio.shuffle) {
             result = result.sort(() => 0.5 - Math.random())
           }
+          console.log(result)
           medioRadio.processTracks(result)
         })
     } else if (medioRadio.listType === 'playlist') {
@@ -762,9 +896,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
 
     if (!medioRadio.hasAnnouncer) {
       medioRadio.start(current)
-      if (medioRadio.shouldRecord) {
-        medioRadio.record()
-      }
+
       const playButton = document.querySelector('.medio-radio-play')
       playButton.click()
     } else {
@@ -779,77 +911,10 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       apiMedioAI.openAITalk(medioRadio.djMessage, medioRadio.djVoice, data => {
         medioRadio.djBuffer = data
         document.getElementById('medio-radio-loading').style.display = 'none'
-        if (medioRadio.shouldRecord) {
-          medioRadio.record()
-        }
+
         medioRadio.start(current)
       })
     })
-  },
-
-  record: async () => {
-    // const djmusic = document.getElementById('medio-radio-background')
-    // const djvoice = document.getElementById('medio-radio-dj')
-    // const music = document.getElementById('medio-radio-audio')
-    // const audioMixer = new MultiStreamsMixer([djmusic, djvoice, music])
-
-    // record using MediaRecorder API
-    // medioRadio.mediaRecorder = new MediaRecorder(audioMixer.getMixedStream())
-
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)()
-
-    // Create a MediaStreamDestination node
-    const mediaStreamDestination = audioContext.createMediaStreamDestination()
-
-    // Connect the destination node to the context's output
-    audioContext.destination.connect(mediaStreamDestination)
-
-    // Get the MediaStream from the MediaStreamDestination
-    const mediaStream = mediaStreamDestination.stream
-
-    // Now you have a MediaStream that contains the audio output of the context
-
-    // You can use this mediaStream to record audio using MediaRecorder API
-    const mediaRecorder = new MediaRecorder(mediaStream)
-    // const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-    // medioRadio.mediaRecorder = new MediaRecorder(stream)
-    // const audioChunks = []
-
-    medioRadio.mediaRecorder.ondataavailable = event => {
-      audioChunks.push(event.data)
-    }
-
-    medioRadio.isRecording = true
-    medioRadio.mediaRecorder.start()
-
-    medioRadio.mediaRecorder.onstop = async () => {
-      const id = utilitiesMedioAI.uuidv4()
-      let recorded = await chrome.storage.local.get('medioRadioRecorded')
-      if (!recorded.medioRadio) {
-        recorded = {
-          medioRadioRecorded: [],
-        }
-      }
-      recorded.medioRadioRecorded.push({
-        id: id,
-        created_at: new Date().toISOString(),
-      })
-
-      console.log(audioChunks)
-      const audioBlob = new Blob(audioChunks, { type: 'audio/webm' })
-
-      await chrome.storage.local.set({ medioRadioRecorded: recorded.medioRadioRecorded })
-      await chrome.storage.local.set({ ['medioRadioWAV_' + id]: audioBlob })
-      utilitiesMedioAI.showNotification('Recording saved. Download in settings panel.', 'success')
-
-      // download audioBlob
-      const url = URL.createObjectURL(audioBlob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = `medio_radio_${id}.wav`
-      a.click()
-      URL.revokeObjectURL(url)
-    }
   },
 
   processTracks: async tracks => {
@@ -1211,10 +1276,31 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
   },
 }
 
+const medioRadioTopActions = /* html */ `
+      <div id="medio-radio-topactions" class="flex items-center space-x-1">
+      <button id="medio-radio-trippy">
+        <svg id="medio-trippy-on" style="display:none" xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 256 256"><path fill="currentColor" d="M128 16a96.11 96.11 0 0 0-96 96c0 24 12.56 55.06 33.61 83c21.18 28.15 44.5 45 62.39 45s41.21-16.81 62.39-45c21.05-28 33.61-59 33.61-83a96.11 96.11 0 0 0-96-96m49.61 169.42C160.24 208.49 140.31 224 128 224s-32.24-15.51-49.61-38.58C59.65 160.5 48 132.37 48 112a80 80 0 0 1 160 0c0 20.37-11.65 48.5-30.39 73.42M120 136a40 40 0 0 0-40-40a16 16 0 0 0-16 16a40 40 0 0 0 40 40a16 16 0 0 0 16-16m-40-24a24 24 0 0 1 24 24a24 24 0 0 1-24-24m96-16a40 40 0 0 0-40 40a16 16 0 0 0 16 16a40 40 0 0 0 40-40a16 16 0 0 0-16-16m-24 40a24 24 0 0 1 24-24a24 24 0 0 1-24 24m0 48a8 8 0 0 1-8 8h-32a8 8 0 0 1 0-16h32a8 8 0 0 1 8 8"/></svg>
+        <svg id="medio-trippy-off" xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 256 256"><g fill="currentColor"><path d="M128 24a88 88 0 0 0-88 88c0 48.6 56 120 88 120s88-71.4 88-120a88 88 0 0 0-88-88m-24 120a32 32 0 0 1-32-32a8 8 0 0 1 8-8a32 32 0 0 1 32 32a8 8 0 0 1-8 8m48 0a8 8 0 0 1-8-8a32 32 0 0 1 32-32a8 8 0 0 1 8 8a32 32 0 0 1-32 32" opacity="0.2"/><path d="M128 16a96.11 96.11 0 0 0-96 96c0 24 12.56 55.06 33.61 83c21.18 28.15 44.5 45 62.39 45s41.21-16.81 62.39-45c21.05-28 33.61-59 33.61-83a96.11 96.11 0 0 0-96-96m49.61 169.42C160.24 208.49 140.31 224 128 224s-32.24-15.51-49.61-38.58C59.65 160.5 48 132.37 48 112a80 80 0 0 1 160 0c0 20.37-11.65 48.5-30.39 73.42M120 136a40 40 0 0 0-40-40a16 16 0 0 0-16 16a40 40 0 0 0 40 40a16 16 0 0 0 16-16m-40-24a24 24 0 0 1 24 24a24 24 0 0 1-24-24m96-16a40 40 0 0 0-40 40a16 16 0 0 0 16 16a40 40 0 0 0 40-40a16 16 0 0 0-16-16m-24 40a24 24 0 0 1 24-24a24 24 0 0 1-24 24m0 48a8 8 0 0 1-8 8h-32a8 8 0 0 1 0-16h32a8 8 0 0 1 8 8"/></g></svg>
+      </button>
+
+      <button id="medio-radio-lights" class="cursor-pointer">
+        <svg id="medio-lights-on" style="display:none;color: #1AD1A9" xmlns="http://www.w3.org/2000/svg" width="1.9em" height="1.9em" viewBox="0 0 24 24"><g fill="none"><rect width="14" height="10" x="5" y="7" stroke="currentColor" rx="2"/><rect width="5" height="6" x="12" y="9" fill="currentColor" rx="1"/></g></svg>
+        <svg id="medio-lights-off" xmlns="http://www.w3.org/2000/svg" width="1.9em" height="1.9em" viewBox="0 0 24 24"><g fill="none"><rect width="14" height="10" x="5" y="7" stroke="currentColor" rx="2"/><rect width="5" height="6" x="7" y="9" fill="currentColor" rx="1"/></g></svg>
+      </button>
+
+       <button id="medio-radio-expander">
+        <svg id="medio-contract-off"  xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 20 20"><g fill="currentColor"><path d="M11.354 9.354a.5.5 0 0 1-.708-.708l4-4a.5.5 0 0 1 .708.708zm-6 6a.5.5 0 0 1-.708-.708l4-4a.5.5 0 0 1 .708.708z"/><path d="M5 15.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1z"/><path d="M5.5 15a.5.5 0 0 1-1 0v-4a.5.5 0 0 1 1 0zm10-6a.5.5 0 0 1-1 0V5a.5.5 0 0 1 1 0z"/><path d="M11 5.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1z"/></g></svg>
+        <svg id="medio-contract-on" style="display:none; color: #1AD1A9" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 20 20"><g fill="currentColor"><path d="M11.707 9.707a1 1 0 0 1-1.414-1.414l4-4a1 1 0 1 1 1.414 1.414z"/><path d="M11 10a1 1 0 1 1 0-2h4a1 1 0 1 1 0 2z"/><path d="M12 9a1 1 0 1 1-2 0V5a1 1 0 1 1 2 0zm-6.293 6.707a1 1 0 0 1-1.414-1.414l4-4a1 1 0 1 1 1.414 1.414z"/><path d="M10 15a1 1 0 1 1-2 0v-4a1 1 0 1 1 2 0z"/><path d="M5 12a1 1 0 1 1 0-2h4a1 1 0 1 1 0 2z"/></g></svg>
+      </button>
+
+      <button id="medio-radio-close"><svg xmlns="http://www.w3.org/2000/svg" width="0.7em" height="0.7em" viewBox="0 0 1216 1312"><path fill="currentColor" d="M1202 1066q0 40-28 68l-136 136q-28 28-68 28t-68-28L608 976l-294 294q-28 28-68 28t-68-28L42 1134q-28-28-28-68t28-68l294-294L42 410q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294l294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68L880 704l294 294q28 28 28 68"/></svg></button>
+  </div>`
+
 const medioRadioUI = {
   builder: /* html */ `
     <div id="medio-radio" style="background: #0C0F14;display: none">
-      <div id="medio-radio-close"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20"><path fill="currentColor" d="M2.93 17.07A10 10 0 1 1 17.07 2.93A10 10 0 0 1 2.93 17.07M11.4 10l2.83-2.83l-1.41-1.41L10 8.59L7.17 5.76L5.76 7.17L8.59 10l-2.83 2.83l1.41 1.41L10 11.41l2.83 2.83l1.41-1.41L11.41 10z"/></svg></div>
+    ${medioRadioTopActions}
+
       <div>
        <h2 class="text-2xl flex items-center mb-2">
         <img src="${chrome.runtime.getURL('icon/128x128.png')}" style="width:
@@ -1246,9 +1332,10 @@ const medioRadioUI = {
       <h4 class="text-sm text-gray-400 mb-1 mt-3">Type</h4>
       <select id="medio-radio-type" class="w-full border bg-gray-1000 text-white p-2 rounded-lg">
         <option value="tags">Tag Search</option>
-        <option value="trending">Trending</option>
         <option value="playlist">Playlist</option>
         <option value="artist">Artist Profile</option>
+        <option value="mostliked">Most Liked</option>
+        <option value="trending">Trending</option>
       </select>
 </div>
 
@@ -1408,30 +1495,52 @@ const medioRadioUI = {
    
        <div class="track-cover">
        <img src="https://imagedelivery.net/C9yUr1FL21Q6JwfYYh2ozQ/7c49c1ba-8e70-476f-2693-e988e7a9ae00/width=728,quality=100" />
-        <div class="track-play"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"><defs><mask id="ipSPlay0"><g fill="none" stroke-linejoin="round" stroke-width="4"><path fill="#fff" d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20Z"/><path fill="#000" stroke="#000" d="M20 24v-6.928l6 3.464L32 24l-6 3.464l-6 3.464z"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSPlay0)"/></svg></div>
-        <div class="track-pause"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20"><path fill="currentColor" d="M2.93 17.07A10 10 0 1 1 17.07 2.93A10 10 0 0 1 2.93 17.07M7 6v8h2V6zm4 0v8h2V6z"/></svg></div>
+        <div class="track-play  cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg></div>
+        <div class="track-pause"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M12 8v16H8V8zm0-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2m12 2v16h-4V8zm0-2h-4a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2"/></svg></div>
        </div>
       
        <div class="medio-radio-info mb-2">
-        <a href="#" target="_blank" class="medio-radio-title block truncate text-3xl font-bold mb-1 hover:underline">Track Title</a>
-        <a href="#" target="_blank" class="medio-radio-artist block hover:underline text-lg opacity-50 mb-4">Track Artist</a>
+        <a href="#" target="_blank" class="medio-radio-title block truncate text-3xl font-bold mb-1.5 hover:underline cursor-pointer">Track Title</a>
+        <div class="flex space-x-2 items-center justify-between">
+          <a href="#" target="_blank" class="medio-radio-artist block hover:underline text-lg text-light-gray cursor-pointer">Track Artist</a>
+          <button id="medio-follow">Follow</div>
+        </div>
        </div>
 
        <div class="medio-radio-controls">
         <div class="flex space-x-2 items-center justify-between">
-          <button class="medio-radio-play"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg></button>
+          <div class="flex items-center">
+            <button class="medio-radio-play cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"><defs><mask id="ipSPlay0"><g fill="none" stroke-linejoin="round" stroke-width="4"><path fill="#fff" stroke="#fff" d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20Z"/><path fill="#000" stroke="#000" d="M20 24v-6.928l6 3.464L32 24l-6 3.464l-6 3.464z"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSPlay0)"/></svg></button>
+             <button class="medio-radio-pause" style="display: none"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"><defs><mask id="ipSPauseOne0"><g fill="none" stroke-linejoin="round" stroke-width="4"><path fill="#fff" stroke="#fff" d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20Z"/><path stroke="#000" stroke-linecap="round" d="M19 18v12m10-12v12"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSPauseOne0)"/></svg></button>
 
-          <button class="medio-radio-pause" style="display: none"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M12 6h-2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2m10 0h-2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2"/></svg></button>
+            <button id="medio-radio-heart" class="cursor-pointer">
+              <svg id="medio-hearted" style="display: none" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="red" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart "><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+              <svg id="medio-unhearted" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="white" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart "><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+            </button>
+
+            <button id="medio-radio-ban" class="cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 1200 1200"><path fill="currentColor" d="M1024.263 175.738c-234.317-234.317-614.192-234.317-848.525 0c-234.317 234.317-234.317 614.192 0 848.525c234.317 234.316 614.192 234.316 848.525 0c234.316-234.318 234.316-614.193 0-848.525m-163.489 57.44L233.193 860.743c-125.257-175.737-109.044-421.274 48.624-578.942s403.219-173.881 578.942-48.624zm106.064 106.048c125.248 175.738 109.031 421.29-48.654 578.942c-157.652 157.683-403.205 173.911-578.942 48.639l627.581-627.581z"/></svg>
+            </button>
+          </div>
 
           <div id="aiLoading" class="flex items-center space-x-2" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8A8 8 0 0 1 12 20Z" opacity="0.5"/><path fill="currentColor" d="M20 12h2A10 10 0 0 0 12 2V4A8 8 0 0 1 20 12Z"><animateTransform attributeName="transform" dur="1s" from="0 12 12" repeatCount="indefinite" to="360 12 12" type="rotate"/></path></svg> <span class="text-xs opacity-50">AI Preparing...</span></div>
           
-          <button class="medio-radio-next flex space-x-2 items-center"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none"><path d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M3.569 5.865A1.332 1.332 0 0 1 5.415 4.8l.646.283l.511.233l.597.283l.676.331l.49.249l.793.414l.564.304l.588.326l.613.349l.633.37l.599.361l.564.349l.778.496l.694.458l.607.414l.517.363l.541.394l.206.154c.71.535.71 1.594.001 2.13l-.43.319l-.273.198l-.664.465l-.595.404l-.443.292l-.73.47l-.81.5l-.581.35l-.615.36l-.62.352l-.593.33l-.566.305l-.538.283l-.748.381l-.673.331l-.773.364l-.744.332l-.224.096a1.332 1.332 0 0 1-1.844-1.065l-.08-.698l-.071-.767l-.053-.689l-.05-.78l-.028-.57l-.024-.605l-.019-.64l-.015-1.026v-.715l.015-1.024l.03-.948l.026-.587l.03-.55l.052-.75l.054-.657l.07-.722zM19 5a1 1 0 0 1 .993.883L20 6v12a1 1 0 0 1-.883.993L19 19h-1a1 1 0 0 1-.993-.883L17 18V6a1 1 0 0 1 .883-.993L18 5z"/></g></svg> <span class="text-sm opacity-50 hover:opacity-100">Next Track</span></button>
+          <button class="medio-radio-next flex space-x-2 items-center text-light-gray"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none"><path d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M3.569 5.865A1.332 1.332 0 0 1 5.415 4.8l.646.283l.511.233l.597.283l.676.331l.49.249l.793.414l.564.304l.588.326l.613.349l.633.37l.599.361l.564.349l.778.496l.694.458l.607.414l.517.363l.541.394l.206.154c.71.535.71 1.594.001 2.13l-.43.319l-.273.198l-.664.465l-.595.404l-.443.292l-.73.47l-.81.5l-.581.35l-.615.36l-.62.352l-.593.33l-.566.305l-.538.283l-.748.381l-.673.331l-.773.364l-.744.332l-.224.096a1.332 1.332 0 0 1-1.844-1.065l-.08-.698l-.071-.767l-.053-.689l-.05-.78l-.028-.57l-.024-.605l-.019-.64l-.015-1.026v-.715l.015-1.024l.03-.948l.026-.587l.03-.55l.052-.75l.054-.657l.07-.722zM19 5a1 1 0 0 1 .993.883L20 6v12a1 1 0 0 1-.883.993L19 19h-1a1 1 0 0 1-.993-.883L17 18V6a1 1 0 0 1 .883-.993L18 5z"/></g></svg> <span class="text-sm opacity-50 hover:opacity-100">Next Track</span></button>
         </div>
 
         <div class="medio-radio-progress"><div class="audio-radio-bar"></div></div>
         <div class="mt-2">
-          <div class="medio-radio-indicator">0:00 / 0:00</div>
-          <div class="medio-radio-broadcast text-xs mt-1 opacity-50">Track 1 of 1</div>
+          <div class="medio-radio-indicator flex items-center justify-between w-full">
+            <span id="medio-radio-timestamp">0:00</span>
+            <span id="medio-radio-duration">0:00</span>
+          </div>
+          <div class="flex items-center space-x-3 mt-1">
+            <div class="medio-radio-broadcast text-xs text-light-gray">Track 1 of 1</div>
+            <div id="medioHasHeard" style="display: none">
+              <svg xmlns="http://www.w3.org/2000/svg" style="color: #E3095D" width="0.8em" height="0.8em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"><circle cx="12" cy="12" r="2"/><circle cx="18" cy="9" r="2"/><path d="M15.318 3.631a9 9 0 1 0 5.368 10.736M20 9V2l2 2"/></g></svg>
+              <div class="medio-tooltip">Track has been played before.</div>
+            </div>
+          </div>
         </div>
        </div>
        
@@ -1467,7 +1576,7 @@ const medioRadioUI = {
        <audio id="medio-radio-background" style="display: none" src="#" preload="auto"></audio>
        <audio id="medio-radio-dj" style="display: none" src="#" preload="auto"></audio>
        
-        <div id="medio-radio-close"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20"><path fill="currentColor" d="M2.93 17.07A10 10 0 1 1 17.07 2.93A10 10 0 0 1 2.93 17.07M11.4 10l2.83-2.83l-1.41-1.41L10 8.59L7.17 5.76L5.76 7.17L8.59 10l-2.83 2.83l1.41 1.41L10 11.41l2.83 2.83l1.41-1.41L11.41 10z"/></svg></div>`,
+        ${medioRadioTopActions}`,
 }
 
 medioRadio.init()
