@@ -802,6 +802,17 @@ select.medioAddTag {
   cursor: pointer;
 }
 
+#medio-lights-on-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999999999;
+  background: rgba(0, 0, 0, 0.92);
+  opacity: 0;
+}
+
 #medio-radio .track-cover {
   position: relative;
   margin-bottom: 15px;
@@ -1142,8 +1153,8 @@ input:checked + .medio-slider:before {
 }
 
 #medio-follow.medio-following {
-  color: #1ccfa5;
-  box-shadow: 0 0 0 1px #074e3d, 0 0 0 2px #1ccfa5;
+  color: #c3c3d1;
+  box-shadow: 0 0 0 1px rgb(61, 70, 89), 0 0 0 2px rgb(117, 131, 159);
 }
 
 .text-light-gray {

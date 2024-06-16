@@ -130,7 +130,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
   deploy: () => {
     medioRadio.shuffle = false
 
-    medioRadio.topActions()
+    medioRadio.topActions(false)
 
     const container = document.getElementById('medio-radio')
 
@@ -416,7 +416,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     })
   },
 
-  topActions: () => {
+  topActions: (show = false) => {
     const close = document.getElementById('medio-radio-close')
     close.addEventListener('click', () => {
       medioRadio.currentIndex = 0
@@ -433,42 +433,72 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     })
 
     const trippyVisualizer = document.getElementById('medio-radio-trippy')
-    trippyVisualizer.addEventListener('click', () => {
-      medioRadio.trippyVisualizer = !medioRadio.trippyVisualizer
-      if (medioRadio.trippyVisualizer) {
-        trippyVisualizer.querySelector('#medio-trippy-on').style.display = 'block'
-        trippyVisualizer.querySelector('#medio-trippy-off').style.display = 'none'
-      } else {
-        trippyVisualizer.querySelector('#medio-trippy-on').style.display = 'none'
-        trippyVisualizer.querySelector('#medio-trippy-off').style.display = 'block'
-      }
-    })
-
     const expander = document.getElementById('medio-radio-expander')
-    expander.addEventListener('click', () => {
-      const radio = document.getElementById('medio-radio')
-      if (radio.classList.contains('medio-radio-small')) {
-        radio.classList.remove('medio-radio-small')
-        expander.querySelector('#medio-contract-off').style.display = 'block'
-        expander.querySelector('#medio-contract-on').style.display = 'none'
-      } else {
-        radio.classList.add('medio-radio-small')
-        expander.querySelector('#medio-contract-off').style.display = 'none'
-        expander.querySelector('#medio-contract-on').style.display = 'block'
-      }
-    })
-
     const lights = document.getElementById('medio-radio-lights')
-    lights.addEventListener('click', () => {
-      medioRadio.lights = !medioRadio.lights
-      if (medioRadio.lights) {
-        lights.querySelector('#medio-lights-on').style.display = 'block'
-        lights.querySelector('#medio-lights-off').style.display = 'none'
-      } else {
-        lights.querySelector('#medio-lights-on').style.display = 'none'
-        lights.querySelector('#medio-lights-off').style.display = 'block'
-      }
-    })
+
+    if (show) {
+      trippyVisualizer.style.cursor = 'pointer'
+      trippyVisualizer.style.opacity = '1'
+      expander.style.cursor = 'pointer'
+      expander.style.opacity = '1'
+      lights.style.cursor = 'pointer'
+      lights.style.opacity = '1'
+
+      trippyVisualizer.addEventListener('click', () => {
+        medioRadio.trippyVisualizer = !medioRadio.trippyVisualizer
+        if (medioRadio.trippyVisualizer) {
+          trippyVisualizer.querySelector('#medio-trippy-on').style.display = 'block'
+          trippyVisualizer.querySelector('#medio-trippy-off').style.display = 'none'
+        } else {
+          trippyVisualizer.querySelector('#medio-trippy-on').style.display = 'none'
+          trippyVisualizer.querySelector('#medio-trippy-off').style.display = 'block'
+        }
+      })
+
+      lights.addEventListener('click', () => {
+        medioRadio.lights = !medioRadio.lights
+        if (medioRadio.lights) {
+          lights.querySelector('#medio-lights-on').style.display = 'block'
+          lights.querySelector('#medio-lights-off').style.display = 'none'
+
+          const lightsOnOverlay = document.createElement('div')
+          lightsOnOverlay.id = 'medio-lights-on-overlay'
+          lightsOnOverlay.classList.add('fade-in')
+          document.body.appendChild(lightsOnOverlay)
+        } else {
+          lights.querySelector('#medio-lights-on').style.display = 'none'
+          lights.querySelector('#medio-lights-off').style.display = 'block'
+          if (document.getElementById('medio-lights-on-overlay')) {
+            const lightsOnOverlay = document.getElementById('medio-lights-on-overlay')
+            lightsOnOverlay.classList.remove('fade-in')
+            lightsOnOverlay.classList.add('fade-out')
+            setTimeout(() => {
+              lightsOnOverlay.remove()
+            }, 3200)
+          }
+        }
+      })
+
+      expander.addEventListener('click', () => {
+        const radio = document.getElementById('medio-radio')
+        if (radio.classList.contains('medio-radio-small')) {
+          radio.classList.remove('medio-radio-small')
+          expander.querySelector('#medio-contract-off').style.display = 'block'
+          expander.querySelector('#medio-contract-on').style.display = 'none'
+        } else {
+          radio.classList.add('medio-radio-small')
+          expander.querySelector('#medio-contract-off').style.display = 'none'
+          expander.querySelector('#medio-contract-on').style.display = 'block'
+        }
+      })
+    } else {
+      trippyVisualizer.style.cursor = 'default'
+      trippyVisualizer.style.opacity = '0'
+      expander.style.cursor = 'default'
+      expander.style.opacity = '0'
+      lights.style.cursor = 'default'
+      lights.style.opacity = '0'
+    }
   },
 
   build: async () => {
@@ -571,7 +601,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       }
     })
 
-    medioRadio.topActions()
+    medioRadio.topActions(true)
 
     const playButton = document.querySelector('.medio-radio-play')
     const pauseButton = document.querySelector('.medio-radio-pause')
@@ -1389,17 +1419,17 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
 
 const medioRadioTopActions = /* html */ `
       <div id="medio-radio-topactions" class="flex items-center space-x-1 text-light-gray">
-      <button id="medio-radio-trippy">
+      <button id="medio-radio-trippy" >
         <svg id="medio-trippy-off"  xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 256 256"><path fill="currentColor" d="M128 16a96.11 96.11 0 0 0-96 96c0 24 12.56 55.06 33.61 83c21.18 28.15 44.5 45 62.39 45s41.21-16.81 62.39-45c21.05-28 33.61-59 33.61-83a96.11 96.11 0 0 0-96-96m49.61 169.42C160.24 208.49 140.31 224 128 224s-32.24-15.51-49.61-38.58C59.65 160.5 48 132.37 48 112a80 80 0 0 1 160 0c0 20.37-11.65 48.5-30.39 73.42M120 136a40 40 0 0 0-40-40a16 16 0 0 0-16 16a40 40 0 0 0 40 40a16 16 0 0 0 16-16m-40-24a24 24 0 0 1 24 24a24 24 0 0 1-24-24m96-16a40 40 0 0 0-40 40a16 16 0 0 0 16 16a40 40 0 0 0 40-40a16 16 0 0 0-16-16m-24 40a24 24 0 0 1 24-24a24 24 0 0 1-24 24m0 48a8 8 0 0 1-8 8h-32a8 8 0 0 1 0-16h32a8 8 0 0 1 8 8"/></svg>
         <svg id="medio-trippy-on" style="display:none; color: #1BD4B3" xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 256 256"><g fill="currentColor"><path d="M128 24a88 88 0 0 0-88 88c0 48.6 56 120 88 120s88-71.4 88-120a88 88 0 0 0-88-88m-24 120a32 32 0 0 1-32-32a8 8 0 0 1 8-8a32 32 0 0 1 32 32a8 8 0 0 1-8 8m48 0a8 8 0 0 1-8-8a32 32 0 0 1 32-32a8 8 0 0 1 8 8a32 32 0 0 1-32 32" opacity="0.2"/><path d="M128 16a96.11 96.11 0 0 0-96 96c0 24 12.56 55.06 33.61 83c21.18 28.15 44.5 45 62.39 45s41.21-16.81 62.39-45c21.05-28 33.61-59 33.61-83a96.11 96.11 0 0 0-96-96m49.61 169.42C160.24 208.49 140.31 224 128 224s-32.24-15.51-49.61-38.58C59.65 160.5 48 132.37 48 112a80 80 0 0 1 160 0c0 20.37-11.65 48.5-30.39 73.42M120 136a40 40 0 0 0-40-40a16 16 0 0 0-16 16a40 40 0 0 0 40 40a16 16 0 0 0 16-16m-40-24a24 24 0 0 1 24 24a24 24 0 0 1-24-24m96-16a40 40 0 0 0-40 40a16 16 0 0 0 16 16a40 40 0 0 0 40-40a16 16 0 0 0-16-16m-24 40a24 24 0 0 1 24-24a24 24 0 0 1-24 24m0 48a8 8 0 0 1-8 8h-32a8 8 0 0 1 0-16h32a8 8 0 0 1 8 8"/></g></svg>
       </button>
 
-      <button id="medio-radio-lights" class="cursor-pointer">
+      <button id="medio-radio-lights"  class="cursor-pointer">
         <svg id="medio-lights-on" style="display:none;color: #1AD1A9" xmlns="http://www.w3.org/2000/svg" width="1.9em" height="1.9em" viewBox="0 0 24 24"><g fill="none"><rect width="14" height="10" x="5" y="7" stroke="currentColor" rx="2"/><rect width="5" height="6" x="12" y="9" fill="currentColor" rx="1"/></g></svg>
         <svg id="medio-lights-off" xmlns="http://www.w3.org/2000/svg" width="1.9em" height="1.9em" viewBox="0 0 24 24"><g fill="none"><rect width="14" height="10" x="5" y="7" stroke="currentColor" rx="2"/><rect width="5" height="6" x="7" y="9" fill="currentColor" rx="1"/></g></svg>
       </button>
 
-       <button id="medio-radio-expander">
+       <button id="medio-radio-expander" >
         <svg id="medio-contract-off"  xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 20 20"><g fill="currentColor"><path d="M11.354 9.354a.5.5 0 0 1-.708-.708l4-4a.5.5 0 0 1 .708.708zm-6 6a.5.5 0 0 1-.708-.708l4-4a.5.5 0 0 1 .708.708z"/><path d="M5 15.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1z"/><path d="M5.5 15a.5.5 0 0 1-1 0v-4a.5.5 0 0 1 1 0zm10-6a.5.5 0 0 1-1 0V5a.5.5 0 0 1 1 0z"/><path d="M11 5.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1z"/></g></svg>
         <svg id="medio-contract-on" style="display:none; color: #1AD1A9" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 20 20"><g fill="currentColor"><path d="M11.707 9.707a1 1 0 0 1-1.414-1.414l4-4a1 1 0 1 1 1.414 1.414z"/><path d="M11 10a1 1 0 1 1 0-2h4a1 1 0 1 1 0 2z"/><path d="M12 9a1 1 0 1 1-2 0V5a1 1 0 1 1 2 0zm-6.293 6.707a1 1 0 0 1-1.414-1.414l4-4a1 1 0 1 1 1.414 1.414z"/><path d="M10 15a1 1 0 1 1-2 0v-4a1 1 0 1 1 2 0z"/><path d="M5 12a1 1 0 1 1 0-2h4a1 1 0 1 1 0 2z"/></g></svg>
       </button>
