@@ -510,8 +510,50 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     }, 0)
   },
 
+  recordAudio: () => {
+    let audioContext = new (window.AudioContext || window.webkitAudioContext)()
+    let recordedChunks = []
+    let destinationNode = audioContext.createMediaStreamDestination()
+
+    let audioElements = [
+      document.getElementById('medio-radio-audio'),
+      document.getElementById('medio-radio-background'),
+      document.getElementById('medio-radio-dj'),
+    ]
+
+    audioElements.forEach(audio => {
+      let source = audioContext.createMediaElementSource(audio)
+      let gainNode = audioContext.createGain()
+      source.connect(gainNode).connect(audioContext.destination)
+      gainNode.connect(destinationNode)
+    })
+
+    medioRadio.mediaRecorder = new MediaRecorder(destinationNode.stream)
+    medioRadio.mediaRecorder.ondataavailable = event => {
+      recordedChunks.push(event.data)
+    }
+    medioRadio.mediaRecorder.start()
+  },
+
+  endRecording: () => {
+    medioRadio.mediaRecorder.stop()
+    medioRadio.mediaRecorder.onstop = () => {
+      let blob = new Blob(recordedChunks, { type: 'audio/mp3' })
+      let url = URL.createObjectURL(blob)
+      let downloadLink = document.getElementById('downloadLink')
+      downloadLink.href = url
+      downloadLink.download = 'recording.mp3'
+      downloadLink.style.display = 'block'
+    }
+  },
+
   start: async current => {
     document.getElementById('medio-radio').innerHTML = medioRadioUI.player
+
+    // if (medioRadio.shouldRecord) {
+    //   medioRadio.isRecording = true
+    //   medioRadio.recordAudio()
+    // }
 
     if (!current.medioRadio[0]?.id) {
       utilitiesMedioAI.showNotification(
@@ -704,6 +746,9 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
 
       if (audio.currentTime === audio.duration) {
         medioRadio.trackListen()
+        if (medioRadio.isRecording) {
+          medioRadio.endRecording()
+        }
         if (medioRadio.hasAnnouncer) {
           medioRadio.nextTrack(true)
           medioRadio.dj.play()
@@ -793,6 +838,11 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     await new Promise(resolve => setTimeout(resolve, 1000))
 
     const html = hiddenIframe.contentWindow.document.body.innerHTML
+    const followButton = document.getElementById('medio-follow')
+    if (!followButton) {
+      hiddenIframe.remove()
+      return
+    }
     if (html && html.includes('Following</button')) {
       document.getElementById('medio-follow').textContent = 'Following'
       document.getElementById('medio-follow').classList.add('medio-following')
@@ -1419,7 +1469,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
 
 const medioRadioTopActions = /* html */ `
       <div id="medio-radio-topactions" class="flex items-center space-x-1 text-light-gray">
-      <button id="medio-radio-trippy" >
+      <button id="medio-radio-trippy" style="display:none">
         <svg id="medio-trippy-off"  xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 256 256"><path fill="currentColor" d="M128 16a96.11 96.11 0 0 0-96 96c0 24 12.56 55.06 33.61 83c21.18 28.15 44.5 45 62.39 45s41.21-16.81 62.39-45c21.05-28 33.61-59 33.61-83a96.11 96.11 0 0 0-96-96m49.61 169.42C160.24 208.49 140.31 224 128 224s-32.24-15.51-49.61-38.58C59.65 160.5 48 132.37 48 112a80 80 0 0 1 160 0c0 20.37-11.65 48.5-30.39 73.42M120 136a40 40 0 0 0-40-40a16 16 0 0 0-16 16a40 40 0 0 0 40 40a16 16 0 0 0 16-16m-40-24a24 24 0 0 1 24 24a24 24 0 0 1-24-24m96-16a40 40 0 0 0-40 40a16 16 0 0 0 16 16a40 40 0 0 0 40-40a16 16 0 0 0-16-16m-24 40a24 24 0 0 1 24-24a24 24 0 0 1-24 24m0 48a8 8 0 0 1-8 8h-32a8 8 0 0 1 0-16h32a8 8 0 0 1 8 8"/></svg>
         <svg id="medio-trippy-on" style="display:none; color: #1BD4B3" xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 256 256"><g fill="currentColor"><path d="M128 24a88 88 0 0 0-88 88c0 48.6 56 120 88 120s88-71.4 88-120a88 88 0 0 0-88-88m-24 120a32 32 0 0 1-32-32a8 8 0 0 1 8-8a32 32 0 0 1 32 32a8 8 0 0 1-8 8m48 0a8 8 0 0 1-8-8a32 32 0 0 1 32-32a8 8 0 0 1 8 8a32 32 0 0 1-32 32" opacity="0.2"/><path d="M128 16a96.11 96.11 0 0 0-96 96c0 24 12.56 55.06 33.61 83c21.18 28.15 44.5 45 62.39 45s41.21-16.81 62.39-45c21.05-28 33.61-59 33.61-83a96.11 96.11 0 0 0-96-96m49.61 169.42C160.24 208.49 140.31 224 128 224s-32.24-15.51-49.61-38.58C59.65 160.5 48 132.37 48 112a80 80 0 0 1 160 0c0 20.37-11.65 48.5-30.39 73.42M120 136a40 40 0 0 0-40-40a16 16 0 0 0-16 16a40 40 0 0 0 40 40a16 16 0 0 0 16-16m-40-24a24 24 0 0 1 24 24a24 24 0 0 1-24-24m96-16a40 40 0 0 0-40 40a16 16 0 0 0 16 16a40 40 0 0 0 40-40a16 16 0 0 0-16-16m-24 40a24 24 0 0 1 24-24a24 24 0 0 1-24 24m0 48a8 8 0 0 1-8 8h-32a8 8 0 0 1 0-16h32a8 8 0 0 1 8 8"/></g></svg>
       </button>
@@ -1434,7 +1484,7 @@ const medioRadioTopActions = /* html */ `
         <svg id="medio-contract-on" style="display:none; color: #1AD1A9" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 20 20"><g fill="currentColor"><path d="M11.707 9.707a1 1 0 0 1-1.414-1.414l4-4a1 1 0 1 1 1.414 1.414z"/><path d="M11 10a1 1 0 1 1 0-2h4a1 1 0 1 1 0 2z"/><path d="M12 9a1 1 0 1 1-2 0V5a1 1 0 1 1 2 0zm-6.293 6.707a1 1 0 0 1-1.414-1.414l4-4a1 1 0 1 1 1.414 1.414z"/><path d="M10 15a1 1 0 1 1-2 0v-4a1 1 0 1 1 2 0z"/><path d="M5 12a1 1 0 1 1 0-2h4a1 1 0 1 1 0 2z"/></g></svg>
       </button>
 
-      <button id="medio-radio-close"><svg xmlns="http://www.w3.org/2000/svg" width="0.7em" height="0.7em" viewBox="0 0 1216 1312"><path fill="currentColor" d="M1202 1066q0 40-28 68l-136 136q-28 28-68 28t-68-28L608 976l-294 294q-28 28-68 28t-68-28L42 1134q-28-28-28-68t28-68l294-294L42 410q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294l294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68L880 704l294 294q28 28 28 68"/></svg></button>
+      <button id="medio-radio-close"><svg xmlns="http://www.w3.org/2000/svg" width="0.88em" height="0.88em" viewBox="0 0 1216 1312"><path fill="currentColor" d="M1202 1066q0 40-28 68l-136 136q-28 28-68 28t-68-28L608 976l-294 294q-28 28-68 28t-68-28L42 1134q-28-28-28-68t28-68l294-294L42 410q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294l294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68L880 704l294 294q28 28 28 68"/></svg></button>
   </div>`
 
 const medioRadioUI = {
