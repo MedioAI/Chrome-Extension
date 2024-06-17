@@ -1822,7 +1822,7 @@ const medioRadioUI = {
        <h2 class="text-2xl flex items-center mb-2">
         <img src="${chrome.runtime.getURL('icon/128x128.png')}" style="width:
       48px; height: 48px; border-radius: 6px; margin-right: 8px" />
-       <span>MedioAI Radio</span> <span class="text-sm ml-1" style="color: #1dcca0">v1.4</span></h2>
+       <span>MedioAI Radio</span> <span class="text-sm ml-1" style="color: #1dcca0">v1.5</span></h2>
       
       
 

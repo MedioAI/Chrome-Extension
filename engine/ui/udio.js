@@ -9,17 +9,14 @@
 
 const uiMedioAI = {
   sidebarLinks: /* html */ `
-<div class="-ml-5 pl-[16px]">
-  <div class="relative flex items-center rounded-lg p-2 hover:text-foreground">
-    <a class="mr-4 flex items-center" id="medioai-link" href="#">
-      <div style="font-size: 1.5rem;color: #fff;">${iconsMedioAI.songStudio}</div>
-      <span class="ml-3 flex-1 whitespace-nowrap font-bold">MedioAI</span>
-    </a>
-  </div>
-</div>
+<button id="medioai-link" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground relative h-8 w-8 rounded-full p-1" style="font-size: 22px;">
+  ${iconsMedioAI.songStudio}
+</button>`,
 
- 
-`,
+  sidebarRadio: /* html */ `
+<button id="medioai-radio" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground relative h-8 w-8 rounded-full p-1 -mr-2" style="margin-right: -20px;font-size: 23px;">
+  ${iconsMedioAI.radio}
+</button>`,
 
   songStudio: async () => {
     const logo = chrome.runtime.getURL('icon/128x128.png')

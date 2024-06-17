@@ -1175,3 +1175,9 @@ input:checked + .medio-slider:before {
 #medio-radio.medio-radio-small .track-cover {
   display: none !important;
 }
+
+#medioaiPLaylistOverlay [dir='ltr'] {
+  height: 100vh !important;
+  max-height: 100vh !important;
+  min-height: 100vh !important;
+}

@@ -10,7 +10,7 @@
 const medioAI = {
   init: () => {
     const checkSidebar = setInterval(() => {
-      const udioSidebarSelector = 'aside[aria-label="Sidebar"] nav ul'
+      const udioSidebarSelector = 'a[title="Search"]'
       const sidebar = document.querySelector(udioSidebarSelector)
 
       if (sidebar) {
@@ -19,7 +19,8 @@ const medioAI = {
 
         if (!sidebarButton) {
           const sidebar = document.querySelector(udioSidebarSelector)
-          sidebar.insertAdjacentHTML('beforeend', uiMedioAI.sidebarLinks)
+          sidebar.parentElement.insertAdjacentHTML('beforeend', uiMedioAI.sidebarRadio)
+          sidebar.parentElement.insertAdjacentHTML('beforeend', uiMedioAI.sidebarLinks)
           notificationMedioAI.init()
           songStudioMedioAI.init()
           setTimeout(() => {

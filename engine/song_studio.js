@@ -99,6 +99,11 @@ const songStudioMedioAI = {
       songStudioMedioAI.close()
     })
 
+    const openRadio = document.getElementById('medioai-radio')
+    openRadio.addEventListener('click', () => {
+      document.querySelector('#medioaiRadio').click()
+    })
+
     const findRhymes = document.getElementById('medioai-findRhyme')
     findRhymes.addEventListener('click', () => {
       apiMedioAI.checkRhymes()
@@ -488,29 +493,13 @@ const songStudioMedioAI = {
       )
 
       if (element) {
-        element.style.maxHeight = 'calc(-570px + 100vh)'
-
         const buttons = document.querySelectorAll('aside nav button')
 
         const othersPlaylistButton = Array.from(buttons).find(
           button => button.textContent.trim() === 'By others'
         )
-        const yourPlaylistButton = Array.from(buttons).find(button => button.textContent.trim() === 'By you')
 
         if (othersPlaylistButton) {
-          othersPlaylistButton.addEventListener('click', () => {
-            const element = document.querySelector(
-              'aside nav [dir="ltr"].relative.overflow-hidden.flex.w-full.flex-col'
-            )
-            element.style.maxHeight = 'calc(-570px + 100vh)'
-          })
-
-          yourPlaylistButton.addEventListener('click', () => {
-            const element = document.querySelector(
-              'aside nav [dir="ltr"].relative.overflow-hidden.flex.w-full.flex-col'
-            )
-            element.style.maxHeight = 'calc(-570px + 100vh)'
-          })
           const button = document.createElement('button')
           button.innerHTML = iconsMedioAI.expand
           button.setAttribute(
@@ -573,7 +562,6 @@ const songStudioMedioAI = {
             const sidebarPlaylist = copiedPlaylist.querySelector(
               '[dir="ltr"].relative.overflow-hidden.flex.w-full.flex-col'
             )
-            sidebarPlaylist.style.maxHeight = 'calc(100vh - 40px)'
             sidebarPlaylist.style.overflow = 'visible'
             copiedPlaylist.querySelector('[role="tablist"]').remove()
 
@@ -693,11 +681,11 @@ const songStudioMedioAI = {
     if (!inputWrapper) return
 
     const seedBox = document.createElement('div')
-    seedBox.innerHTML = `<div class="absolute top-4 right-3 flex items-center justify-center text-white text-xs font-medium rounded-r-md">
+    seedBox.innerHTML = `<div class="absolute top-4 right-0 flex items-center justify-center text-white text-xs font-medium rounded-r-md" style="width: 75%;">
       <button id="medioAIEditSeeds" class="rounded border text-sm text-sm p-2 mr-1">${iconsMedioAI.edit}</button>
       <button id="medioAISaveSeed" class="rounded border text-sm text-sm p-2 mr-1">${iconsMedioAI.save}</button>
       <button id="medioAIRandomSeed" class="rounded border text-sm text-sm p-2 mr-1">${iconsMedioAI.dice}</button>
-      <select id="medioAISeedbank" class="rounded border text-sm p-1 w-full" style="width: 120px"></select>
+      <select id="medioAISeedbank" class="rounded border text-sm p-1 w-full" style="width: 100%"></select>
     </div>`
     inputWrapper.appendChild(seedBox)
 

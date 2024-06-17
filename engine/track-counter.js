@@ -60,7 +60,9 @@ const medioAITrackCounter = {
   },
 
   events: () => {
-    document.querySelector('#medioAITrackCount').addEventListener('click', () => {
+    const trackCounter = document.querySelector('#medioAITrackCount')
+    if (!trackCounter) return
+    trackCounter.addEventListener('click', () => {
       medioAITrackCounter.count()
     })
   },

@@ -16,6 +16,7 @@ const notificationMedioAI = {
     const observer = new MutationObserver(mutations => {
       mutations.forEach(async mutation => {
         const shouldPlaySound = await utilitiesMedioAI.getSettings('notification')
+
         if (
           shouldPlaySound === 'on' &&
           !notificationMedioAI.isChecking &&
@@ -26,13 +27,6 @@ const notificationMedioAI = {
           const sound = await utilitiesMedioAI.getSettings('notificationsound')
           const audio = new Audio(chrome.runtime.getURL(`sounds/${sound}.mp3`))
           audio.play()
-
-          const buttons = document.querySelectorAll('button')
-          buttons.forEach(button => {
-            if (button.textContent === 'Advanced Features') {
-              songStudioMedioAI.lookForExtends(button)
-            }
-          })
 
           setTimeout(() => {
             notificationMedioAI.isChecking = false
