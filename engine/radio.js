@@ -68,7 +68,7 @@ Outro Example: "That's a wrap for tonight, you fuckity cunts! DJ Vibez signing o
 Outro Example: "Keep it real, and keep it raw. DJ Vibe out. Until next time, stay wild!"
 
 Outro Example: "Alright, scumbags, that's it for now. DJ Vibe will be back to stir the pot soon. Don't go soft on me!"`,
-    radio: `You are a witty radio host  known as Sunny Sam. You always have a joke ready, talk about the weather, and bring an over-the-top personality to your broadcasts. Your style is engaging, humorous, and you find a way to make even the most mundane topics entertaining. You keep your listeners hooked with your charm and endless energy, ensuring they start their day with a smile. Whether you're sharing the latest weather update, introducing a new track, or wrapping up your show, you always bring a dose of positivity and humor.`,
+    radio: `You are a witty radio host known as Sunny Sam. You always have a joke ready, talk about the weather, and bring an over-the-top personality to your broadcasts. Your style is engaging, humorous, and you find a way to make even the most mundane topics entertaining. You keep your listeners hooked with your charm and endless energy, ensuring they start their day with a smile. Whether you're sharing the latest weather update, introducing a new track, or wrapping up your show, you always bring a dose of positivity and humor.`,
     simple:
       'You are extremely brief and only introduce the next song and the artist. No fluff, no extra commentary, just straight to the point.',
     funny: `You are a comedic genius with a knack for observational humor, bringing joy and laughter to listeners. Your name is Chuckles Charlie, and you've always had a natural talent for making people laugh. From a young age, you entertained friends and family with your quick wit and hilarious observations about everyday life.
@@ -233,7 +233,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       }
     })
 
-    musicPreview.addEventListener('click', () => {
+    musicPreview.addEventListener('click', async () => {
       const audioPlayerValue = document.querySelector('#medio-radio-dj-music').value
       const audioPlayer = document.querySelector('#medio-radio-mic-check')
 
@@ -246,7 +246,10 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
         voicePreview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg>`
         medioRadio.isPreviewing = true
         medioRadio.isPreviewingVoice = false
-        audioPlayer.src = chrome.runtime.getURL(`dj/music/${audioPlayerValue}.mp3`)
+
+        const source = await medioRadio.getTrackMP3(audioPlayerValue)
+        audioPlayer.src = source.song_path + '?t=' + new Date().getTime()
+
         audioPlayer.volume = 1
         audioPlayer.load()
         audioPlayer.play()
@@ -434,7 +437,16 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       medioRadio.djVoice = djvoice
       medioRadio.hasSeen = []
       medioRadio.djLength = djLength
-      medioRadio.djPersonality = medioRadio.djPersonalities[djpersonality]
+      if (djpersonality === 'custom') {
+        let custom = await utilitiesMedioAI.getSettings('customdj_personality')
+        if (custom === '') {
+          medioRadio.djPersonality = `You are a witty radio host known as Betty Banger. You always have a joke ready, talk about the weather, and bring an over-the-top personality to your broadcasts. Your style is engaging, humorous, and you find a way to make even the most mundane topics entertaining. You keep your listeners hooked with your charm and endless energy, ensuring they start their day with a smile. Whether you're sharing the latest weather update, introducing a new track, or wrapping up your show, you always bring a dose of positivity and humor.`
+        } else {
+          medioRadio.djPersonality = custom
+        }
+      } else {
+        medioRadio.djPersonality = medioRadio.djPersonalities[djpersonality]
+      }
       const genresArray = genres.split(',')
       medioRadio.broadcastLength = genresArray.length * parseInt(length)
       medioRadio.build()
@@ -1082,6 +1094,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       'eFLVKLqbqgmsHUtJMrU74g',
       'fiMvZSASfeEucjn3qZ4DNQ',
       'hYV6c5ozTLaFyao76UAaZK',
+      'bCyXvGbBDcX5BWy4sj5FRe',
     ]
     const randomAd = adList[Math.floor(Math.random() * adList.length)]
     const data = await medioRadio.getTrackMP3(randomAd)
@@ -1309,6 +1322,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
 
   textToSpeech: async (message, voice, callback) => {
     if (medioRadio.voiceAPIType === 'elevenlabs') {
+      console.log(voice)
       apiMedioAI.elevenLabsTalk(message, voice, data => {
         callback(data)
       })
@@ -1393,7 +1407,11 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
           let voices = data.voices
           let voiceList = ''
           for (const voice of voices) {
-            voiceList += `<option value="${voice.voice_id}">${voice.name}</option>`
+            let selected = ''
+            if (voice.voice_id === '29vD33N1CtxCmqQRPOHJ') {
+              selected = 'selected'
+            }
+            voiceList += `<option ${selected} value="${voice.voice_id}">${voice.name}</option>`
           }
           document.getElementById('medio-radio-dj-voice').innerHTML = voiceList
         })
@@ -1493,14 +1511,14 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       let request = ''
       switch (state) {
         case 'commercial':
-          system = `You are radio commercial advertiser. You create engaging and memorable commercials for the radio station. You are about to introduce a new commercial to keep the listeners engaged. Only respond with the commercial script as text only, do not include any notes, or actions, purely voice reading the text. Make an ad for fake movies, tv shows, products, lawyers, political campaigns, anything funny and random. Do not wrap the text with quotes.
+          system = `You are radio commercial advertiser. You create engaging and memorable commercials for the radio station. You are about to introduce a new commercial to keep the listeners engaged. Only respond with the commercial script as text only, do not include any notes, or actions, purely voice reading the text. Make an ad for fake movies, tv shows, products, lawyers, political campaigns, anything funny and random. Do not wrap the text with quotes. Do not introduce yourself, only provide the text. Provide as plain text and do-not wrap in quotes. 
           
           ${length}`
 
-          request = `You need to write a commercial for radio station. Make up a product, make up everything so that it is fun and wacky. Always include a call to action that is fake and fun. Do not include actions or notes, just the text. `
+          request = `You need to write a commercial for radio station. Make up a product, psa, or lawyer/politican campaign, make up everything so that it is fun and wacky. Always include a call to action that is fake and fun. Do not include actions or notes, just the text. `
           break
         case 'caller':
-          system = `You are a caller calling in onto a radio station. You can be a fan, a critic, or a random person calling in. You can talk about love stories, crazy and wacky stories, tell jokes, keep it interesting as if you were a caller calling in. Do not include host talking, just provide a strange caller calling in.
+          system = `You are a caller calling in onto a radio station. You can be a fan, a critic, or a random person calling in. You can talk about love stories, crazy and wacky stories, tell jokes, keep it interesting as if you were a caller calling in. Do not include host talking, just provide a strange caller calling in. Do not introduce yourself, only provide the text. Provide as plain text and do-not wrap in quotes. 
           
           ${length}`
 
@@ -1534,23 +1552,47 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       )
     },
 
-    play: (state = '', callback) => {
+    play: async (state = '', callback) => {
       const audio = document.getElementById('medio-radio-audio')
       audio.pause()
       let voiceMP3 = medioRadio.djBuffer
 
       document.querySelector('#dj-text').innerHTML = medioRadio.djMessage
 
-      const randomBGSong = Math.floor(Math.random() * 3) + 1
-
       if (state === 'commercial') {
+        const adSongs = [
+          'ftCaCiWMM88RYFUCEAWrap',
+          'chigr7KLyDnd4KdTERBQzN',
+          'dUuFkKYCiV2w6JQ8BfdVkK',
+          'tpVdVna96CEyZdYPVmrPj3',
+          'i7HZLPXwYW8YrPESnZrZG1',
+          '3x3NoNsLhnQtKUyzevUYtr',
+          'jse3Go759VSuZHUiepP5hF',
+          '5LH1CCjBRgbi7A3JfmMcJL',
+        ]
+        const randomAd = adSongs[Math.floor(Math.random() * adSongs.length)]
+        const data = await medioRadio.getTrackMP3(randomAd)
+
         voiceMP3 = medioRadio.djBuffer
-        bgMusic = chrome.runtime.getURL(`dj/commercials/${randomBGSong}.mp3`)
+        bgMusic = data.song_path + '?t=' + new Date().getTime()
       } else if (state === 'caller') {
+        const callerSongs = [
+          'nhsSf44zYcid8UbUm1CuVM',
+          'vb5rQ1Jf8GG6DojvdKRfGj',
+          'h6rQSea7Dkw3ha6ALLb4s5',
+          'aS9fJBeSXt2SHZ7sQ5zzKM',
+          'pVTv8VRtuV9PPiUjD9gFNF',
+          '9zdQemuJD8W7QQjprSeWMj',
+          '4AsfaoYUwQDKAF9iPErQoi',
+        ]
+        const randomAd = callerSongs[Math.floor(Math.random() * callerSongs.length)]
+        const data = await medioRadio.getTrackMP3(randomAd)
+
         voiceMP3 = medioRadio.djBuffer
-        bgMusic = chrome.runtime.getURL(`dj/callers/${randomBGSong}.mp3`)
+        bgMusic = data.song_path + '?t=' + new Date().getTime()
       } else {
-        bgMusic = chrome.runtime.getURL(`dj/music/${medioRadio.djMusic}.mp3`)
+        const data = await medioRadio.getTrackMP3(medioRadio.djMusic)
+        bgMusic = data.song_path + '?t=' + new Date().getTime()
       }
 
       const bgAudio = document.getElementById('medio-radio-background')
@@ -1567,7 +1609,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
 
       let volume = 0
       const fadeInInterval = setInterval(() => {
-        if (volume < 0.15) {
+        if (volume < 0.25) {
           volume += 0.01
           if (volume > 1) {
             volume = 1
@@ -1623,7 +1665,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       }, 2000)
 
       const fadeOut = () => {
-        let volume = 0.15
+        let volume = 0.25
         const fadeOutInterval = setInterval(async () => {
           if (volume > 0) {
             volume -= 0.01
@@ -1695,17 +1737,21 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
                     state,
                     data => {
                       medioRadio.djMessage = data.choices[0].message.content
-                      medioRadio.textToSpeech(medioRadio.djMessage, voices[randomVoice], async data => {
-                        medioRadio.djBuffer = data
-                        const aiLoading = document.querySelector('#aiLoading')
-                        if (aiLoading) {
-                          aiLoading.style.display = 'none'
-                          const nextButton = document.querySelector('.medio-radio-next')
-                          nextButton.disabled = false
-                          nextButton.classList.remove('disabled')
+                      medioRadio.textToSpeech(
+                        medioRadio.djMessage,
+                        voices[randomVoice].voice_id,
+                        async data => {
+                          medioRadio.djBuffer = data
+                          const aiLoading = document.querySelector('#aiLoading')
+                          if (aiLoading) {
+                            aiLoading.style.display = 'none'
+                            const nextButton = document.querySelector('.medio-radio-next')
+                            nextButton.disabled = false
+                            nextButton.classList.remove('disabled')
+                          }
+                          document.getElementById('medio-radio-loading').style.display = 'none'
                         }
-                        document.getElementById('medio-radio-loading').style.display = 'none'
-                      })
+                      )
                     }
                   )
                 } else {
@@ -1785,7 +1831,7 @@ const medioRadioUI = {
         <option value="playlist">Playlist</option>
         <option value="artist">Artist</option>
         <option value="trending">Trending</option>
-        <option value="mostliked">Most Liked</option>
+        <option value="mostliked">Most Popular</option>
       </select>
 </div>
 
@@ -1897,14 +1943,14 @@ const medioRadioUI = {
             <span id="medioSampleDJBackground" class="cursor-pointer opacity-50 hover:opacity-100"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg></span>
           </h4>
           <select id="medio-radio-dj-music" class="w-full border bg-gray-1000 text-white p-2 rounded-lg">
-            <option value="funk">Funky</option>
-            <option value="hiphop">Hip Hop</option>
-            <option value="reggae">Reggae</option>
-            <option value="metal">Metal</option>
-            <option value="jazz">Jazz</option>
-            <option value="dance">Dance</option>
-            <option value="country">Country</option>
-            <option value="electro">Electro Swing</option>
+            <option value="p8xv1atZTeZJiQ5sS44EhE">Funky</option>
+            <option value="aF6o9CHB7u6iHMkRYpqJvf">Hip Hop</option>
+            <option value="iDEqjSHx32Du3s2EwETjTQ">Reggae</option>
+            <option value="qZ63Tcm5Hzrrr1VgmKYT24">Metal</option>
+            <option value="9DL8vjFygpPYkH9q8qVtWW">Classical</option>
+            <option value="tkDjs2NrrCbnDP2bPkLpfj">Dance</option>
+            <option value="nr5ucopcjhfweCbyboaDSR">Country</option>
+            <option value="nu6R1cMNRCMiM2z21D1V29">Electro Swing</option>
           </select>
             </div>
           </div>

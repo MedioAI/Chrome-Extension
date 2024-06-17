@@ -17,6 +17,9 @@ const app = {
         document.getElementById('notificationsound').value = settings.notificationsound
         document.getElementById('openaiapikey_voice').value = settings.openaiapikey_voice || ''
         document.getElementById('elevenlabsapikey_voice').value = settings.elevenlabsapikey_voice || ''
+        document.getElementById('customdj_personality').value =
+          settings.customdj_personality ||
+          `You are a witty radio host known as Betty Banger. You always have a joke ready, talk about the weather, and bring an over-the-top personality to your broadcasts. Your style is engaging, humorous, and you find a way to make even the most mundane topics entertaining. You keep your listeners hooked with your charm and endless energy, ensuring they start their day with a smile. Whether you're sharing the latest weather update, introducing a new track, or wrapping up your show, you always bring a dose of positivity and humor.`
         document.getElementById('slideanimation').value = settings.slideanimation
         document.getElementById('lyrictextsize').value = settings.lyrictextsize
         document.getElementById('commandcolor').value = settings.commandcolor
@@ -271,6 +274,7 @@ const app = {
       notificationsound: document.getElementById('notificationsound').value,
       openaiapikey_voice: document.getElementById('openaiapikey_voice').value,
       elevenlabsapikey_voice: document.getElementById('elevenlabsapikey_voice').value,
+      customdj_personality: document.getElementById('customdj_personality').value,
       slideanimation: document.getElementById('slideanimation').value,
       commandcolor: document.getElementById('commandcolor').value,
       lyrictextsize: document.getElementById('lyrictextsize').value,
