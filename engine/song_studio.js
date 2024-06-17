@@ -625,33 +625,6 @@ const songStudioMedioAI = {
       settings.seed = allInputs[0].value
       songStudioMedioAI.setAdvancedSettings(settings)
     })
-
-    songStudioMedioAI.lookForExtends(button)
-  },
-
-  lookForExtends: theButton => {
-    const buttons = document.querySelectorAll('button')
-    buttons.forEach(button => {
-      if (button.textContent === 'Extend') {
-        button.addEventListener('click', () => {
-          console.log('Extend clicked')
-          setTimeout(() => {
-            songStudioMedioAI.applyAdvancedSettings(theButton)
-          }, 500)
-        })
-      }
-    })
-
-    // const callback = function (mutationsList, observer) {
-    //   console.log('page changed')
-    //   setTimeout(() => {
-    //     applyClickEvent()
-    //   }, 300)
-    //   observer.disconnect()
-    // }
-
-    // const observer = new MutationObserver(callback)
-    // observer.observe(document.querySelector('table'), { childList: true, subtree: true, attributes: true })
   },
 
   simulateMouseClick(element, clickX, clickY) {

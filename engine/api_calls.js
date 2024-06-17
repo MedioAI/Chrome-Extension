@@ -229,17 +229,12 @@ const apiMedioAI = {
   },
 
   elevenLabsTalk: async (message, voice_id = '21m00Tcm4TlvDq8ikWAM', callback) => {
-    const url = `https://api.elevenlabs.io/v1/text-to-speech/${'21m00Tcm4TlvDq8ikWAM'}`
+    const url = `https://api.elevenlabs.io/v1/text-to-speech/${voice_id}`
     const apikey = await utilitiesMedioAI.getSettings('elevenlabsapikey_voice')
 
     const body = {
       text: message,
-      model_id: 'eleven_monolingual_v1',
-      voice_settings: {
-        stability: 0.5,
-        similarity_boost: 0.5,
-        use_speaker_boost: true,
-      },
+      model_id: 'eleven_multilingual_v2',
     }
 
     try {

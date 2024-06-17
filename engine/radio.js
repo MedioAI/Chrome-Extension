@@ -198,7 +198,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
 
     medioRadio.currentIndex = 0
 
-    voicePreview.addEventListener('click', () => {
+    voicePreview.addEventListener('click', async () => {
       const audioPlayerValue = document.querySelector('#medio-radio-dj-voice').value
       const audioPlayer = document.querySelector('#medio-radio-mic-check')
 
@@ -211,10 +211,30 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
         musicPreview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg>`
         medioRadio.isPreviewingVoice = true
         medioRadio.isPreviewing = false
-        audioPlayer.src = chrome.runtime.getURL(`dj/voices/${audioPlayerValue}.wav`)
+
+        if (medioRadio.voiceAPIType === 'elevenlabs') {
+          const response = await fetch('https://api.elevenlabs.io/v1/voices', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+          const data = await response.json()
+          const voice = data.voices.find(voice => voice.voice_id === audioPlayerValue)
+
+          audioPlayer.src = voice.preview_url
+        } else {
+          audioPlayer.src = chrome.runtime.getURL(`dj/voices/${audioPlayerValue}.wav`)
+        }
+
         audioPlayer.volume = 1
         audioPlayer.load()
         audioPlayer.play()
+
+        audioPlayer.onended = () => {
+          voicePreview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg>`
+          medioRadio.isPreviewingVoice = false
+        }
       }
     })
 
@@ -235,6 +255,11 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
         audioPlayer.volume = 1
         audioPlayer.load()
         audioPlayer.play()
+
+        audioPlayer.onended = () => {
+          voicePreview.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82a16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128"/></svg>`
+          medioRadio.isPreviewing = false
+        }
       }
     })
 
@@ -1276,7 +1301,6 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       })
     }
 
-    console.log('load talking', state)
     if (state !== '') {
       await medioRadio.dj.loadExtra(next, 'intro', data => {
         done(data)
@@ -1354,12 +1378,31 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
         document.getElementById('medioDJSettings').style.display = 'block'
         if (elevenlabskey_voice) {
           medioRadio.voiceAPIType = 'elevenlabs'
+          medioRadio.dj.buildElevenLabVoices()
         } else if (openaikey_voice) {
           medioRadio.voiceAPIType = 'openai'
         }
       } else {
         document.getElementById('medioDJNotice').style.display = 'block'
       }
+    },
+
+    buildElevenLabVoices: () => {
+      fetch('https://api.elevenlabs.io/v1/voices', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then(response => {
+        response.json().then(data => {
+          let voices = data.voices
+          let voiceList = ''
+          for (const voice of voices) {
+            voiceList += `<option value="${voice.voice_id}">${voice.name}</option>`
+          }
+          document.getElementById('medio-radio-dj-voice').innerHTML = voiceList
+        })
+      })
     },
 
     length: () => {
@@ -1625,8 +1668,20 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
                     state = 'caller'
                   }
 
-                  const voices = ['alloy', 'fable', 'onyx', 'shimmer', 'echo', 'nova']
-                  const randomVoice = Math.floor(Math.random() * voices.length)
+                  let voices = ['alloy', 'fable', 'onyx', 'shimmer', 'echo', 'nova']
+
+                  if (medioRadio.voiceAPIType === 'elevenlabs') {
+                    const response = await fetch('https://api.elevenlabs.io/v1/voices', {
+                      method: 'GET',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                    })
+                    const data = await response.json()
+                    voices = data.voices
+                  }
+
+                  let randomVoice = Math.floor(Math.random() * voices.length)
 
                   if (state === 'caller') {
                     document.querySelector(
@@ -1639,8 +1694,6 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
                     ).innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M7 15v-4a2 2 0 0 1 4 0v4m-4-2h4m6-4v6h-1.5a1.5 1.5 0 1 1 1.5-1.5"/></g></svg>`
                     document.querySelector('#dj-wrapper h3').innerHTML = `Commercial Break`
                   }
-
-                  console.log('state', state)
 
                   await medioRadio.dj.loadExtra(
                     current.medioRadio[currentIndex + medioRadio.currentIndex + 1],
