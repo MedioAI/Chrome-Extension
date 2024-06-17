@@ -1865,12 +1865,12 @@ const medioRadioUI = {
       </div>
 
        <div class="text-sm italic text-gray-400 mb-1 mt-3" id="medioDJNotice" style="display: none">
-          Add your <strong>OpenAI or ElevenLabs</strong> API key for Voice and <strong>OpenAI or OpenRouter API key</strong> for text to enable DJ mode.
+          Add your <strong>OpenAI or ElevenLabs</strong> API key for Voice and <strong>OpenAI or OpenRouter API key</strong> to enable A.I. DJ Announcer Mode.
        </div>
 
         <div id="medioDJSettings" style="display: none">
           <div class="flex items-center justify-between mb-1 mt-3">
-          <h4>OpenAI Powered DJ Mode</h4>
+          <h4>A.I. DJ Announcer Mode</h4>
           <label class="medio-switch">
   <input type="checkbox" id="medio-radio-dj-enabled">
   <span class="medio-slider medio-round"></span>
