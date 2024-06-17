@@ -151,9 +151,7 @@ const utilitiesMedioAI = {
       let toolbar = quill.getModule('toolbar')
       toolbar.addHandler('custom-dropdown', function (value) {
         if (value) {
-          console.log(value, 'dropdown')
           insertText(quill, value)
-          // set value to default
         }
       })
     }

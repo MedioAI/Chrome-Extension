@@ -16,10 +16,8 @@ const medioAITrackCounter = {
             'button[id^="radix-"].inline-flex.items-center.justify-center.whitespace-nowrap.text-sm.font-medium.ring-offset-background'
           )
           const element = elements[0]
-          console.log('hey')
           if (element) {
             if (element.querySelector(`img`)) {
-              console.log('found')
               medioAITrackCounter.init()
               medioAITrackCounter.addLyricAttribution()
               observer.disconnect()

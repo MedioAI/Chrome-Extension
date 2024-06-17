@@ -1322,7 +1322,6 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
 
   textToSpeech: async (message, voice, callback) => {
     if (medioRadio.voiceAPIType === 'elevenlabs') {
-      console.log(voice)
       apiMedioAI.elevenLabsTalk(message, voice, data => {
         callback(data)
       })
