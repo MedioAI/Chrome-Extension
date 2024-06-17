@@ -12,7 +12,7 @@ const uiMedioAI = {
 <div class="-ml-5 pl-[16px]">
   <div class="relative flex items-center rounded-lg p-2 hover:text-foreground">
     <a class="mr-4 flex items-center" id="medioai-link" href="#">
-      <div style="font-size: 1.7rem">${iconsMedioAI.songStudio}</div>
+      <div style="font-size: 1.5rem;color: #fff;">${iconsMedioAI.songStudio}</div>
       <span class="ml-3 flex-1 whitespace-nowrap font-bold">MedioAI</span>
     </a>
   </div>

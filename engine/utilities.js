@@ -151,7 +151,9 @@ const utilitiesMedioAI = {
       let toolbar = quill.getModule('toolbar')
       toolbar.addHandler('custom-dropdown', function (value) {
         if (value) {
+          console.log(value, 'dropdown')
           insertText(quill, value)
+          // set value to default
         }
       })
     }
@@ -240,7 +242,6 @@ const utilitiesMedioAI = {
     document.querySelector('.ql-custom-dropdown').addEventListener('change', function () {
       let value = this.value
       quill.getModule('toolbar').handlers['custom-dropdown'].call(quill, value)
-      this.value = ''
     })
 
     utilitiesMedioAI.quill.clipboard.addMatcher(Node.ELEMENT_NODE, (node, delta) => {
@@ -323,7 +324,6 @@ const utilitiesMedioAI = {
 
   populateSelect: async (jsonUrl, elementId, placeholder, settingsData) => {
     const database = await utilitiesMedioAI.getSettings(settingsData.key)
-    // console.log(database)
     if (database) {
       return utilitiesMedioAI.buildSelectBoxes(JSON.parse(database), elementId, placeholder)
     } else {

@@ -16,8 +16,10 @@ const medioAITrackCounter = {
             'button[id^="radix-"].inline-flex.items-center.justify-center.whitespace-nowrap.text-sm.font-medium.ring-offset-background'
           )
           const element = elements[0]
+          console.log('hey')
           if (element) {
             if (element.querySelector(`img`)) {
+              console.log('found')
               medioAITrackCounter.init()
               medioAITrackCounter.addLyricAttribution()
               observer.disconnect()
@@ -40,10 +42,11 @@ const medioAITrackCounter = {
 
     const username = avatar.querySelector(`img`).alt
     const forms = document.querySelectorAll('form')
+
     if (!forms || forms.length < 2) return
-    if (forms[2] && !forms[2].querySelector('a')) return
-    if (!forms[2]) return
-    const trackArtist = forms[2].querySelector('a').textContent
+    if (forms[1] && !forms[1].querySelector('a')) return
+    if (!forms[1]) return
+    const trackArtist = forms[1].querySelector('a').textContent
 
     if (username !== trackArtist) return
     if (document.querySelector('#medioAITrackCount')) return
@@ -91,16 +94,18 @@ const medioAITrackCounter = {
           clicked++
           setTimeout(() => {
             clickExpand()
-          }, 500)
+          }, 900)
         } else {
           const total = iframeDocument.querySelectorAll('tbody tr').length
-          document.querySelector('#medioAITrackCount span').textContent = `Count Credits = ${total}`
+          document.querySelector('#medioAITrackCount span').textContent = `Credits Used = ${total}`
           document.querySelector('#medioAITrackCount').classList.remove('disabled')
           iframe.remove()
         }
       }
 
-      clickExpand()
+      setTimeout(() => {
+        clickExpand()
+      }, 1200)
     }
   },
 

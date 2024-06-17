@@ -425,7 +425,7 @@ const songStudioMedioAI = {
   appButtons: () => {
     const medioaiSettings = document.getElementById('medioaiSettings')
     medioaiSettings.addEventListener('click', () => {
-      chrome.runtime.sendMessage({ action: 'appButtons' })
+      chrome.runtime.sendMessage({ action: 'openSettings' })
     })
 
     const medioaiTools = document.getElementById('medioaiTools')
@@ -435,7 +435,9 @@ const songStudioMedioAI = {
 
     const medioaiChallenge = document.getElementById('medioaiChallenge')
     medioaiChallenge.addEventListener('click', () => {
-      songStudioMedioAI.challenge()
+      if (!document.querySelector('#medioAI-challenge')) {
+        songStudioMedioAI.challenge()
+      }
     })
 
     const medioaiRadio = document.getElementById('medioaiRadio')
