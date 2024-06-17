@@ -10,6 +10,8 @@ A chrome extension to enhance the experience of Udio.com, the best music platfor
 
 **Features include:**
 
+> **All New:** AI Radio! Listen to Udio like a radio station. Add OpenAI/ElevenLabs key for DJ announcer for tracks!
+
 1. **Song Studio**
    - Write your lyrics in large easy to use editor. (with commands for AI music apps)
 2. **Rhyme**
@@ -63,7 +65,7 @@ Coming soon.
 
 ## Releases
 
-- **Version 1.4** - In development.
+- **Version 1.4** - [MedioAI v1.4 (ai radio!)](https://github.com/WynterJones/MedioAI-for-Udio/releases/tag/v1.4)
 - **Version 1.2** - [MedioAI v1.2 (just more tags)](https://github.com/WynterJones/MedioAI-for-Udio/releases/tag/v1.2)
 - **Version 1.1** - [MedioAI v1.1](https://github.com/WynterJones/MedioAI-for-Udio/releases/tag/v1.1)
 
