@@ -156,11 +156,6 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       }
     })
 
-    container.addEventListener('mouseleave', () => {
-      isDragging = false
-      container.style.cursor = 'move'
-    })
-
     container.addEventListener('mouseup', () => {
       isDragging = false
       container.style.cursor = 'move'
@@ -1848,20 +1843,18 @@ const medioRadioUI = {
             <div class="w-full">
 <h4 class="text-sm text-gray-400 mb-1 mt-3">Radio Station Name</h4>
           <input id="medio-radio-name" class="w-full border bg-gray-1000 text-white p-2 rounded-lg" placeholder="ex. MedioAI Radio" />
-
-       
           </div>
           <div class="w-full">
           <h4 class="text-sm text-gray-400 mb-1 mt-3">Flavor <small class="opacity-50">*</small></h4>
           <select id="medio-radio-dj-flavor" class="w-full border bg-gray-1000 text-white p-2 rounded-lg">
-            <option value="on">Fake Ads + Callers</option>
+            <option value="on">Fake Ads + Callers + Announcer</option>
             <option value="off">Only Announcer</option>
           </select>
           </div>
         </div>
           <div class="flex space-x-2">
             <div class="w-full">
-          <h4 class="text-sm text-gray-400 mb-1 mt-3">Banter/Ad Duration</h4>
+          <h4 class="text-sm text-gray-400 mb-1 mt-3">DJ/Ad Duration</h4>
           <select id="medio-radio-dj-length" class="w-full border bg-gray-1000 text-white p-2 rounded-lg">
             <option value="very-short">Very Short (1 sentence)</option>
             <option value="short">Short (1-2 sentences)</option>
