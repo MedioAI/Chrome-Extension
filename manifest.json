@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "MedioAI: Enhance Udio",
-  "version": "1.4",
+  "version": "1.5",
   "description": "Write lyrics with Song Studio, Tag Builder, AI Radio, AI Co-Writer, 13k+ Tags, Audio Tools, Lyric Commands & More!",
   "permissions": ["storage", "unlimitedStorage"],
   "background": {
