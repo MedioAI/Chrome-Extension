@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "MedioAI: Enhance Udio",
-  "version": "1.5",
+  "version": "1.6",
   "description": "Write lyrics with Song Studio, Tag Builder, AI Radio, AI Co-Writer, 13k+ Tags, Audio Tools, Lyric Commands & More!",
   "permissions": ["storage", "unlimitedStorage"],
   "background": {
@@ -22,12 +22,12 @@
   "web_accessible_resources": [
     {
       "resources": ["lib/*", "database/*", "sounds/*", "dj/*", "icon/*", "app/admin/admin.json"],
-      "matches": ["https://www.udio.com/*"]
+      "matches": ["https://www.udio.com/*", "https://beta.udio.com/*"]
     }
   ],
   "content_scripts": [
     {
-      "matches": ["https://www.udio.com/*"],
+      "matches": ["https://www.udio.com/*", "https://beta.udio.com/*"],
       "js": [
         "lib/quill.js",
         "engine/utilities.js",

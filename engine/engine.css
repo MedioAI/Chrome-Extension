@@ -1181,3 +1181,7 @@ input:checked + .medio-slider:before {
   max-height: 100vh !important;
   min-height: 100vh !important;
 }
+
+.medioAIShorten .overflow-hidden:first-child {
+  max-height: calc(-580px + 100vh) !important;
+}
