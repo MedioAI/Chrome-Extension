@@ -698,42 +698,39 @@ const songStudioMedioAI = {
   },
 
   seedBox: () => {
-    let buttons = document.querySelectorAll('button[type="button"]')
+    let buttons = document.querySelectorAll('.text-muted-foreground')
     buttons.forEach(button => {
+      
       if (button.textContent === 'Advanced Features') {
-        button.addEventListener('click', () => {
-          setTimeout(() => {
-            songStudioMedioAI.appendSeedBox(button)
-          }, 500)
-        })
+        setTimeout(() => {
+          button.closest('button').addEventListener('click', () => {
+            setTimeout(() => {
+              songStudioMedioAI.appendSeedBox()
+            }, 1000)
+          })
+        }, 500)
+        
       }
     })
   },
 
-  appendSeedBox: button => {
-    const wrapper = button.closest('h3').nextElementSibling
-    if (!wrapper) return
-    const allInputs = wrapper.querySelectorAll('input')
-    const seedInput = allInputs[0]
+  appendSeedBox: () => {    
+    const seedInput = document.querySelector('input[title="Set Seed"]')
     if (!seedInput) return
-    const inputWrapper = seedInput.closest('div.relative.flex.h-full.w-full.flex-col')
+    const inputWrapper = document.querySelector('#Seed')
     if (!inputWrapper) return
-
+    inputWrapper.style.zIndex = '9999'
+    inputWrapper.nextElementSibling.style.zIndex = '9999'
+    inputWrapper.style.position = 'relative'
     const seedBox = document.createElement('div')
-    seedBox.innerHTML = `<div class="absolute top-4 right-0 flex items-center justify-center text-white text-xs font-medium rounded-r-md" style="width: 75%;">
-      <button id="medioAIEditSeeds" class="rounded border text-sm text-sm p-2 mr-1">${iconsMedioAI.edit}</button>
-      <button id="medioAISaveSeed" class="rounded border text-sm text-sm p-2 mr-1">${iconsMedioAI.save}</button>
-      <button id="medioAIRandomSeed" class="rounded border text-sm text-sm p-2 mr-1">${iconsMedioAI.dice}</button>
+    seedBox.innerHTML = `<div class="absolute top-4 right-0 flex items-center justify-center text-white text-xs font-medium rounded-r-md" style="width: 100%;bottom: -78px;z-index:1">
+      <button id="medioAIEditSeeds" class="rounded border text-sm text-sm p-1 mr-1">${iconsMedioAI.edit}</button>
+      <button id="medioAISaveSeed" class="rounded border text-sm text-sm p-1 mr-1">${iconsMedioAI.save}</button>
       <select id="medioAISeedbank" class="rounded border text-sm p-1 w-full" style="width: 100%"></select>
     </div>`
-    inputWrapper.appendChild(seedBox)
+    inputWrapper.closest('.relative').appendChild(seedBox)
 
-    const medioAIRandomSeed = document.getElementById('medioAIRandomSeed')
-    medioAIRandomSeed.addEventListener('click', () => {
-      seedInput.value = Math.floor(Math.random() * 9999999999999) + 1
-      songStudioMedioAI.simulateMouseClick(seedInput)
-    })
-
+   
     const medioAISeedbank = document.getElementById('medioAISeedbank')
     medioAISeedbank.addEventListener('change', () => {
       seedInput.value = medioAISeedbank.value
@@ -741,23 +738,8 @@ const songStudioMedioAI = {
       medioAISeedbank.value = ''
     })
 
-    function populateOptions() {
-      chrome.storage.local.get(['medioAISeeds'], function (result) {
-        const seeds = result.medioAISeeds || []
-        medioAISeedbank.innerHTML = '<option value="" selected disabled>Seedbank</option>'
-        seeds.forEach(seed => {
-          let label = seed.label
-          if (label !== seed.value) {
-            label = `${seed.label} - ${seed.value}`
-          }
-          const option = document.createElement('option')
-          option.value = seed.value
-          option.innerHTML = label
-          medioAISeedbank.appendChild(option)
-        })
-      })
-    }
-    populateOptions()
+  
+    songStudioMedioAI.populateOptions()
 
     const medioAISaveSeed = document.getElementById('medioAISaveSeed')
     medioAISaveSeed.addEventListener('click', () => {
@@ -770,7 +752,7 @@ const songStudioMedioAI = {
         })
         chrome.storage.local.set({ medioAISeeds: seeds }, function () {
           utilitiesMedioAI.showNotification('Seed saved.')
-          populateOptions()
+          songStudioMedioAI.populateOptions()
         })
       })
     })
@@ -782,7 +764,7 @@ const songStudioMedioAI = {
         const modal = document.createElement('div')
         modal.id = 'medioAISeedOverlay'
         modal.innerHTML = `<div id="medioAISeedModal" class="fixed inset-0 bg-black text-white">
-          <h2 class="text-xl font-bold  mb-4">Manage Your Seedbank</h2>
+          <h2 class="text-xl font-bold  mb-4">Your Seeds</h2>
           <ul id="medioAISeedList" class="list-disc"></ul>
 
           <button id="medioAISeedModalClose" style="font-size: 32px" class="absolute top-4 right-4 text-white">&times;</button>
@@ -790,34 +772,14 @@ const songStudioMedioAI = {
 
         const medioAISeedModalClose = modal.querySelector('#medioAISeedModalClose')
         medioAISeedModalClose.addEventListener('click', () => {
-          populateOptions()
+          songStudioMedioAI.populateOptions()
           modal.remove()
         })
 
-        function loadSeedList() {
-          const medioAISeedList = modal.querySelector('#medioAISeedList')
-          seeds.forEach((seed, index) => {
-            const listItem = document.createElement('li')
-            let label = seed.label
-            if (label === seed.value) {
-              label = ''
-            }
-            listItem.innerHTML = `<div data-index="${index}" class="medioaiSeedItem flex space-x-2 mb-1">
-            <div class="w-1/2">
-              <input type="text" value="${label}" placeholder="Label" class="medioaiInputSeedLabel w-full px-2 py-1 border rounded" />
-            </div>
-            <div class="w-1/2 flex space-x-2">
-              <input type="text" value="${seed.value}" placeholder="Seed Number" class="medioaiInputSeedNumber w-full px-2 py-1 border rounded" />
-              <button class="medioaiRemoveSeed rounded border text-sm text-sm p-2">${iconsMedioAI.trash}</button>
-            </div>
-          </div>`
-            medioAISeedList.appendChild(listItem)
-          })
-        }
+        document.body.appendChild(modal)
+        songStudioMedioAI.loadSeedList(seeds)
 
-        loadSeedList()
-
-        const medioaiInputSeedLabel = modal.querySelectorAll('.medioaiInputSeedLabel')
+        const medioaiInputSeedLabel = document.querySelectorAll('.medioaiInputSeedLabel')
         medioaiInputSeedLabel.forEach(input => {
           input.addEventListener('change', e => {
             const index = e.target.closest('.medioaiSeedItem').dataset.index
@@ -829,7 +791,7 @@ const songStudioMedioAI = {
           })
         })
 
-        const medioaiInputSeedNumber = modal.querySelectorAll('.medioaiInputSeedNumber')
+        const medioaiInputSeedNumber = document.querySelectorAll('.medioaiInputSeedNumber')
         medioaiInputSeedNumber.forEach(input => {
           input.addEventListener('change', e => {
             const index = e.target.closest('.medioaiSeedItem').dataset.index
@@ -841,21 +803,64 @@ const songStudioMedioAI = {
           })
         })
 
-        const medioaiRemoveSeed = modal.querySelectorAll('.medioaiRemoveSeed')
+        
+        const medioaiRemoveSeed = document.querySelectorAll('.medioaiRemoveSeed')
         medioaiRemoveSeed.forEach(button => {
-          button.addEventListener('click', e => {
-            const index = e.target.closest('.medioaiSeedItem').dataset.index
-            seeds.splice(index, 1)
-            chrome.storage.local.set({ medioAISeeds: seeds }, function () {
-              populateOptions()
-              medioAISeedList.innerHTML = ''
-              loadSeedList()
-              utilitiesMedioAI.showNotification('Seed removed.')
-            })
-          })
+          songStudioMedioAI.addDeleteSeed(button, seeds)
         })
+      })
+    })
+  },
 
-        document.body.appendChild(modal)
+  loadSeedList: (seeds) => {
+    const medioAISeedList = document.querySelector('#medioAISeedOverlay').querySelector('#medioAISeedList')
+    seeds.forEach((seed, index) => {
+      const listItem = document.createElement('li')
+      let label = seed.label
+      if (label === seed.value) {
+        label = ''
+      }
+      listItem.innerHTML = `<div data-index="${index}" class="medioaiSeedItem flex space-x-2 mb-1">
+      <div class="w-1/2">
+        <input type="text" value="${label}" placeholder="Label" class="medioaiInputSeedLabel w-full px-2 py-1 border rounded" />
+      </div>
+      <div class="w-1/2 flex space-x-2">
+        <input type="text" value="${seed.value}" placeholder="Seed Number" class="medioaiInputSeedNumber w-full px-2 py-1 border rounded" />
+        <button class="medioaiRemoveSeed rounded border text-sm text-sm p-2">${iconsMedioAI.trash}</button>
+      </div>
+    </div>`
+      medioAISeedList.appendChild(listItem)
+    })
+  },
+
+  populateOptions: () => {
+    chrome.storage.local.get(['medioAISeeds'], function (result) {
+      const seeds = result.medioAISeeds || []
+      medioAISeedbank.innerHTML = '<option value="" selected disabled>Seedbank</option>'
+      seeds.forEach(seed => {
+        let label = seed.label
+        if (label !== seed.value) {
+          label = `${seed.label} - ${seed.value}`
+        }
+        const option = document.createElement('option')
+        option.value = seed.value
+        option.innerHTML = label
+        medioAISeedbank.appendChild(option)
+      })
+    })
+  },
+
+  addDeleteSeed: (button, seeds) => {
+    button.addEventListener('click', e => {
+      const index = e.target.closest('.medioaiSeedItem').dataset.index
+      seeds.splice(index, 1)
+      chrome.storage.local.set({ medioAISeeds: seeds }, function () {
+        songStudioMedioAI.populateOptions()
+        medioAISeedList.innerHTML = ''
+        songStudioMedioAI.loadSeedList(seeds)
+        utilitiesMedioAI.showNotification('Seed removed.')
+        document.querySelector('#medioAISeedModalClose').click()
+        document.getElementById('medioAIEditSeeds').click()
       })
     })
   },

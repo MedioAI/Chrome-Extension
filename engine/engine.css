@@ -1195,3 +1195,7 @@ input:checked + .medio-slider:before {
 .medioAIShorten .overflow-hidden:first-child {
   max-height: calc(-580px + 100vh) !important;
 }
+
+#medioAISeedbank {
+  font-size: 11px !important
+}
