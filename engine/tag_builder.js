@@ -90,7 +90,6 @@ const tagBuilderMedioAI = {
       })
 
       tagBuilderMedioAI.events(totalDBTags)
-      console.log('loaded')
     })
   },
 

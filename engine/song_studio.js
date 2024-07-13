@@ -20,7 +20,11 @@ const songStudioMedioAI = {
     modal.innerHTML = await uiMedioAI.songStudio()
     document.body.appendChild(modal)
 
-    
+    songStudioMedioAI.detectURLChange((url => {
+      if (url.includes('udio.com/tree/')) {
+        songStudioMedioAI.open()
+      } 
+    }))
 
     songStudioMedioAI.load(() => {
       utilitiesMedioAI.quill()
@@ -100,11 +104,6 @@ const songStudioMedioAI = {
     close.addEventListener('click', () => {
       songStudioMedioAI.close()
     })
-
-    // const openRadio = document.getElementById('medioai-radio')
-    // openRadio.addEventListener('click', () => {
-    //   document.querySelector('#medioaiRadio').click()
-    // })
 
     const findRhymes = document.getElementById('medioai-findRhyme')
     findRhymes.addEventListener('click', () => {
@@ -281,6 +280,17 @@ const songStudioMedioAI = {
         }
       })
     })
+  },
+
+  detectURLChange: (callback) => {
+    let currentUrl = window.location.href
+
+    setInterval(function () {
+      if (window.location.href !== currentUrl) {
+        callback()
+        currentUrl = window.location.href
+      }
+    }, 500)
   },
 
   open: e => {

@@ -37,6 +37,7 @@ const medioAI = {
         }
 
         medioAITrackCounter.load()
+        medioAITrackCounter.init()
       }
     }, 100)
   },
@@ -61,7 +62,6 @@ const medioAI = {
     if (toggleButton.getAttribute('aria-label') === "Collapse Sidebar") {
       subText.style.display = "none";
     } else {
-      console.log(sidebar.style.width)
       if (sidebar.style.width != '4rem') {
         subText.style.display = "block";
         setTimeout(()=> {
@@ -78,11 +78,9 @@ const medioAI = {
     const h5Element = document.querySelector("h5.mb-2.mt-4.text-xs.font-semibold.uppercase.tracking-wider.text-gray-500");
 
     if (h5Element) {
-      console.log('fond h5')
       let divElement = h5Element.nextElementSibling.querySelector(".overflow-hidden")
       
       if (divElement) {
-        console.log('found')
         divElement.parentElement.classList.add('medioAIShorten')
       }
     }

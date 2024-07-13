@@ -22,12 +22,12 @@
   "web_accessible_resources": [
     {
       "resources": ["lib/*", "database/*", "sounds/*", "dj/*", "icon/*", "app/admin/admin.json"],
-      "matches": ["https://www.udio.com/*", "https://beta.udio.com/*"]
+      "matches": ["https://beta.udio.com/*", "https://beta.udio.com/*"]
     }
   ],
   "content_scripts": [
     {
-      "matches": ["https://www.udio.com/*", "https://beta.udio.com/*"],
+      "matches": ["https://beta.udio.com/*", "https://beta.udio.com/*"],
       "js": [
         "lib/quill.js",
         "engine/utilities.js",

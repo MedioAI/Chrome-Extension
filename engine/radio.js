@@ -607,11 +607,11 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     document.querySelector('.medio-radio-title').textContent = current.medioRadio[0].title
     document.querySelector(
       '.medio-radio-title'
-    ).href = `https://www.udio.com/songs/${current.medioRadio[0].id}`
+    ).href = `https://beta.udio.com/songs/${current.medioRadio[0].id}`
     document.querySelector('.medio-radio-artist').textContent = 'by ' + current.medioRadio[0].artist
     document.querySelector(
       '.medio-radio-artist'
-    ).href = `https://www.udio.com/creators/${current.medioRadio[0].artist}`
+    ).href = `https://beta.udio.com/creators/${current.medioRadio[0].artist}`
 
     medioRadio.isFollowing = false
     medioRadio.checkIfHeard(
@@ -819,7 +819,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
   },
 
   trackListen: async id => {
-    fetch('https://www.udio.com/api/increment-play-count', {
+    fetch('https://beta.udio.com/api/increment-play-count', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -843,7 +843,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
   },
 
   likeTrack: async () => {
-    fetch('https://www.udio.com/api/songs/like', {
+    fetch('https://beta.udio.com/api/songs/like', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -855,7 +855,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
   },
 
   dislikeTrack: async () => {
-    fetch('https://www.udio.com/api/songs/like/' + medioRadio.trackId, {
+    fetch('https://beta.udio.com/api/songs/like/' + medioRadio.trackId, {
       method: 'DELETE',
     })
   },
@@ -886,7 +886,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     }
 
     const hiddenIframe = document.createElement('iframe')
-    hiddenIframe.src = `https://www.udio.com/creators/${userId}`
+    hiddenIframe.src = `https://beta.udio.com/creators/${userId}`
     hiddenIframe.style.display = 'none'
     document.body.appendChild(hiddenIframe)
 
@@ -964,8 +964,8 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
         document.querySelector('.track-cover img').src = next.image_path
         document.querySelector('.medio-radio-title').textContent = next.title
         document.querySelector('.medio-radio-artist').textContent = 'by ' + next.artist
-        document.querySelector('.medio-radio-artist').href = `https://www.udio.com/creators/${next.artist}`
-        document.querySelector('.medio-radio-title').href = `https://www.udio.com/songs/${next.id}`
+        document.querySelector('.medio-radio-artist').href = `https://beta.udio.com/creators/${next.artist}`
+        document.querySelector('.medio-radio-title').href = `https://beta.udio.com/songs/${next.id}`
 
         medioRadio.trackId = next.id
         medioRadio.trackUserId = next.user_id
@@ -1044,7 +1044,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
   },
 
   getTrackMP3: async id => {
-    return await fetch(`https://www.udio.com/api/songs?songIds=${id}`, {
+    return await fetch(`https://beta.udio.com/api/songs?songIds=${id}`, {
       method: 'GET',
     })
       .then(response => response.json())
@@ -1140,7 +1140,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     if (medioRadio.listType === 'tags') {
       let genres = medioRadio.genres.split(',')
       for (const genre of genres) {
-        await fetch(`https://www.udio.com/api/songs/search`, {
+        await fetch(`https://beta.udio.com/api/songs/search`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -1183,7 +1183,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
           }
           break
       }
-      await fetch(`https://www.udio.com/api/songs/search`, {
+      await fetch(`https://beta.udio.com/api/songs/search`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1203,7 +1203,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
           medioRadio.processTracks(result)
         })
     } else if (medioRadio.listType === 'playlist') {
-      await fetch(`https://www.udio.com/api/playlists?id=${medioRadio.playlistId}`, {
+      await fetch(`https://beta.udio.com/api/playlists?id=${medioRadio.playlistId}`, {
         method: 'GET',
       })
         .then(response => response.json())
@@ -1214,7 +1214,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
           }
           const songIds = tracks.playlists[0].song_list.join(',')
 
-          await fetch(`https://www.udio.com/api/songs?songIds=${songIds}`, {
+          await fetch(`https://beta.udio.com/api/songs?songIds=${songIds}`, {
             method: 'GET',
           })
             .then(response => response.json())
@@ -1227,7 +1227,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
             })
         })
     } else if (medioRadio.listType === 'artist') {
-      await fetch(`https://www.udio.com/api/songs/search`, {
+      await fetch(`https://beta.udio.com/api/songs/search`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
