@@ -706,7 +706,7 @@ const songStudioMedioAI = {
           button.closest('button').addEventListener('click', () => {
             setTimeout(() => {
               songStudioMedioAI.appendSeedBox()
-            }, 1000)
+            }, 300)
           })
         }, 500)
         
@@ -834,6 +834,7 @@ const songStudioMedioAI = {
   },
 
   populateOptions: () => {
+    const medioAISeedbank = document.getElementById('medioAISeedbank')
     chrome.storage.local.get(['medioAISeeds'], function (result) {
       const seeds = result.medioAISeeds || []
       medioAISeedbank.innerHTML = '<option value="" selected disabled>Seedbank</option>'
