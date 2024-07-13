@@ -10,7 +10,7 @@
 const uiMedioAI = {
   sidebarLinks: /* html */ `
 <div class="-ml-5 pl-[16px]"><div class="relative flex items-center rounded-lg py-3 pr-4 hover:text-foreground"><a id="medioai-link" class="mr-4 flex items-center" aria-label="" href="/following">
-<span class="text-white">${iconsMedioAI.songStudio}</span>
+<span class="brand-gray-light hover:text-white">${iconsMedioAI.songStudio}</span>
 <span id="medioai-link-text" class="brand-gray-light ml-3 flex-1 whitespace-nowrap text-[16px]">MedioAI</span></a>
 </div></div>`,
 

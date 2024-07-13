@@ -858,15 +858,31 @@ const songStudioMedioAI = {
       for (let mutation of mutationsList) {
         if (mutation.addedNodes.length) {
           mutation.addedNodes.forEach(node => {
-            if (node.nodeType === 1 && node.getAttribute('role') === 'dialog') {
-              const title = node.querySelector('h2')
-              if (title.textContent === 'Track Cover') {
-                const buttons = node.querySelectorAll('button')
-                const generateButton = Array.from(buttons).find(button => button.textContent === 'Generate')
+            if (node.nodeType === 1) {
+              const textPrompt = node.querySelector('textarea[name="prompt"]')
+              if (textPrompt) {
+                  const textPrompt = node.querySelector('textarea[name="prompt"]')
 
-                generateButton.addEventListener('click', () => {
-                  songStudioMedioAI.lookForCovers(node, generateButton)
-                })
+                  if (textPrompt) {
+
+                    const buttons = node.querySelectorAll('.float-right button')
+                    const backButton = Array.from(buttons).find(button => button.textContent === 'Back to Details')
+                    if (backButton) {
+                      const generateButton = document.createElement('button')
+                      generateButton.innerHTML = 'Save Covers'
+                      generateButton.setAttribute(
+                        'class',
+                        'inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white/5 text-white border-[0.5px] border-white/10 hover:bg-secondary/80 h-10 px-4 rounded-md py-2 mr-3'
+                      )
+                      generateButton.addEventListener('click', (e) => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        songStudioMedioAI.grabCovers(node, node)
+                      })
+                      backButton.after(generateButton)
+                    }
+                  }
+                
               }
             }
           })
@@ -878,49 +894,17 @@ const songStudioMedioAI = {
     observer.observe(targetNode, config)
   },
 
-  lookForCovers: (wrapper, generateButton) => {
-    const config = { attributes: true, childList: true, subtree: true }
-    const callback = function (mutationsList, observer) {
-      for (let mutation of mutationsList) {
-        if (mutation.addedNodes.length) {
-          mutation.addedNodes.forEach(async node => {
-            if (node.querySelector('img[alt="generated-image-0"]')) {
-              const autoSaveCovers = await utilitiesMedioAI.getSettings('autoSaveCovers')
-              if (autoSaveCovers === 'on') {
-                songStudioMedioAI.grabCovers(wrapper, node)
-              }
-
-              if (!document.querySelector('#medioaiSaveCovers')) {
-                const saveImagesButton = document.createElement('button')
-                saveImagesButton.innerHTML = 'Save Covers'
-                saveImagesButton.setAttribute(
-                  'class',
-                  'items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-sm h-10 px-4 py-2 mr-3 block'
-                )
-                saveImagesButton.id = 'medioaiSaveCovers'
-                saveImagesButton.addEventListener('click', e => {
-                  e.preventDefault()
-                  e.stopPropagation()
-
-                  songStudioMedioAI.grabCovers(wrapper, node)
-                })
-                generateButton.parentElement.appendChild(saveImagesButton)
-              }
-            }
-          })
-        }
-      }
-    }
-    const observer = new MutationObserver(callback)
-    observer.observe(wrapper, config)
-  },
-
   grabCovers: async (wrapper, node) => {
     const images = []
-    const cover1 = node.querySelector('img[alt="generated-image-0"]')
-    const cover2 = node.querySelector('img[alt="generated-image-1"]')
+    const cover1 = document.querySelector('img[alt="generated-image-0"]')
+    const cover2 = document.querySelector('img[alt="generated-image-1"]')
     const cover3 = document.querySelector('img[alt="cover"]')
     const prompt = wrapper.querySelector('textarea').value
+
+    if (!cover1) {
+      utilitiesMedioAI.showNotification('No covers found. Generate some covers first.', 'error')
+      return
+    }
 
     function toBase64(imgSrc) {
       return new Promise((resolve, reject) => {

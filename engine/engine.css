@@ -714,6 +714,12 @@ select.medioAddTag {
   margin-bottom: 5px !important;
 }
 
+.disabled {
+  opacity: 0.4 !important;
+  pointer-events: none !important;
+
+}
+
 #medioSongRollDice.disabled {
   opacity: 0.4;
 }

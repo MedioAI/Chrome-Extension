@@ -25,7 +25,6 @@ const app = {
         document.getElementById('commandcolor').value = settings.commandcolor
         document.getElementById('aimodel').value = settings.aimodel || 'openai'
         document.getElementById('openaikey').value = settings.openaikey
-        document.getElementById('autoSaveCovers').value = settings.autoSaveCovers || 'off'
         document.getElementById('lyricAttribution').value = settings.lyricAttribution || ''
         document.getElementById('openrouterapikey').value = settings.openrouterapikey || ''
         document.getElementById('openaiModal').value = settings.openaiModal || 'gpt-4o'
@@ -281,7 +280,6 @@ const app = {
       aimodel: document.getElementById('aimodel').value,
       openaikey: document.getElementById('openaikey').value,
       openrouterapikey: document.getElementById('openrouterapikey').value,
-      autoSaveCovers: document.getElementById('autoSaveCovers').value,
       lyricAttribution: document.getElementById('lyricAttribution').value,
       openaiModal: document.getElementById('openaiModal').value,
       openrouterModal: document.getElementById('openrouterModal').value,
