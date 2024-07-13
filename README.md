@@ -65,22 +65,12 @@ Coming soon.
 
 ## Releases
 
+- **Version 1.6** - [MedioAI v1.6 (update to new UI)]
 - **Version 1.5** - [MedioAI v1.5 (bug fixes)]
 - **Version 1.4** - [MedioAI v1.4 (ai radio!)](https://github.com/WynterJones/MedioAI-for-Udio/releases/tag/v1.4)
 - **Version 1.2** - [MedioAI v1.2 (just more tags)](https://github.com/WynterJones/MedioAI-for-Udio/releases/tag/v1.2)
 - **Version 1.1** - [MedioAI v1.1](https://github.com/WynterJones/MedioAI-for-Udio/releases/tag/v1.1)
 
-### Version 1.4
-
-- MedioRadio! Listen to Udio like a radio station. Add OpenAI key for DJ announcer for tracks!
-- Fix: Track credit counter.
-- Fix: Save cover button duplicating
-- Fix: Track cover not downloading.
-- Removed "Manual Mode + Keep Settings" as Udio has updated.
-
-### In Development
-
-- Music visualizer to MP4
 
 ### Bugs
 

@@ -20,6 +20,8 @@ const songStudioMedioAI = {
     modal.innerHTML = await uiMedioAI.songStudio()
     document.body.appendChild(modal)
 
+    
+
     songStudioMedioAI.load(() => {
       utilitiesMedioAI.quill()
       songStudioMedioAI.events()
@@ -99,10 +101,10 @@ const songStudioMedioAI = {
       songStudioMedioAI.close()
     })
 
-    const openRadio = document.getElementById('medioai-radio')
-    openRadio.addEventListener('click', () => {
-      document.querySelector('#medioaiRadio').click()
-    })
+    // const openRadio = document.getElementById('medioai-radio')
+    // openRadio.addEventListener('click', () => {
+    //   document.querySelector('#medioaiRadio').click()
+    // })
 
     const findRhymes = document.getElementById('medioai-findRhyme')
     findRhymes.addEventListener('click', () => {
@@ -135,6 +137,28 @@ const songStudioMedioAI = {
     clearLyrics.addEventListener('click', e => {
       songStudioMedioAI.clear(e)
     })
+
+  
+    const sendLyrics = document.querySelector('#send-lyrics');
+    sendLyrics.addEventListener('click', e => {
+      let selectedText = window.getSelection().toString();
+      if (!selectedText) {
+        utilitiesMedioAI.showNotification('Please select some text first!', 'error')
+      } else {
+        const lyricBox = document.querySelector('textarea[placeholder="Write custom lyrics here"]');
+        if (!lyricBox) {
+          utilitiesMedioAI.showNotification('Please select "Custom" to have the lyric box visible.', 'error')
+          return;
+        } else {
+          selectedText = selectedText.replace(/^\s*$(?:\r\n?|\n)/gm, '');
+          selectedText = selectedText.replace(/(?<!^)(\n)(\[\w+\])/g, '\n\n$2');
+    
+          lyricBox.value = selectedText;
+          songStudioMedioAI.simulateMouseClick(lyricBox);
+          close.click();
+        }
+      }
+    });
 
     const allPremadeQuestions = document.querySelectorAll('.medioAskAIPremadeQuestion')
     allPremadeQuestions.forEach(question => {
@@ -263,12 +287,15 @@ const songStudioMedioAI = {
     e.preventDefault()
     songStudioMedioAI.isOpen = true
 
+    const app = document.querySelector('section.bg-brand-gray-dark')
+    app.setAttribute('style', 'transition: 0.2s;filter: blur(10px);')
+
     if (!document.getElementById('medioAI-songstudio')) {
       document.body.style.overflow = 'auto'
     } else {
       document.body.style.overflow = 'hidden'
       const songstudio = document.getElementById('medioAI-songstudio')
-      songstudio.style.transform = 'translateX(0)'
+      songstudio.style.transform = 'translateY(0)'
 
       const savedButton = document.querySelector('.lyric-tab-button[data-tab="library"]')
       if (savedButton.classList.contains('bg-black')) {
@@ -279,9 +306,11 @@ const songStudioMedioAI = {
 
   close: () => {
     const modal = document.getElementById('medioAI-songstudio')
-    modal.style.transform = 'translateX(-100%)'
+    modal.style.transform = 'translateY(-100%)'
     document.body.style.overflow = 'auto'
     songStudioMedioAI.isOpen = false
+    const app = document.querySelector('section.bg-brand-gray-dark')
+    app.setAttribute('style', '')
   },
 
   clear: e => {
@@ -421,7 +450,7 @@ const songStudioMedioAI = {
           button.textContent = 'Loading...'
           setTimeout(() => {
             button.textContent = 'Tags'
-          }, 500)
+          }, 200)
         }
       })
     })

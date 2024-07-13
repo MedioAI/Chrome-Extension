@@ -33,7 +33,6 @@ const uiMedioAI = {
     color: #fff;
     font-size: 34px;
     cursor: pointer;
-    background: #000;
     border-radius: 100%;
     padding: 6px 12px;
   "
@@ -114,7 +113,7 @@ const uiMedioAI = {
       data-tab="ask"
       class="lyric-tab-button inline-flex items-center justify-center whitespace-nowrap rounded-sm py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3"
     >
-      Ask
+      Chat
     </button>
     <button
       type="button"
@@ -842,6 +841,15 @@ const uiMedioAI = {
         >
           ${iconsMedioAI.clear}
           <span>Clear</span>
+        </button>
+      </div>
+      <div class="flex items-center justify-center w-full">
+        <button
+          id="send-lyrics"
+          class="flex select-none items-center space-x-2 medio-toolbar-button"
+        >
+          ${iconsMedioAI.sendLyrics}
+          <span>Use Selected</span>
         </button>
       </div>
       <div class="flex w-full space-x-2 justify-end items-end">

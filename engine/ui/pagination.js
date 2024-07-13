@@ -126,6 +126,8 @@ const paginationMedioAI = {
     const search = value.toLowerCase()
     const chats = paginationMedioAI.chatHistory
 
+    console.group({search, chats})
+
     if (search === '') {
       wrapper.innerHTML = ''
       const firstChats = chats.slice(0, paginationMedioAI.perPage)
@@ -157,9 +159,9 @@ const paginationMedioAI = {
 
     const filteredChats = chats.filter(chat => {
       if (chat.name) {
-        return chat.name.toLowerCase().includes(search) || chat.song_title.toLowerCase().includes(search)
-      } else if (chat.song_title) {
-        return chat.song_title.toLowerCase().includes(search)
+        return chat.name.toLowerCase().includes(search) || chat.title.toLowerCase().includes(search)
+      } else if (chat.title) {
+        return chat.title.toLowerCase().includes(search)
       } else if (chat.tags) {
         return chat.tags.toLowerCase().includes(search)
       }
@@ -281,7 +283,6 @@ const paginationMedioAI = {
         <h4 class="text-lg font-bold">${name}</h4>
         <p class="text-sm flex space-x-4 text-gray-400">
           <span style="opacity: 0.5">${utilitiesMedioAI.formatDate(item.created_at || Date.now())}</span> 
-          <span style="opacity: 0.5">${subtitle}</span>
         </p>
       </div>
       <button class="medioChatDelete" data-id="${item.id}">

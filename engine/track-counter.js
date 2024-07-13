@@ -125,7 +125,7 @@ const medioAITrackCounter = {
     //     })
     //   }
     // })
-    medioAITrackCounter.appendLyricAttribution()
+    // medioAITrackCounter.appendLyricAttribution()
   },
 
   appendLyricAttribution: () => {

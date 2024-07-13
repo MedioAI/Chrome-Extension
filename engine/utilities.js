@@ -21,25 +21,34 @@ const utilitiesMedioAI = {
   setHotKeys: e => {
     if (e.key === 'Escape') {
       const songstudio = document.getElementById('medioAI-songstudio')
-      songstudio.style.transform = 'translateX(-100%)'
+      songstudio.style.transform = 'translateY(-100%)'
       document.body.style.overflow = 'auto'
       songStudioMedioAI.isOpen = false
+      const app = document.querySelector('section.bg-brand-gray-dark')
+      app.setAttribute('style', '')
     }
 
     if ((e.ctrlKey && e.key === 'k') || (e.metaKey && e.key === 'k')) {
       document.querySelector('.lyric-tab-button[data-tab="write"]').click()
       const songstudio = document.getElementById('medioAI-songstudio')
-      songstudio.style.transform = 'translateX(0)'
+      songstudio.style.transform = 'translateY(0)'
       document.body.style.overflow = 'hidden'
       songStudioMedioAI.isOpen = true
+      const app = document.querySelector('section.bg-brand-gray-dark')
+      app.setAttribute('style', 'transition: 0.2s;filter: blur(10px);')
+      setTimeout(() => {
+        utilitiesMedioAI.quill.focus()
+      }, 100)
     }
 
     if ((e.ctrlKey && e.key === 'j') || (e.metaKey && e.key === 'j')) {
       document.querySelector('.lyric-tab-button[data-tab="build"]').click()
       const songstudio = document.getElementById('medioAI-songstudio')
-      songstudio.style.transform = 'translateX(0)'
+      songstudio.style.transform = 'translateY(0)'
       document.body.style.overflow = 'hidden'
       songStudioMedioAI.isOpen = true
+      const app = document.querySelector('section.bg-brand-gray-dark')
+      app.setAttribute('style', 'transition: 0.2s;filter: blur(10px);')
     }
   },
 
