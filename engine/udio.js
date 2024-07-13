@@ -19,15 +19,10 @@ const medioAI = {
 
         if (!sidebarButton) {
           const sidebar = document.querySelector(udioSidebarSelector)
-          // sidebar.parentElement.insertAdjacentHTML('beforeend', uiMedioAI.sidebarRadio)
           sidebar.closest('li').insertAdjacentHTML('beforeend', uiMedioAI.sidebarLinks)
 
           medioAI.checkSidebar()
           medioAI.toggleSidebar()
-          medioAI.fixPlaylist()
-          setTimeout(()=> {
-            medioAI.fixPlaylist()
-          }, 1000)
 
           notificationMedioAI.init()
           songStudioMedioAI.init()
@@ -64,9 +59,6 @@ const medioAI = {
     } else {
       if (sidebar.style.width != '4rem') {
         subText.style.display = "block";
-        setTimeout(()=> {
-          medioAI.fixPlaylist()
-        }, 10)
       } else {
         subText.style.display = "none";
       }

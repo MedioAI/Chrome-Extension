@@ -37,11 +37,13 @@ const medioAITrackCounter = {
 
   init: () => {
     const url = window.location.href
+    if (!url) return
     if (url.includes('udio.com/tree/')) {
       medioAITrackCounter.appendButton()
     }
 
     songStudioMedioAI.detectURLChange(url => {
+      if (!url) return
       if (url.includes('udio.com/tree/')) {
         medioAITrackCounter.appendButton()
       }

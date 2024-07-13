@@ -16,7 +16,6 @@ const notificationMedioAI = {
     const observer = new MutationObserver(mutations => {
       mutations.forEach(async mutation => {
         const shouldPlaySound = await utilitiesMedioAI.getSettings('notification')
-
         if (
           shouldPlaySound === 'on' &&
           !notificationMedioAI.isChecking &&

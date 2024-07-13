@@ -1192,8 +1192,8 @@ input:checked + .medio-slider:before {
   min-height: 100vh !important;
 }
 
-.medioAIShorten .overflow-hidden:first-child {
-  max-height: calc(-580px + 100vh) !important;
+aside[aria-label="Sidebar"] div[role="tabpanel"] .overflow-hidden:first-child {
+  max-height: calc(-530px + 100vh) !important
 }
 
 #medioAISeedbank {
