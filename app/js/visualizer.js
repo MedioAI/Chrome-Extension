@@ -34,14 +34,9 @@ const visualizer = {
     visualizer.context = visualizer.canvas.getContext('2d')
     visualizer.recordButton = document.querySelector('button#record')
     visualizer.convertButton = document.querySelector('button#convert')
-    visualizer.restartButton = document.querySelector('button#restart')
 
     visualizer.recordButton.addEventListener('click', () => {
       visualizer.convert()
-    })
-
-    visualizer.restartButton.addEventListener('click', () => {
-      location.reload()
     })
 
     const addCoverImg = document.getElementById('addCoverImg')
@@ -98,10 +93,13 @@ const visualizer = {
       audioBuffer = await fetchFile(file)
 
       await generateWaveform(url)
-
-      if (coverImage && backgroundImage) {
-        drawCanvas()
-      }
+      audioElement.volume = 0
+      audioElement.play()
+      setTimeout(async () => {
+        audioElement.pause()
+        audioElement.currentTime = 0
+        audioElement.volume = 1
+      }, 300)
     }
 
     async function handleCoverImage(event) {
@@ -154,11 +152,16 @@ const visualizer = {
       visualizer.analyser = analyser
     }
 
-    function drawCanvas() {
+    async function drawCanvas() {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       ctx.fillStyle = 'rgba(0, 0, 0, 1)'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+      if (!coverImage) {
+        coverImage = await loadImage(chrome.runtime.getURL('app/images/visualizer-default-cover.png'))
+        backgroundImage = await loadImage(chrome.runtime.getURL('app/images/visualizer-default-bg.png'))
+      }
 
       if (backgroundImage) {
         ctx.globalAlpha = 0.2
@@ -186,38 +189,36 @@ const visualizer = {
         }
       }
 
-      if (coverImage) {
-        const baseSize = 46
-        const width = ctx.canvas.width * 0.3
-        const height = coverImage.height * (width / coverImage.width)
-        const x = 60
-        const y = (ctx.canvas.height - height) / 2
+      const baseSize = 46
+      const width = ctx.canvas.width * 0.3
+      const height = coverImage.height * (width / coverImage.width)
+      const x = 60
+      const y = (ctx.canvas.height - height) / 2
 
-        ctx.drawImage(coverImage, x, y, width, height)
+      ctx.drawImage(coverImage, x, y, width, height)
 
-        ctx.font = `bold ${baseSize * 2}px Arial`
-        ctx.fillStyle = 'white'
-        const titleX = x + width + 60
-        const titleY = y + 230
-        let title = document.querySelector('#title').value
-        title = truncateText(ctx, title, ctx.canvas.width - titleX)
-        ctx.fillText(title, titleX, titleY)
+      ctx.font = `bold ${baseSize * 2}px Arial`
+      ctx.fillStyle = 'white'
+      const titleX = x + width + 60
+      const titleY = y + 230
+      let title = document.querySelector('#title').value
+      title = truncateText(ctx, title, ctx.canvas.width - titleX)
+      ctx.fillText(title, titleX, titleY)
 
-        ctx.font = `bold ${baseSize * 1}px Arial`
-        subtitleY = titleY + 80
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
+      ctx.font = `bold ${baseSize * 1}px Arial`
+      subtitleY = titleY + 80
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
 
-        let subtitle = document.querySelector('#subtitle').value
-        subtitle = truncateText(ctx, subtitle, ctx.canvas.width - titleX)
-        ctx.fillText(subtitle, titleX, subtitleY)
+      let subtitle = document.querySelector('#subtitle').value
+      subtitle = truncateText(ctx, subtitle, ctx.canvas.width - titleX)
+      ctx.fillText(subtitle, titleX, subtitleY)
 
-        progressBar = {
-          x: titleX,
-          y: subtitleY + 60,
-          width: ctx.canvas.width - width - 200,
-          height: 10,
-          color: 'rgba(255, 255, 255, 0.3)',
-        }
+      progressBar = {
+        x: titleX,
+        y: subtitleY + 60,
+        width: ctx.canvas.width - width - 200,
+        height: 10,
+        color: 'rgba(255, 255, 255, 0.3)',
       }
     }
 
@@ -250,15 +251,27 @@ const visualizer = {
       ctx.lineTo(canvas.width, canvas.height / 2)
       ctx.stroke()
 
+      // Existing gray progress bar
       ctx.beginPath()
       ctx.lineJoin = 'round'
       ctx.lineCap = 'round'
       ctx.lineWidth = progressBar.height
-      ctx.strokeStyle = progressBar.color
+      ctx.strokeStyle = progressBar.color // Gray color
       ctx.moveTo(progressBar.x, progressBar.y + progressBar.height / 2)
       ctx.lineTo(progressBar.x + progressBar.width, progressBar.y + progressBar.height / 2)
       ctx.stroke()
 
+      // Filled progress bar (red)
+      ctx.beginPath()
+      ctx.strokeStyle = 'red' // Red color for the filled part
+      // Assuming handle.x represents the current progress position
+      // Ensure that the filled length does not exceed the total width of the progress bar
+      let filledLength = Math.min(handle.x - progressBar.x, progressBar.width)
+      ctx.moveTo(progressBar.x, progressBar.y + progressBar.height / 2)
+      ctx.lineTo(progressBar.x + filledLength, progressBar.y + progressBar.height / 2)
+      ctx.stroke()
+
+      // Handle and other elements
       ctx.beginPath()
       ctx.arc(handle.x, handle.y + subtitleY + 15, handle.radius, 0, Math.PI * 2, false)
       ctx.fillStyle = handle.color
@@ -269,6 +282,10 @@ const visualizer = {
       if (!audioElement.paused && !audioElement.ended) {
         drawCanvas()
         requestAnimationFrame(updateWaveform)
+      }
+
+      if (audioElement.paused) {
+        drawCanvas()
       }
     }
 

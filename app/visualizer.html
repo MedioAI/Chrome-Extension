@@ -48,9 +48,8 @@
 
       <hr class="my-8 border-gray-600" />
 
-      <p>Coming soon!</p>
 
-      <div id="upload" style="display: none">
+      <div id="upload">
         <h3 class="text-xl font-medium">Drag a .MP3 file here or click to browse files.</h3>
         <input type="file" id="mp3" accept=".mp3" style="display: none" />
       </div>
@@ -62,10 +61,10 @@
         <div id="toolbar" class="border-light rounded-t border flex items-center justify-between p-2">
           <div class="flex items-center space-x-2">
             <div class="input-group mb-0">
-              <input type="text" id="title" placeholder="Title" />
+              <input type="text" id="title" value="Song Title" placeholder="Title" />
             </div>
             <div class="input-group mb-0">
-              <input type="text" id="subtitle" placeholder="Sub Title" />
+              <input type="text" id="subtitle" value="Add your subtitle here" placeholder="Sub Title" />
             </div>
             <div class="input-group mb-0">
               <button id="addCoverImg" class="btn flex space-x-2 items-center">
@@ -75,7 +74,7 @@
                     d="M19 13a1 1 0 0 0-1 1v.38l-1.48-1.48a2.79 2.79 0 0 0-3.93 0l-.7.7l-2.48-2.48a2.85 2.85 0 0 0-3.93 0L4 12.6V7a1 1 0 0 1 1-1h7a1 1 0 0 0 0-2H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3v-5a1 1 0 0 0-1-1M5 20a1 1 0 0 1-1-1v-3.57l2.9-2.9a.79.79 0 0 1 1.09 0l3.17 3.17l4.3 4.3Zm13-1a.89.89 0 0 1-.18.53L13.31 15l.7-.7a.77.77 0 0 1 1.1 0L18 17.21Zm4.71-14.71l-3-3a1 1 0 0 0-.33-.21a1 1 0 0 0-.76 0a1 1 0 0 0-.33.21l-3 3a1 1 0 0 0 1.42 1.42L18 4.41V10a1 1 0 0 0 2 0V4.41l1.29 1.3a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.42"
                   />
                 </svg>
-                <span>Cover Image</span>
+                <span>Cover</span>
               </button>
               <input style="display: none" type="file" id="coverImg" accept=".png, .jpg, .jpeg" />
             </div>
@@ -87,16 +86,15 @@
                     d="M19 13a1 1 0 0 0-1 1v.38l-1.48-1.48a2.79 2.79 0 0 0-3.93 0l-.7.7l-2.48-2.48a2.85 2.85 0 0 0-3.93 0L4 12.6V7a1 1 0 0 1 1-1h7a1 1 0 0 0 0-2H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3v-5a1 1 0 0 0-1-1M5 20a1 1 0 0 1-1-1v-3.57l2.9-2.9a.79.79 0 0 1 1.09 0l3.17 3.17l4.3 4.3Zm13-1a.89.89 0 0 1-.18.53L13.31 15l.7-.7a.77.77 0 0 1 1.1 0L18 17.21Zm4.71-14.71l-3-3a1 1 0 0 0-.33-.21a1 1 0 0 0-.76 0a1 1 0 0 0-.33.21l-3 3a1 1 0 0 0 1.42 1.42L18 4.41V10a1 1 0 0 0 2 0V4.41l1.29 1.3a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.42"
                   />
                 </svg>
-                <span>Background Image</span>
+                <span>Background</span>
               </button>
               <input style="display: none" type="file" id="bgImg" accept=".png, .jpg, .jpeg" />
             </div>
           </div>
 
           <div class="flex items-center justify-between space-x-2">
-            <button id="restart" class="btn">Restart</button>
             <button id="record" class="btn primary">Record</button>
-            <button id="convert" class="btn">Convert</button>
+            <button id="convert" style="display:none" class="btn">Convert</button>
           </div>
         </div>
 
