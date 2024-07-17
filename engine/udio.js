@@ -24,14 +24,13 @@ const medioAI = {
           medioAI.checkSidebar()
           medioAI.toggleSidebar()
 
-          notificationMedioAI.init()
           songStudioMedioAI.init()
           setTimeout(() => {
             tagBuilderMedioAI.init()
           }, 100)
         }
 
-        medioAITrackCounter.load()
+        utilitiesMedioAI.mutationObserver()
         medioAITrackCounter.init()
       }
     }, 100)

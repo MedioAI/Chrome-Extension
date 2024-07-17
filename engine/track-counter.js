@@ -8,46 +8,22 @@
  */
 
 const medioAITrackCounter = {
-  load: () => {
-    const observer = new MutationObserver((mutationsList, observer) => {
-      for (let mutation of mutationsList) {
-        if (mutation.addedNodes.length) {
-          const lyricBox = document.querySelector('textarea[placeholder="Enter lyrics here"]')
-          if (lyricBox) {
-            const textBox = document.querySelector('#medioaiInsertAttribution')
-            if (!textBox) {
-              medioAITrackCounter.appendLyricAttribution()
-            }
-            // observer.disconnect()
-            break
-          }
-
-          const imagePrompt = document.querySelector('input[name="prompt"]')
-          if (imagePrompt) {
-            medioAITrackCounter.appendLyricAttribution()
-            // observer.disconnect()
-            break
-          }
-        }
-      }
-    })
-
-    observer.observe(document, { childList: true, subtree: true })
-  },
-
   init: () => {
-    const url = window.location.href
-    if (!url) return
-    if (url.includes('udio.com/tree/')) {
-      medioAITrackCounter.appendButton()
-    }
-
-    songStudioMedioAI.detectURLChange(url => {
+    setTimeout(()=> {
+      const url = window.location.href
       if (!url) return
       if (url.includes('udio.com/tree/')) {
         medioAITrackCounter.appendButton()
       }
-    })
+  
+      songStudioMedioAI.detectURLChange(url => {
+        if (!url) return
+        if (url.includes('udio.com/tree/')) {
+          medioAITrackCounter.appendButton()
+        }
+      })
+    }, 1000)
+    
   },
 
   appendButton: () => {

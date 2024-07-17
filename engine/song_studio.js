@@ -21,7 +21,7 @@ const songStudioMedioAI = {
     document.body.appendChild(modal)
 
     songStudioMedioAI.detectURLChange((url => {
-      if (url.includes('udio.com/tree/')) {
+      if (url && url.includes('udio.com/tree/')) {
         songStudioMedioAI.open()
       } 
     }))
@@ -50,15 +50,14 @@ const songStudioMedioAI = {
     }
     window.addEventListener('keydown', songStudioMedioAI.spaceKeyDown)
 
-    songStudioMedioAI.playlist()
     songStudioMedioAI.appButtons()
     setTimeout(() => {
       songStudioMedioAI.seedBox()
     }, 2000)
 
-    setTimeout(() => {
-      songStudioMedioAI.trackCovers()
-    }, 2000)
+    // setTimeout(() => {
+    //   songStudioMedioAI.trackCovers()
+    // }, 2000)
   },
 
   load: callback => {
@@ -525,101 +524,6 @@ const songStudioMedioAI = {
     return current[Math.floor(Math.random() * current.length)]
   },
 
-  playlist: () => {
-    const callback = function (mutationsList, observer) {
-      const element = document.querySelector(
-        'aside nav [dir="ltr"].relative.overflow-hidden.flex.w-full.flex-col'
-      )
-
-      if (element) {
-        const buttons = document.querySelectorAll('aside nav button')
-
-        const othersPlaylistButton = Array.from(buttons).find(
-          button => button.textContent.trim() === 'By others'
-        )
-
-        if (othersPlaylistButton) {
-          const button = document.createElement('button')
-          button.innerHTML = iconsMedioAI.expand
-          button.setAttribute(
-            'class',
-            'inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-xs sm:text-base'
-          )
-
-          button.addEventListener('click', () => {
-            const overlay = document.createElement('div')
-            overlay.id = 'medioaiPLaylistOverlay'
-            overlay.style.position = 'fixed'
-            overlay.style.top = '0'
-            overlay.style.left = '0'
-            overlay.style.width = '100%'
-            overlay.style.height = '100%'
-            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'
-            overlay.style.zIndex = '99999999999'
-
-            const modal = document.createElement('div')
-            modal.style.position = 'absolute'
-            modal.style.top = '50%'
-            modal.style.left = '50%'
-            modal.style.transform = 'translate(-50%, -50%)'
-            modal.style.width = '40%'
-            modal.style.height = '100%'
-            modal.style.backgroundColor = '#000'
-            modal.style.padding = '20px'
-            modal.style.borderRadius = '20px'
-            modal.style.boxShadow = '20px 20px 60px #000, -20px -20px 60px #000'
-            modal.innerHTML = `<button id='medioaiClosePlaylist' style="
-                position: absolute;
-                top: 16px;
-                right: 16px;
-                background: none;
-                border: none;
-                color: #fff;
-                font-size: 34px;
-                cursor: pointer;
-                background: #000;
-                border-radius: 100%;
-                padding: 6px 12px;
-                z-index: 99999999999;
-              ">
-                &times;
-              </button>`
-
-            const medioaiClosePlaylist = modal.querySelector('#medioaiClosePlaylist')
-            medioaiClosePlaylist.addEventListener('click', () => {
-              overlay.remove()
-            })
-
-            window.addEventListener('keydown', e => {
-              const overlay = document.getElementById('medioaiPLaylistOverlay')
-              if (e.key === 'Escape' && overlay) {
-                overlay.remove()
-              }
-            })
-
-            const copiedPlaylist = button.closest('[data-orientation="horizontal"].mt-4').cloneNode(true)
-            const sidebarPlaylist = copiedPlaylist.querySelector(
-              '[dir="ltr"].relative.overflow-hidden.flex.w-full.flex-col'
-            )
-            sidebarPlaylist.style.overflow = 'visible'
-            copiedPlaylist.querySelector('[role="tablist"]').remove()
-
-            modal.appendChild(copiedPlaylist)
-            overlay.appendChild(modal)
-            document.body.appendChild(overlay)
-          })
-
-          othersPlaylistButton.after(button)
-        }
-
-        observer.disconnect()
-      }
-    }
-
-    const observer = new MutationObserver(callback)
-    observer.observe(document, { childList: true, subtree: true })
-  },
-
   applyAdvancedSettings: async button => {
     const wrapper = button.closest('h3').nextElementSibling
     if (!wrapper) return
@@ -698,7 +602,7 @@ const songStudioMedioAI = {
   },
 
   seedBox: () => {
-    let buttons = document.querySelectorAll('.text-muted-foreground')
+    let buttons = document.querySelectorAll('.transition-all')
     buttons.forEach(button => {
       
       if (button.textContent === 'Advanced Features') {
