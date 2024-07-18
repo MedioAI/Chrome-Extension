@@ -29,11 +29,11 @@ const visualizer = {
   canvas: null,
   recordButton: null,
   convertButton: null,
-  audioBuffer: null, 
-  coverImage: null, 
+  audioBuffer: null,
+  coverImage: null,
   backgroundImage: null,
-  progressBar: null, 
-  handle: null, 
+  progressBar: null,
+  handle: null,
   subtitleY: 0,
 
   load: async () => {
@@ -87,7 +87,6 @@ const visualizer = {
       color: 'white',
     }
 
-
     async function handleFile(event) {
       const file = event.target.files[0]
       if (!file) return
@@ -129,13 +128,15 @@ const visualizer = {
       }
     }
 
-
     audioElement.addEventListener('timeupdate', function () {
-      visualizer.handle.x = visualizer.progressBar.x + (this.currentTime / this.duration) * visualizer.progressBar.width
+      console.log('timeupdate')
+      visualizer.handle.x =
+        visualizer.progressBar.x + (this.currentTime / this.duration) * visualizer.progressBar.width
       visualizer.drawWaveform()
     })
 
     audioElement.addEventListener('play', () => {
+      console.log('playing')
       visualizer.updateWaveform()
     })
   },
@@ -219,7 +220,10 @@ const visualizer = {
     ctx.lineWidth = visualizer.progressBar.height
     ctx.strokeStyle = visualizer.progressBar.color // Gray color
     ctx.moveTo(visualizer.progressBar.x, visualizer.progressBar.y + visualizer.progressBar.height / 2)
-    ctx.lineTo(visualizer.progressBar.x + visualizer.progressBar.width, visualizer.progressBar.y + visualizer.progressBar.height / 2)
+    ctx.lineTo(
+      visualizer.progressBar.x + visualizer.progressBar.width,
+      visualizer.progressBar.y + visualizer.progressBar.height / 2
+    )
     ctx.stroke()
 
     // Filled progress bar (red)
@@ -229,12 +233,22 @@ const visualizer = {
     // Ensure that the filled length does not exceed the total width of the progress bar
     let filledLength = Math.min(visualizer.handle.x - visualizer.progressBar.x, visualizer.progressBar.width)
     ctx.moveTo(visualizer.progressBar.x, visualizer.progressBar.y + visualizer.progressBar.height / 2)
-    ctx.lineTo(visualizer.progressBar.x + filledLength, visualizer.progressBar.y + visualizer.progressBar.height / 2)
+    ctx.lineTo(
+      visualizer.progressBar.x + filledLength,
+      visualizer.progressBar.y + visualizer.progressBar.height / 2
+    )
     ctx.stroke()
 
     // Handle and other elements
     ctx.beginPath()
-    ctx.arc(visualizer.handle.x, visualizer.handle.y + visualizer.subtitleY + 15, visualizer.handle.radius, 0, Math.PI * 2, false)
+    ctx.arc(
+      visualizer.handle.x,
+      visualizer.handle.y + visualizer.subtitleY + 15,
+      visualizer.handle.radius,
+      0,
+      Math.PI * 2,
+      false
+    )
     ctx.fillStyle = visualizer.handle.color
     ctx.fill()
   },
@@ -248,8 +262,12 @@ const visualizer = {
     ctx.fillRect(0, 0, canvas.width, canvas.height)
 
     if (!visualizer.coverImage) {
-      visualizer.coverImage = await visualizer.loadImage(chrome.runtime.getURL('app/images/visualizer-default-cover.png'))
-      backgroundImage = await visualizer.loadImage(chrome.runtime.getURL('app/images/visualizer-default-bg.png'))
+      visualizer.coverImage = await visualizer.loadImage(
+        chrome.runtime.getURL('app/images/visualizer-default-cover.png')
+      )
+      backgroundImage = await visualizer.loadImage(
+        chrome.runtime.getURL('app/images/visualizer-default-bg.png')
+      )
     }
 
     if (backgroundImage) {
@@ -317,7 +335,14 @@ const visualizer = {
     const audioElement = document.getElementById('audio')
     audioElement.currentTime = 0
     audioElement.volume = 0
-    audioElement.play()
+    audioElement
+      .play()
+      .then(() => {
+        visualizer.updateWaveform()
+      })
+      .catch(error => {
+        console.error('Error playing audio:', error)
+      })
 
     const durationInSeconds = Math.min(audioElement.duration, 900)
     const minutes = Math.floor(durationInSeconds / 60)
@@ -337,7 +362,6 @@ const visualizer = {
 
         document.getElementById('videoLoading').style.display = 'none'
         document.getElementById('videoConvertingWrapper').style.display = 'block'
-        // const newData = await visualizer.addAudioToVideo(blob, visualizer.audio)
         visualizer.webm2Mp4(blob)
       }
     }
@@ -394,10 +418,6 @@ const visualizer = {
     })
   },
 
-  addAudioToVideo: async (videoBlob, audioFile) => {
-    
-  },
-
   webm2Mp4: async blob => {
     const reader = new FileReader()
     reader.onload = async () => {
@@ -407,6 +427,28 @@ const visualizer = {
       await visualizer.runFFmpeg(inputFileName, outputFileName, commandStr, blob)
     }
     reader.readAsArrayBuffer(blob)
+  },
+
+  mergeMP3andMP4: async (inputFileName, videoBlob) => {
+    const videoFileName = inputFileName;
+  const audioFileName = 'inputAudio.mp3';
+  const outputFileName = 'mergedOutput.mp4';
+
+  ffmpeg.FS('writeFile', videoFileName, await fetchFile(videoBlob));
+  ffmpeg.FS('writeFile', audioFileName, new Uint8Array(await visualizer.audioBuffer));
+
+  const commandStr = `-i ${videoFileName} -i ${audioFileName} -c:v copy -c:a aac -shortest ${outputFileName}`;
+  
+  await ffmpeg.run(...commandStr.split(' '));
+
+  if (!ffmpeg.FS('readdir', '/').includes(outputFileName)) {
+    throw new Error(`${outputFileName} was not created`);
+  }
+
+  const data = ffmpeg.FS('readFile', outputFileName);
+  const mergedBlob = new Blob([data.buffer], { type: 'video/mp4' });
+
+  return mergedBlob;
   },
 
   runFFmpeg: async (inputFileName, outputFileName, commandStr, file) => {
@@ -424,13 +466,21 @@ const visualizer = {
     }
 
     ffmpeg.FS('writeFile', inputFileName, await fetchFile(file))
-    await ffmpeg.run(...commandStr.split(' '))
+
+    const modifiedCommandStr = `${commandStr}`
+    await ffmpeg.run(...modifiedCommandStr.split(' '))
+
     if (!ffmpeg.FS('readdir', '/').includes(outputFileName)) {
       throw new Error(`${outputFileName} was not created`)
     }
+
     const data = ffmpeg.FS('readFile', outputFileName)
-    const blob = new Blob([data.buffer])
-    downloadFile(blob, outputFileName)
+    const videoBlob = new Blob([data.buffer], { type: 'video/mp4' })
+
+    const newBlob = await visualizer.mergeMP3andMP4(outputFileName, videoBlob)
+
+    downloadFile(newBlob, outputFileName)
+
     document.getElementById('videoConvertingWrapper').style.display = 'none'
     document.getElementById('videoPreview').style.display = 'block'
     document.getElementById('recordingOverlay').style.display = 'none'
