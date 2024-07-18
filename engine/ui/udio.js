@@ -252,6 +252,7 @@ const uiMedioAI = {
         />
         <div class="flex space-x-1 select-none">
           <button id="medio-saveTags">Save</button>
+          <button id="medio-useTags">Use</button>
           <button id="medio-clearTags">Clear</button>
           <button id="medio-copyTags">Copy</button>
         </div>

@@ -94,7 +94,9 @@ const tagBuilderMedioAI = {
   },
 
   events: totalDBTags => {
-    document.getElementById('searchTags').addEventListener('input', e => {
+    const tagInput = document.getElementById('medioTagBox')
+    if (!tagInput) return
+    tagInput.addEventListener('input', e => {
       tagBuilderMedioAI.search(e, totalDBTags)
     })
 
@@ -114,6 +116,11 @@ const tagBuilderMedioAI = {
       tagBuilderMedioAI.save(e)
     })
 
+    const medioUseTags = document.getElementById('medio-useTags')
+    medioUseTags.addEventListener('click', e => {
+      tagBuilderMedioAI.use(e)
+    })
+
     const medioClearTags = document.getElementById('medio-clearTags')
     medioClearTags.addEventListener('click', e => {
       tagBuilderMedioAI.clear(e)
@@ -123,6 +130,16 @@ const tagBuilderMedioAI = {
     medioCopyTags.addEventListener('click', e => {
       tagBuilderMedioAI.copy(e)
     })
+  },
+
+  use: e => {
+    const tags = document.getElementById('medioTagBox').value
+    const prompt = document.getElementById('prompt')
+
+    prompt.value = tags
+    songStudioMedioAI.simulateMouseClick(prompt);
+    const close = document.getElementById('close-medioai')
+    close.click();
   },
 
   clear: e => {

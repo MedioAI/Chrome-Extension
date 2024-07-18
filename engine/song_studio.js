@@ -53,7 +53,7 @@ const songStudioMedioAI = {
     songStudioMedioAI.appButtons()
     setTimeout(() => {
       songStudioMedioAI.seedBox()
-    }, 2000)
+    }, 1600)
 
     // setTimeout(() => {
     //   songStudioMedioAI.trackCovers()

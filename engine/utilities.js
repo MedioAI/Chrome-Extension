@@ -276,7 +276,7 @@ const utilitiesMedioAI = {
 
   countSyllablesInText(text) {
     function countSyllables(word) {
-      word = word.toLowerCase() 
+      word = word.toLowerCase()
       if (word.length <= 3) {
         return 1
       }
@@ -391,102 +391,126 @@ const utilitiesMedioAI = {
   ],
 
   isChecking: false,
-  
+
   mutationObserver: () => {
     const observer = new MutationObserver(async (mutationsList, observer) => {
       const debouncedLogic = utilitiesMedioAI.debounce(async () => {
         for (let mutation of mutationsList) {
+          
 
-          if (mutation.target.closest('table') || mutation.target.closest('div[id="tracks-panel"]') || mutation.target.closest('div[id="medioAI-songstudio"]') || mutation.target.closest('div[id="medio-radio"]')
+          if (
+            mutation.target.closest('table') ||
+            mutation.target.closest('div[id="tracks-panel"]') ||
+            mutation.target.closest('div[id="medioAI-songstudio"]') ||
+            mutation.target.closest('div[id="medio-radio"]') ||
+            mutation.target.nodeType === 3 ||
+            mutation.target.classList.length === 0
           ) {
-            return; // Exit if the mutation is inside a table
+            return;
           }
 
+          if (mutation.addedNodes.length) {
+            const seedBox = document.querySelector('input[title="Set Seed"]')
+            const lyricBox = document.querySelector('textarea[name="lyricsValue"]')
+            const textPromptCheck = document.querySelector('textarea[name="prompt"]')
+            const audioChecker = document.querySelector('aside a .animate-pulse')
 
-
-        if (mutation.addedNodes.length) {
-          // Append Lyric Attribution to Edit
-          const lyricBox = document.querySelector('textarea[name="lyricsValue"]')
-          if (lyricBox) {
-            const textBox = document.querySelector('#medioaiInsertAttribution')
-            if (!textBox) {
-              medioAITrackCounter.appendLyricAttribution()
+            if (!seedBox && !lyricBox && !textPromptCheck && !audioChecker) {
+              return
             }
-            observer.disconnect()
-            utilitiesMedioAI.mutationObserver()
-            break
-          }
 
-          // Track Covers
-          mutation.addedNodes.forEach(node => {
-          if (node.nodeType === 1) {
-            const textPrompt = node.querySelector('textarea[name="prompt"]')
-            if (textPrompt) {
+            // Append Seed Box
+            const medioAISeedbank = document.getElementById('medioAISeedbank')
+
+            if (seedBox && !medioAISeedbank) {
+              songStudioMedioAI.appendSeedBox()
+            }
+
+            // Append Lyric Attribution to Edit
+            if (lyricBox) {
+              const textBox = document.querySelector('#medioaiInsertAttribution')
+              if (!textBox) {
+                medioAITrackCounter.appendLyricAttribution()
+              }
+              observer.disconnect()
+              utilitiesMedioAI.mutationObserver()
+              break
+            }
+
+            // Track Covers
+            mutation.addedNodes.forEach(node => {
+              if (node.nodeType === 1) {
                 const textPrompt = node.querySelector('textarea[name="prompt"]')
-
                 if (textPrompt) {
-                  const buttons = node.querySelectorAll('.float-right button')
-                  const backButton = Array.from(buttons).find(button => button.textContent === 'Back to Details')
-                  const medioaiSaveCovers = document.getElementById('medioaiSaveCovers')
-                  if (backButton && !medioaiSaveCovers) {
-                    const generateButton = document.createElement('button')
-                    generateButton.innerHTML = 'Save Covers'
-                    generateButton.id = 'medioaiSaveCovers'
-                    generateButton.setAttribute(
-                      'class',
-                      'inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white/5 text-white border-[0.5px] border-white/10 hover:bg-secondary/80 h-10 px-4 rounded-md py-2 mr-3'
+                  const textPrompt = node.querySelector('textarea[name="prompt"]')
+
+                  if (textPrompt) {
+                    const buttons = node.querySelectorAll('.float-right button')
+                    const backButton = Array.from(buttons).find(
+                      button => button.textContent === 'Back to Details'
                     )
-                    generateButton.addEventListener('click', (e) => {
-                      e.preventDefault()
-                      e.stopPropagation()
-                      songStudioMedioAI.grabCovers(node, node)
-                    })
-                    backButton.after(generateButton)
+                    const medioaiSaveCovers = document.getElementById('medioaiSaveCovers')
+                    if (backButton && !medioaiSaveCovers) {
+                      const generateButton = document.createElement('button')
+                      generateButton.innerHTML = 'Save Covers'
+                      generateButton.id = 'medioaiSaveCovers'
+                      generateButton.setAttribute(
+                        'class',
+                        'inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white/5 text-white border-[0.5px] border-white/10 hover:bg-secondary/80 h-10 px-4 rounded-md py-2 mr-3'
+                      )
+                      generateButton.addEventListener('click', e => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        songStudioMedioAI.grabCovers(node, node)
+                      })
+                      backButton.after(generateButton)
+                    }
                   }
                 }
-              
-            }
+              }
+            })
           }
-        })
-        }
 
-        // Check and play sound on complete.
-        if (
-          !utilitiesMedioAI.isChecking &&
-          mutation.target.innerText &&
-          mutation.target.innerText.split('/')[0] === mutation.target.innerText.split('/')[1]
-        ) {
-          const shouldPlaySound = await utilitiesMedioAI.getSettings('notification')
-
-          if (shouldPlaySound === 'on') {
+          // Check and play sound on complete.
+          const audioCheck = document.querySelector('aside a .animate-pulse')
+          if (!audioCheck) {
+            utilitiesMedioAI.isChecking = false
+            return
+          }
+          const audioCheckP = audioCheck.parentElement.querySelector('p')
+          if (
+            !utilitiesMedioAI.isChecking &&
+            audioCheckP.innerText &&
+            audioCheckP.innerText.split('/')[0] === audioCheckP.innerText.split('/')[1]
+          ) {
             utilitiesMedioAI.isChecking = true
-            const sound = await utilitiesMedioAI.getSettings('notificationsound')
-            const audio = new Audio(chrome.runtime.getURL(`sounds/${sound}.mp3`))
-            audio.play()
 
-            setTimeout(() => {
-              utilitiesMedioAI.isChecking = false
-            }, 6000)
+            const shouldPlaySound = await utilitiesMedioAI.getSettings('notification')
+
+            if (shouldPlaySound === 'on') {
+              const sound = await utilitiesMedioAI.getSettings('notificationsound')
+              const audio = new Audio(chrome.runtime.getURL(`sounds/${sound}.mp3`))
+              audio.play()
+            }
+          } else if (audioCheckP.innerText.split('/')[0] !== audioCheckP.innerText.split('/')[1]) {
+            utilitiesMedioAI.isChecking = false
           }
-        } else {
-          utilitiesMedioAI.isChecking = false
         }
-      }
-    }, 500); 
+      }, 500)
 
-    debouncedLogic();
+      debouncedLogic()
     })
 
-    observer.observe(document, {  attributes: true, childList: true, subtree: true })
+    observer.observe(document, { attributes: true, childList: true, subtree: true })
   },
 
   debounce: (func, delay) => {
-    let debounceTimer;
-    return function() {
-      const context = this;
-      const args = arguments;
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => func.apply(context, args), delay);
-    };
-  }
+    let debounceTimer
+    return function () {
+      const context = this
+      const args = arguments
+      clearTimeout(debounceTimer)
+      debounceTimer = setTimeout(() => func.apply(context, args), delay)
+    }
+  },
 }

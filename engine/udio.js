@@ -30,7 +30,9 @@ const medioAI = {
           }, 100)
         }
 
-        utilitiesMedioAI.mutationObserver()
+        setTimeout(() => {
+          utilitiesMedioAI.mutationObserver()
+        }, 1500)
         medioAITrackCounter.init()
       }
     }, 100)
