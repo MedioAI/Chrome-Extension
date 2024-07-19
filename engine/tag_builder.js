@@ -94,7 +94,7 @@ const tagBuilderMedioAI = {
   },
 
   events: totalDBTags => {
-    const tagInput = document.getElementById('medioTagBox')
+    const tagInput = document.getElementById('searchTags')
     if (!tagInput) return
     tagInput.addEventListener('input', e => {
       tagBuilderMedioAI.search(e, totalDBTags)
@@ -144,6 +144,7 @@ const tagBuilderMedioAI = {
 
   clear: e => {
     if (e.target.classList.contains('confirmClear')) {
+      const medioTagBox = document.getElementById('medioTagBox')
       medioTagBox.value = ''
       document.querySelector('#medioTagBoxTitle').value = ''
       document.querySelector('#mediotag-id').value = ''
@@ -158,6 +159,7 @@ const tagBuilderMedioAI = {
   },
 
   copy: e => {
+    const medioTagBox = document.getElementById('medioTagBox')
     navigator.clipboard.writeText(medioTagBox.value)
     e.target.textContent = 'Copied!'
     utilitiesMedioAI.showNotification('Copied tags to clipboard.')
@@ -167,6 +169,7 @@ const tagBuilderMedioAI = {
   },
 
   save: e => {
+    const medioTagBox = document.getElementById('medioTagBox')
     const tags = medioTagBox.value
     const title = document.querySelector('#medioTagBoxTitle').value
     const tagId = document.querySelector('#mediotag-id').value
@@ -246,7 +249,7 @@ const tagBuilderMedioAI = {
         'px-4',
         'cursor-pointer',
         'rounded',
-        'bg-gray-400',
+        'bg-muted',
         'text-sm'
       )
       const words = tag.split(' ')
@@ -256,6 +259,7 @@ const tagBuilderMedioAI = {
       medioSearchDropdown.appendChild(span)
     })
     medioSearchDropdown.style.display = 'block'
+    const medioTagBox = document.getElementById('medioTagBox')
     const medioSearchTags = document.querySelectorAll('.medioSearchTag')
     medioSearchTags.forEach(tag => {
       tag.addEventListener('click', () => {

@@ -671,16 +671,17 @@ const uiMedioAI = {
       class="text-center w-full"
       style="display: none"
     >
-      <h3 class="text-2xl text-gray-200 font-bold mb-2 mt-8">Unavailable</h3>
-      <p>
-        You must add your
-        <span style="background: #27272a" class="rounded p-2 text-xs"
-          >OpenAI</span
-        >
-        API key in order to use this feature.
-      </p>
-      <hr class="my-6 border-t border-gray-700" />
-      <p>Ask the AI for quick tasks or questions around your lyrics.</p>
+    <h3 class="text-2xl text-gray-200 font-bold mb-2 mt-8">Requires API Key</h3>
+    <p>
+      You must add your
+      <span style="background: #27272a" class="rounded p-2 text-xs"
+        >OpenAI</span
+      > or <span style="background: #27272a" class="rounded p-2 text-xs"
+      >OpenRouter</span
+    >
+      API key in order to use this feature.
+    </p>
+    <p class="mt-4 text-sm opacity-70">Ask the AI for quick tasks or questions around your lyrics.</p>
     </div>
   </div>
 
@@ -770,19 +771,20 @@ const uiMedioAI = {
       class="text-center w-full"
       style="display: none"
     >
-      <h3 class="text-2xl text-gray-200 font-bold mb-2 mt-8">Unavailable</h3>
-      <p>
-        You must add your
-        <span style="background: #27272a" class="rounded p-2 text-xs"
-          >OpenAI</span
-        >
-        API key in order to use this feature.
-      </p>
-      <hr class="my-6 border-t border-gray-700" />
-      <p>
-        Use the <strong>Co-Writer</strong> to craft your lyrics from scratch
-        with the help of an AI.
-      </p>
+    <h3 class="text-2xl text-gray-200 font-bold mb-2 mt-8">Requires API Key</h3>
+    <p>
+      You must add your
+      <span style="background: #27272a" class="rounded p-2 text-xs"
+        >OpenAI</span
+      > or <span style="background: #27272a" class="rounded p-2 text-xs"
+      >OpenRouter</span
+    >
+      API key in order to use this feature.
+    </p>
+    <p class="mt-4 text-sm opacity-70">
+      Use the <strong>Co-Writer</strong> to craft your lyrics from scratch
+      with the help of an AI.
+    </p>
     </div>
   </div>
 
