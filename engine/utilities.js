@@ -403,17 +403,18 @@ const utilitiesMedioAI = {
             mutation.target.closest('div[id="tracks-panel"]') ||
             mutation.target.closest('div[id="medioAI-songstudio"]') ||
             mutation.target.closest('div[id="medio-radio"]') ||
-            mutation.target.nodeType === 3 ||
-            mutation.target.classList.length === 0
+            mutation.target.nodeType === 3 
           ) {
             return;
           }
+
 
           if (mutation.addedNodes.length) {
             const seedBox = document.querySelector('input[title="Set Seed"]')
             const lyricBox = document.querySelector('textarea[name="lyricsValue"]')
             const textPromptCheck = document.querySelector('textarea[name="prompt"]')
             const audioChecker = document.querySelector('aside a .animate-pulse')
+
 
             if (!seedBox && !lyricBox && !textPromptCheck && !audioChecker) {
               return

@@ -279,7 +279,6 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       const genres = document.querySelector('#medio-radio-genres')
       const playlist = document.querySelector('#medio-radio-playlist-url')
       const artist = document.querySelector('#medio-radio-artist-url')
-      const lengthTitle = document.querySelector('#medio-radio-tracklength-title')
       const genreTitle = document.querySelector('#medio-radio-genre-title')
       const playlistTitle = document.querySelector('#medio-radio-playlist-title')
       const artistTitle = document.querySelector('#medio-radio-artist-title')
@@ -292,7 +291,6 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
           playlistTitle.style.display = 'none'
           playlist.style.display = 'none'
           artist.style.display = 'none'
-          lengthTitle.querySelector('small').style.display = 'inline-block'
           document.querySelector('#medio-radio-length').removeAttribute('disabled')
           document.querySelector('#medio-radio-length').classList.remove('disabled')
           break
@@ -305,7 +303,6 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
           artist.style.display = 'none'
           document.querySelector('#medio-radio-length').setAttribute('disabled', 'true')
           document.querySelector('#medio-radio-length').classList.add('disabled')
-          lengthTitle.querySelector('small').style.display = 'none'
           break
         case 'artist':
           genres.style.display = 'none'
@@ -314,7 +311,6 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
           genreTitle.style.display = 'none'
           artistTitle.style.display = 'block'
           playlistTitle.style.display = 'none'
-          lengthTitle.querySelector('small').style.display = 'none'
           document.querySelector('#medio-radio-length').removeAttribute('disabled')
           document.querySelector('#medio-radio-length').classList.remove('disabled')
           break
@@ -327,7 +323,6 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
         genreTitle.style.display = 'none'
         artistTitle.style.display = 'none'
         playlistTitle.style.display = 'none'
-        lengthTitle.querySelector('small').style.display = 'none'
         document.querySelector('#medio-radio-length').removeAttribute('disabled')
         document.querySelector('#medio-radio-length').classList.remove('disabled')
       }
@@ -1346,8 +1341,9 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
         return track
       }
     })
-    const bannedTracks = (await chrome.storage.local.get('medioRadioBanned')) || []
-    const filtered = removeDuplicates.filter(track => !bannedTracks.medioRadioBanned.includes(track.id))
+    const result = await chrome.storage.local.get('medioRadioBanned');
+    const bannedTracks = result.medioRadioBanned || [];
+    const filtered = removeDuplicates.filter(track => !bannedTracks.includes(track.id));
 
     for (const track of filtered) {
       current.medioRadio.push(track)

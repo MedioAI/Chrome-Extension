@@ -49,54 +49,6 @@ const medioAITrackCounter = {
       e.stopPropagation()
       medioAITrackCounter.count()
     })
-
-    const describeSong = document.querySelector('#medioAIDescribeSong')
-    if (!describeSong) return
-    describeSong.addEventListener('click', async e => {
-      e.preventDefault()
-      e.stopPropagation()
-      const aimodel = await utilitiesMedioAI.getSettings('aimodel')
-      if (!aimodel) {
-        utilitiesMedioAI.showNotification('Add your AI model in the settings.')
-        return
-      }
-      try {
-        describeSong.querySelector('span').textContent = 'Writing...'
-        describeSong.classList.add('disabled')
-
-        const messages = [
-          {
-            role: 'system',
-            content:
-              'You are going to take lyrics and title and write a short description that is below 200 characters about the lyrics. The user will provide the lyrics and title. The lyrics may contain lyric commands such as [verse], etc but you can ignore that. Do not include the title or lyrics in the description, just describe it in 200 characters or less. Do NOT make up stuff about the music as you have not heard it. Just describe the lyrics and title.',
-          },
-          {
-            role: 'user',
-            content: `
-              Title: ${document.querySelector('input[placeholder="Enter a song name"]').value}
-              Lyrics: ${document.querySelector('textarea[placeholder="Enter lyrics here"]').value}
-            `,
-          },
-        ]
-        apiMedioAI.openAI(
-          messages,
-          false,
-          null,
-          'Describe the song.',
-          data => {
-            const textbox = document.querySelector('input[placeholder="Describe your song"]')
-            textbox.value = data.choices[0].message.content
-            songStudioMedioAI.simulateMouseClick(textbox)
-            describeSong.querySelector('span').textContent = 'AI Description Writer'
-            describeSong.classList.remove('disabled')
-          },
-          false,
-          null
-        )
-      } catch (error) {
-        utilitiesMedioAI.showNotification('Error: ' + error, 'error')
-      }
-    })
   },
 
   count: () => {
@@ -166,6 +118,54 @@ const medioAITrackCounter = {
       textarea.dispatchEvent(new Event('input', { bubbles: true }))
     })
 
-    medioAITrackCounter.events()
+    const describeSong = document.querySelector('#medioAIDescribeSong')
+    describeSong.addEventListener('click', async e => {
+      e.preventDefault()
+      e.stopPropagation()
+      const openAIkey = await utilitiesMedioAI.getSettings('openaikey')
+      const openrouterKey = await utilitiesMedioAI.getSettings('openrouterapikey')
+
+      if (!openrouterKey && !openAIkey) {
+        utilitiesMedioAI.showNotification('Add your OpenAI or OpenRouter API key.')
+        return
+      }
+
+      try {
+        describeSong.querySelector('span').textContent = 'Writing...'
+        describeSong.classList.add('disabled')
+
+        const messages = [
+          {
+            role: 'system',
+            content:
+              'You are going to take lyrics and title and write a short description that is below 200 characters about the lyrics. The user will provide the lyrics and title. The lyrics may contain lyric commands such as [verse], etc but you can ignore that. Do not include the title or lyrics in the description, just describe it in 200 characters or less. Do NOT make up stuff about the music as you have not heard it. Just describe the lyrics and title.',
+          },
+          {
+            role: 'user',
+            content: `
+              Title: ${document.querySelector('input[placeholder="Enter a song name"]').value}
+              Lyrics: ${document.querySelector('textarea[placeholder="Enter lyrics here"]').value}
+            `,
+          },
+        ]
+        apiMedioAI.openAI(
+          messages,
+          false,
+          null,
+          'Describe the song.',
+          data => {
+            const textbox = document.querySelector('input[placeholder="Describe your song"]')
+            textbox.value = data.choices[0].message.content
+            songStudioMedioAI.simulateMouseClick(textbox)
+            describeSong.querySelector('span').textContent = 'AI Description Writer'
+            describeSong.classList.remove('disabled')
+          },
+          false,
+          null
+        )
+      } catch (error) {
+        utilitiesMedioAI.showNotification('Error: ' + error, 'error')
+      }
+    })
   },
 }

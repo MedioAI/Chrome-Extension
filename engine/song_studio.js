@@ -688,6 +688,7 @@ const songStudioMedioAI = {
           input.addEventListener('change', e => {
             const index = e.target.closest('.medioaiSeedItem').dataset.index
             seeds[index].label = e.target.value
+            seeds[index].value = e.target.closest('.medioaiSeedItem').querySelector('.medioaiInputSeedNumber').value
 
             chrome.storage.local.set({ medioAISeeds: seeds }, function () {
               utilitiesMedioAI.showNotification('Seed updated.')
@@ -700,6 +701,7 @@ const songStudioMedioAI = {
           input.addEventListener('change', e => {
             const index = e.target.closest('.medioaiSeedItem').dataset.index
             seeds[index].value = e.target.value
+            seeds[index].label = e.target.closest('.medioaiSeedItem').querySelector('.medioaiInputSeedLabel').value
 
             chrome.storage.local.set({ medioAISeeds: seeds }, function () {
               utilitiesMedioAI.showNotification('Seed updated.')
@@ -759,6 +761,7 @@ const songStudioMedioAI = {
     button.addEventListener('click', e => {
       const index = e.target.closest('.medioaiSeedItem').dataset.index
       seeds.splice(index, 1)
+      const medioAISeedList = document.querySelector('#medioAISeedList')
       chrome.storage.local.set({ medioAISeeds: seeds }, function () {
         songStudioMedioAI.populateOptions()
         medioAISeedList.innerHTML = ''
