@@ -396,8 +396,6 @@ const utilitiesMedioAI = {
     const observer = new MutationObserver(async (mutationsList, observer) => {
       const debouncedLogic = utilitiesMedioAI.debounce(async () => {
         for (let mutation of mutationsList) {
-          
-
           if (
             mutation.target.closest('table') ||
             mutation.target.closest('div[id="tracks-panel"]') ||
@@ -408,15 +406,59 @@ const utilitiesMedioAI = {
             return;
           }
 
+          if (mutation.type === 'childList') {
+            const lyricBox = document.querySelector('textarea[name="lyricsValue"]')
+            if (lyricBox) {
+              const textBox = document.querySelector('#medioaiInsertAttribution')
+              if (!textBox) {
+                medioAITrackCounter.appendLyricAttribution()
+              }
+              observer.disconnect()
+              utilitiesMedioAI.mutationObserver()
+              break
+            }
+          }
+
+          if (mutation.type === 'attributes') {
+            const seedBox = document.querySelector('input[title="Set Seed"]')
+            const medioAISeedbank = document.getElementById('medioAISeedbank')
+            if (seedBox && !medioAISeedbank) {
+              songStudioMedioAI.appendSeedBox()
+            }
+            
+            const textPrompt = document.querySelector('textarea[name="prompt"]')
+            if (textPrompt) {
+              const buttons = document.querySelectorAll('.float-right button')
+              const backButton = Array.from(buttons).find(
+                button => button.textContent === 'Back to Details'
+              )
+              const medioaiSaveCovers = document.getElementById('medioaiSaveCovers')
+              if (backButton && !medioaiSaveCovers) {
+                const generateButton = document.createElement('button')
+                generateButton.innerHTML = 'Save Covers'
+                generateButton.id = 'medioaiSaveCovers'
+                generateButton.setAttribute(
+                  'class',
+                  'inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white/5 text-white border-[0.5px] border-white/10 hover:bg-secondary/80 h-10 px-4 rounded-md py-2 mr-3'
+                )
+                generateButton.addEventListener('click', e => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  songStudioMedioAI.grabCovers(document, document)
+                })
+                backButton.after(generateButton)
+              }
+            }
+          }
+
 
           if (mutation.addedNodes.length) {
             const seedBox = document.querySelector('input[title="Set Seed"]')
             const lyricBox = document.querySelector('textarea[name="lyricsValue"]')
-            const textPromptCheck = document.querySelector('textarea[name="prompt"]')
+            const textPrompt = document.querySelector('textarea[name="prompt"]')
             const audioChecker = document.querySelector('aside a .animate-pulse')
 
-
-            if (!seedBox && !lyricBox && !textPromptCheck && !audioChecker) {
+            if (!seedBox && !lyricBox && !textPrompt && !audioChecker) {
               return
             }
 
@@ -439,37 +481,28 @@ const utilitiesMedioAI = {
             }
 
             // Track Covers
-            mutation.addedNodes.forEach(node => {
-              if (node.nodeType === 1) {
-                const textPrompt = node.querySelector('textarea[name="prompt"]')
-                if (textPrompt) {
-                  const textPrompt = node.querySelector('textarea[name="prompt"]')
-
-                  if (textPrompt) {
-                    const buttons = node.querySelectorAll('.float-right button')
-                    const backButton = Array.from(buttons).find(
-                      button => button.textContent === 'Back to Details'
-                    )
-                    const medioaiSaveCovers = document.getElementById('medioaiSaveCovers')
-                    if (backButton && !medioaiSaveCovers) {
-                      const generateButton = document.createElement('button')
-                      generateButton.innerHTML = 'Save Covers'
-                      generateButton.id = 'medioaiSaveCovers'
-                      generateButton.setAttribute(
-                        'class',
-                        'inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white/5 text-white border-[0.5px] border-white/10 hover:bg-secondary/80 h-10 px-4 rounded-md py-2 mr-3'
-                      )
-                      generateButton.addEventListener('click', e => {
-                        e.preventDefault()
-                        e.stopPropagation()
-                        songStudioMedioAI.grabCovers(node, node)
-                      })
-                      backButton.after(generateButton)
-                    }
-                  }
-                }
+            if (textPrompt) {
+              const buttons = document.querySelectorAll('.float-right button')
+              const backButton = Array.from(buttons).find(
+                button => button.textContent === 'Back to Details'
+              )
+              const medioaiSaveCovers = document.getElementById('medioaiSaveCovers')
+              if (backButton && !medioaiSaveCovers) {
+                const generateButton = document.createElement('button')
+                generateButton.innerHTML = 'Save Covers'
+                generateButton.id = 'medioaiSaveCovers'
+                generateButton.setAttribute(
+                  'class',
+                  'inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white/5 text-white border-[0.5px] border-white/10 hover:bg-secondary/80 h-10 px-4 rounded-md py-2 mr-3'
+                )
+                generateButton.addEventListener('click', e => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  songStudioMedioAI.grabCovers(document, document)
+                })
+                backButton.after(generateButton)
               }
-            })
+            }
           }
 
           // Check and play sound on complete.
