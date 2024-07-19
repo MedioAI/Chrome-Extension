@@ -1815,7 +1815,7 @@ const medioRadioTopActions = /* html */ `
 
 const medioRadioUI = {
   builder: /* html */ `
-    <div id="medio-radio" style="background: #0C0F14;display: none">
+    <div id="medio-radio" style="background: #000;display: none">
     ${medioRadioTopActions}
 
       <div>
@@ -1841,7 +1841,7 @@ const medioRadioUI = {
 </div>
 
  <div class="w-full">
-       <h4 id="medio-radio-tracklength-title" class="text-sm text-gray-400 mb-1 mt-3"># of Tracks <small class="text-xs opacity-50">(per tag)</small></h4>
+       <h4 id="medio-radio-tracklength-title" class="text-sm text-gray-400 mb-1 mt-3"># of Tracks</h4>
       <input  id="medio-radio-length" autocomplete="off" type="number" value="10" class="w-full border bg-gray-1000 text-white p-2 rounded-lg" />
       </div>
 
