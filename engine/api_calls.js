@@ -140,7 +140,7 @@ const apiMedioAI = {
     const apikey = await utilitiesMedioAI.getSettings('openrouterapikey')
     const bearer = 'Bearer ' + apikey
     const modal = await utilitiesMedioAI.getSettings('openrouterModal')
-    const site_url = 'https://beta.udio.com'
+    const site_url = 'https://www.udio.com'
     const site_name = 'Udio + MedioAI'
 
     try {
