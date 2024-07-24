@@ -167,7 +167,27 @@
   font-weight: 800;
 }
 
-#medioaiRadio span {
+#medioaiHelp {
+  background: #242424;
+  padding: 6px 12px;
+  display: flex;
+  border-radius: 6px;
+  font-size: 16px;
+  border: 1px solid #474747;
+  font-weight: 800;
+}
+
+#medioaiHelp svg {
+  color: #24CA8C;
+}
+
+#medioaiHelp.active svg {
+  color: #E3095D;
+}
+
+
+#medioaiRadio span,
+#medioaiHelp span {
   font-size: 11px;
 }
 
@@ -1193,10 +1213,112 @@ input:checked + .medio-slider:before {
   min-height: 100vh !important;
 }
 
-aside[aria-label="Sidebar"] div[role="tabpanel"] .overflow-hidden:first-child {
-  max-height: calc(-530px + 100vh) !important
+aside[aria-label="Sidebar"] .ml-2.flex-grow:first-child {
+  max-height: calc(-30rem + 100vh) !important
 }
 
 #medioAISeedbank {
   font-size: 11px !important
+}
+#medioai-training-videos, #medioai-training-player{
+  height: calc(100vh - 211px);
+    overflow-x: hidden;
+}
+.capitalize {
+  text-transform: capitalize;
+}
+.aspect-ratio {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+}
+
+.aspect-ratio iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+#medioai-training-info {
+  width: 700px;
+  margin: 20px auto;
+  font-size: 1.3em;
+}
+#medioai-training-info h1 {
+  font-size: 2.5em;
+  font-weight: bolder;
+}
+#medioai-training-info h2 {
+  font-size: 0.7em;
+  font-weight: light;
+  opacity: 0.4;
+  margin-top: -10px
+}
+#medioai-article {
+  margin: 20px 0;
+  padding-top: 20px;
+  border-top: 1px solid #3c3c3c;
+}
+
+#medioai-article h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+#medioai-article h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+#medioai-article h3 {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+#medioai-article h4 {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+#medioai-article h5 {
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+#medioai-article h6 {
+  font-size: 0.8em;
+  margin-bottom: 20px;
+}
+#medioai-article p {
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+#medioai-article ul {
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+
+#medioai-training-videoplayer {
+  border: 1px solid #3c3c3c;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#medioai-training-videos::-webkit-scrollbar,
+#medioai-training-player::-webkit-scrollbar {
+  width: 5px;
+}
+
+#medioai-training-videos::-webkit-scrollbar-track,
+#medioai-training-player::-webkit-scrollbar-track {
+  background: none;
+}
+
+#medioai-training-videos::-webkit-scrollbar-thumb,
+#medioai-training-player::-webkit-scrollbar-thumb {
+  background: #343438;
+  border-radius: 30px;
+}
+
+#medioai-training-videos::-webkit-scrollbar-thumb:hover,
+#medioai-training-player::-webkit-scrollbar-thumb:hover {
+  background: #424247;
 }

@@ -62,6 +62,10 @@ const uiMedioAI = {
         ></span>
     </div>
     <div class="flex space-x-2 items-center">
+      <button id="medioaiHelp" class="flex items-center space-x-1">
+        ${iconsMedioAI.help}
+        <span>Watch Training Videos</span>
+      </button>
       <button id="medioaiRadio" class="flex items-center space-x-1">
         ${iconsMedioAI.radio}
         <span>Udio Radio</span>
@@ -136,6 +140,39 @@ const uiMedioAI = {
     >
       Tag Groups
     </button>
+  </div>
+
+  <div style="display: none" id="medioai-training">
+    <div id="medioai-training-search" class="mb-2">
+      <input type="text" id="medioai-training-searchbox" placeholder="Search for training videos..." class="w-full border rounded p-2 px-3" />
+    </div>
+    <div id="medioai-training-videos" class="grid grid-cols-4 gap-3">
+      <div class="medioai-training-video p-1 border border-gray-900 rounded hover:bg-gray-panel curser-pointer" data-id="articleid">
+        <img src="https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg" class="rounded w-full" />
+        <div class="p-2">
+          <h4 class="text-lg text-white my-0 font-bold">How to write a song</h4>
+          <p class="text-xs  text-muted-foreground">Small explainer.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="medioai-training-player" style="display: none">
+      <div class="px-2">
+        <div id="medioai-training-videoplayer" class="aspect-ratio">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/U0cCmmXFbYw?si=b5uy-pc4F5pqDu7Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div id="medioai-training-info">
+        <h1>How to make a playlist</h3>
+        <h2>Last updated: 2 days ago</h4>
+        <div id="medioai-article">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur illo nisi tenetur asperiores dolore, dolores alias vitae at quibusdam, magni sequi, atque quod minus voluptatibus fuga magnam veniam doloremque quis!</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur illo nisi tenetur asperiores dolore, dolores alias vitae at quibusdam, magni sequi, atque quod minus voluptatibus fuga magnam veniam doloremque quis!</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur illo nisi tenetur asperiores dolore, dolores alias vitae at quibusdam, magni sequi, atque quod minus voluptatibus fuga magnam veniam doloremque quis!</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div style="display: none" id="mediochattab">

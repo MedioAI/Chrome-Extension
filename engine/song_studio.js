@@ -488,6 +488,74 @@ const songStudioMedioAI = {
       songStudioMedioAI.close()
       document.querySelector('#medio-radio').style.display = 'block'
     })
+
+    const medioaiHelp = document.getElementById('medioaiHelp');
+    medioaiHelp.addEventListener('click', () => {
+      const isTrainingVisible = document.querySelector('#medioai-training').style.display === 'block';
+      
+      document.querySelectorAll('.lyric-tab').forEach(tab => {
+        tab.style.display = 'none'; 
+      });
+
+      if (isTrainingVisible) {
+        document.querySelector('#medioai-training-search').style.display = 'block';
+        document.querySelector('#medioai-training-videos').style.display = 'grid';
+        document.querySelector('#medioai-training-player').style.display = 'none';
+        document.querySelector('.lyric-tab[data-tab="write"]').style.display = 'block'
+      } else {
+        const traingDB = chrome.runtime.getURL('database/training.json');
+        fetch(traingDB)
+          .then(response => response.json())
+          .then(data => {
+            const training = data.udio;
+            const trainingTab = document.querySelector('#medioai-training-videos');
+            trainingTab.innerHTML = '';
+            training.forEach(item => {
+              const div = document.createElement('div');
+              div.innerHTML = `
+                <div class="medioai-training-video p-1 border border-gray-900 rounded hover:bg-gray-panel curser-pointer" data-id="articleid">
+                  <img src="${item.img}" class="rounded w-full" />
+                  <div class="p-2">
+                    <h4 class="text-lg text-white my-0 capitalize font-bold">${item.title}</h4>
+                    <p class="text-xs  text-muted-foreground">${item.desc}</p>
+                  </div>
+                </div>
+              `;
+              trainingTab.appendChild(div);
+            });
+
+            const trainingMedio = data.medioai;
+            trainingMedio.forEach(item => {
+              const div = document.createElement('div');
+              div.innerHTML = `
+                <div class="medioai-training-video p-1 border border-gray-900 rounded hover:bg-gray-panel curser-pointer" data-id="articleid">
+                  <img src="${item.img}" class="rounded w-full" />
+                  <div class="p-2">
+                    <h4 class="text-lg text-white my-0 capitalize font-bold">${item.title}</h4>
+                    <p class="text-xs  text-muted-foreground">${item.desc}</p>
+                  </div>
+                </div>
+              `;
+              trainingTab.appendChild(div);
+            });
+
+            document.querySelectorAll('.medioai-training-video').forEach(item => {
+              item.addEventListener('click', e => {
+                const id = e.target.dataset.id;
+                document.querySelector('#medioai-training-search').style.display = 'none';
+                document.querySelector('#medioai-training-videos').style.display = 'none';
+                document.querySelector('#medioai-training-player').style.display = 'block';
+              })
+            })
+          });
+      }
+      
+      const tablist = document.querySelector('#medioai-content div[role="tablist"]');
+      tablist.style.display = isTrainingVisible ? '' : 'none'; 
+      
+      document.querySelector('#medioai-training').style.display = isTrainingVisible ? 'none' : 'block'; 
+      medioaiHelp.classList.toggle('active'); 
+    });
   },
 
   challenge: async () => {

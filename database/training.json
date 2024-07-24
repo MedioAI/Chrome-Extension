@@ -1,0 +1,271 @@
+{
+  "udio": [
+    {
+      "title": "Creating and managing Playlists",
+      "desc": "Learn how to create and manage your playlists effectively.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Manage your account and UI sidebar",
+      "desc": "Instructions on managing your account settings and customizing the UI sidebar.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Manual mode explained",
+      "desc": "A detailed explanation of how to use the manual mode feature.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Instantly Create a Song / Quick create",
+      "desc": "Quick guide on creating a song instantly using the quick create feature.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "How to rank on the “Trending Page”",
+      "desc": "Tips and strategies to get your songs to rank on the trending page.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Managing Credits & Additional Credits",
+      "desc": "Guide on managing your credits and acquiring additional credits.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Providing Feedback for Credits",
+      "desc": "How to provide feedback to earn credits.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Building a Prompt",
+      "desc": "Step-by-step instructions on building effective prompts.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Manage Your Library",
+      "desc": "Learn how to organize and manage your music library.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Your profile",
+      "desc": "Guide to setting up and customizing your profile.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Publishing Music",
+      "desc": "Instructions on how to publish your music to various platforms.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Following Other Creators",
+      "desc": "How to browse, follow, and interact with other creators.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Manage your subscription",
+      "desc": "Information on managing your subscription plans and payments.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Edit Preferences",
+      "desc": "Guide to editing your personal preferences and settings.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Track tree and history view",
+      "desc": "Explaining the track tree and history view features.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Downloading MP3, WAV and Video",
+      "desc": "Instructions on downloading your tracks in MP3, WAV, and video formats.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Download Stems (Vocals, Drums, etc)",
+      "desc": "How to download individual stems like vocal, bass, drums, and others.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Editing Track Info",
+      "desc": "Guide to editing track information and metadata.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Creating a Cover",
+      "desc": "Steps to create a cover for your track.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Copy Prompt, Seed, Track Settings",
+      "desc": "How to copy prompts, seeds, and track settings.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Share your track",
+      "desc": "Instructions on sharing your track with others.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Audio upload",
+      "desc": "Extend your own music via the audio upload feature.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Udio 130 vs Udio 32 Lengths",
+      "desc": "Comparing the Udio 130 and Udio 32 track lengths.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Auto generated lyrics explained",
+      "desc": "Explanation of the auto-generated lyrics feature.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Instrumental explained",
+      "desc": "Guide to the instrumental feature and how to use it.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Custom lyrics",
+      "desc": "Instructions on writing and using custom lyrics.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Remix 32s clips",
+      "desc": "How to remix 32-second clips.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Inpainting explained",
+      "desc": "Detailed explanation of the inpainting feature.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Extending Tracks",
+      "desc": "Guide to extending your tracks.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Intro and Outro",
+      "desc": "How to add and customize intros and outros for your tracks.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Prompt Strength",
+      "desc": "Explanation of prompt strength and how to adjust it.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Lyric Strength",
+      "desc": "Guide to adjusting the strength of lyrics in your tracks.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Seed Number",
+      "desc": "Understanding and using seed numbers for track generation.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Clip Timing",
+      "desc": "Instructions on adjusting the timing of clips in your tracks.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Lyric Timing",
+      "desc": "Guide to managing the timing of lyrics in your tracks.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Clarity",
+      "desc": "Tips for improving the clarity of your tracks.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Generation Quality",
+      "desc": "How to enhance the quality of generated tracks.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Model v1.5 vs Model v1.0",
+      "desc": "Comparing the features and performance of Model v1.5 and Model v1.0.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    }
+  ],
+  "medioai": [
+    {
+      "title": "Writing and Saving Lyrics",
+      "desc": "Guide to writing and saving lyrics in MedioAI.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Creating and Managing Tag Groups",
+      "desc": "How to create and manage tag groups for your songs.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Find Rhyming Words",
+      "desc": "Tool for finding rhyming words to enhance your lyrics.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "AI Chat",
+      "desc": "Using AI chat to get help and suggestions for your music.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "AI Song Writer",
+      "desc": "Guide to using the AI song writer feature.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "AI Radio",
+      "desc": "How to use AI radio for discovering new music.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Generate song idea",
+      "desc": "Tool for generating new song ideas.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Settings",
+      "desc": "Instructions on configuring settings in MedioAI.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Meta Tag Editor",
+      "desc": "Guide to using the meta tag editor for your tracks.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Filter",
+      "desc": "How to apply filters to your songs.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Save Track Covers",
+      "desc": "Instructions on saving covers for your tracks.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Audio Notification",
+      "desc": "Setting up and managing audio notifications.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Seedbank",
+      "desc": "Guide to using the seedbank for track generation.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "Extra MedioAI Features",
+      "desc": "How to use the AI description writer and manage song attribution.",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    },
+    {
+      "title": "AI Radio",
+      "desc": "How listen to music with an AI announcer (optional).",
+      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+    }
+  ]
+}
