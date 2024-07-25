@@ -499,7 +499,7 @@ const songStudioMedioAI = {
 
       if (isTrainingVisible) {
         document.querySelector('#medioai-training-search').style.display = 'block';
-        document.querySelector('#medioai-training-videos').style.display = 'grid';
+        document.querySelector('#medioai-training-video-wrapper').style.display = 'block';
         document.querySelector('#medioai-training-player').style.display = 'none';
         document.querySelector('.lyric-tab[data-tab="write"]').style.display = 'block'
       } else {
@@ -509,12 +509,13 @@ const songStudioMedioAI = {
           .then(data => {
             const training = data.udio;
             const trainingTab = document.querySelector('#medioai-training-videos');
+            const trainingTabMedio = document.querySelector('#medioai-training-videos-medio');
             trainingTab.innerHTML = '';
-            training.forEach(item => {
+            training.forEach((item, index) => {
               const div = document.createElement('div');
               div.innerHTML = `
-                <div class="medioai-training-video p-1 border border-gray-900 rounded hover:bg-gray-panel curser-pointer" data-id="articleid">
-                  <img src="${item.img}" class="rounded w-full" />
+                <div class="medioai-training-video p-1 border border-gray-900 rounded hover:bg-gray-panel curser-pointer" data-id="udio-${index}">
+                  <img src="https://i3.ytimg.com/vi/${item.video}/maxresdefault.jpg" class="rounded w-full" />
                   <div class="p-2">
                     <h4 class="text-lg text-white my-0 capitalize font-bold">${item.title}</h4>
                     <p class="text-xs  text-muted-foreground">${item.desc}</p>
@@ -525,26 +526,43 @@ const songStudioMedioAI = {
             });
 
             const trainingMedio = data.medioai;
-            trainingMedio.forEach(item => {
+            trainingTabMedio.innerHTML = '';
+            trainingMedio.forEach((item, index) => {
               const div = document.createElement('div');
               div.innerHTML = `
-                <div class="medioai-training-video p-1 border border-gray-900 rounded hover:bg-gray-panel curser-pointer" data-id="articleid">
-                  <img src="${item.img}" class="rounded w-full" />
+                <div class="medioai-training-video p-1 border border-gray-900 rounded hover:bg-gray-panel curser-pointer" data-id="medio-${index}">
+                  <img src="https://i3.ytimg.com/vi/${item.video}/maxresdefault.jpg" class="rounded w-full" />
                   <div class="p-2">
                     <h4 class="text-lg text-white my-0 capitalize font-bold">${item.title}</h4>
                     <p class="text-xs  text-muted-foreground">${item.desc}</p>
                   </div>
                 </div>
               `;
-              trainingTab.appendChild(div);
+              trainingTabMedio.appendChild(div);
             });
 
             document.querySelectorAll('.medioai-training-video').forEach(item => {
               item.addEventListener('click', e => {
-                const id = e.target.dataset.id;
+                const idIndex = e.target.dataset.id;
+                console.log(idIndex, e.target);
+                let index = idIndex.split('-')[1];
+                let item = {}
+                let training = []
+                if (idIndex.includes('udio')) {
+                  training = data.udio;
+                  item = training[index];
+                } else if (idIndex.includes('medio')) {
+                  training = data.medioai;
+                  item = training[index];
+                }
+
                 document.querySelector('#medioai-training-search').style.display = 'none';
-                document.querySelector('#medioai-training-videos').style.display = 'none';
+                document.querySelector('#medioai-training-video-wrapper').style.display = 'none';
                 document.querySelector('#medioai-training-player').style.display = 'block';
+
+                document.querySelector('#medioai-training-videoplayer iframe').src = `https://www.youtube.com/embed/${item.video}`;
+                document.querySelector('#medioai-training-info h1').innerHTML = item.title;
+                document.querySelector('#medioai-article').innerHTML = item.article;
               })
             })
           });

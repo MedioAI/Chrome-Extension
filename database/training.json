@@ -1,271 +1,318 @@
 {
   "udio": [
     {
-      "title": "Creating and managing Playlists",
-      "desc": "Learn how to create and manage your playlists effectively.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "title": "Creating Playlists",
+      "desc": "Learn how to create & manage your playlists.",
+      "video": "q_dVroeQJC8",
+      "article": "<p>First, let's go to our library to check out our tracks. If we go to Liked songs we can browse the full songs we have created. We can then select all the songs we would like to add to our playlist. Click 'Add to Playlist' to get going. Now we can scroll down on the sidebar & look for our new playlist.</p> <p>We can click to open it. Now we can change the title, change the order of tracks, add & remove tracks & finally, we can publish it.</p> <p>Remember, if you add tracks that are unpublished they will appear on the playlist. Enjoy making playlists! Keep on rocking</p>"
     },
     {
-      "title": "Manage your account and UI sidebar",
-      "desc": "Instructions on managing your account settings and customizing the UI sidebar.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "title": "Manage Account",
+      "desc": "Instructions on managing your account settings & customizing the UI sidebar.",
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
-      "title": "Manual mode explained",
+      "title": "Manual Mode",
       "desc": "A detailed explanation of how to use the manual mode feature.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
-      "title": "Instantly Create a Song / Quick create",
+      "title": "Quick Create",
       "desc": "Quick guide on creating a song instantly using the quick create feature.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
-      "title": "How to rank on the “Trending Page”",
-      "desc": "Tips and strategies to get your songs to rank on the trending page.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "title": "Rank on Trending",
+      "desc": "Tips & strategies to get your songs to rank on the trending page.",
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
-      "title": "Managing Credits & Additional Credits",
-      "desc": "Guide on managing your credits and acquiring additional credits.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "title": "Additional Credits",
+      "desc": "Guide on managing your credits & acquiring additional credits.",
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
-      "title": "Providing Feedback for Credits",
+      "title": "Earn Free Credits",
       "desc": "How to provide feedback to earn credits.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "video": "EUHBYpjir3Y",
+      "article": "<p>Need some extra credits? You can earn them for free by providing feedback. Go to the Create screen & click the help tooltip next to your credits. </p><p>Click Earn credits & here you can do an A B test of tracks. Listen to each track & select the one you like the best. </p><p>You are rewarded 1 credit per test with a max of 50 credits daily.</p>"
     },
     {
-      "title": "Building a Prompt",
+      "title": "Building Prompts",
       "desc": "Step-by-step instructions on building effective prompts.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
-      "title": "Manage Your Library",
-      "desc": "Learn how to organize and manage your music library.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "title": "Manage Library",
+      "desc": "Learn how to organize & manage your music library.",
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
-      "title": "Your profile",
-      "desc": "Guide to setting up and customizing your profile.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "title": "Your Profile",
+      "desc": "Guide to setting up & customizing your profile.",
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
-      "title": "Publishing Music",
+      "title": "Publishing Songs",
       "desc": "Instructions on how to publish your music to various platforms.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
-      "title": "Following Other Creators",
-      "desc": "How to browse, follow, and interact with other creators.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "title": "Following Creators",
+      "desc": "How to browse, follow, & interact with other creators.",
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
-      "title": "Manage your subscription",
-      "desc": "Information on managing your subscription plans and payments.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "title": "Manage Subscription",
+      "desc": "Information on managing your subscription plans & payments.",
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
       "title": "Edit Preferences",
-      "desc": "Guide to editing your personal preferences and settings.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "desc": "Guide to editing your personal preferences & settings.",
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
-      "title": "Track tree and history view",
-      "desc": "Explaining the track tree and history view features.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "title": "Track/History Tree",
+      "desc": "Explaining the track tree & history view features.",
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
-      "title": "Downloading MP3, WAV and Video",
-      "desc": "Instructions on downloading your tracks in MP3, WAV, and video formats.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "title": "Downloading",
+      "desc": "Instructions on downloading your tracks in MP3, WAV, & video formats.",
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
-      "title": "Download Stems (Vocals, Drums, etc)",
-      "desc": "How to download individual stems like vocal, bass, drums, and others.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "title": "Download Stems",
+      "desc": "How to download individual stems like vocal, bass, drums, & others.",
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
-      "title": "Editing Track Info",
-      "desc": "Guide to editing track information and metadata.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "title": "Edit Track Info",
+      "desc": "Guide to editing track information & metadata.",
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
       "title": "Creating a Cover",
       "desc": "Steps to create a cover for your track.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
-      "title": "Copy Prompt, Seed, Track Settings",
-      "desc": "How to copy prompts, seeds, and track settings.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "title": "Copy Prompt, Seed,etc",
+      "desc": "How to copy prompts, seeds, & track settings.",
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
       "title": "Share your track",
       "desc": "Instructions on sharing your track with others.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
       "title": "Audio upload",
       "desc": "Extend your own music via the audio upload feature.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
-      "title": "Udio 130 vs Udio 32 Lengths",
-      "desc": "Comparing the Udio 130 and Udio 32 track lengths.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "title": "Udio 130 vs Udio 32",
+      "desc": "Comparing the Udio 130 & Udio 32 track lengths.",
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
-      "title": "Auto generated lyrics explained",
+      "title": "Auto generated",
       "desc": "Explanation of the auto-generated lyrics feature.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
       "title": "Instrumental explained",
-      "desc": "Guide to the instrumental feature and how to use it.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "desc": "Guide to the instrumental feature & how to use it.",
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
       "title": "Custom lyrics",
-      "desc": "Instructions on writing and using custom lyrics.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "desc": "Instructions on writing & using custom lyrics.",
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
       "title": "Remix 32s clips",
       "desc": "How to remix 32-second clips.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
-      "title": "Inpainting explained",
+      "title": "Inpainting",
       "desc": "Detailed explanation of the inpainting feature.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
       "title": "Extending Tracks",
       "desc": "Guide to extending your tracks.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
-      "title": "Intro and Outro",
-      "desc": "How to add and customize intros and outros for your tracks.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "title": "Intro & Outro",
+      "desc": "How to add & customize intros & outros for your tracks.",
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
       "title": "Prompt Strength",
-      "desc": "Explanation of prompt strength and how to adjust it.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "desc": "Explanation of prompt strength & how to adjust it.",
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
       "title": "Lyric Strength",
       "desc": "Guide to adjusting the strength of lyrics in your tracks.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
       "title": "Seed Number",
-      "desc": "Understanding and using seed numbers for track generation.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "desc": "Underst&ing & using seed numbers for track generation.",
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
       "title": "Clip Timing",
       "desc": "Instructions on adjusting the timing of clips in your tracks.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
       "title": "Lyric Timing",
       "desc": "Guide to managing the timing of lyrics in your tracks.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
       "title": "Clarity",
       "desc": "Tips for improving the clarity of your tracks.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
       "title": "Generation Quality",
       "desc": "How to enhance the quality of generated tracks.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "video": "",
+      "article": "<p>article text here</p>"
     },
     {
-      "title": "Model v1.5 vs Model v1.0",
-      "desc": "Comparing the features and performance of Model v1.5 and Model v1.0.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "title": "Models",
+      "desc": "Comparing the features & performance of Model v1.5 & Model v1.0.",
+      "video": "",
+      "article": "<p>article text here</p>"
     }
   ],
   "medioai": [
     {
-      "title": "Writing and Saving Lyrics",
-      "desc": "Guide to writing and saving lyrics in MedioAI.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "title": "Writing Lyrics",
+      "desc": "Guide to writing & saving lyrics in MedioAI.",
+      "video": "9839Gsth4BA",
+      "article": "<p>With Medio A.I you can use the Song Studio to write your lyrics. Click the Medio A.I sidebar button to open the lyric editor. Here you can start writing your song. You can select from various premade commands such as Verse, Chorus and more. You can highlight any text to see the character count and syllable count. You can save your song and even send the selected lyrics straight the create screen. You can manage unlimited amount of lyrics with Medio AI.</p>"
     },
     {
-      "title": "Creating and Managing Tag Groups",
-      "desc": "How to create and manage tag groups for your songs.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "title": "Create Tag Groups",
+      "desc": "How to create & manage tag groups for your songs.",
+      "video": "4iZY0mCNByw",
+      "article": "<p>With Medio A.I you can use the Tag Manager for ultimate power! Browse over 14,000 different tags from genres, emotions, time periods and more. You can build your own custom tag group using the search function. Once you have a group, you can give it a name and send it straight to the Create screen. Can it get any easier than that? You can save and manage all your tag groups to create and re-use your own style with the power of Udio.com and the MedioAI browser extension.</p>"
     },
     {
       "title": "Find Rhyming Words",
       "desc": "Tool for finding rhyming words to enhance your lyrics.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
-    },
-    {
-      "title": "AI Chat",
-      "desc": "Using AI chat to get help and suggestions for your music.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
-    },
-    {
-      "title": "AI Song Writer",
-      "desc": "Guide to using the AI song writer feature.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
-    },
-    {
-      "title": "AI Radio",
-      "desc": "How to use AI radio for discovering new music.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
-    },
-    {
-      "title": "Generate song idea",
-      "desc": "Tool for generating new song ideas.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
-    },
-    {
-      "title": "Settings",
-      "desc": "Instructions on configuring settings in MedioAI.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
-    },
-    {
-      "title": "Meta Tag Editor",
-      "desc": "Guide to using the meta tag editor for your tracks.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
-    },
-    {
-      "title": "Filter",
-      "desc": "How to apply filters to your songs.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
-    },
-    {
-      "title": "Save Track Covers",
-      "desc": "Instructions on saving covers for your tracks.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
-    },
-    {
-      "title": "Audio Notification",
-      "desc": "Setting up and managing audio notifications.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "video": "EoWzxYujSuE",
+      "article": "<p>With Medio A.I finding the perfect rhyme is super easy. Just go to the Rhyme tab and search for any single word. You will be given a tonne of options. Just click on the one you like to copy to the clipboard. Boom, who knew it could be this easy! Keep on rocking A.I music composers!</p>"
     },
     {
       "title": "Seedbank",
       "desc": "Guide to using the seedbank for track generation.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "video": "FpqBUiHQwQA",
+      "article": "<p>With Medio A.I you can use the Seed bank to save any seed number you are using. You can even give your seed a cool band name, if you want. This the best way to remember and re-use seeds in Udio. Simple, quick and easy. Just like gardening. Kind of.. heh..</p>"
     },
     {
-      "title": "Extra MedioAI Features",
-      "desc": "How to use the AI description writer and manage song attribution.",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "title": "Save Track Covers",
+      "desc": "Instructions on saving covers for your tracks.",
+      "video": "yMsloUTL5Eo",
+      "article": "<p>With Medio A.I you can save all the track covers you generate in Udio. Just generate a cover and click the 'Save Covers' button. Then you can click the MedioAI popup and go to Track Covers, here you can view, download and manage all the track covers you created. Pretty neat, eh? Everything is saved locally. Fun stuff, now go create some awesome cover art!</p>"
+    },
+    {
+      "title": "Audio Notification",
+      "desc": "Setting up & managing audio notifications.",
+      "video": "",
+      "article": "<p>article text here</p>"
+    },
+    {
+      "title": "AI Chat",
+      "desc": "Using AI chat to get help & suggestions for your music.",
+      "video": "qz80mDcwKc8",
+      "article": "<p>With Medio A.I you can start a chat with your connected AI such as OpenAI or using Open Router. You can start a chat using one of the pre-made questions such as getting your song lyrics reviewed, converting phonetic spelling and more. You can include the lyrics in your chat or not. You can also ask the AI anything you want. For those advanced users, you can even change the system prompts in the settings. That's true power. Now you can talk to the AI without ever leaving Udio, how cool is that? I hope this helps you write the next awesome 'banger' as the internet people say.</p>"
+    },
+    {
+      "title": "AI Song Writer",
+      "desc": "Guide to using the AI song writer feature.",
+      "video": "MDFraLzmETQ",
+      "article": "<p>With Medio A.I you can use the power of A.I. to write a song in seconds. Just fill out the quick form or use the randomize feature. Add in your title, emotion, theme and even musical tags and your connected LLM will get to work. You can connect Open AI or Open Router to use any kind of LLM to fit your writing style. Once you have the lyrics you can copy them and save them in the Song Studo. You can then send them to the Create screen to start the jams! Keep on rocking, you amazing AI music composer. </p>"
+    },
+    {
+      "title": "Count Credits",
+      "desc": "How to get the credit count per track.",
+      "video": "yOAcUXRf1S8",
+      "article": "<p>With Medio A.I you can count the credits of your tracks. Let's hop over to our library and check out a liked song. We can click the dropdown and view Track History. From this page we can click the Count Credits button. Just wait a moment and boom we have the credits spent to make this track! How fun is that?</p>"
     },
     {
       "title": "AI Radio",
-      "desc": "How listen to music with an AI announcer (optional).",
-      "img": "https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg"
+      "desc": "How to use AI radio for discovering new music.",
+      "video": "",
+      "article": "<p>article text here</p>"
+    },
+    {
+      "title": "Settings",
+      "desc": "Instructions on configuring settings in MedioAI.",
+      "video": "",
+      "article": "<p>article text here</p>"
+    },
+    {
+      "title": "MP3 Meta Tag Editor",
+      "desc": "Guide to using the meta tag editor for your tracks.",
+      "video": "",
+      "article": "<p>article text here</p>"
+    },
+    {
+      "title": "MP3 Filter",
+      "desc": "How to apply filters to your songs.",
+      "video": "",
+      "article": "<p>article text here</p>"
+    },
+    {
+      "title": "Extra Features",
+      "desc": "How to use the AI description writer & manage song attribution.",
+      "video": "",
+      "article": "<p>article text here</p>"
     }
   ]
 }

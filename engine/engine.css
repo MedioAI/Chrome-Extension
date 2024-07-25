@@ -1220,7 +1220,7 @@ aside[aria-label="Sidebar"] .ml-2.flex-grow:first-child {
 #medioAISeedbank {
   font-size: 11px !important
 }
-#medioai-training-videos, #medioai-training-player{
+#medioai-training-video-wrapper, #medioai-training-player{
   height: calc(100vh - 211px);
     overflow-x: hidden;
 }
@@ -1321,4 +1321,8 @@ aside[aria-label="Sidebar"] .ml-2.flex-grow:first-child {
 #medioai-training-videos::-webkit-scrollbar-thumb:hover,
 #medioai-training-player::-webkit-scrollbar-thumb:hover {
   background: #424247;
+}
+
+.medioai-training-video * {
+  pointer-events: none;
 }

@@ -62,7 +62,7 @@ const uiMedioAI = {
         ></span>
     </div>
     <div class="flex space-x-2 items-center">
-      <button id="medioaiHelp" class="flex items-center space-x-1">
+      <button id="medioaiHelp" style="display:none" class="flex items-center space-x-1">
         ${iconsMedioAI.help}
         <span>Watch Training Videos</span>
       </button>
@@ -146,20 +146,18 @@ const uiMedioAI = {
     <div id="medioai-training-search" class="mb-2">
       <input type="text" id="medioai-training-searchbox" placeholder="Search for training videos..." class="w-full border rounded p-2 px-3" />
     </div>
-    <div id="medioai-training-videos" class="grid grid-cols-4 gap-3">
-      <div class="medioai-training-video p-1 border border-gray-900 rounded hover:bg-gray-panel curser-pointer" data-id="articleid">
-        <img src="https://i3.ytimg.com/vi/U0cCmmXFbYw/maxresdefault.jpg" class="rounded w-full" />
-        <div class="p-2">
-          <h4 class="text-lg text-white my-0 font-bold">How to write a song</h4>
-          <p class="text-xs  text-muted-foreground">Small explainer.</p>
-        </div>
-      </div>
+    <div id="medioai-training-video-wrapper">
+      <h3 class="text-lg my-2 text-white font-bold">Udio Training Videos</h3>
+      <div id="medioai-training-videos" class="grid grid-cols-4 gap-3"></div>
+
+      <h3 class="text-lg my-2 text-white font-bold">MedioAI Training Videos</h3>
+      <div id="medioai-training-videos-medio" class="grid grid-cols-4 gap-3"></div>
     </div>
 
     <div id="medioai-training-player" style="display: none">
       <div class="px-2">
         <div id="medioai-training-videoplayer" class="aspect-ratio">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/U0cCmmXFbYw?si=b5uy-pc4F5pqDu7Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/U0cCmmXFbYw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
       </div>
 
