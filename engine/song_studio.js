@@ -142,15 +142,16 @@ const songStudioMedioAI = {
       if (!selectedText) {
         utilitiesMedioAI.showNotification('Please select some text first!', 'error')
       } else {
-        const lyricBox = document.querySelector('textarea[placeholder="Write custom lyrics here"]')
+        const lyricBox = document.querySelector('.tiptap')
         if (!lyricBox) {
           utilitiesMedioAI.showNotification('Please select "Custom" to have the lyric box visible.', 'error')
           return
         } else {
           selectedText = selectedText.replace(/^\s*$(?:\r\n?|\n)/gm, '')
           selectedText = selectedText.replace(/(?<!^)(\n)(\[\w+\])/g, '\n\n$2')
+          selectedText = selectedText.replace(/\n/g, '<br>')
 
-          lyricBox.value = selectedText
+          lyricBox.innerHTML = `<p style="margin: 0px;white-space: pre-wrap;">${selectedText}<span class="autocomplete-suggestion text-muted-foreground ProseMirror-widget" contenteditable="false"> </span><img class="ProseMirror-separator" alt=""><br class="ProseMirror-trailingBreak"></p>`
           songStudioMedioAI.simulateMouseClick(lyricBox)
           close.click()
         }
