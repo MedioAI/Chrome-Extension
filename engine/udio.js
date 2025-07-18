@@ -19,7 +19,7 @@ const medioAI = {
 
         if (!sidebarButton) {
           const sidebar = document.querySelector(udioSidebarSelector)
-          sidebar.closest('li').insertAdjacentHTML('beforeend', uiMedioAI.sidebarLinks)
+          sidebar.closest('ul').insertAdjacentHTML('beforeend', uiMedioAI.sidebarLinks)
 
           songStudioMedioAI.init()
           setTimeout(() => {
@@ -31,7 +31,7 @@ const medioAI = {
           utilitiesMedioAI.mutationObserver()
         }, 1500)
         medioAITrackCounter.init()
-        medioAIMultiCreate.init()
+        // medioAIMultiCreate.init()
       }
     }, 100)
   },

@@ -9,8 +9,8 @@
 
 const uiMedioAI = {
   sidebarLinks: /* html */ `
-  <div id="medioai-link" role="menuitem" tabindex="0" class="flex h-10 items-center"><div class="h-6 w-0 shrink-0 rounded-r-full bg-brand-accent transition-all duration-300 group-hover/menu-item:w-1 opacity-0 group-hover/menu-item:opacity-100"></div><div class="group/menu-icon relative flex h-full w-full items-center transition-[padding-left] duration-300 group-data-[collapsible=icon]:w-auto"><div class="flex items-center transition-[padding] duration-300 pl-[22px] group-hover/menu-item:pl-[18px]"><span class="brand-gray-light hover:text-white">${iconsMedioAI.songStudio}</span>
-  <span id="medioai-link-text" class="brand-gray-light ml-3 flex-1 whitespace-nowrap text-[16px]">MedioAI</span></div></div></div>
+  <div id="medioai-link" role="menuitem" tabindex="0" class="flex h-10 items-center cursor-pointer"><div class="h-6 w-0 shrink-0 rounded-r-full bg-brand-accent transition-all duration-300 hover:bg-gray-800 group-hover/menu-item:w-1 opacity-0 group-hover/menu-item:opacity-100"></div><div class="hover:text-white text-brand-gray-light group/menu-icon group relative flex h-full w-full items-center transition-[padding-left] cursor-pointer duration-300 group-data-[collapsible=icon]:w-auto"><div class="flex items-center transition-[padding] duration-300 pl-[22px] group-hover/menu-item:pl-[18px]"><span class="text-brand-gray-light hover:text-brand-accent">${iconsMedioAI.songStudio}</span>
+  <span id="medioai-link-text" class="flex-1 whitespace-nowrap  pr-6 text-base font-medium   ml-4">MedioAI</span></div></div></div>
 `,
 
   sidebarRadio: /* html */ `
@@ -61,24 +61,11 @@ const uiMedioAI = {
         ></span>
     </div>
     <div class="flex space-x-2 items-center">
-      <button id="medioaiHelp" class="flex items-center space-x-1">
-        ${iconsMedioAI.help}
-        <span>Tutorials</span>
-      </button>
-      <button id="medioaiResources" class="flex items-center space-x-1">
-        ${iconsMedioAI.search}
-        <span>Community Resources</span>
-      </button>
       <button id="medioaiRadio" class="flex items-center space-x-1">
         ${iconsMedioAI.radio}
         <span>Udio Radio</span>
       </button>
-      <button id="medioaiChallenge" class="flex items-center space-x-3">
-        ${iconsMedioAI.challenge}
-      </button>
-      <button id="medioaiTools" class="flex items-center space-x-3">
-        ${iconsMedioAI.tools}
-      </button>
+      
       <button id="medioaiSettings" class="flex items-center space-x-3">
         ${iconsMedioAI.cog}
       </button>
