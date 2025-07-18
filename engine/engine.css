@@ -19,9 +19,7 @@
   border-radius: 10px;
   overflow: hidden;
   position: relative;
-  box-shadow:
-    20px 20px 60px #000,
-    -20px -20px 60px #000;
+  box-shadow: 20px 20px 60px #000, -20px -20px 60px #000;
 }
 
 #medioAI-tagbuilder {
@@ -82,7 +80,8 @@
   width: 200px;
   padding: 4px 8px;
   font-size: 14px;
-  border: 1px solid #3c3c3c;
+  border: 1px solid #5b5b5b;
+  background: #27272a;
   border-radius: 6px;
   height: 37px !important;
 }
@@ -567,7 +566,65 @@ select.medioAddTag {
   font-size: 14px;
   height: 37px !important;
   line-height: 0;
-  border: 1px solid rgb(68, 68, 68);
+  border: 1px solid #5b5b5b;
+}
+
+.medioai-3d-button {
+  background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 50%, #0a0a0a 100%);
+  border: 1px solid #404040;
+  border-top: 1px solid #555555;
+  border-left: 1px solid #555555;
+  border-right: 1px solid #222222;
+  border-bottom: 1px solid #222222;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.medioai-3d-button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+.medioai-3d-button:hover {
+  background: linear-gradient(145deg, #353535 0%, #252525 50%, #151515 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+    0 3px 6px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.4);
+  transform: translateY(-1px);
+  border-top: 1px solid #666666;
+  border-left: 1px solid #666666;
+}
+
+.medioai-3d-button:active {
+  background: linear-gradient(145deg, #1a1a1a 0%, #2a2a2a 50%, #0a0a0a 100%);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(0, 0, 0, 0.4),
+    0 1px 2px rgba(0, 0, 0, 0.3);
+  transform: translateY(1px);
+  border-top: 1px solid #333333;
+  border-left: 1px solid #333333;
+  border-right: 1px solid #555555;
+  border-bottom: 1px solid #555555;
+}
+
+.medioai-3d-button:focus {
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(37, 204, 140, 0.3);
 }
 #save-lyrics:hover,
 #clear-lyrics:hover,
@@ -785,9 +842,7 @@ select.medioAddTag {
   padding: 100px;
   border-radius: 10px;
   z-index: 99999999999;
-  box-shadow:
-    20px 20px 60px #000,
-    -20px -20px 60px #000;
+  box-shadow: 20px 20px 60px #000, -20px -20px 60px #000;
   top: 50px;
   text-align: center;
 }
@@ -810,9 +865,7 @@ select.medioAddTag {
   padding: 50px 30px;
   border-radius: 10px;
   z-index: 9999999999999;
-  box-shadow:
-    20px 20px 60px #000,
-    -20px -20px 60px #000;
+  box-shadow: 20px 20px 60px #000, -20px -20px 60px #000;
   top: 50px;
   position: fixed;
 }
@@ -820,9 +873,7 @@ select.medioAddTag {
 #medio-radio {
   width: 450px;
   background: #000;
-  box-shadow:
-    20px 20px 60px #000,
-    -20px -20px 60px #000;
+  box-shadow: 20px 20px 60px #000, -20px -20px 60px #000;
   border: 1px solid #ffffff3e;
   z-index: 999999999999;
   position: fixed;
@@ -1212,9 +1263,7 @@ input:checked + .medio-slider:before {
 
 #medio-follow.medio-following {
   color: #c3c3d1;
-  box-shadow:
-    0 0 0 1px rgb(61, 70, 89),
-    0 0 0 2px rgb(117, 131, 159);
+  box-shadow: 0 0 0 1px rgb(61, 70, 89), 0 0 0 2px rgb(117, 131, 159);
 }
 
 .text-light-gray {
@@ -1246,6 +1295,8 @@ aside[aria-label='Sidebar'] .ml-2.flex-grow:first-child {
 
 #medioAISeedbank {
   font-size: 11px !important;
+  border: 1px solid #27272a;
+  background: #000;
 }
 #medioai-training-video-wrapper,
 #medioai-training-player {

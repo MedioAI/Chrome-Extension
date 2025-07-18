@@ -858,14 +858,14 @@ const uiMedioAI = {
         />
         <button
           id="save-lyrics"
-          class="flex select-none items-center space-x-2 medio-toolbar-button"
+          class="flex select-none medioai-3d-button items-center space-x-2 medio-toolbar-button"
         >
           ${iconsMedioAI.save}
           <span>Save</span>
         </button>
         <button
           id="clear-lyrics"
-          class="flex select-none items-center space-x-2 medio-toolbar-button"
+          class="flex select-none medioai-3d-button items-center space-x-2 medio-toolbar-button"
         >
           ${iconsMedioAI.clear}
           <span>Clear</span>
@@ -874,7 +874,7 @@ const uiMedioAI = {
       <div class="flex items-center justify-center w-full">
         <button
           id="send-lyrics"
-          class="flex select-none items-center space-x-2 medio-toolbar-button"
+          class="flex select-none items-center space-x-2 medio-toolbar-button medioai-3d-button"
         >
           ${iconsMedioAI.sendLyrics}
           <span>Use Selected</span>
