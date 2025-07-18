@@ -64,5 +64,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     chrome.tabs.create({ url: 'app/settings.html' })
   } else if (request.action === 'openApp') {
     chrome.tabs.create({ url: 'app/index.html' })
+  } else if (request.action === 'openCovers') {
+    chrome.tabs.create({ url: 'app/covers.html' })
   }
 })

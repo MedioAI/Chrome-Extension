@@ -144,6 +144,7 @@
 #medioAskAIQuestion,
 #medioWriteSong {
   background: #25cc8c;
+  color: #053724;
   padding: 6px 12px;
   display: flex;
   border-radius: 6px;
@@ -158,7 +159,8 @@
 #medioaiSettings,
 #medioaiTools,
 #medioaiChallenge,
-#medioaiRadio {
+#medioaiRadio,
+#medioaiCovers {
   background: #242424;
   padding: 6px 12px;
   display: flex;
@@ -187,7 +189,9 @@
 }
 
 #medioaiRadio span,
-#medioaiHelp span {
+#medioaiHelp span,
+#medioaiCovers span,
+#medioaiSettings span {
   font-size: 11px;
 }
 
@@ -1226,6 +1230,11 @@ input:checked + .medio-slider:before {
 #medio-radio-ban {
   position: relative;
 }
+
+#medioHasHeard,
+#medioHasNotHeard {
+  display: none !important;
+}
 .medio-tooltip {
   display: none;
   position: absolute;
@@ -1414,4 +1423,13 @@ aside[aria-label='Sidebar'] .ml-2.flex-grow:first-child {
   border-radius: 5px;
   color: #cccccc;
   border: 1px solid #262626;
+}
+
+#medioai-content input,
+#medioai-content select,
+#medioai-content textarea {
+  background: #000;
+  border: 1px solid #27272a;
+  border-radius: 6px;
+  color: #fff;
 }

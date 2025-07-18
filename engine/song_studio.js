@@ -53,11 +53,8 @@ const songStudioMedioAI = {
     songStudioMedioAI.appButtons()
     setTimeout(() => {
       songStudioMedioAI.seedBox()
+      songStudioMedioAI.trackCovers()
     }, 1600)
-
-    // setTimeout(() => {
-    //   songStudioMedioAI.trackCovers()
-    // }, 2000)
   },
 
   load: callback => {
@@ -473,6 +470,11 @@ const songStudioMedioAI = {
       chrome.runtime.sendMessage({ action: 'openSettings' })
     })
 
+    const medioaiCovers = document.getElementById('medioaiCovers')
+    medioaiCovers.addEventListener('click', () => {
+      chrome.runtime.sendMessage({ action: 'openCovers' })
+    })
+
     const medioaiRadio = document.getElementById('medioaiRadio')
     medioaiRadio.addEventListener('click', () => {
       songStudioMedioAI.close()
@@ -771,29 +773,25 @@ const songStudioMedioAI = {
         if (mutation.addedNodes.length) {
           mutation.addedNodes.forEach(node => {
             if (node.nodeType === 1) {
-              const textPrompt = node.querySelector('textarea[name="prompt"]')
-              if (textPrompt) {
-                const textPrompt = node.querySelector('textarea[name="prompt"]')
+              const textPrompt = document.querySelector('textarea[name="prompt"]')
 
-                if (textPrompt) {
-                  const buttons = node.querySelectorAll('.float-right button')
-                  const backButton = Array.from(buttons).find(
-                    button => button.textContent === 'Back to Details'
+              if (textPrompt) {
+                const buttons = node.querySelectorAll('button.inline-flex')
+                const backButton = Array.from(buttons).find(button => button.textContent === 'Generate')
+
+                if (backButton) {
+                  const generateButton = document.createElement('button')
+                  generateButton.innerHTML = 'Save Covers'
+                  generateButton.setAttribute(
+                    'class',
+                    'inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white/5 text-white border-[0.5px] border-white/10 hover:bg-secondary/80 h-10 px-4 rounded-md py-2 mr-3'
                   )
-                  if (backButton) {
-                    const generateButton = document.createElement('button')
-                    generateButton.innerHTML = 'Save Covers'
-                    generateButton.setAttribute(
-                      'class',
-                      'inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white/5 text-white border-[0.5px] border-white/10 hover:bg-secondary/80 h-10 px-4 rounded-md py-2 mr-3'
-                    )
-                    generateButton.addEventListener('click', e => {
-                      e.preventDefault()
-                      e.stopPropagation()
-                      songStudioMedioAI.grabCovers(node, node)
-                    })
-                    backButton.after(generateButton)
-                  }
+                  generateButton.addEventListener('click', e => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    songStudioMedioAI.grabCovers(node, node)
+                  })
+                  backButton.after(generateButton)
                 }
               }
             }

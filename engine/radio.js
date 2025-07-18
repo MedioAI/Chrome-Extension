@@ -609,11 +609,11 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     ).href = `https://www.udio.com/creators/${current.medioRadio[0].artist}`
 
     medioRadio.isFollowing = false
-    medioRadio.checkIfHeard(
-      current.medioRadio[0].id,
-      current.medioRadio[0].liked,
-      current.medioRadio[0].artist
-    )
+    // medioRadio.checkIfHeard(
+    //   current.medioRadio[0].id,
+    //   current.medioRadio[0].liked,
+    //   current.medioRadio[0].artist
+    // )
 
     const banTrack = document.getElementById('medio-radio-ban')
     if (!banTrack) return
@@ -660,20 +660,20 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       }
     })
 
-    const followingArtist = document.getElementById('medio-follow')
-    if (!followingArtist) return
-    followingArtist.addEventListener('click', async () => {
-      medioRadio.isFollowing = !medioRadio.isFollowing
-      if (medioRadio.isFollowing) {
-        followingArtist.textContent = 'Following'
-        followingArtist.classList.add('medio-following')
-        medioRadio.follow()
-      } else {
-        followingArtist.textContent = 'Follow'
-        followingArtist.classList.remove('medio-following')
-        medioRadio.unfollow()
-      }
-    })
+    // const followingArtist = document.getElementById('medio-follow')
+    // if (!followingArtist) return
+    // followingArtist.addEventListener('click', async () => {
+    //   medioRadio.isFollowing = !medioRadio.isFollowing
+    //   if (medioRadio.isFollowing) {
+    //     followingArtist.textContent = 'Following'
+    //     followingArtist.classList.add('medio-following')
+    //     medioRadio.follow()
+    //   } else {
+    //     followingArtist.textContent = 'Follow'
+    //     followingArtist.classList.remove('medio-following')
+    //     medioRadio.unfollow()
+    //   }
+    // })
 
     medioRadio.topActions(true)
 
@@ -892,20 +892,20 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     await new Promise(resolve => setTimeout(resolve, 1000))
 
     const html = hiddenIframe.contentWindow.document.body.innerHTML
-    const followButton = document.getElementById('medio-follow')
-    if (!followButton) {
-      hiddenIframe.remove()
-      return
-    }
-    if (html && html.includes('Following</button')) {
-      document.getElementById('medio-follow').textContent = 'Following'
-      document.getElementById('medio-follow').classList.add('medio-following')
-      medioRadio.isFollowing = true
-    } else {
-      document.getElementById('medio-follow').textContent = 'Follow'
-      document.getElementById('medio-follow').classList.remove('medio-following')
-      medioRadio.isFollowing = false
-    }
+    // const followButton = document.getElementById('medio-follow')
+    // if (!followButton) {
+    //   hiddenIframe.remove()
+    //   return
+    // }
+    // if (html && html.includes('Following</button')) {
+    //   document.getElementById('medio-follow').textContent = 'Following'
+    //   document.getElementById('medio-follow').classList.add('medio-following')
+    //   medioRadio.isFollowing = true
+    // } else {
+    //   document.getElementById('medio-follow').textContent = 'Follow'
+    //   document.getElementById('medio-follow').classList.remove('medio-following')
+    //   medioRadio.isFollowing = false
+    // }
 
     hiddenIframe.remove()
   },
@@ -919,10 +919,10 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       let id = document.getElementById('medio-radio').getAttribute('data-id')
       let currentIndex = current.medioRadio.findIndex(track => track.id === id)
 
-      document.getElementById('medio-follow').classList.remove('medio-following')
-      document.getElementById(
-        'medio-follow'
-      ).innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-dasharray="15" stroke-dashoffset="15" stroke-linecap="round" stroke-width="2" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg>`
+      // document.getElementById('medio-follow').classList.remove('medio-following')
+      // document.getElementById(
+      //   'medio-follow'
+      // ).innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-dasharray="15" stroke-dashoffset="15" stroke-linecap="round" stroke-width="2" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg>`
 
       if (!id) {
         id = current.medioRadio[0].id
@@ -954,7 +954,7 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
       if (next && medioRadio.currentTrack < current.medioRadio.length) {
         medioRadio.currentTrack++
 
-        medioRadio.checkIfHeard(next.id, next.liked, next.artist)
+        // medioRadio.checkIfHeard(next.id, next.liked, next.artist)
 
         document.querySelector('.track-cover img').src = next.image_path
         document.querySelector('.medio-radio-title').textContent = next.title
@@ -2036,7 +2036,7 @@ const medioRadioUI = {
               <div class="medio-tooltip">Ban this track from playing.</div>
             </button>
 
-            <button id="medio-follow">
+            <button id="medio-follow" style="display: none">
               <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-dasharray="15" stroke-dashoffset="15" stroke-linecap="round" stroke-width="2" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg>
             </button>
           </div>
@@ -2053,12 +2053,12 @@ const medioRadioUI = {
             <div class="medio-radio-broadcast text-xs text-light-gray">Track 1 of 1</div>
             <div id="medioHasHeard" style="display: none">
               <svg xmlns="http://www.w3.org/2000/svg" style="color: #E3095D" width="0.8em" height="0.8em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"><circle cx="12" cy="12" r="2"/><circle cx="18" cy="9" r="2"/><path d="M15.318 3.631a9 9 0 1 0 5.368 10.736M20 9V2l2 2"/></g></svg>
-              <div class="medio-tooltip">Track has been listened to.</div>
+              <div class="medio-tooltip">You have heard this song before.</div>
             </div>
             <div id="medioHasNotHeard" style="display: none">
             <svg xmlns="http://www.w3.org/2000/svg" style="color: #1CCFA5" width="0.8em" height="0.8em" viewBox="0 0 24 24"><path fill="currentColor" d="m12.75 12.508l8.5-3.4v5.653a3.25 3.25 0 1 0 1.5 2.74V7.945c0-1.143 0-2.101-.08-2.865a7.747 7.747 0 0 0-.04-.315c-.078-.522-.214-1.008-.479-1.415a2.18 2.18 0 0 0-.62-.63l-.007-.005c-.708-.47-1.503-.437-2.322-.228c-.792.202-1.774.613-2.978 1.117l-2.094.876c-.565.236-1.043.437-1.418.644c-.4.22-.743.48-1.001.868c-.258.388-.366.805-.415 1.259c-.046.426-.046.945-.046 1.557v7.952a3.25 3.25 0 1 0 1.5 2.74v-.001z"/><path fill="currentColor" d="M7.75 2a.75.75 0 0 0-1.5 0v5.76a3.25 3.25 0 1 0 1.5 2.74V5.005c.699.504 1.53.745 2.25.745a.75.75 0 0 0 0-1.5a2.443 2.443 0 0 1-1.488-.552c-.434-.357-.762-.9-.762-1.698" opacity="0.5"/></svg>
             
-              <div class="medio-tooltip">Track has not been finished.</div>
+              <div class="medio-tooltip">You haven't listened to this song yet.</div>
             </div>
           </div>
         </div>

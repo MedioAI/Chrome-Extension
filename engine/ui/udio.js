@@ -61,13 +61,19 @@ const uiMedioAI = {
         ></span>
     </div>
     <div class="flex space-x-2 items-center">
-      <button id="medioaiRadio" class="flex items-center space-x-1">
-        ${iconsMedioAI.radio}
-        <span>Udio Radio</span>
-      </button>
+        <button id="medioaiRadio" class="flex items-center space-x-2 medio-toolbar-button">
+          ${iconsMedioAI.radio}
+          <span>Udio Radio</span>
+        </button>
+
+         <button id="medioaiCovers" class="flex items-center space-x-2 medio-toolbar-button">
+            ${iconsMedioAI.covers}
+            <span>Saved Covers</span>
+          </button>
       
-      <button id="medioaiSettings" class="flex items-center space-x-3">
+      <button id="medioaiSettings" class="flex items-center space-x-2 medio-toolbar-button">
         ${iconsMedioAI.cog}
+        <span>Settings</span>
       </button>
     </div>
   </h1>
@@ -316,7 +322,7 @@ const uiMedioAI = {
           </div>
         </div>
         <div class="flex space-x-2 select-none items-center">
-        <button id="medioAskChatList" class="flex select-none items-center space-x-2">
+        <button id="medioAskChatList" class="flex select-none items-center space-x-2 medio-toolbar-button">
             ${iconsMedioAI.chats}
             <span>View Past Chats</span>
           </button>
@@ -784,7 +790,7 @@ const uiMedioAI = {
             </button>
           </div>
 
-          <button id="medioSongChatList" class="flex w-auto block select-none items-center space-x-2">
+          <button id="medioSongChatList" class="flex w-auto  select-none items-center space-x-2 medio-toolbar-button">
             ${iconsMedioAI.chats}
             <span>View Past Songs</span>
           </button>
@@ -821,8 +827,8 @@ const uiMedioAI = {
         id="wordInput"
         placeholder="Enter a word to find rhymes..."
       />
-      <button id="medioai-findRhymeClear">Clear</button>
-      <button id="medioai-findRhyme">Find Rhymes</button>
+      <button id="medioai-findRhymeClear" class="medioai-3d-button">Clear</button>
+      <button id="medioai-findRhyme" class="medioai-3d-button">Find Rhymes</button>
     </div>
     <div
       id="results"
@@ -865,7 +871,7 @@ const uiMedioAI = {
         </button>
         <button
           id="clear-lyrics"
-          class="flex select-none medioai-3d-button items-center space-x-2 medio-toolbar-button"
+          class="flex select-none  medioai-3d-button items-center space-x-2 medio-toolbar-button"
         >
           ${iconsMedioAI.clear}
           <span>Clear</span>
