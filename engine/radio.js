@@ -1135,23 +1135,37 @@ With your unwavering dedication and infectious passion, you've built a loyal fol
     if (medioRadio.listType === 'tags') {
       let genres = medioRadio.genres.split(',')
       for (const genre of genres) {
-        await fetch(`https://www.udio.com/api/songs/search`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            searchQuery: {
-              searchTerm: genre,
-            },
-            pageParam: page,
-            pageSize: pageSize,
-          }),
-        })
-          .then(response => response.json())
-          .then(tracks => {
-            medioRadio.processTracks(tracks.data)
-          })
+        let attempts = 0
+        let maxAttempts = 4
+        let success = false
+
+        while (attempts < maxAttempts && !success) {
+          try {
+            await fetch(`https://www.udio.com/api/songs/search`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                searchQuery: {
+                  searchTerm: genre,
+                },
+                pageParam: page,
+                pageSize: pageSize,
+              }),
+            })
+              .then(response => response.json())
+              .then(tracks => {
+                medioRadio.processTracks(tracks.data)
+                success = true
+              })
+          } catch (error) {
+            attempts++
+            if (attempts < maxAttempts) {
+              await new Promise(resolve => setTimeout(resolve, 1000))
+            }
+          }
+        }
 
         await new Promise(resolve => setTimeout(resolve, 2000))
       }
@@ -1829,8 +1843,6 @@ const medioRadioUI = {
       <h4 class="text-sm text-gray-400 mb-1 mt-3">Type</h4>
       <select id="medio-radio-type" class="w-full border bg-gray-1000 text-white p-2 rounded-lg">
         <option value="tags">Tags</option>
-        <option value="playlist">Playlist</option>
-        <option value="artist">Artist</option>
         <option value="trending">Trending</option>
         <option value="mostliked">Most Popular</option>
       </select>
