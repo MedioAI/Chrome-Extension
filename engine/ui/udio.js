@@ -9,10 +9,9 @@
 
 const uiMedioAI = {
   sidebarLinks: /* html */ `
-<div class="-ml-5 pl-[16px]"><div class="relative flex items-center rounded-lg py-3 pr-4 hover:text-foreground"><a id="medioai-link" class="mr-4 flex items-center" aria-label="" href="/following">
-<span class="brand-gray-light hover:text-white">${iconsMedioAI.songStudio}</span>
-<span id="medioai-link-text" class="brand-gray-light ml-3 flex-1 whitespace-nowrap text-[16px]">MedioAI</span></a>
-</div></div>`,
+  <div id="medioai-link" role="menuitem" tabindex="0" class="flex h-10 items-center"><div class="h-6 w-0 shrink-0 rounded-r-full bg-brand-accent transition-all duration-300 group-hover/menu-item:w-1 opacity-0 group-hover/menu-item:opacity-100"></div><div class="group/menu-icon relative flex h-full w-full items-center transition-[padding-left] duration-300 group-data-[collapsible=icon]:w-auto"><div class="flex items-center transition-[padding] duration-300 pl-[22px] group-hover/menu-item:pl-[18px]"><span class="brand-gray-light hover:text-white">${iconsMedioAI.songStudio}</span>
+  <span id="medioai-link-text" class="brand-gray-light ml-3 flex-1 whitespace-nowrap text-[16px]">MedioAI</span></div></div></div>
+`,
 
   sidebarRadio: /* html */ `
 <button id="medioai-radio" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground relative h-8 w-8 rounded-full p-1 -mr-2" style="margin-right: -20px;font-size: 23px;">
@@ -62,9 +61,13 @@ const uiMedioAI = {
         ></span>
     </div>
     <div class="flex space-x-2 items-center">
-      <button id="medioaiHelp" style="display:none" class="flex items-center space-x-1">
+      <button id="medioaiHelp" class="flex items-center space-x-1">
         ${iconsMedioAI.help}
-        <span>Watch Training Videos</span>
+        <span>Tutorials</span>
+      </button>
+      <button id="medioaiResources" class="flex items-center space-x-1">
+        ${iconsMedioAI.search}
+        <span>Community Resources</span>
       </button>
       <button id="medioaiRadio" class="flex items-center space-x-1">
         ${iconsMedioAI.radio}
@@ -330,7 +333,7 @@ const uiMedioAI = {
             ${iconsMedioAI.chats}
             <span>View Past Chats</span>
           </button>
-          
+
         </div>
       </div>
 

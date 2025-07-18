@@ -20,11 +20,11 @@ const songStudioMedioAI = {
     modal.innerHTML = await uiMedioAI.songStudio()
     document.body.appendChild(modal)
 
-    songStudioMedioAI.detectURLChange((url => {
+    songStudioMedioAI.detectURLChange(url => {
       if (url && url.includes('udio.com/tree/')) {
         songStudioMedioAI.open()
-      } 
-    }))
+      }
+    })
 
     songStudioMedioAI.load(() => {
       utilitiesMedioAI.quill()
@@ -136,27 +136,26 @@ const songStudioMedioAI = {
       songStudioMedioAI.clear(e)
     })
 
-  
-    const sendLyrics = document.querySelector('#send-lyrics');
+    const sendLyrics = document.querySelector('#send-lyrics')
     sendLyrics.addEventListener('click', e => {
-      let selectedText = window.getSelection().toString();
+      let selectedText = window.getSelection().toString()
       if (!selectedText) {
         utilitiesMedioAI.showNotification('Please select some text first!', 'error')
       } else {
-        const lyricBox = document.querySelector('textarea[placeholder="Write custom lyrics here"]');
+        const lyricBox = document.querySelector('textarea[placeholder="Write custom lyrics here"]')
         if (!lyricBox) {
           utilitiesMedioAI.showNotification('Please select "Custom" to have the lyric box visible.', 'error')
-          return;
+          return
         } else {
-          selectedText = selectedText.replace(/^\s*$(?:\r\n?|\n)/gm, '');
-          selectedText = selectedText.replace(/(?<!^)(\n)(\[\w+\])/g, '\n\n$2');
-    
-          lyricBox.value = selectedText;
-          songStudioMedioAI.simulateMouseClick(lyricBox);
-          close.click();
+          selectedText = selectedText.replace(/^\s*$(?:\r\n?|\n)/gm, '')
+          selectedText = selectedText.replace(/(?<!^)(\n)(\[\w+\])/g, '\n\n$2')
+
+          lyricBox.value = selectedText
+          songStudioMedioAI.simulateMouseClick(lyricBox)
+          close.click()
         }
       }
-    });
+    })
 
     const allPremadeQuestions = document.querySelectorAll('.medioAskAIPremadeQuestion')
     allPremadeQuestions.forEach(question => {
@@ -217,6 +216,8 @@ const songStudioMedioAI = {
 
     const openStudio = document.getElementById('medioai-link')
     openStudio.addEventListener('click', e => {
+      e.preventDefault()
+      e.stopPropagation()
       songStudioMedioAI.open(e)
     })
 
@@ -281,7 +282,7 @@ const songStudioMedioAI = {
     })
   },
 
-  detectURLChange: (callback) => {
+  detectURLChange: callback => {
     let currentUrl = window.location.href
 
     setInterval(function () {
@@ -489,30 +490,30 @@ const songStudioMedioAI = {
       document.querySelector('#medio-radio').style.display = 'block'
     })
 
-    const medioaiHelp = document.getElementById('medioaiHelp');
+    const medioaiHelp = document.getElementById('medioaiHelp')
     medioaiHelp.addEventListener('click', () => {
-      const isTrainingVisible = document.querySelector('#medioai-training').style.display === 'block';
-      
+      const isTrainingVisible = document.querySelector('#medioai-training').style.display === 'block'
+
       document.querySelectorAll('.lyric-tab').forEach(tab => {
-        tab.style.display = 'none'; 
-      });
+        tab.style.display = 'none'
+      })
 
       if (isTrainingVisible) {
-        document.querySelector('#medioai-training-search').style.display = 'block';
-        document.querySelector('#medioai-training-video-wrapper').style.display = 'block';
-        document.querySelector('#medioai-training-player').style.display = 'none';
+        document.querySelector('#medioai-training-search').style.display = 'block'
+        document.querySelector('#medioai-training-video-wrapper').style.display = 'block'
+        document.querySelector('#medioai-training-player').style.display = 'none'
         document.querySelector('.lyric-tab[data-tab="write"]').style.display = 'block'
       } else {
-        const traingDB = chrome.runtime.getURL('database/training.json');
+        const traingDB = chrome.runtime.getURL('database/training.json')
         fetch(traingDB)
           .then(response => response.json())
           .then(data => {
-            const training = data.udio;
-            const trainingTab = document.querySelector('#medioai-training-videos');
-            const trainingTabMedio = document.querySelector('#medioai-training-videos-medio');
-            trainingTab.innerHTML = '';
+            const training = data.udio
+            const trainingTab = document.querySelector('#medioai-training-videos')
+            const trainingTabMedio = document.querySelector('#medioai-training-videos-medio')
+            trainingTab.innerHTML = ''
             training.forEach((item, index) => {
-              const div = document.createElement('div');
+              const div = document.createElement('div')
               div.innerHTML = `
                 <div class="medioai-training-video p-1 border border-gray-900 rounded hover:bg-gray-panel curser-pointer" data-id="udio-${index}">
                   <img src="https://i3.ytimg.com/vi/${item.video}/maxresdefault.jpg" class="rounded w-full" />
@@ -521,14 +522,14 @@ const songStudioMedioAI = {
                     <p class="text-xs  text-muted-foreground">${item.desc}</p>
                   </div>
                 </div>
-              `;
-              trainingTab.appendChild(div);
-            });
+              `
+              trainingTab.appendChild(div)
+            })
 
-            const trainingMedio = data.medioai;
-            trainingTabMedio.innerHTML = '';
+            const trainingMedio = data.medioai
+            trainingTabMedio.innerHTML = ''
             trainingMedio.forEach((item, index) => {
-              const div = document.createElement('div');
+              const div = document.createElement('div')
               div.innerHTML = `
                 <div class="medioai-training-video p-1 border border-gray-900 rounded hover:bg-gray-panel curser-pointer" data-id="medio-${index}">
                   <img src="https://i3.ytimg.com/vi/${item.video}/maxresdefault.jpg" class="rounded w-full" />
@@ -537,43 +538,45 @@ const songStudioMedioAI = {
                     <p class="text-xs  text-muted-foreground">${item.desc}</p>
                   </div>
                 </div>
-              `;
-              trainingTabMedio.appendChild(div);
-            });
+              `
+              trainingTabMedio.appendChild(div)
+            })
 
             document.querySelectorAll('.medioai-training-video').forEach(item => {
               item.addEventListener('click', e => {
-                const idIndex = e.target.dataset.id;
-                console.log(idIndex, e.target);
-                let index = idIndex.split('-')[1];
+                const idIndex = e.target.dataset.id
+                console.log(idIndex, e.target)
+                let index = idIndex.split('-')[1]
                 let item = {}
                 let training = []
                 if (idIndex.includes('udio')) {
-                  training = data.udio;
-                  item = training[index];
+                  training = data.udio
+                  item = training[index]
                 } else if (idIndex.includes('medio')) {
-                  training = data.medioai;
-                  item = training[index];
+                  training = data.medioai
+                  item = training[index]
                 }
 
-                document.querySelector('#medioai-training-search').style.display = 'none';
-                document.querySelector('#medioai-training-video-wrapper').style.display = 'none';
-                document.querySelector('#medioai-training-player').style.display = 'block';
+                document.querySelector('#medioai-training-search').style.display = 'none'
+                document.querySelector('#medioai-training-video-wrapper').style.display = 'none'
+                document.querySelector('#medioai-training-player').style.display = 'block'
 
-                document.querySelector('#medioai-training-videoplayer iframe').src = `https://www.youtube.com/embed/${item.video}`;
-                document.querySelector('#medioai-training-info h1').innerHTML = item.title;
-                document.querySelector('#medioai-article').innerHTML = item.article;
+                document.querySelector(
+                  '#medioai-training-videoplayer iframe'
+                ).src = `https://www.youtube.com/embed/${item.video}`
+                document.querySelector('#medioai-training-info h1').innerHTML = item.title
+                document.querySelector('#medioai-article').innerHTML = item.article
               })
             })
-          });
+          })
       }
-      
-      const tablist = document.querySelector('#medioai-content div[role="tablist"]');
-      tablist.style.display = isTrainingVisible ? '' : 'none'; 
-      
-      document.querySelector('#medioai-training').style.display = isTrainingVisible ? 'none' : 'block'; 
-      medioaiHelp.classList.toggle('active'); 
-    });
+
+      const tablist = document.querySelector('#medioai-content div[role="tablist"]')
+      tablist.style.display = isTrainingVisible ? '' : 'none'
+
+      document.querySelector('#medioai-training').style.display = isTrainingVisible ? 'none' : 'block'
+      medioaiHelp.classList.toggle('active')
+    })
   },
 
   challenge: async () => {
@@ -690,7 +693,6 @@ const songStudioMedioAI = {
   seedBox: () => {
     let buttons = document.querySelectorAll('.transition-all')
     buttons.forEach(button => {
-      
       if (button.textContent === 'Advanced Features') {
         setTimeout(() => {
           button.closest('button').addEventListener('click', () => {
@@ -699,12 +701,11 @@ const songStudioMedioAI = {
             }, 300)
           })
         }, 500)
-        
       }
     })
   },
 
-  appendSeedBox: () => {    
+  appendSeedBox: () => {
     const seedInput = document.querySelector('input[title="Set Seed"]')
     if (!seedInput) return
     const inputWrapper = document.querySelector('#Seed')
@@ -720,7 +721,6 @@ const songStudioMedioAI = {
     </div>`
     inputWrapper.closest('.relative').appendChild(seedBox)
 
-   
     const medioAISeedbank = document.getElementById('medioAISeedbank')
     medioAISeedbank.addEventListener('change', () => {
       seedInput.value = medioAISeedbank.value
@@ -728,7 +728,6 @@ const songStudioMedioAI = {
       medioAISeedbank.value = ''
     })
 
-  
     songStudioMedioAI.populateOptions()
 
     const medioAISaveSeed = document.getElementById('medioAISaveSeed')
@@ -774,7 +773,9 @@ const songStudioMedioAI = {
           input.addEventListener('change', e => {
             const index = e.target.closest('.medioaiSeedItem').dataset.index
             seeds[index].label = e.target.value
-            seeds[index].value = e.target.closest('.medioaiSeedItem').querySelector('.medioaiInputSeedNumber').value
+            seeds[index].value = e.target
+              .closest('.medioaiSeedItem')
+              .querySelector('.medioaiInputSeedNumber').value
 
             chrome.storage.local.set({ medioAISeeds: seeds }, function () {
               utilitiesMedioAI.showNotification('Seed updated.')
@@ -787,7 +788,9 @@ const songStudioMedioAI = {
           input.addEventListener('change', e => {
             const index = e.target.closest('.medioaiSeedItem').dataset.index
             seeds[index].value = e.target.value
-            seeds[index].label = e.target.closest('.medioaiSeedItem').querySelector('.medioaiInputSeedLabel').value
+            seeds[index].label = e.target
+              .closest('.medioaiSeedItem')
+              .querySelector('.medioaiInputSeedLabel').value
 
             chrome.storage.local.set({ medioAISeeds: seeds }, function () {
               utilitiesMedioAI.showNotification('Seed updated.')
@@ -795,7 +798,6 @@ const songStudioMedioAI = {
           })
         })
 
-        
         const medioaiRemoveSeed = document.querySelectorAll('.medioaiRemoveSeed')
         medioaiRemoveSeed.forEach(button => {
           songStudioMedioAI.addDeleteSeed(button, seeds)
@@ -804,7 +806,7 @@ const songStudioMedioAI = {
     })
   },
 
-  loadSeedList: (seeds) => {
+  loadSeedList: seeds => {
     const medioAISeedList = document.querySelector('#medioAISeedOverlay').querySelector('#medioAISeedList')
     seeds.forEach((seed, index) => {
       const listItem = document.createElement('li')
@@ -870,28 +872,28 @@ const songStudioMedioAI = {
             if (node.nodeType === 1) {
               const textPrompt = node.querySelector('textarea[name="prompt"]')
               if (textPrompt) {
-                  const textPrompt = node.querySelector('textarea[name="prompt"]')
+                const textPrompt = node.querySelector('textarea[name="prompt"]')
 
-                  if (textPrompt) {
-
-                    const buttons = node.querySelectorAll('.float-right button')
-                    const backButton = Array.from(buttons).find(button => button.textContent === 'Back to Details')
-                    if (backButton) {
-                      const generateButton = document.createElement('button')
-                      generateButton.innerHTML = 'Save Covers'
-                      generateButton.setAttribute(
-                        'class',
-                        'inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white/5 text-white border-[0.5px] border-white/10 hover:bg-secondary/80 h-10 px-4 rounded-md py-2 mr-3'
-                      )
-                      generateButton.addEventListener('click', (e) => {
-                        e.preventDefault()
-                        e.stopPropagation()
-                        songStudioMedioAI.grabCovers(node, node)
-                      })
-                      backButton.after(generateButton)
-                    }
+                if (textPrompt) {
+                  const buttons = node.querySelectorAll('.float-right button')
+                  const backButton = Array.from(buttons).find(
+                    button => button.textContent === 'Back to Details'
+                  )
+                  if (backButton) {
+                    const generateButton = document.createElement('button')
+                    generateButton.innerHTML = 'Save Covers'
+                    generateButton.setAttribute(
+                      'class',
+                      'inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white/5 text-white border-[0.5px] border-white/10 hover:bg-secondary/80 h-10 px-4 rounded-md py-2 mr-3'
+                    )
+                    generateButton.addEventListener('click', e => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                      songStudioMedioAI.grabCovers(node, node)
+                    })
+                    backButton.after(generateButton)
                   }
-                
+                }
               }
             }
           })

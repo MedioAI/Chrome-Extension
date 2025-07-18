@@ -19,7 +19,9 @@
   border-radius: 10px;
   overflow: hidden;
   position: relative;
-  box-shadow: 20px 20px 60px #000, -20px -20px 60px #000;
+  box-shadow:
+    20px 20px 60px #000,
+    -20px -20px 60px #000;
 }
 
 #medioAI-tagbuilder {
@@ -178,16 +180,34 @@
 }
 
 #medioaiHelp svg {
-  color: #24CA8C;
+  color: #24ca8c;
 }
 
 #medioaiHelp.active svg {
-  color: #E3095D;
+  color: #e3095d;
 }
-
 
 #medioaiRadio span,
 #medioaiHelp span {
+  font-size: 11px;
+}
+
+#medioaiResources {
+  background: #242424;
+  padding: 6px 12px;
+  display: flex;
+  border-radius: 6px;
+  font-size: 16px;
+  border: 1px solid #474747;
+  font-weight: 800;
+}
+
+#medioaiResources.active svg {
+  color: #e3095d;
+}
+
+#medioaiRadio span,
+#medioaiResources span {
   font-size: 11px;
 }
 
@@ -738,7 +758,6 @@ select.medioAddTag {
 .disabled {
   opacity: 0.4 !important;
   pointer-events: none !important;
-
 }
 
 #medioSongRollDice.disabled {
@@ -766,7 +785,9 @@ select.medioAddTag {
   padding: 100px;
   border-radius: 10px;
   z-index: 99999999999;
-  box-shadow: 20px 20px 60px #000, -20px -20px 60px #000;
+  box-shadow:
+    20px 20px 60px #000,
+    -20px -20px 60px #000;
   top: 50px;
   text-align: center;
 }
@@ -789,7 +810,9 @@ select.medioAddTag {
   padding: 50px 30px;
   border-radius: 10px;
   z-index: 9999999999999;
-  box-shadow: 20px 20px 60px #000, -20px -20px 60px #000;
+  box-shadow:
+    20px 20px 60px #000,
+    -20px -20px 60px #000;
   top: 50px;
   position: fixed;
 }
@@ -797,7 +820,9 @@ select.medioAddTag {
 #medio-radio {
   width: 450px;
   background: #000;
-  box-shadow: 20px 20px 60px #000, -20px -20px 60px #000;
+  box-shadow:
+    20px 20px 60px #000,
+    -20px -20px 60px #000;
   border: 1px solid #ffffff3e;
   z-index: 999999999999;
   position: fixed;
@@ -1187,7 +1212,9 @@ input:checked + .medio-slider:before {
 
 #medio-follow.medio-following {
   color: #c3c3d1;
-  box-shadow: 0 0 0 1px rgb(61, 70, 89), 0 0 0 2px rgb(117, 131, 159);
+  box-shadow:
+    0 0 0 1px rgb(61, 70, 89),
+    0 0 0 2px rgb(117, 131, 159);
 }
 
 .text-light-gray {
@@ -1213,16 +1240,17 @@ input:checked + .medio-slider:before {
   min-height: 100vh !important;
 }
 
-aside[aria-label="Sidebar"] .ml-2.flex-grow:first-child {
-  max-height: calc(-30rem + 100vh) !important
+aside[aria-label='Sidebar'] .ml-2.flex-grow:first-child {
+  max-height: calc(-30rem + 100vh) !important;
 }
 
 #medioAISeedbank {
-  font-size: 11px !important
+  font-size: 11px !important;
 }
-#medioai-training-video-wrapper, #medioai-training-player{
+#medioai-training-video-wrapper,
+#medioai-training-player {
   height: calc(100vh - 211px);
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
 .capitalize {
   text-transform: capitalize;
@@ -1255,7 +1283,7 @@ aside[aria-label="Sidebar"] .ml-2.flex-grow:first-child {
   font-size: 0.7em;
   font-weight: light;
   opacity: 0.4;
-  margin-top: -10px
+  margin-top: -10px;
 }
 #medioai-article {
   margin: 20px 0;
@@ -1325,4 +1353,14 @@ aside[aria-label="Sidebar"] .ml-2.flex-grow:first-child {
 
 .medioai-training-video * {
   pointer-events: none;
+}
+
+#medioai-multi-create {
+  padding-right: 15px;
+  background: #000;
+  margin-right: 15px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #cccccc;
+  border: 1px solid #262626;
 }

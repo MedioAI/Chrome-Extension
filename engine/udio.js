@@ -21,9 +21,6 @@ const medioAI = {
           const sidebar = document.querySelector(udioSidebarSelector)
           sidebar.closest('li').insertAdjacentHTML('beforeend', uiMedioAI.sidebarLinks)
 
-          medioAI.checkSidebar()
-          medioAI.toggleSidebar()
-
           songStudioMedioAI.init()
           setTimeout(() => {
             tagBuilderMedioAI.init()
@@ -34,50 +31,38 @@ const medioAI = {
           utilitiesMedioAI.mutationObserver()
         }, 1500)
         medioAITrackCounter.init()
+        medioAIMultiCreate.init()
       }
     }, 100)
   },
 
   toggleSidebar: () => {
-    const toggleButton = document.querySelector('[aria-label="Sidebar"] button.absolute');
+    const toggleButton = document.querySelector('[aria-label="Sidebar"] button.absolute')
     toggleButton.addEventListener('click', () => {
-      
-      const subText = document.querySelector('#medioai-link-text');
-      subText.style.display = "none";
-      setTimeout(()=> {
-       medioAI.checkSidebar()
-       medioAI.toggleSidebar()
+      const subText = document.querySelector('#medioai-link-text')
+      subText.style.display = 'block'
+      setTimeout(() => {
+        medioAI.checkSidebar()
+        medioAI.toggleSidebar()
       }, 150)
-    });
+    })
   },
 
-  checkSidebar: () => {
-    const toggleButton = document.querySelector('[aria-label="Sidebar"] button.absolute');
-    const sidebar = document.querySelector('[aria-label="Sidebar"]');
-    const subText = document.querySelector('#medioai-link-text');
-    if (toggleButton.getAttribute('aria-label') === "Collapse Sidebar") {
-      subText.style.display = "none";
-    } else {
-      if (sidebar.style.width != '4rem') {
-        subText.style.display = "block";
-      } else {
-        subText.style.display = "none";
-      }
-      
-    }
-  },
+  checkSidebar: () => {},
 
   fixPlaylist: () => {
-    const h5Element = document.querySelector("h5.mb-2.mt-4.text-xs.font-semibold.uppercase.tracking-wider.text-gray-500");
+    const h5Element = document.querySelector(
+      'h5.mb-2.mt-4.text-xs.font-semibold.uppercase.tracking-wider.text-gray-500'
+    )
 
     if (h5Element) {
-      let divElement = h5Element.nextElementSibling.querySelector(".overflow-hidden")
-      
+      let divElement = h5Element.nextElementSibling.querySelector('.overflow-hidden')
+
       if (divElement) {
         divElement.parentElement.classList.add('medioAIShorten')
       }
     }
-  }
+  },
 }
 
 window.onload = () => {

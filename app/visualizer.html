@@ -19,7 +19,7 @@
     <div id="sidebar" class="w-1/6 h-screen relative">
       <div id="logo">
         <img src="/app/images/icon.png" alt="MedioAI" />
-        <h2>Medio<strong>AI</strong> <span class="text-sm ml-1" style="color: #1dcca0">v1.6</span></h2>
+        <h2>Medio<strong>AI</strong> <span class="text-sm ml-1" style="color: #1dcca0">v2.0</span></h2>
       </div>
       <div id="nav">
         <a href="/app/index.html">Dashboard</a>
@@ -95,7 +95,7 @@
 
           <div class="flex items-center justify-between space-x-2">
             <button id="record" class="btn primary">Record</button>
-            <button id="convert" style="display:none" class="btn">Convert</button>
+            <button id="convert" style="display: none" class="btn">Convert</button>
           </div>
         </div>
 
@@ -140,25 +140,73 @@
     </div>
 
     <div id="recordingOverlay" style="display: none">
-      <div id="recordingModal" class="
-        w-1/3 bg-black text-center text-white p-12 text-sm rounded-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
-      ">
-       <div id="videoLoading">
-        <h1 class="mb-1 text-green-300 text-2xl block w-full text-center">
-          <svg style="margin: 0 auto" xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 24 24"><circle cx="18" cy="12" r="0" fill="currentColor"><animate attributeName="r" begin=".67" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle><circle cx="12" cy="12" r="0" fill="currentColor"><animate attributeName="r" begin=".33" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle><circle cx="6" cy="12" r="0" fill="currentColor"><animate attributeName="r" begin="0" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0"/></circle></svg>
-        </h1>
-        <h3 class="text-2xl text-white mb-2 font-bold">Recording in progress..</h3>
-        <p class="px-8">Please wait a moment while your video is recorded. <br/>It will take <strong id="progressLength" class="text-yellow-400">2:30</strong> to complete.</p>
-       </div>
+      <div
+        id="recordingModal"
+        class="w-1/3 bg-black text-center text-white p-12 text-sm rounded-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+      >
+        <div id="videoLoading">
+          <h1 class="mb-1 text-green-300 text-2xl block w-full text-center">
+            <svg
+              style="margin: 0 auto"
+              xmlns="http://www.w3.org/2000/svg"
+              width="3em"
+              height="3em"
+              viewBox="0 0 24 24"
+            >
+              <circle cx="18" cy="12" r="0" fill="currentColor">
+                <animate
+                  attributeName="r"
+                  begin=".67"
+                  calcMode="spline"
+                  dur="1.5s"
+                  keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+                  repeatCount="indefinite"
+                  values="0;2;0;0"
+                />
+              </circle>
+              <circle cx="12" cy="12" r="0" fill="currentColor">
+                <animate
+                  attributeName="r"
+                  begin=".33"
+                  calcMode="spline"
+                  dur="1.5s"
+                  keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+                  repeatCount="indefinite"
+                  values="0;2;0;0"
+                />
+              </circle>
+              <circle cx="6" cy="12" r="0" fill="currentColor">
+                <animate
+                  attributeName="r"
+                  begin="0"
+                  calcMode="spline"
+                  dur="1.5s"
+                  keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+                  repeatCount="indefinite"
+                  values="0;2;0;0"
+                />
+              </circle>
+            </svg>
+          </h1>
+          <h3 class="text-2xl text-white mb-2 font-bold">Recording in progress..</h3>
+          <p class="px-8">
+            Please wait a moment while your video is recorded. <br />It will take
+            <strong id="progressLength" class="text-yellow-400">2:30</strong> to complete.
+          </p>
+        </div>
 
-          <div id="videoConvertingWrapper" style="display:none">
-            <h3 class="text-2xl text-white mb-2 font-bold">Processing Video...</h3>
-            <p class="px-8">Please wait a moment, this may take a few minutes. Your browser may stall as this is using FFMPEG to convert your video from .WEBM video to .MP4. The video will automatically download once it is ready.</p>
-          </div>
+        <div id="videoConvertingWrapper" style="display: none">
+          <h3 class="text-2xl text-white mb-2 font-bold">Processing Video...</h3>
+          <p class="px-8">
+            Please wait a moment, this may take a few minutes. Your browser may stall as this is using FFMPEG
+            to convert your video from .WEBM video to .MP4. The video will automatically download once it is
+            ready.
+          </p>
+        </div>
 
-          <div id="videoPreviewWrapper" style="display:none">
-            <video id="videoPreview" controls class="w-full mb-2"></video>
-            <button id="closePreview">Close Preview</button>
+        <div id="videoPreviewWrapper" style="display: none">
+          <video id="videoPreview" controls class="w-full mb-2"></video>
+          <button id="closePreview">Close Preview</button>
         </div>
       </div>
     </div>
